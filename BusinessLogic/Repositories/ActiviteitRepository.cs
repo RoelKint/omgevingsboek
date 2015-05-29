@@ -21,7 +21,7 @@ namespace BusinessLogic.Repositories
 
         public override IEnumerable<Activiteit> All()
         {
-            return this.context.Activiteiten.Include(i => i.Boeken);
+            return this.context.Activiteiten.Include(i => i.Boeken).Include(i => i.Benodigdheden).Include(i => i.DeelLijst).Include(i => i.Eigenaar).Include(i => i.Fotoboeken).Include(i => i.Poi).Include(i => i.Routes).Include(i => i.Tags).Include(i => i.Videos);
         }
     }
 }
