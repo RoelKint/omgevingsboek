@@ -186,6 +186,8 @@
     <Content Include="Experiments\js\bootstrap.min.js" />
     <Content Include="Experiments\js\npm.js" />
     <Content Include="Experiments\css\style.css" />
+    <Content Include="Experiments\js\StreetviewSequence.js" />
+    <Content Include="Experiments\js\TweenLite.js" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />

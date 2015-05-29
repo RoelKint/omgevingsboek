@@ -1,4 +1,5 @@
-﻿var map;
+﻿/// <reference path="StreetviewSequence.js" />
+var map;
 var markerArray = [];
 var geocoder;
 var directionsDisplay;
@@ -149,7 +150,6 @@ function setUpPanorama(location) {
     var panorama = new google.maps.StreetViewPanorama(document.getElementById('pano'), panoramaOptions);
 }
 
-
 function calculateRoute() {
     directionsDisplay.setMap(map);
     if (markerArray.length >= 2) {
@@ -209,6 +209,22 @@ function calculateRoute() {
                 directionsDisplay.setPanel(document.getElementById('directions-panel'));
                 //hier de markers verwijderen van de kaart, omdat die gerendered worden door de directionsDisplay
                 removeAllMarkersFromMap();
+
+
+                var routeSequence = StreetviewSequence('#route', {
+                    route: result,
+                    key:"AIzaSyCjq-aM_jzPvZ52dZHXcljkggQraeltQrM",
+                    duration: 150000,
+                    loop: true,
+                    width: 585,
+                    height: 325,
+                });
+
+                routeSequence.done(function (player) {
+                    player.play();
+                });
+            } else {
+                console.log(status);
             }
         });
     } else {
