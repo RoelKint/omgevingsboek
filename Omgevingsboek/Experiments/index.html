@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>API Experimenten Google Maps</title>
+
+    <link href="css/style.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjq-aM_jzPvZ52dZHXcljkggQraeltQrM&language=nl&libraries=places"></script>
+
+    <link href="../Content/bootstrap.css" rel="stylesheet" />
+    <link href="../Content/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    <input id="pac-input" class="controls" type="text" placeholder="Enter a location" />
+    <div id="mapstreet">
+        <div id="map-canvas"></div>
+        <div id="pano"></div>
+    </div>
+    <div id="controls">
+        <input id="clearAllMarkers" type="button" class="btn btn-danger" value="Verwijder Alle Markers" onclick="removeAllMarkers()" />
+        <input id="removeDirections" type="button" class="btn btn-warning" value="Verwijder Route" onclick="removeDirections()" />
+        <hr />
+        <select size="3" id="waypointsList"></select>
+        <div id="buttons">
+            <input id="moveWaypointUp" class="upDownControls btn" type="button" value="&uarr;" />
+            <input id="moveWaypointDown" class="upDownControls btn" type="button" value="&darr;" />
+            <input id="removeWaypoint" class="upDownControls btn btn-danger" type="button" value="-" onclick="removeWaypointFromList()" />
+        </div>
+
+        <br />
+        <div id="travelModes">
+            <label for="optimalRoute">
+            <input id="optimalRoute" type="checkbox" checked name="optimalRoute" />
+                Optimale route
+                </label>
+
+            <label for="travel0">
+                <input class="radiobuttontravel" id="travel0" type="radio" name="travelmode" value="DRIVING" />
+                Autorijden
+            </label>
+
+            <label for="travel1">
+                <input class="radiobuttontravel" id="travel1" type="radio" name="travelmode" value="BICYCLING" />
+                Fietsen
+            </label>
+
+            <label for="travel2">
+                <input class="radiobuttontravel" id="travel2" type="radio" name="travelmode" value="TRANSIT" />
+                Busroutes
+            </label>
+            <label for="travel3">
+                <input class="radiobuttontravel" id="travel3" type="radio" name="travelmode" checked value="WALKING" />
+                Wandelen
+            </label>
+        </div>
+    </div>
+    <div id="directions-panel">
+
+    </div>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/apiExperiments.js"></script>
+</body>
+</html>

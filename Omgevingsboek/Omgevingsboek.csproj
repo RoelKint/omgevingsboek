@@ -180,6 +180,12 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Experiments\index.html" />
+    <Content Include="Experiments\js\apiExperiments.js" />
+    <Content Include="Experiments\js\bootstrap.js" />
+    <Content Include="Experiments\js\bootstrap.min.js" />
+    <Content Include="Experiments\js\npm.js" />
+    <Content Include="Experiments\css\style.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
