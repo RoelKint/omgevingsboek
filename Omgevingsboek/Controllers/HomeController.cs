@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BusinessLogic.Repositories;
+using Models.OmgevingsBoek_Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,6 +12,11 @@ namespace Omgevingsboek.Controllers
     {
         public ActionResult Index()
         {
+            ActiviteitRepository repo = new ActiviteitRepository();
+
+            List<Activiteit> lst = repo.getSharedActivitiesByUsername("testSuperAdmin@howest.be");
+            List<Activiteit> lsts = repo.getSharedActivitiesByBookId(1,"testSuperAdmin@howest.be");
+
             return View();
         }
 

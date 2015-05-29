@@ -11,6 +11,5 @@ namespace Models.OmgevingsBoek_Models
         public int Id { get; set; }
         public string Naam { get; set; }
         public virtual List<Activiteit> Activiteiten { get; set; }
-        public List<int> ActiviteitenIds { get; set; }
     }
 }

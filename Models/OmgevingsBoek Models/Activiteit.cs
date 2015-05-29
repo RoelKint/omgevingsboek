@@ -32,19 +32,12 @@ namespace Models.OmgevingsBoek_Models
         public string DitactischeToelichting  { get; set; }
         public string Uitleg { get; set; }
         public virtual List<ApplicationUser> DeelLijst { get; set; }
-        public List<string> DeelLijstIds { get; set; }
         public virtual List<Tag> Tags { get; set; }
-        public List<int> TagsIDs { get; set; }
         public virtual List<Benodigdheid> Benodigdheden { get; set; }
-        public List<int> BenodigdhedenIds { get; set; }
         public virtual List<Route> Routes { get; set; }
-        public List<int> RoutesIds { get; set; }
         public virtual List<Video> Videos { get; set; }
-        public List<int> VideosIds { get; set; }
         public virtual List<Fotoboek> Fotoboeken { get; set; }
-        public List<int> FotoboekenIds { get; set; }
         public virtual List<Boek> Boeken { get; set; }
-        public List<int> BoekenIds { get; set; }
         
     }
 }

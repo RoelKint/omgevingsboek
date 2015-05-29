@@ -13,11 +13,7 @@ namespace Models.OmgevingsBoek_Models
         public string Naam { get; set; }
         public virtual ApplicationUser Eigenaar { get; set; }
         public int EigenaarID { get; set; }
-        public virtual List<Activiteit> Activiteiten { get; set; }
-        public List<int> ActiviteitenIds { get; set; }
         public virtual List<ApplicationUser> DeelLijst { get; set; }
-        public List<string> DeelLijstIds { get; set; }
-        public List<String> Adressen { get; set; }
-
+        public virtual List<RouteListItem> RouteLijst { get; set; }
     }
 }
