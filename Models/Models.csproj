@@ -90,6 +90,10 @@
     <Compile Include="Migrations\201505290740033_update-models.Designer.cs">
       <DependentUpon>201505290740033_update-models.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201505290930090_update-models2.cs" />
+    <Compile Include="Migrations\201505290930090_update-models2.Designer.cs">
+      <DependentUpon>201505290930090_update-models2.cs</DependentUpon>
+    </Compile>
     <Compile Include="OmgevingsBoek Models\Activiteit.cs" />
     <Compile Include="OmgevingsBoek Models\Benodigdheid.cs" />
     <Compile Include="OmgevingsBoek Models\Boek.cs" />
@@ -136,6 +140,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201505290740033_update-models.resx">
       <DependentUpon>201505290740033_update-models.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505290930090_update-models2.resx">
+      <DependentUpon>201505290930090_update-models2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
