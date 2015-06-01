@@ -11,7 +11,7 @@
             </div>
             <div class="form-group col-md-5">
                 <input type="text" class="form-control" id="inputPassword2" placeholder="Naam">
-                <button type="button" class="btn btn-default form-control" id="inputPassword2" placeholder="Locatie" data-container="body" data-toggle="popover" data-placement="bottom" data-content="Google Maps hier">
+                <button type="button" class="btn btn-default form-control" id="locationPicker" placeholder="Locatie" data-container="body" data-toggle="popover" data-placement="bottom">
                     Locatie
                 </button>
             </div>
@@ -62,6 +62,13 @@
     </form>
 </div>
 
+<div id="location_picker_wrapper">
+    Location: <input type="text" id="us2-address" style="width: 200px" />
+    <div id="us2" style="width: 500px; height: 400px;"></div>
+    Lat.: <input type="text" id="us2-lat" />
+    Long.: <input type="text" id="us2-lon" />
+</div>
+
 <script>
     function defer(method) {
         if (window.jQuery) {
@@ -94,13 +101,32 @@
         $("#minAge").text($("#slider-range").slider("values", 0));
         $("#maxAge").text($("#slider-range").slider("values", 1));
 
-        $('[data-toggle="popover"]').popover();
+        $('#locationPicker').popover({
+            html: true,
+            content: function () {
+                return $('#location_picker_wrapper').html();
+            }
+        });
 
         $("#expand").click(function () {
             $(".sidebar form").toggleClass("form-exp");
             $(".expandable").toggleClass("expandable-exp");
             $(".expandable > #expand").toggleClass("expand-exp");
             $(".content").toggleClass("content-exp");
+        });
+
+        $('#us2').locationpicker({
+            location: { latitude: 46.15242437752303, longitude: 2.7470703125 },
+            radius: 0,
+            inputBinding: {
+                latitudeInput: $('#us2-lat'),
+                longitudeInput: $('#us2-lon'),
+                locationNameInput: $('#us2-address')
+            },
+            enableAutocomplete: true
+        });
+        $('#us2-dialog').on('shown.bs.modal', function () {
+            $('#us6').locationpicker('autosize');
         });
 
     });
