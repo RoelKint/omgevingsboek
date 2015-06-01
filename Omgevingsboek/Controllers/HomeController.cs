@@ -1,5 +1,8 @@
 ﻿using BusinessLogic.Repositories;
+using BusinessLogic.Services;
+using Models.MVC_Models;
 using Models.OmgevingsBoek_Models;
+using Models.PresentationModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,12 +13,20 @@ namespace Omgevingsboek.Controllers
 {
     public class HomeController : Controller
     {
+        private IBoekService bs;
+
+        public HomeController(IBoekService bs)
+        {
+            this.bs = bs;
+        }
+
+        [Authorize]
         public ActionResult Index()
         {
-            ActiviteitRepository repo = new ActiviteitRepository();
 
-            List<Activiteit> lst = repo.getSharedActivitiesByUsername("testSuperAdmin@howest.be");
-            List<Activiteit> lsts = repo.getSharedActivitiesByBookId(1,"testSuperAdmin@howest.be");
+            HomeIndexPM hipm = new HomeIndexPM();
+            hipm.BoekenEigenaar = bs.getBoekenByUser(User.Identity.Name);
+            hipm.BoekenGedeeld = bs.getSharedBoeken(User.Identity.Name);
 
             return View();
         }
