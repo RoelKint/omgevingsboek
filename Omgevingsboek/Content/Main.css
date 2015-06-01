@@ -1,0 +1,123 @@
+﻿@import "bootstrap.css";
+@import "bootstrap-theme.css";
+.nav .breadcrumb {
+  margin: 0 7px;
+}
+@media (min-width: 768px) {
+  .nav .breadcrumb {
+    float: left;
+    margin: 7px 10px;
+  }
+}
+.input-group-btn:first-child > .btn,
+.input-group-btn:first-child > .btn-group {
+  margin-right: -6px;
+}
+.books {
+  border-bottom: 1px solid lightgray;
+  padding-bottom: 2em;
+}
+.books > div {
+  position: relative;
+  padding-bottom: 15px;
+}
+.books > div img {
+  min-width: 100%;
+}
+.books > div a {
+  color: white;
+  font-weight: 600;
+  font-size: 1.5em;
+  display: block;
+  overflow: hidden;
+  height: 100px;
+  border-radius: 5px;
+}
+.books > div a:last-child {
+  background-color: green;
+}
+.books > div .caption {
+  left: 0px;
+  position: absolute;
+  text-align: center;
+  width: 100%;
+  top: 0px;
+  padding-top: 1.5em;
+}
+div.main {
+  position: relative;
+}
+div.expandable {
+  border-left: 1px solid #D3D3D3;
+  border-top: 1px solid #D3D3D3;
+}
+div.expandable button.expand {
+  position: absolute;
+  left: -26px;
+  top: -1px;
+  height: 20px;
+  padding: 12px;
+}
+div.expandable button.expand span {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 5px;
+}
+div.stackright button {
+  float: right;
+  margin-bottom: 0.3em;
+}
+.form-horizontal .form-group {
+  margin-left: 0px;
+  margin-right: 0px;
+}
+.sidebar {
+  padding-top: 10px;
+}
+.sidebar .form-horizontal {
+  margin-left: 0px;
+  margin-right: 0px;
+}
+.sidebar .form-horizontal .upload label {
+  height: 28px;
+}
+.sidebar .actions button {
+  display: block;
+  clear: both;
+  float: right;
+  height: 34px;
+}
+h3.rowheader {
+  margin-top: 0px;
+}
+/* Jquery UI fixes */
+.ui-slider-horizontal {
+  height: 34px !important;
+}
+.ui-slider .ui-slider-handle {
+  height: 40px !important;
+}
+.ui-corner-all,
+.ui-corner-top,
+.ui-corner-left,
+.ui-corner-tl {
+  border-radius: 0 !important;
+}
+/* Collapse/Expand sidebar */
+.form-exp {
+  visibility: hidden;
+}
+.expandable-exp {
+  width: 0%;
+  border-left: 0;
+  border-right: 0;
+}
+.expand-exp {
+  right: -1px;
+  left: initial;
+}
+.content-exp {
+  width: 98%;
+}
+/*# sourceMappingURL=Main.css.map */

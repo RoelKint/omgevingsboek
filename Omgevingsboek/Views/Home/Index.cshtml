@@ -2,30 +2,128 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
-
 <div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p class="">
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more »</a></p>
+    <div class="col-xs-12 col-md-9 content">
+        <h3 class="rowheader">Mijn Boeken</h3>
+        <div class="row books">
+            <div class="col-sm-6 col-md-3">
+                <a href="#">
+                    <img src="http://lorempixel.com/350/150/city" class="img-responsive " />
+                    <span class="caption">h3. Bootstrap heading</span>
+                </a>
+            </div>
+            <div class="col-sm-6 col-md-3">
+                <a href="#">
+                    <img src="http://lorempixel.com/350/150/sports" class="img-responsive " />
+                    <span class="caption">h3. Bootstrap heading</span>
+                </a>
+            </div>
+            <div class="col-sm-6 col-md-3">
+                <a href="#">
+                    <img src="http://lorempixel.com/350/150/city" class="img-responsive " />
+                    <span class="caption">h3. Bootstrap heading</span>
+                </a>
+            </div>
+            <div class="col-sm-6 col-md-3">
+                <a href="#">
+                    <img src="http://lorempixel.com/350/150/city" class="img-responsive " />
+                    <span class="caption">h3. Bootstrap heading</span>
+                </a>
+            </div>
+            <div class="col-sm-6 col-md-3">
+                <a href="#">
+                    <span class="caption">Maak nieuw boek...</span>
+                </a>
+            </div>
+        </div>
+        <h3 class="rowheader">Gedeeld</h3>
+        <div class="row books">
+            <div class="col-sm-6 col-md-3">
+                <a href="#">
+                    <img src="http://lorempixel.com/350/150/city" class="img-responsive " />
+                    <span class="caption">h3. Bootstrap heading</span>
+                </a>
+            </div>
+            <div class="col-sm-6 col-md-3">
+                <a href="#">
+                    <img src="http://lorempixel.com/350/150/city" class="img-responsive " />
+                    <span class="caption">h3. Bootstrap heading</span>
+                </a>
+            </div>
+            <div class="col-sm-6 col-md-3">
+                <a href="#">
+                    <img src="http://lorempixel.com/350/150/city" class="img-responsive " />
+                    <span class="caption">h3. Bootstrap heading</span>
+                </a>
+            </div>
+            <div class="col-sm-6 col-md-3">
+                <a href="#">
+                    <img src="http://lorempixel.com/350/150/city" class="img-responsive " />
+                    <span class="caption">h3. Bootstrap heading</span>
+                </a>
+            </div>
+        </div>
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+    <div class="col-xs-6 col-md-3 expandable sidebar">
+        <button id="expand" class="expand btn btn-default input-group-addon">
+            <span class="glyphicon glyphicon-map-marker" />
+        </button>
+        <form class="form-horizontal">
+            <div class="row">
+                <div class="form-group col-md-5 upload">
+                    <label for="exampleInputFile">Upload afbeelding</label>
+                    <input class="btn btn-default form-control" type="file" id="exampleInputFile">
+                </div>
+                <div class="form-group col-md-5">
+                    <input type="text" class="form-control" id="inputPassword2" placeholder="Naam">
+                    <button class="btn btn-default form-control" id="inputPassword2" placeholder="Locatie" data-container="body" data-toggle="popover" data-placement="bottom" data-content="Google Maps hier">
+                        Locatie
+                    </button>
+                </div>
+                <div class="form-group col-md-2 actions">
+                    <button type="submit" class="btn btn-default">
+                        <span class="glyphicon glyphicon-ok" />
+                    </button>
+                    <button type="submit" class="btn btn-default">
+                        <span class="glyphicon glyphicon-remove" />
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <input type="text" class="form-control" id="inputPassword2" placeholder="Email">
+                    <input type="text" class="form-control" id="inputPassword2" placeholder="Telefoon">
+                    <input type="text" class="form-control" readonly id="inputPassword2" placeholder="Adres">
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label for="amount">Leeftijd doelgroep:</label>
+                    <input type="hidden" class="form-control" id="amount" readonly style="">
+                    <div class="input-group">
+                        <span class="input-group-addon" id="minAge"></span>
+                        <div class="form-control" id="slider-range"></div>
+                        <span class="input-group-addon" id="maxAge"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label for="amount">Prijs per leerling:</label>
+                    <div class="input-group">
+                        <span class="input-group-addon">&euro;</span>
+                        <input class="form-control" type="number" id="prijsLeerling">
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <button type="submit" class="btn btn-default form-control">
+                        Inladen via FourSquare
+                        <span class="glyphicon glyphicon-search" />
+                    </button>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
