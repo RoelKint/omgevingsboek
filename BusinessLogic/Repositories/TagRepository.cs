@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLogic.Repositories
 {
-    public class TagRepository : GenericRepository<Tag> 
+    public class TagRepository : GenericRepository<Tag>, BusinessLogic.Repositories.ITagRepository 
     {
         public TagRepository(ApplicationDbContext context)
             : base(context)

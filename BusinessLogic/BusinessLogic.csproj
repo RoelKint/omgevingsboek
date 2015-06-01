@@ -80,10 +80,15 @@
     <Compile Include="Repositories\ActiviteitRepository.cs" />
     <Compile Include="Repositories\BoekRepository.cs" />
     <Compile Include="Repositories\GenericRepository.cs" />
+    <Compile Include="Repositories\IActiviteitRepository.cs" />
+    <Compile Include="Repositories\IBoekRepository.cs" />
     <Compile Include="Repositories\IGenericRepository.cs" />
+    <Compile Include="Repositories\ITagRepository.cs" />
     <Compile Include="Repositories\PoiRepository.cs" />
     <Compile Include="Repositories\RouteRepository.cs" />
     <Compile Include="Repositories\TagRepository.cs" />
+    <Compile Include="Services\BoekService.cs" />
+    <Compile Include="Services\IBoekService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Models\Models.csproj">
@@ -91,9 +96,7 @@
       <Name>Models</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />

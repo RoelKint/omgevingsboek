@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLogic.Repositories
 {
-    class RouteRepository : GenericRepository<Route>
+    public class RouteRepository : GenericRepository<Route>
     {
         public RouteRepository(ApplicationDbContext context)
             : base(context)

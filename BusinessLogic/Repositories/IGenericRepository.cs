@@ -1,7 +1,7 @@
 ﻿using System;
 namespace BusinessLogic.Repositories
 {
-    interface IGenericRepository<TEntity>
+    public interface IGenericRepository<TEntity>
      where TEntity : class
     {
         System.Collections.Generic.IEnumerable<TEntity> All();
