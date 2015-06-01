@@ -12,6 +12,7 @@ namespace Models.OmgevingsBoek_Models
     {
         public int Id { get; set; }
         public string Naam { get; set; }
+        public string Afbeelding { get; set; }
         public virtual List<Activiteit> Activiteiten { get; set; }
         public virtual ApplicationUser Eigenaar { get; set; }
         public string EigenaarId { get; set; }

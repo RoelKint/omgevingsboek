@@ -9,7 +9,7 @@ using System.Data.Entity;
 
 namespace BusinessLogic.Repositories
 {
-    class PoiRepository : GenericRepository<Poi>
+    public class PoiRepository : GenericRepository<Poi>
     {
         public PoiRepository(ApplicationDbContext context)
             : base(context)

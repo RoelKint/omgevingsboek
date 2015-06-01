@@ -11,7 +11,7 @@ using System.Data.Entity;
 
 namespace BusinessLogic.Repositories
 {
-    public class ActiviteitRepository : GenericRepository<Activiteit>
+    public class ActiviteitRepository : GenericRepository<Activiteit>, BusinessLogic.Repositories.IActiviteitRepository
     {
         public ActiviteitRepository(ApplicationDbContext context)
             : base(context)
@@ -52,7 +52,8 @@ namespace BusinessLogic.Repositories
                             .Include(i => i.Routes)
                             .Include(i => i.Tags)
                             .Include(i => i.Videos) 
-                        where a.DeelLijst.Contains(context.Users.Select(i=>i).Where(i=>i.UserName == Username).FirstOrDefault()) 
+                        where a.DeelLijst.Contains(context.Users.Select(i=>i).Where(i=>i.UserName == Username).FirstOrDefault())
+                        where a.Eigenaar != context.Users.Select(i => i).Where(i => i.UserName == Username).FirstOrDefault()
                         select a).ToList();
             }
         }
