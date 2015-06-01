@@ -1,0 +1,107 @@
+﻿
+<div class="col-xs-6 col-md-3 expandable sidebar">
+    <button id="expand" class="expand btn btn-default input-group-addon">
+        <span class="glyphicon glyphicon-map-marker" />
+    </button>
+    <form class="form-horizontal">
+        <div class="row">
+            <div class="form-group col-md-5 upload">
+                <label for="exampleInputFile">Upload afbeelding</label>
+                <input class="btn btn-default form-control" type="file" id="exampleInputFile">
+            </div>
+            <div class="form-group col-md-5">
+                <input type="text" class="form-control" id="inputPassword2" placeholder="Naam">
+                <button type="button" class="btn btn-default form-control" id="inputPassword2" placeholder="Locatie" data-container="body" data-toggle="popover" data-placement="bottom" data-content="Google Maps hier">
+                    Locatie
+                </button>
+            </div>
+            <div class="form-group col-md-2 actions">
+                <button type="submit" class="btn btn-default">
+                    <span class="glyphicon glyphicon-ok" />
+                </button>
+                <button type="submit" class="btn btn-default">
+                    <span class="glyphicon glyphicon-remove" />
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-12">
+                <input type="text" class="form-control" id="inputPassword2" placeholder="Email">
+                <input type="text" class="form-control" id="inputPassword2" placeholder="Telefoon">
+                <input type="text" class="form-control" readonly id="inputPassword2" placeholder="Adres">
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-12">
+                <label for="amount">Leeftijd doelgroep:</label>
+                <input type="hidden" class="form-control" id="amount" readonly style="">
+                <div class="input-group">
+                    <span class="input-group-addon" id="minAge"></span>
+                    <div class="form-control" id="slider-range"></div>
+                    <span class="input-group-addon" id="maxAge"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-12">
+                <label for="amount">Prijs per leerling:</label>
+                <div class="input-group">
+                    <span class="input-group-addon">&euro;</span>
+                    <input class="form-control" type="number" id="prijsLeerling">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-12">
+                <button type="submit" class="btn btn-default form-control">
+                    Inladen via FourSquare
+                    <span class="glyphicon glyphicon-search" />
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    function defer(method) {
+        if (window.jQuery) {
+            if (jQuery.ui)
+                method();
+        } else
+            setTimeout(function () { defer(method) }, 50);
+    }
+
+   defer(function () {
+
+        console.log("Jquery loaded");
+        var collapsed = true;
+        $("#slider-range").slider({
+            range: true,
+            min: 0,
+            max: 18,
+            values: [5, 10],
+            slide: function (event, ui) {
+                $("#amount").val("" + ui.values[0] + " - " + ui.values[1]);
+
+                $("#minAge").text("" + ui.values[0]);
+                $("#maxAge").text("" + ui.values[1]);
+            }
+        });
+
+        $("#amount").val("" + $("#slider-range").slider("values", 0) +
+                " - " + $("#slider-range").slider("values", 1));
+
+        $("#minAge").text($("#slider-range").slider("values", 0));
+        $("#maxAge").text($("#slider-range").slider("values", 1));
+
+        $('[data-toggle="popover"]').popover();
+
+        $("#expand").click(function () {
+            $(".sidebar form").toggleClass("form-exp");
+            $(".expandable").toggleClass("expandable-exp");
+            $(".expandable > #expand").toggleClass("expand-exp");
+            $(".content").toggleClass("content-exp");
+        });
+
+    });
+</script>
