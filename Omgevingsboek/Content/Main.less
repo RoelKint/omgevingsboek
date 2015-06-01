@@ -4,6 +4,7 @@
 // Import Bootstrap for Sass
 @import "bootstrap.css";
 @import "bootstrap-theme.css";
+@import "themes/base/all.css"; //jQuery UI
 
 .nav .breadcrumb {
     margin: 0 7px;
@@ -66,7 +67,7 @@ div.main{
 	position:relative;
 }
 
-div.expandable {
+.expandable {
 
 	border-left: 1px solid #D3D3D3;
 	border-top: 1px solid #D3D3D3;
@@ -157,14 +158,15 @@ h3.rowheader {
 }
 
 .expandable-exp {
-	width: 0%;
-	border-left: 0;
-	border-right: 0;
-}
+    
+    width: 0%;
+	border-left: none;
+	border-top: none;
 
-.expand-exp {
-	right: -1px;
-	left: initial;
+    button.expand-exp {
+	    right: -1px;
+	    left: initial;
+    }
 }
 
 .content-exp {
