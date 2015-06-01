@@ -1,5 +1,6 @@
 ﻿@import "bootstrap.css";
 @import "bootstrap-theme.css";
+@import "themes/base/all.css";
 .nav .breadcrumb {
   margin: 0 7px;
 }
@@ -47,18 +48,18 @@
 div.main {
   position: relative;
 }
-div.expandable {
+.expandable {
   border-left: 1px solid #D3D3D3;
   border-top: 1px solid #D3D3D3;
 }
-div.expandable button.expand {
+.expandable button.expand {
   position: absolute;
   left: -26px;
   top: -1px;
   height: 20px;
   padding: 12px;
 }
-div.expandable button.expand span {
+.expandable button.expand span {
   position: absolute;
   left: 0;
   right: 0;
@@ -110,10 +111,10 @@ h3.rowheader {
 }
 .expandable-exp {
   width: 0%;
-  border-left: 0;
-  border-right: 0;
+  border-left: none;
+  border-top: none;
 }
-.expand-exp {
+.expandable-exp button.expand-exp {
   right: -1px;
   left: initial;
 }
