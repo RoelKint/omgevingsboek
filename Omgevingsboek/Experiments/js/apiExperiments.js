@@ -29,7 +29,7 @@ function initialize() {
     var mapOptions = {
         center: { lat: 50, lng: 3 },
         zoom: 14,
-        panControl: true,
+        panControl: false,
         zoomControl: true,
         mapTypeControl: true,
         scaleControl: true,
