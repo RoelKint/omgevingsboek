@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Models.PresentationModels.HomeIndexPM>
+﻿@model Models.PresentationModels.HomeIndexPM
 
 @{
     ViewBag.Title = "Home Page";
@@ -66,5 +66,12 @@
     </div>-->
 </div>
 
+@Html.React("CommentList", new
+{
+    data = Model.BoekenEigenaar
+})
+
+
 <script src="http://fb.me/react-0.13.1.js"></script>
 <script src="@Url.Content("~/Scripts/View/Tutorial.jsx")"></script>
+@Html.ReactInitJavaScript() 
