@@ -279,7 +279,7 @@
         },
         locationName: "",
         radius: 500,
-        zoom: 15,
+        zoom: 12,
         scrollwheel: true,
         inputBinding: {
             latitudeInput: null,

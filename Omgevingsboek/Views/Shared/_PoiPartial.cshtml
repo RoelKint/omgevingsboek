@@ -87,7 +87,7 @@
             setTimeout(function () { defer(method) }, 50);
     }
 
-   defer(function () {
+   $().ready(function () {
 
         console.log("Jquery loaded");
         var collapsed = true;
@@ -116,13 +116,12 @@
                 return $('#location_picker_wrapper').html();
             }
         });
-
         $('#locationPicker').on('shown.bs.popover', function () {
             // set what happens when user clicks on the button
             console.log("shown.bs.popover");
-            $('.popover #us2').locationpicker('autosize');
+                //$('.popover #us2').locationpicker('autosize');
             $('.popover #us2').locationpicker({
-                location: { latitude: 46.15242437752303, longitude: 2.7470703125 },
+                location: {latitude:50.8028051,longitude: 3.279785},
                 radius: 0,
                 inputBinding: {
                     latitudeInput: $('.popover #us2-lat'),
