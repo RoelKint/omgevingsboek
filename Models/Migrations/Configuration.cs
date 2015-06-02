@@ -112,18 +112,29 @@ namespace Models.Migrations
                 Boek boek1 = new Boek(){
                     Naam = "3de graad",
                     EigenaarId = context.Users.First().Id,
-                    DeelLijst = context.Users.ToList()
+                    DeelLijst = context.Users.ToList(),
+                    Afbeelding = "18373058702"
                 };
                 Boek boek2 = new Boek(){
                     Naam = "2de graad",
                     EigenaarId = context.Users.First().Id,
                     DeelLijst = new List<ApplicationUser>(){
                         context.Users.First()
-                    }
+                    },
+                    Afbeelding = "18189425180"
+                };
+                Boek boek3 = new Boek()
+                {
+                    Naam = "gedeeld boek",
+                    EigenaarId = context.Users.Select(i =>i).Where(i => i.UserName == "testAdmin@howest.be").FirstOrDefault().Id,
+                    DeelLijst = context.Users.ToList(),
+                    Afbeelding = "17756497353"
                 };
                 context.Boeken.Add(boek1);
                 context.SaveChanges();
                 context.Boeken.Add(boek2);
+                context.SaveChanges();
+                context.Boeken.Add(boek3);
                 context.SaveChanges();
 
                 List<Tag> tags = new List<Tag>(){
