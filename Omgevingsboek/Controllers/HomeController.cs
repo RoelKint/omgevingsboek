@@ -56,7 +56,7 @@ namespace Omgevingsboek.Controllers
                 hipm.FotoIds.Add(id);
             }
 
-            return View();
+            return View(hipm);
         }
 
         public ActionResult About()

@@ -18,9 +18,9 @@ var CommentBox = React.createClass({
 
 var CommentList = React.createClass({
   render: function() {
-    var commentNodes = this.props.data.map(function (comment) {
+    var commentNodes = this.props.data.map(function (boek) {
       return (
-        <CommentBox naam={comment.Naam} />
+        <CommentBox naam={boek.Naam} />
       );
     });
     return (
@@ -31,8 +31,3 @@ var CommentList = React.createClass({
     );
   }
 });
-
-React.render(
-  <CommentList data={data} />,
-  document.getElementById('content')
-);
