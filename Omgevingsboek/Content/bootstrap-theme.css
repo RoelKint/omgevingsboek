@@ -14,11 +14,13 @@
 }
 .navbar-default {
   background-color:#44c8f5;
-  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, .15), 0 1px 5px rgba(0, 0, 0, .075);
-          box-shadow: inset 0 1px 0 rgba(255, 255, 255, .15), 0 1px 5px rgba(0, 0, 0, .075);
+  -webkit-box-shadow: inset 0 3px 0 rgba(255, 255, 255, .15), 0 1px 5px rgba(0, 0, 0, .3);
+          box-shadow: inset 0 3px 0 rgba(255, 255, 255, .15), 0 1px 5px rgba(0, 0, 0, .3);
+    border-bottom:solid 6px white;
 }
 body{
-    font-family:'VAG Rounded Thin',Arial, Helvetica, sans-serif
+    font-family:'VAG Rounded Thin',Arial, Helvetica, sans-serif;
+    background-image:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyAQMAAAAk8RryAAAABlBMVEX9/f3+/v6no6RsAAAA40lEQVR4Xi3NPUpjQQAA4G8mQ94rwnvZ7omSnSMEa2EHFvYcES9guyAyahC29AReZfw5SNJY7wEsJMTqKz9dM0QF5hbFZi71KwqcQvg3e6oAfu2RubhSzZmuOBj+94ApAdfbPMHfrYlofLdAHqgwCJUYBm+IVl4RdqsuoNeTCiwt2lFU64OK3ASK0MaTih91fIZQR8RwnwYH25949APOxQ2s07dLhKr6VtlGQEZM6/AJ2NeCuLmsjVTW5bGRy5Ki3/2uMpTjkDbdbIeUx1kr2pmfs9a0QdcKDgamG3f7B9zy0nwBVRozUwtuTgkAAAAASUVORK5CYII=') /*img/background.png*/;
 }
 
 .navbar-brand,
