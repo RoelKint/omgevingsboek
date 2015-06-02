@@ -274,12 +274,12 @@
     };
     $.fn.locationpicker.defaults = {
         location: {
-            latitude: 40.7324319,
-            longitude: -73.82480799999996
+            latitude: 50.88,
+            longitude: 3.2
         },
         locationName: "",
         radius: 500,
-        zoom: 15,
+        zoom: 12,
         scrollwheel: true,
         inputBinding: {
             latitudeInput: null,
