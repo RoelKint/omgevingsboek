@@ -24,13 +24,15 @@ namespace Omgevingsboek.Controllers
         {
             this.bs = bs;
             flickr = FlickrApiManager.GetInstance();
-            flickr
-           
+
         }
 
         [Authorize]
         public ActionResult Index()
         {
+            //string a = Request.QueryString["oauth_verifier"];
+            //OAuthAccessToken b = flickr.OAuthGetAccessToken(flickr.OAuthGetRequestToken("obb"), a);
+
 
             HomeIndexPM hipm = new HomeIndexPM();
             hipm.BoekenEigenaar = bs.getBoekenByUser(User.Identity.Name);
