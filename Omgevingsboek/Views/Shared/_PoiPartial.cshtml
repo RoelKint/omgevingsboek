@@ -7,11 +7,14 @@
         <div class="row">
             <div class="form-group col-md-5 upload">
                 <label for="exampleInputFile">Upload afbeelding</label>
-                <input class="btn btn-default form-control" type="file" id="exampleInputFile">
+                <div class="fileUpload btn btn-default form-control">
+                    <span>Upload Foto</span>
+                    <input type="file" class="upload" id="exampleInputFile">
+                </div>
             </div>
             <div class="form-group col-md-5">
                 <input type="text" class="form-control" id="inputPassword2" placeholder="Naam">
-                <button type="button" class="btn btn-default form-control" id="inputPassword2" placeholder="Locatie" data-container="body" data-toggle="popover" data-placement="bottom" data-content="Google Maps hier">
+                <button type="button" class="btn btn-default form-control" id="locationPicker" placeholder="Locatie" data-container="body" data-toggle="popover" data-placement="bottom">
                     Locatie
                 </button>
             </div>
@@ -62,6 +65,19 @@
     </form>
 </div>
 
+<style>
+    .pac-container {
+     z-index:9999;
+    }
+</style>
+
+<div id="location_picker_wrapper" style="visibility:hidden;">
+    <input class="form-control" type="text" id="us2-address" />
+    <div id="us2" style="width: 244px; height: 244px;"></div>
+    <input class="form-control" type="text" id="us2-lat" />
+    <input class="form-control" type="text" id="us2-lon" />
+</div>
+
 <script>
     function defer(method) {
         if (window.jQuery) {
@@ -94,7 +110,28 @@
         $("#minAge").text($("#slider-range").slider("values", 0));
         $("#maxAge").text($("#slider-range").slider("values", 1));
 
-        $('[data-toggle="popover"]').popover();
+        $('#locationPicker').popover({
+            html: true,
+            content: function () {
+                return $('#location_picker_wrapper').html();
+            }
+        });
+
+        $('#locationPicker').on('shown.bs.popover', function () {
+            // set what happens when user clicks on the button
+            console.log("shown.bs.popover");
+            $('.popover #us2').locationpicker('autosize');
+            $('.popover #us2').locationpicker({
+                location: { latitude: 46.15242437752303, longitude: 2.7470703125 },
+                radius: 0,
+                inputBinding: {
+                    latitudeInput: $('.popover #us2-lat'),
+                    longitudeInput: $('.popover #us2-lon'),
+                    locationNameInput: $('.popover #us2-address')
+                },
+                enableAutocomplete: true
+            });
+        });
 
         $("#expand").click(function () {
             $(".sidebar form").toggleClass("form-exp");
