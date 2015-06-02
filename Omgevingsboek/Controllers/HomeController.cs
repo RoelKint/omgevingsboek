@@ -24,12 +24,15 @@ namespace Omgevingsboek.Controllers
         {
             this.bs = bs;
             flickr = FlickrApiManager.GetInstance();
-           
+
         }
 
         [Authorize]
         public ActionResult Index()
         {
+            //string a = Request.QueryString["oauth_verifier"];
+            //OAuthAccessToken b = flickr.OAuthGetAccessToken(flickr.OAuthGetRequestToken("obb"), a);
+
 
             HomeIndexPM hipm = new HomeIndexPM();
             hipm.BoekenEigenaar = bs.getBoekenByUser(User.Identity.Name);
@@ -70,6 +73,18 @@ namespace Omgevingsboek.Controllers
         {
             ViewBag.Message = "Your contact page.";
 
+            return View();
+        }
+
+        public ActionResult Test()
+        {
+            
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Test(HttpPostedFileBase picture)
+        {
+            String a = flickr.UploadPicture(picture.InputStream, "test", "test", "test", "", true, false, false, ContentType.Photo, SafetyLevel.Safe, HiddenFromSearch.Hidden);
             return View();
         }
     }
