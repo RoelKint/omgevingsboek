@@ -24,6 +24,7 @@ namespace Omgevingsboek.Controllers
         {
             this.bs = bs;
             flickr = FlickrApiManager.GetInstance();
+            flickr
            
         }
 
@@ -70,6 +71,18 @@ namespace Omgevingsboek.Controllers
         {
             ViewBag.Message = "Your contact page.";
 
+            return View();
+        }
+
+        public ActionResult Test()
+        {
+            
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Test(HttpPostedFileBase picture)
+        {
+            String a = flickr.UploadPicture(picture.InputStream, "test", "test", "test", "", true, false, false, ContentType.Photo, SafetyLevel.Safe, HiddenFromSearch.Hidden);
             return View();
         }
     }
