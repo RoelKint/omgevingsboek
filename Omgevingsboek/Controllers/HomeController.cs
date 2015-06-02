@@ -24,10 +24,6 @@ namespace Omgevingsboek.Controllers
         {
             this.bs = bs;
             Flickr flickr = FlickrApiManager.GetInstance();
-            
-            PhotosetPhotoCollection photos = flickr.PhotosetsGetPhotos("72157653473597658",PrivacyFilter.CompletelyPrivate);
-            PhotoInfo i = flickr.PhotosGetInfo(photos[0].PhotoId);
-            
         }
 
         [Authorize]
@@ -37,6 +33,27 @@ namespace Omgevingsboek.Controllers
             HomeIndexPM hipm = new HomeIndexPM();
             hipm.BoekenEigenaar = bs.getBoekenByUser(User.Identity.Name);
             hipm.BoekenGedeeld = bs.getSharedBoeken(User.Identity.Name);
+            hipm.FotoIds = new List<FotoId>();
+            foreach (Boek boek in hipm.BoekenEigenaar)
+            {
+                FotoId id = new FotoId()
+                {
+                    Id = boek.Id
+                };
+                if (boek.Afbeelding != null)
+                    id.PhotoUrl = flickr.PhotosGetInfo(boek.Afbeelding).LargeUrl;
+                hipm.FotoIds.Add(id);
+            }
+            foreach (Boek boek in hipm.BoekenGedeeld)
+            {
+                FotoId id = new FotoId()
+                {
+                    Id = boek.Id
+                };
+                if (boek.Afbeelding != null)
+                    id.PhotoUrl = flickr.PhotosGetInfo(boek.Afbeelding).LargeUrl;
+                hipm.FotoIds.Add(id);
+            }
 
             return View();
         }
