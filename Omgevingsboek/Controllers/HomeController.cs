@@ -23,7 +23,8 @@ namespace Omgevingsboek.Controllers
         public HomeController(IBoekService bs)
         {
             this.bs = bs;
-            Flickr flickr = FlickrApiManager.GetInstance();
+            flickr = FlickrApiManager.GetInstance();
+           
         }
 
         [Authorize]
@@ -40,18 +41,18 @@ namespace Omgevingsboek.Controllers
                 {
                     Id = boek.Id
                 };
-                if (boek.Afbeelding != null)
-                    id.PhotoUrl = flickr.PhotosGetInfo(boek.Afbeelding).LargeUrl;
+                if (boek.Afbeelding != null && flickr != null)
+                    id.PhotoUrl = flickr.PhotosGetInfo(boek.Afbeelding).MediumUrl;
                 hipm.FotoIds.Add(id);
             }
-            foreach (Boek boek in hipm.BoekenGedeeld)
+            foreach (Boek boek in hipm.BoekenGedeeld )
             {
                 FotoId id = new FotoId()
                 {
                     Id = boek.Id
                 };
-                if (boek.Afbeelding != null)
-                    id.PhotoUrl = flickr.PhotosGetInfo(boek.Afbeelding).LargeUrl;
+                if (boek.Afbeelding != null && flickr != null)
+                    id.PhotoUrl = flickr.PhotosGetInfo(boek.Afbeelding).MediumUrl;
                 hipm.FotoIds.Add(id);
             }
 
