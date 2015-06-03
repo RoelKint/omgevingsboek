@@ -1,9 +1,25 @@
-﻿
+﻿@model IEnumerable<Models.OmgevingsBoek_Models.Poi>
+
 <div class="col-xs-6 col-md-3 expandable sidebar">
     <button id="expand" class="expand btn btn-default input-group-addon">
         <span class="glyphicon glyphicon-map-marker" />
     </button>
-    <form class="form-horizontal">
+        <form class="form-horizontal">
+            <div class="row">
+                <div class="form-group col-md-11">
+                    <div class="input-group">
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
+                        <input type="text" class="form-control" placeholder="Search for..." id="search" />
+                    </div>
+                </div>
+                <div class="form-group col-md-1">
+                    <div class="input-group">
+                        <button class="btn btn-default"><span class="glyphicon glyphicon-plus-sign"></span></button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    <form class="form-horizontal" >
         <div class="row">
             <div class="form-group col-md-5 upload">
                 <label for="exampleInputFile">Upload afbeelding</label>
@@ -67,7 +83,7 @@
 
 <style>
     .pac-container {
-     z-index:9999;
+        z-index: 9999;
     }
 </style>
 
@@ -87,7 +103,7 @@
             setTimeout(function () { defer(method) }, 50);
     }
 
-   $().ready(function () {
+    $().ready(function () {
 
         console.log("Jquery loaded");
         var collapsed = true;
@@ -119,9 +135,9 @@
         $('#locationPicker').on('shown.bs.popover', function () {
             // set what happens when user clicks on the button
             console.log("shown.bs.popover");
-                //$('.popover #us2').locationpicker('autosize');
+            //$('.popover #us2').locationpicker('autosize');
             $('.popover #us2').locationpicker({
-                location: {latitude:50.8028051,longitude: 3.279785},
+                location: { latitude: 50.8028051, longitude: 3.279785 },
                 radius: 0,
                 inputBinding: {
                     latitudeInput: $('.popover #us2-lat'),
