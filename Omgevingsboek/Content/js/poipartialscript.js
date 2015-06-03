@@ -56,10 +56,21 @@ $().ready(function () {
     });
 
     $("#expand").click(function () {
-        $(".sidebar form").toggleClass("form-exp");
+        $(".sidebar > form").toggleClass("form-exp");
+        $(".sidebar .poi").toggleClass("form-exp");
         $(".expandable").toggleClass("expandable-exp");
         $(".expandable > #expand").toggleClass("expand-exp");
         $(".content").toggleClass("content-exp");
+    });
+
+    $("#addPoi").click(function () {
+        $(".sidebar > form").removeAttr("hidden")
+        $(".sidebar .poi").attr("hidden","hidden");
+    });
+
+    $("#viewPoi").click(function () {
+        $(".sidebar > form").attr("hidden","hidden")
+        $(".sidebar .poi").removeAttr("hidden");
     });
 
 });

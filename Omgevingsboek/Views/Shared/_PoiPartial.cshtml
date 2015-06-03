@@ -1,9 +1,62 @@
-﻿
+﻿@model Models.PresentationModels.HomeIndexPM
+
+@{
+    List<Models.OmgevingsBoek_Models.Poi> pois = new List<Models.OmgevingsBoek_Models.Poi>();
+    Model.BoekenEigenaar.ForEach(
+        x => x.Activiteiten.ForEach(
+                act => pois.Add(act.Poi)
+        )
+    );
+    Model.BoekenGedeeld.ForEach(
+        x => x.Activiteiten.ForEach(
+            act => pois.Add(act.Poi)
+        )
+    );
+}
+
+
 <div class="col-xs-6 col-md-3 expandable sidebar">
     <button id="expand" class="expand btn btn-default input-group-addon">
         <span class="glyphicon glyphicon-map-marker" />
     </button>
-    <form class="form-horizontal">
+    <div class="poi">
+        <form class="form-horizontal">
+            <div class="row">
+                <div class="form-group col-md-10 upload">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </span>
+                        <input class="form-control" id="prijsLeerling">
+                    </div>
+                </div>
+                <div class="form-group col-md-2 actions">
+                    <button type="button" id="addPoi" class="btn btn-default">
+                        <span class="glyphicon glyphicon-plus" />
+                    </button>
+                </div>
+            </div>
+        </form>
+        @if (Model != null)
+        {
+            foreach (var poi in pois)
+            {
+                <li>@poi.Naam</li>
+            }
+        }
+        <div class="row">
+            <div class="col-md-12"></div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12"></div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12"></div>
+        </div>
+    </div>
+    <form class="form-horizontal" hidden="false">
         <div class="row">
             <div class="form-group col-md-5 upload">
                 <label for="exampleInputFile">Upload afbeelding</label>
@@ -22,7 +75,7 @@
                 <button type="submit" class="btn btn-default">
                     <span class="glyphicon glyphicon-ok" />
                 </button>
-                <button type="submit" class="btn btn-default">
+                <button type="button" class="btn btn-default" id="viewPoi">
                     <span class="glyphicon glyphicon-remove" />
                 </button>
             </div>
@@ -65,9 +118,11 @@
     </form>
 </div>
 
+
+
 <style>
     .pac-container {
-     z-index:9999;
+        z-index: 9999;
     }
 </style>
 
