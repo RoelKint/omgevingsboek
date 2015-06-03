@@ -93,6 +93,19 @@ input[type=password]{
     margin:5px 0;
 }
 
+.errorpage{
+    margin:auto;
+    width:600px;
+}
+
+.errorpage h1{
+    font-size:200px;
+}
+
+.errorpage h2{
+    font-size:32px;
+}
+
 
 
 
