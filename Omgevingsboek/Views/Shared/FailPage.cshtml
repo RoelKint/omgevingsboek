@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewBag.Title = "404 - Page not found";
+}
+
+<div class="errorpage">
+    <h1>404</h1>
+    <h2>The page you requested could not be found</h2>
+
+    @{
+        if (Request.IsLocal)
+        {
+            String v = Request.QueryString["error"];
+            if (v != null)
+            {
+                <h3>@v</h3>
+            }
+
+        }
+    }
+
+
+</div>
+
+
+

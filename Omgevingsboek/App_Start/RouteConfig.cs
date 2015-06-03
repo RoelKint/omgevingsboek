@@ -14,6 +14,19 @@ namespace Omgevingsboek
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name:"FailPage",
+                url:"FailPage/{action}/{id}",
+                defaults: new
+                {
+                    controller = "Error",
+                    action = "FailPage",
+                    id = UrlParameter.Optional
+                }
+                );
+
+
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
