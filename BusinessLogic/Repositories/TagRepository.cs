@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLogic.Repositories
 {
-    public class TagRepository : GenericRepository<Tag>, BusinessLogic.Repositories.ITagRepository 
+    public class TagRepository : GenericRepository<Tag>, BusinessLogic.Repositories.ITagRepository
     {
         public TagRepository(ApplicationDbContext context)
             : base(context)
@@ -27,7 +27,10 @@ namespace BusinessLogic.Repositories
             if (tag != null) return tag;
             return context.Tags.Add(entity);
         }
-
+        public override IEnumerable<Tag> All()
+        {
+            return base.All();
+        }
 
 
     }

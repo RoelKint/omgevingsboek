@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLogic.Services
 {
-    public class BoekService : IBoekService 
+    public class BoekService : IBoekService
     {
         private ITagRepository repoTag = null;
         private IActiviteitRepository repoActiviteit = null;
@@ -77,6 +77,14 @@ namespace BusinessLogic.Services
             {
                 return context.Users.Select(i => i).Where(i => i.UserName == Username).Single();
             }
+        }
+        public List<Tag> getTagList()
+        {
+            return repoTag.All().ToList();
+        }
+        public Tag InsertTag(Tag tag)
+        {
+            return repoTag.Insert(tag);
         }
 
     }

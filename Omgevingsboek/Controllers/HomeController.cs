@@ -4,6 +4,7 @@ using FlickrNet;
 using Models.MVC_Models;
 using Models.OmgevingsBoek_Models;
 using Models.PresentationModels;
+using Newtonsoft.Json;
 using Omgevingsboek.Config;
 using System;
 using System.Collections.Generic;
@@ -101,6 +102,20 @@ namespace Omgevingsboek.Controllers
             
 
             return View();
+        }
+        public ActionResult GetTags()
+        {
+            List<Models.OmgevingsBoek_Models.Tag> tags = bs.getTagList();
+            List<SimpleTag> stl = new List<SimpleTag>();
+            foreach (Models.OmgevingsBoek_Models.Tag tag in tags)
+            {
+                stl.Add(new SimpleTag()
+                {
+                    Id = tag.ID,
+                    Naam = tag.Naam
+                });
+            }
+            return Json(JsonConvert.SerializeObject(stl), JsonRequestBehavior.AllowGet);
         }
     }
 }
