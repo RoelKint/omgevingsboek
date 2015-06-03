@@ -93,6 +93,13 @@ input[type=password]{
     margin:5px 0;
 }
 
+.sidebar{
+    position:absolute;
+    top:0;
+    bottom:0;
+    right:0;
+}
+
 .errorpage{
     margin:auto;
     width:600px;
@@ -105,6 +112,16 @@ input[type=password]{
 .errorpage h2{
     font-size:32px;
 }
+
+.books h3{
+    padding-top:15px;
+}
+
+body,html{
+    overflow-x:hidden;
+}
+
+
 
 
 

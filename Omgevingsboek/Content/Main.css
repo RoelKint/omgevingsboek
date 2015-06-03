@@ -110,6 +110,7 @@ h3.rowheader {
 /* Collapse/Expand sidebar */
 .form-exp {
   visibility: hidden;
+  display: none;
 }
 .expandable-exp {
   width: 0%;
