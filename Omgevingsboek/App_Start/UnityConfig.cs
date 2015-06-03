@@ -17,6 +17,8 @@ namespace Omgevingsboek
             container.RegisterType<IBoekRepository, BoekRepository>();
             container.RegisterType<ITagRepository, TagRepository>();
             container.RegisterType<IBoekService, BoekService>();
+            container.RegisterType<IPoiRepository, PoiRepository>();
+
             container.RegisterType<AccountController>(new InjectionConstructor());
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));

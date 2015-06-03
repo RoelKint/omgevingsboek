@@ -25,7 +25,9 @@ namespace BusinessLogic.Repositories
         {
             Tag tag = context.Tags.Select(t => t).Where(t => t.Naam.Equals(entity.Naam)).Single();
             if (tag != null) return tag;
-            return context.Tags.Add(entity);
+            Tag newtag = context.Tags.Add(entity);
+            context.SaveChanges();
+            return newtag;
         }
         public override IEnumerable<Tag> All()
         {
