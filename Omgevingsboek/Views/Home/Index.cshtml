@@ -5,14 +5,49 @@
 }
 
 <div class="col-xs-6 col-md-9 content" id="content">
-    @Html.React(
-        "CommentList",
-        new { data = Model.BoekenEigenaar },
-        null,
-        "content"
-    )
+    <div classname="row books" id="mijnBoeken">
+        @Html.React(
+            "CommentList",
+            new
+            {
+                data = Model.BoekenEigenaar,
+                rowHead = "Mijn Boeken"
+            },
+            null,
+            "mijnBoeken"
+        )
+    </div>
+    <div classname="row books" id="gedeeldeBoeken">
+        @Html.React(
+            "CommentList",
+            new
+            {
+                data = Model.BoekenGedeeld,
+                rowHead = "Gedeelde Boeken"
+            },
+            null,
+            "gedeeldeBoeken"
+        )
+    </div>
 </div>
 
 <script src="http://fb.me/react-0.13.1.js"></script>
-<script src="@Url.Content("~/Scripts/View/Tutorial.jsx")"></script>
+<script src="@Url.Content("~/Scripts/View/Boeken.jsx")">
+</script>
 @Html.ReactInitJavaScript()
+
+@{
+    List<Models.OmgevingsBoek_Models.Poi> pois = new List<Models.OmgevingsBoek_Models.Poi>();
+    Model.BoekenEigenaar.ForEach(
+        x => x.Activiteiten.ForEach(
+                act => pois.Add(act.Poi)
+        )
+    );
+    Model.BoekenGedeeld.ForEach(
+        x => x.Activiteiten.ForEach(
+            act => pois.Add(act.Poi)
+        )
+    );
+}
+
+@Html.Partial("_PoiPartial", pois)
