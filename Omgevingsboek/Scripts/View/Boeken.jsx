@@ -25,7 +25,7 @@ var CommentList = React.createClass({
     });
     return (
 		<div className="row books">
-			<h3 className="rowheader">Mijn Boeken</h3>
+			<h3 className="rowheader">{this.props.rowHead}</h3>
 			{commentNodes}
         </div>
     );
