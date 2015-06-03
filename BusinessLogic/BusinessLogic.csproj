@@ -83,6 +83,7 @@
     <Compile Include="Repositories\IActiviteitRepository.cs" />
     <Compile Include="Repositories\IBoekRepository.cs" />
     <Compile Include="Repositories\IGenericRepository.cs" />
+    <Compile Include="Repositories\IPoiRepository.cs" />
     <Compile Include="Repositories\ITagRepository.cs" />
     <Compile Include="Repositories\PoiRepository.cs" />
     <Compile Include="Repositories\RouteRepository.cs" />

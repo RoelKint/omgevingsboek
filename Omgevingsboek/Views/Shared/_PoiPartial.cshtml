@@ -1,4 +1,9 @@
-﻿@model IEnumerable<Models.OmgevingsBoek_Models.Poi>
+﻿@model IEnumerable<Models.PresentationModels.PoiPM>
+
+
+@{
+    
+}
 
 <div class="col-xs-6 col-md-3 expandable sidebar">
     <button id="expand" class="expand btn btn-default input-group-addon">
@@ -22,6 +27,15 @@
                 </div>
             </div>
         </form>
+        <ul>
+            @if (Model != null)
+            {
+                foreach (var poi in Model)
+                {
+                    <li>@poi.poi.Naam</li>
+                }
+            }
+        </ul>
         <div class="row">
             <div class="col-md-12"></div>
         </div>

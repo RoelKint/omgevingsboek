@@ -4,6 +4,7 @@ using FlickrNet;
 using Models.MVC_Models;
 using Models.OmgevingsBoek_Models;
 using Models.PresentationModels;
+using Newtonsoft.Json;
 using Omgevingsboek.Config;
 using System;
 using System.Collections.Generic;
@@ -31,8 +32,8 @@ namespace Omgevingsboek.Controllers
         public ActionResult Index()
         {
             HomeIndexPM hipm = new HomeIndexPM();
-            hipm.BoekenEigenaar = bs.getBoekenByUser(User.Identity.Name);
-            hipm.BoekenGedeeld = bs.getSharedBoeken(User.Identity.Name);
+            hipm.BoekenEigenaar = bs.GetBoekenByUser(User.Identity.Name);
+            hipm.BoekenGedeeld = bs.GetSharedBoeken(User.Identity.Name);
             hipm.FotoIds = new List<FotoId>();
             foreach (Boek boek in hipm.BoekenEigenaar)
             {
@@ -92,6 +93,32 @@ namespace Omgevingsboek.Controllers
             
             return View();
         }
+
+        [ChildActionOnly]
+        public ActionResult PoiPartial()
+        {
+            List<PoiPM> poipms = new List<PoiPM>();
+            List<Poi> pois = bs.GetPoiList();
+            foreach(Poi poi in pois){
+                PoiPM pm = new PoiPM(){
+                    poi = poi
+                };
+                if (poi.Afbeelding != null && flickr != null)
+                    try
+                    {
+                        pm.Afbeelding = flickr.PhotosGetInfo(poi.Afbeelding).MediumUrl;
+                    }
+                    catch (FlickrNet.Exceptions.PhotoNotFoundException ex)
+                    {
+                        pm.Afbeelding = null;
+                    }
+                poipms.Add(pm);
+            }
+            return PartialView("_PoiPartial",poipms);
+        }
+
+
+
         [HttpPost]
         public ActionResult Test(HttpPostedFileBase picture)
         {
@@ -101,6 +128,20 @@ namespace Omgevingsboek.Controllers
             
 
             return View();
+        }
+        public ActionResult GetTags()
+        {
+            List<Models.OmgevingsBoek_Models.Tag> tags = bs.GetTagList();
+            List<SimpleTag> stl = new List<SimpleTag>();
+            foreach (Models.OmgevingsBoek_Models.Tag tag in tags)
+            {
+                stl.Add(new SimpleTag()
+                {
+                    Id = tag.ID,
+                    Naam = tag.Naam
+                });
+            }
+            return Json(JsonConvert.SerializeObject(stl), JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -6,6 +6,10 @@
 
 <div class="col-xs-6 col-md-9 content" id="content">
     <div classname="row books" id="mijnBoeken">
+        <!--<div class="col-sm-6 col-md-3" data-reactid=".0.1:0"><a href="#" style="background:green;" data-reactid=".0.1:0.0"><span class="caption" data-reactid=".0.1:0.0.0">Activiteiten</span></a></div>
+        <div class="col-sm-6 col-md-3" data-reactid=".0.1:0"><a href="#" style="background:green;" data-reactid=".0.1:0.0"><span class="caption" data-reactid=".0.1:0.0.0">Boeken</span></a></div>
+        <div class="col-sm-6 col-md-3" data-reactid=".0.1:0"><a href="#" style="background:green;" data-reactid=".0.1:0.0"><span class="caption" data-reactid=".0.1:0.0.0">Gebruikers</span></a></div>
+-->
         @Html.React(
             "CommentList",
             new
@@ -35,4 +39,7 @@
 <script src="@Url.Content("~/Scripts/View/Boeken.jsx")">
 </script>
 @Html.ReactInitJavaScript()
-@Html.Partial("_PoiPartial", new List<Models.OmgevingsBoek_Models.Poi>())
+
+@*@Html.Partial("_PoiPartial", Model)*@
+    
+@{ Html.RenderAction("PoiPartial", "Home"); }

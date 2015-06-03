@@ -64,7 +64,7 @@ $().ready(function () {
     });
 
     $("#addPoi").click(function () {
-        $(".sidebar > form").removeAttr("hidden")
+        $(".sidebar > form").removeAttr("hidden");
         $(".sidebar .poi").attr("hidden","hidden");
     });
 
