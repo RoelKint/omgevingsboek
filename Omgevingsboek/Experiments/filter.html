@@ -1,0 +1,101 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Filter Experiment</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="fuse.js"></script>
+</head>
+<body>
+    <img src="http://media.giphy.com/media/6LonKWAWPmwpO/giphy.gif">
+    <h1>allahu akbar!</h1>
+    <input type="text" id="search" placeholder="tag:lol" />
+    <div id="list"></div>
+    <script>
+        var json = {
+            'boeken': [{
+                "tag": "sport",
+                "naam":"Zwemmen"
+            }, {
+              
+                "tag": "natuurkunde",
+                "naam":"Kleuters"
+            },
+            {
+                "tag":"natuurkunde",
+                "naam":"Peuters"
+            }]
+        }
+
+        var filtered = json.boeken;
+
+        $('#search').bind('input', function () {
+            filter($(this).val());
+        });
+
+        function filter(query) {
+            filtered = json.boeken;
+            var matcher = /(\S+:\S+)/gi;
+
+            var options = {
+              caseSensitive: true,
+              includeScore: false,
+              shouldSort: false,
+              threshold: 0.6,
+              location: 0,
+              distance: 100,
+              maxPatternLength: 32,
+              keys: ["naam"]
+            };
+
+            filters = [];
+            match = matcher.exec(query);
+            while (match != null) {
+                if (match != null) { console.log(match[1]); filters.push(match[1]); }
+                match = matcher.exec(query);
+            }
+
+            filters.forEach(function (filter) {
+                prop = filter.split(":")[0];
+                val = filter.split(":")[1];
+                console.log("Checking property '" + prop + "' for '" + val + "'");
+
+                filtered = filtered.filter(function (el) {
+                    console.log("el val: " + el[prop]);
+                    console.log("sr val: " + val);
+                    var fuse = new Fuse([el[prop]], options);
+                    var res = fuse.search(val);
+                    if(res[0] != null){
+                        console.log(res[0]["naam"]);
+                        return true;
+                    }
+                    return false;
+                });
+            })
+
+            var fuse = new Fuse(filtered, options);
+            console.log(query.replace(matcher, "").replace(" ", ""));
+            if(query.replace(matcher, "").replace(" ", "") != ""){
+               var filtered = fuse.search(query.replace(matcher, ""));
+            }
+
+            while (document.getElementById("list").firstChild) {
+                document.getElementById("list").removeChild(document.getElementById("list").firstChild);
+            }
+
+            filtered.forEach(function (home) {
+                var node = document.createElement("LI");     
+                var textnode = document.createTextNode("Tag: " + home.tag);         
+                node.appendChild(textnode); 
+                textnode = document.createTextNode(", Naam: " + home.naam);         
+                node.appendChild(textnode);                                
+                document.getElementById("list").appendChild(node);
+            });
+        }
+
+        filter("");
+    </script>
+</body>
+</html>
