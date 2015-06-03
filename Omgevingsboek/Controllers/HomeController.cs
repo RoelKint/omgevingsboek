@@ -30,7 +30,6 @@ namespace Omgevingsboek.Controllers
         [Authorize]
         public ActionResult Index()
         {
-
             HomeIndexPM hipm = new HomeIndexPM();
             hipm.BoekenEigenaar = bs.getBoekenByUser(User.Identity.Name);
             hipm.BoekenGedeeld = bs.getSharedBoeken(User.Identity.Name);
@@ -42,7 +41,15 @@ namespace Omgevingsboek.Controllers
                     Id = boek.Id
                 };
                 if (boek.Afbeelding != null && flickr != null)
-                    id.PhotoUrl = flickr.PhotosGetInfo(boek.Afbeelding).MediumUrl;
+                    try
+                    {
+                        id.PhotoUrl = flickr.PhotosGetInfo(boek.Afbeelding).MediumUrl;
+                    }
+                    catch (FlickrNet.Exceptions.PhotoNotFoundException ex)
+                    {
+                        
+                        id.PhotoUrl = null;
+                    }
                 hipm.FotoIds.Add(id);
             }
             foreach (Boek boek in hipm.BoekenGedeeld )
@@ -52,7 +59,14 @@ namespace Omgevingsboek.Controllers
                     Id = boek.Id
                 };
                 if (boek.Afbeelding != null && flickr != null)
-                    id.PhotoUrl = flickr.PhotosGetInfo(boek.Afbeelding).MediumUrl;
+                    try
+                    {
+                        id.PhotoUrl = flickr.PhotosGetInfo(boek.Afbeelding).MediumUrl;
+                    }
+                    catch (FlickrNet.Exceptions.PhotoNotFoundException ex)
+                    {
+                        id.PhotoUrl = null;
+                    }
                 hipm.FotoIds.Add(id);
             }
 
@@ -82,6 +96,7 @@ namespace Omgevingsboek.Controllers
         public ActionResult Test(HttpPostedFileBase picture)
         {
             String a = flickr.UploadPicture(picture.InputStream, "test", "test", "test", "", false, false, false, ContentType.Photo, SafetyLevel.Safe, HiddenFromSearch.Hidden);
+            
             flickr.PhotosetsAddPhoto(ConfigurationManager.AppSettings.Get("FlickrBoekCoverId"), a);
             
 

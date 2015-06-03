@@ -12,8 +12,8 @@ namespace Omgevingsboek.Config
         public static Flickr GetInstance()
         {
             Flickr flickr = new Flickr(ConfigurationManager.AppSettings.Get("FlickrApiKey"), ConfigurationManager.AppSettings.Get("FlickrSharedSecret"));
-            flickr.OAuthAccessToken = "72157653873492836-1c79a1fe347a3057";
-            flickr.OAuthAccessTokenSecret = "3d5b7b67a8888330";
+            flickr.OAuthAccessToken = ConfigurationManager.AppSettings.Get("FlickrAccToken");
+            flickr.OAuthAccessTokenSecret = ConfigurationManager.AppSettings.Get("FlickrAccTokenSecret");
             return flickr;
 
 
