@@ -240,6 +240,10 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\img\background.png" />
+    <Content Include="Content\img\cream_dust.png" />
+    <Content Include="Content\img\paper_fibers.png" />
+    <Content Include="Content\js\poipartialscript.js" />
     <Content Include="Content\Main.css">
       <DependentUpon>Main.less</DependentUpon>
     </Content>
@@ -304,8 +308,12 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="FlickrNet.chm" />
-    <Content Include="fonts\VAGRoundedStd-Bold.otf" />
-    <Content Include="fonts\VAG Rounded Thin.ttf" />
+    <Content Include="fonts\vagroundedstd-bold-webfont.eot" />
+    <Content Include="fonts\vagroundedstd-bold-webfont.ttf" />
+    <Content Include="fonts\vagroundedstd-bold-webfont.woff" />
+    <Content Include="fonts\vagroundedstd-thin-webfont.eot" />
+    <Content Include="fonts\vagroundedstd-thin-webfont.ttf" />
+    <Content Include="fonts\vagroundedstd-thin-webfont.woff" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -362,7 +370,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_PoiPartial.cshtml" />
     <Content Include="Scripts\View\Boeken.jsx" />
-    <Content Include="Views\Home\Test.cshtml" />
+	<Content Include="Views\Home\Test.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

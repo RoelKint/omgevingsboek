@@ -4,8 +4,8 @@
     <button id="expand" class="expand btn btn-default input-group-addon">
         <span class="glyphicon glyphicon-map-marker" />
     </button>
-        <form class="form-horizontal">
-            <div class="row">
+    <form class="form-horizontal">
+        <div class="row">
                 <div class="form-group col-md-11">
                     <div class="input-group">
                         <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
@@ -29,7 +29,7 @@
                 </div>
             </div>
             <div class="form-group col-md-5">
-                <input type="text" class="form-control" id="inputPassword2" placeholder="Naam">
+                <input type="text" class="form-control" id="inputNaam" placeholder="Naam">
                 <button type="button" class="btn btn-default form-control" id="locationPicker" placeholder="Locatie" data-container="body" data-toggle="popover" data-placement="bottom">
                     Locatie
                 </button>
@@ -45,9 +45,9 @@
         </div>
         <div class="row">
             <div class="form-group col-md-12">
-                <input type="text" class="form-control" id="inputPassword2" placeholder="Email">
-                <input type="text" class="form-control" id="inputPassword2" placeholder="Telefoon">
-                <input type="text" class="form-control" readonly id="inputPassword2" placeholder="Adres">
+                <input type="text" class="form-control adresinputs" id="inputEmail" placeholder="Email">
+                <input type="text" class="form-control adresinputs" id="inputTelefoon" placeholder="Telefoon">
+                <input type="text" class="form-control adresinputs" readonly id="inputAdres" placeholder="Adres">
             </div>
         </div>
         <div class="row">
@@ -94,66 +94,4 @@
     <input class="form-control" type="text" id="us2-lon" />
 </div>
 
-<script>
-    function defer(method) {
-        if (window.jQuery) {
-            if (jQuery.ui)
-                method();
-        } else
-            setTimeout(function () { defer(method) }, 50);
-    }
-
-    $().ready(function () {
-
-        console.log("Jquery loaded");
-        var collapsed = true;
-        $("#slider-range").slider({
-            range: true,
-            min: 0,
-            max: 18,
-            values: [5, 10],
-            slide: function (event, ui) {
-                $("#amount").val("" + ui.values[0] + " - " + ui.values[1]);
-
-                $("#minAge").text("" + ui.values[0]);
-                $("#maxAge").text("" + ui.values[1]);
-            }
-        });
-
-        $("#amount").val("" + $("#slider-range").slider("values", 0) +
-                " - " + $("#slider-range").slider("values", 1));
-
-        $("#minAge").text($("#slider-range").slider("values", 0));
-        $("#maxAge").text($("#slider-range").slider("values", 1));
-
-        $('#locationPicker').popover({
-            html: true,
-            content: function () {
-                return $('#location_picker_wrapper').html();
-            }
-        });
-        $('#locationPicker').on('shown.bs.popover', function () {
-            // set what happens when user clicks on the button
-            console.log("shown.bs.popover");
-            //$('.popover #us2').locationpicker('autosize');
-            $('.popover #us2').locationpicker({
-                location: { latitude: 50.8028051, longitude: 3.279785 },
-                radius: 0,
-                inputBinding: {
-                    latitudeInput: $('.popover #us2-lat'),
-                    longitudeInput: $('.popover #us2-lon'),
-                    locationNameInput: $('.popover #us2-address')
-                },
-                enableAutocomplete: true
-            });
-        });
-
-        $("#expand").click(function () {
-            $(".sidebar form").toggleClass("form-exp");
-            $(".expandable").toggleClass("expandable-exp");
-            $(".expandable > #expand").toggleClass("expand-exp");
-            $(".content").toggleClass("content-exp");
-        });
-
-    });
-</script>
+<script src="~/Content/js/poipartialscript.js"></script>

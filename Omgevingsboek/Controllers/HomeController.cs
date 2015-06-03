@@ -30,9 +30,6 @@ namespace Omgevingsboek.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            //string a = Request.QueryString["oauth_verifier"];
-            //OAuthAccessToken b = flickr.OAuthGetAccessToken(flickr.OAuthGetRequestToken("obb"), a);
-
 
             HomeIndexPM hipm = new HomeIndexPM();
             hipm.BoekenEigenaar = bs.getBoekenByUser(User.Identity.Name);
@@ -84,7 +81,10 @@ namespace Omgevingsboek.Controllers
         [HttpPost]
         public ActionResult Test(HttpPostedFileBase picture)
         {
-            String a = flickr.UploadPicture(picture.InputStream, "test", "test", "test", "", true, false, false, ContentType.Photo, SafetyLevel.Safe, HiddenFromSearch.Hidden);
+            String a = flickr.UploadPicture(picture.InputStream, "test", "test", "test", "", false, false, false, ContentType.Photo, SafetyLevel.Safe, HiddenFromSearch.Hidden);
+            flickr.PhotosetsAddPhoto(ConfigurationManager.AppSettings.Get("FlickrBoekCoverId"), a);
+            
+
             return View();
         }
     }

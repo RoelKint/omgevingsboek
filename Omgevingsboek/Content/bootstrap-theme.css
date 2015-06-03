@@ -5,35 +5,43 @@
  */
 
 @font-face {
-    font-family: 'VAGRoundedStd-Bold';
-    src: url('../fonts/VAGRoundedStd-Bold.otf') format('opentype');
+    font-family: 'vagroundedstd-bold-webfont';
+    src: url('../fonts/vagroundedstd-bold-webfont.woff') format('woff'), url('../fonts/vagroundedstd-bold-webfont.eot') format('embedded-opentype'), url('../fonts/vagroundedstd-bold-webfont.ttf') format('truetype');
 }
 @font-face {
-    font-family: 'VAG Rounded Thin';
-    src: url('../fonts/VAG Rounded Thin.ttf') format('truetype');
+    font-family: 'vagroundedstd-thin-webfont';
+    src: url('../fonts/vagroundedstd-thin-webfont.woff') format('woff'), url('../fonts/vagroundedstd-thin-webfont.eot') format('embedded-opentype'), url('../fonts/vagroundedstd-thin-webfont.ttf') format('truetype');
 }
 .navbar-default {
   background-color:#44c8f5;
-  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, .15), 0 1px 5px rgba(0, 0, 0, .075);
-          box-shadow: inset 0 1px 0 rgba(255, 255, 255, .15), 0 1px 5px rgba(0, 0, 0, .075);
+  -webkit-box-shadow: inset 0 3px 0 rgba(255, 255, 255, .15), 0 1px 5px rgba(0, 0, 0, .3);
+          box-shadow: inset 0 3px 0 rgba(255, 255, 255, .15), 0 1px 5px rgba(0, 0, 0, .3);
+    border-bottom:solid 6px white;
+}
+.navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus{
+    color:black;
 }
 body{
-    font-family:'VAG Rounded Thin',Arial, Helvetica, sans-serif
+    font-family:'vagroundedstd-thin-webfont',Arial, Helvetica, sans-serif;
+    background-image:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyAQMAAAAk8RryAAAABlBMVEX9/f3+/v6no6RsAAAA40lEQVR4Xi3NPUpjQQAA4G8mQ94rwnvZ7omSnSMEa2EHFvYcES9guyAyahC29AReZfw5SNJY7wEsJMTqKz9dM0QF5hbFZi71KwqcQvg3e6oAfu2RubhSzZmuOBj+94ApAdfbPMHfrYlofLdAHqgwCJUYBm+IVl4RdqsuoNeTCiwt2lFU64OK3ASK0MaTih91fIZQR8RwnwYH25949APOxQ2s07dLhKr6VtlGQEZM6/AJ2NeCuLmsjVTW5bGRy5Ki3/2uMpTjkDbdbIeUx1kr2pmfs9a0QdcKDgamG3f7B9zy0nwBVRozUwtuTgkAAAAASUVORK5CYII=') /*img/background.png*/;
 }
 
 .navbar-brand,
 .navbar-nav > li > a {
   text-shadow: 0 1px 0 rgba(255, 255, 255, .25);
 }
+
+.navbar-default .navbar-nav > li > a{
+    color:white;
+}
 .navbar-default .navbar-brand{
     color:#FFF;
-    font-family:'VAGRoundedStd-Bold',Arial, Helvetica, sans-serif;
+    font-family:'vagroundedstd-bold-webfont',Arial, Helvetica, sans-serif;
     font-size:2em;
-    text-transform:lowercase;
 }
 
 h1,h2,h3,h4,h5,h6{
-    font-family:VAGRoundedStd-Bold,Arial, Helvetica, sans-serif;
+    font-family:vagroundedstd-bold-webfont,Arial, Helvetica, sans-serif;
 }
 
 .navbar-nav .list-inline{
@@ -43,6 +51,49 @@ h1,h2,h3,h4,h5,h6{
 .navbar-form .input-group .input-group-btn{
     font-family:Arial, Helvetica, sans-serif;
 }
+
+.rowheader{
+    padding-left:15px;
+}
+
+input[type=password]{
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+.caption{
+    font-family:vagroundedstd-thin-webfont,Arial, Helvetica, sans-serif
+}
+
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus{
+    background-color:#92E1FC;
+}
+
+.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus{
+    background-color:#92E1FC;
+    border-color:#3FB9E3;
+}
+
+@media(max-width:767px){
+    .navbar-default .navbar-nav .open .dropdown-menu > li > a{
+        color:white;
+    }
+}
+
+.sidebar .btn-default{
+    box-shadow:0 0 2px rgba(20, 20, 20, 0.75);
+}
+
+.form-horizontal input{
+}
+
+.sidebar .actions button{
+}
+
+.sidebar .adresinputs{
+    margin:5px 0;
+}
+
+
 
 
 
