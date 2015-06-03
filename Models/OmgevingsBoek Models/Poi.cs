@@ -15,6 +15,7 @@ namespace Models.OmgevingsBoek_Models
         public string Naam { get; set; }
         public virtual ApplicationUser Eigenaar { get; set; }
         public string EigenaarId { get; set; }
+        public string Afbeelding { get; set; }
         public string GeoLocatie { get; set; }
         public string Email { get; set; }
         public string Telefoon { get; set; }

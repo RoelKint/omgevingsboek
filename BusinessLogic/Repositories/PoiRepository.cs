@@ -9,7 +9,7 @@ using System.Data.Entity;
 
 namespace BusinessLogic.Repositories
 {
-    public class PoiRepository : GenericRepository<Poi>
+    public class PoiRepository : GenericRepository<Poi>, BusinessLogic.Repositories.IPoiRepository
     {
         public PoiRepository(ApplicationDbContext context)
             : base(context)
@@ -21,7 +21,16 @@ namespace BusinessLogic.Repositories
         {
 
         }
-        
+        public override IEnumerable<Poi> All()
+        {
+            return context.Poi.Include(p => p.Eigenaar).Include(p => p.Tags);
+        }
+        public override Poi Insert(Poi entity)
+        {
+            Poi poi = base.Insert(entity);
+            context.SaveChanges();
+            return poi;
+        }
 
     }
 }
