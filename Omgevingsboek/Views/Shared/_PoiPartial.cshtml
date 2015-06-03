@@ -1,25 +1,62 @@
-﻿@model IEnumerable<Models.OmgevingsBoek_Models.Poi>
+﻿@model Models.PresentationModels.HomeIndexPM
+
+@{
+    List<Models.OmgevingsBoek_Models.Poi> pois = new List<Models.OmgevingsBoek_Models.Poi>();
+    Model.BoekenEigenaar.ForEach(
+        x => x.Activiteiten.ForEach(
+                act => pois.Add(act.Poi)
+        )
+    );
+    Model.BoekenGedeeld.ForEach(
+        x => x.Activiteiten.ForEach(
+            act => pois.Add(act.Poi)
+        )
+    );
+}
+
 
 <div class="col-xs-6 col-md-3 expandable sidebar">
     <button id="expand" class="expand btn btn-default input-group-addon">
         <span class="glyphicon glyphicon-map-marker" />
     </button>
-    <form class="form-horizontal">
-        <div class="row">
-                <div class="form-group col-md-11">
+    <div class="poi">
+        <form class="form-horizontal">
+            <div class="row">
+                <div class="form-group col-md-10 upload">
                     <div class="input-group">
-                        <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
-                        <input type="text" class="form-control" placeholder="Search for..." id="search" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </span>
+                        <input class="form-control" id="prijsLeerling">
                     </div>
                 </div>
-                <div class="form-group col-md-1">
-                    <div class="input-group">
-                        <button class="btn btn-default"><span class="glyphicon glyphicon-plus-sign"></span></button>
-                    </div>
+                <div class="form-group col-md-2 actions">
+                    <button type="submit" class="btn btn-default">
+                        <span class="glyphicon glyphicon-plus" />
+                    </button>
                 </div>
             </div>
         </form>
-    <form class="form-horizontal" >
+        @if (Model != null)
+        {
+            foreach (var poi in pois)
+            {
+                <li>@poi.Naam</li>
+            }
+        }
+        <div class="row">
+            <div class="col-md-12"></div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12"></div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12"></div>
+        </div>
+    </div>
+    <form class="form-horizontal" hidden>
         <div class="row">
             <div class="form-group col-md-5 upload">
                 <label for="exampleInputFile">Upload afbeelding</label>
@@ -80,6 +117,8 @@
         </div>
     </form>
 </div>
+
+
 
 <style>
     .pac-container {
