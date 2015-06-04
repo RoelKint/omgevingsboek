@@ -285,6 +285,8 @@
     <Content Include="Content\themes\base\tabs.css" />
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="Experiments\filter.html" />
+    <Content Include="Experiments\fuse.js" />
     <Content Include="Experiments\index.html" />
     <Content Include="Experiments\js\apiExperiments.js" />
     <Content Include="Experiments\js\bootstrap.js" />
@@ -375,6 +377,9 @@
     <Content Include="Views\Home\Test.cshtml" />
     <Content Include="Views\Shared\FailPage.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\Gebruikers.cshtml" />
+    <Content Include="Views\Admin\Activities.cshtml" />
+    <Content Include="Views\Admin\Boeken.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
