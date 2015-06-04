@@ -128,9 +128,9 @@
         border-top: 1px solid rgba(211, 211, 211, 0.5);
     }
 
-    .row.poi:last-child {
-        border-bottom: 1px solid rgba(211, 211, 211, 0.5);
-    }
+        .row.poi:last-child {
+            border-bottom: 1px solid rgba(211, 211, 211, 0.5);
+        }
 
     .poi .preview img {
         max-width: 95%;
@@ -180,7 +180,14 @@
             <h3>{{title}}</h3>
             <p class="tags">{{{tags}}}</p>
             <p class="location">{{distance}}km {{city}}</p>
-            <button type="button" class="tag btn btn-default">{{numActivities}} Activiteiten</button>
+            <button data-toggle="popover"
+                    data-html="true"
+                    data-content="{{{activities}}}"
+                    type="button"
+                    data-placement="bottom"
+                    class="tag btn btn-default">
+                        {{numActivities}} Activiteiten
+            </button>
         </div>
     </div>
 </script>
