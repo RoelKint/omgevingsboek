@@ -35,7 +35,7 @@ namespace Omgevingsboek.Controllers
         {
             List<UserActivities> ua = new List<UserActivities>();
             if (!vanaf.HasValue) vanaf = 0;
-            foreach(ApplicationUser user in bs.GetUserNext50((int)vanaf){
+            foreach(ApplicationUser user in bs.GetUserNext50((int)vanaf)){
                 UserActivities u = new UserActivities();
                 u.User = user;
                 u.Activiteiten = bs.GetActivitiesByUsername(user.UserName);
