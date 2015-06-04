@@ -29,12 +29,15 @@
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+@if (User.Identity.Name != "")
+{
                 <ul class="nav navbar-nav">
                     <ol class="breadcrumb list-inline">
-                        <li><a href="#">Meester Bob</a></li>
-                        <li class="active">Boeken</li>
+                        <li><a href="#">@User.Identity.Name</a></li>
+                        <li class="active">@ViewBag.Title</li>
                     </ol>
                 </ul>
+
                 <form class="navbar-form navbar-left" role="search">
                     <div class="input-group">
                         <span class="input-group-btn">
@@ -43,26 +46,27 @@
                                 &nbsp;
                             </button>
                         </span>
-                        <input type="text" class="form-control" placeholder="Search for...">
-    </div>
+                        <input type="text" class="form-control" placeholder="Geef uw zoekterm op...">
+                    </div>
                 </form>
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-cog"></span></a>
+                
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-cog"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">Instellingen</a></li>
+                                <li>@Html.ActionLink("Logout", "LogOff", "Account")</li>
 
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="#">Instellingen</a></li>
-                            <li>@Html.ActionLink("Logout", "LogOff", "Account")</li>
-                            
-                        </ul>
-                    </li>
-                </ul>
+                            </ul>
+                        </li>
+                    </ul>
+                }
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </nav>
     <div class="container-fluid main">
         <div class="row">
-        @RenderBody()
+            @RenderBody()
         </div>
         <footer>
             <p>&copy; @DateTime.Now.Year - Howest NMCT Omgevingsboek</p>
@@ -70,3 +74,4 @@
     </div>
 </body>
 </html>
+

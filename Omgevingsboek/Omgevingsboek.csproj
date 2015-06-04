@@ -318,6 +318,7 @@
     <Content Include="fonts\vagroundedstd-thin-webfont.eot" />
     <Content Include="fonts\vagroundedstd-thin-webfont.ttf" />
     <Content Include="fonts\vagroundedstd-thin-webfont.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

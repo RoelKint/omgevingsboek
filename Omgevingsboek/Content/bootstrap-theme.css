@@ -121,6 +121,13 @@ body,html{
     overflow-x:hidden;
 }
 
+.loginpage{
+    padding-left:15px;
+}
+
+.loginpage h2{
+    padding-left:15px;
+}
 
 
 
