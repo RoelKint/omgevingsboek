@@ -227,6 +227,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Config\FlickrApiManager.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -284,6 +285,8 @@
     <Content Include="Content\themes\base\tabs.css" />
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="Experiments\filter.html" />
+    <Content Include="Experiments\fuse.js" />
     <Content Include="Experiments\index.html" />
     <Content Include="Experiments\js\apiExperiments.js" />
     <Content Include="Experiments\js\bootstrap.js" />
@@ -373,6 +376,7 @@
     <Content Include="Scripts\View\Boeken.jsx" />
     <Content Include="Views\Home\Test.cshtml" />
     <Content Include="Views\Shared\FailPage.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
