@@ -185,26 +185,9 @@
     </div>
 </script>
 
+<script>var json = JSON.parse(@Html.Raw(Json.Encode(Model)));</script>
+
 <script src="~/Scripts/handlebars.js"></script>
 <script src="~/Content/js/poipartialscript.js"></script>
 <script src="~/Scripts/fuse.js"></script>
 <script src="~/Content/js/filter.js"></script>
-
-<script>
-    /*
-        var poiSource = $("#poi-template").html();
-        var poiTemplate = Handlebars.compile(poiSource);
-
-        var tagSource = $("#poi-template").html();
-        var tagTemplate = Handlebars.compile(tagSource);
-
-        var context = {
-            title: "My New Post",
-            tags: "This is my first post!",
-            distance: "0.2km",
-            city: "Brugge",
-            numActivities: "2",
-        };
-        var html = poiTemplate(context);
-    */
-</script>
