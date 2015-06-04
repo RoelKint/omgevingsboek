@@ -246,6 +246,7 @@
     <Content Include="Content\img\cream_dust.png" />
     <Content Include="Content\img\favicon.ico" />
     <Content Include="Content\img\paper_fibers.png" />
+    <Content Include="Content\js\filter.js" />
     <Content Include="Content\js\poipartialscript.js" />
     <Content Include="Content\Main.css">
       <DependentUpon>Main.less</DependentUpon>
@@ -320,7 +321,11 @@
     <Content Include="fonts\vagroundedstd-thin-webfont.ttf" />
     <Content Include="fonts\vagroundedstd-thin-webfont.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <None Include="Properties\PublishProfiles\testomgevingsboek - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\testomgevingsboek - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\fuse.js" />
+    <Content Include="Scripts\handlebars.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />

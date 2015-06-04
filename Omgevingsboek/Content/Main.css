@@ -146,4 +146,57 @@ h3.rowheader {
   opacity: 0;
   filter: alpha(opacity=0);
 }
+.pac-container {
+  z-index: 9999;
+}
+.row.poi {
+  padding-bottom: 5px;
+  padding-top: 7px;
+  border-top: 1px solid rgba(211, 211, 211, 0.5);
+}
+.row.poi .info {
+  padding-left: 0;
+}
+.row.poi .info h3 {
+  margin: 0;
+}
+.row.poi .info .tag {
+  background-color: green;
+  color: white;
+  font-weight: bold;
+  width: 100%;
+}
+.row.poi .info p.tags {
+  margin: 0;
+}
+.row.poi .info p.tags span {
+  padding: 1px 4px;
+  margin-right: 3px;
+  background-color: green;
+  border-radius: 5px;
+  color: white;
+}
+.row.poi .preview {
+  padding: 0;
+  margin: 0px 5%;
+  width: 23.333333333%;
+  min-height: 8em;
+  background-size: cover;
+  box-sizing: border-box;
+  overflow: hidden;
+  border-radius: 5px;
+}
+.row.poi .preview img {
+  max-width: 95%;
+}
+.row.poi:last-child {
+  border-bottom: 1px solid rgba(211, 211, 211, 0.5);
+}
+/*lol*/
+* {
+  -webkit-transition: all 0.2s ease;
+  -moz-transition: all 0.2s ease;
+  -ms-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
+}
 /*# sourceMappingURL=Main.css.map */

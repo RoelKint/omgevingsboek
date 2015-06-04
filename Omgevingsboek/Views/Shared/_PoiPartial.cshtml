@@ -1,7 +1,7 @@
 ﻿@model String
 
 @{
-    
+
 }
 
 <div class="col-xs-6 col-md-3 expandable sidebar">
@@ -16,7 +16,7 @@
                         <span class="input-group-addon">
                             <span class="glyphicon glyphicon-search"></span>
                         </span>
-                        <input class="form-control" id="zoekVeldPOI" placeholder="Zoek POIs">
+                        <input class="form-control" id="searchPoi" placeholder="Zoek POIs">
                     </div>
                 </div>
                 <div class="form-group col-md-2 actions">
@@ -26,19 +26,18 @@
                 </div>
             </div>
         </form>
-        <ul>
-
-        </ul>
-        <div class="row">
-            <div class="col-md-12"></div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-12"></div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-12"></div>
+        <div id="list">
+            <div class="row poi">
+                <div class="col-md-4 preview">
+                    <img class="img-responsive img-rounded" src="http://placehold.it/500/500" />
+                </div>
+                <div class="col-md-8 info">
+                    <h3>Frietenmuseum</h3>
+                    <p class="tags"><span>Geschiedenis</span><span>Museum</span><span>Panorama</span></p>
+                    <p class="location">0.1Km Brugge</p>
+                    <button type="button" class="tag btn btn-default">2 Activiteiten</button>
+                </div>
+            </div>
         </div>
     </div>
     <form class="form-horizontal" hidden>
@@ -103,12 +102,6 @@
     </form>
 </div>
 
-<style>
-    .pac-container {
-        z-index: 9999;
-    }
-</style>
-
 <div id="location_picker_wrapper" style="visibility:hidden;">
     <input class="form-control" type="text" id="us2-address" />
     <div id="us2" style="width: 244px; height: 244px;"></div>
@@ -116,5 +109,29 @@
     <input class="form-control" type="text" id="us2-lon" />
 </div>
 
+<script id="poi-template" type="text/x-handlebars-template">
+    <div class="row poi">
+        <div class="col-md-4 preview" style="background-image:url('{{image}}');">
+        </div>
+        <div class="col-md-8 info">
+            <h3>{{title}}</h3>
+            <p class="tags">{{{tags}}}</p>
+            <p class="location">{{distance}}km {{city}}</p>
+            <button data-toggle="popover"
+                    data-html="true"
+                    data-content="{{{activities}}}"
+                    type="button"
+                    data-placement="bottom"
+                    class="tag btn btn-default">
+                        {{numActivities}} Activiteiten
+            </button>
+        </div>
+    </div>
+</script>
+
+<script>var json = JSON.parse(@Html.Raw(Json.Encode(Model)));</script>
+
+<script src="~/Scripts/handlebars.js"></script>
 <script src="~/Content/js/poipartialscript.js"></script>
-<script>var json = @Html.Raw(Json.Encode(Model));</script>
+<script src="~/Scripts/fuse.js"></script>
+<script src="~/Content/js/filter.js"></script>
