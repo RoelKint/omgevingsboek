@@ -294,6 +294,36 @@ namespace Models.Migrations
                 context.SaveChanges();
 
             }
+
+            if (context.Boeken.Select(i => i).Where(i => i.Naam == "1e graad") == null)
+            {
+                Boek boek4 = new Boek()
+                {
+                    Naam = "1ste graad",
+                    EigenaarId = context.Users.FirstOrDefault().Id,
+                    DeelLijst = context.Users.ToList(),
+                    Afbeelding = "18447813515"
+                };
+                Boek boek5 = new Boek()
+                {
+                    Naam = "Kleuterklas",
+                    EigenaarId = context.Users.FirstOrDefault().Id,
+                    DeelLijst = context.Users.ToList(),
+                    Afbeelding = "17827205793"
+                };
+                Boek boek6 = new Boek()
+                {
+                    Naam = "Extras",
+                    EigenaarId = context.Users.Select(i => i).Where(i => i.UserName == "testAdmin@howest.be").FirstOrDefault().Id,
+                    DeelLijst = context.Users.ToList(),
+                    Afbeelding = "18421446816"
+                };
+
+
+
+            }
+
+
             #endregion
 
         }

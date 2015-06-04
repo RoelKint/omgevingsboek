@@ -31,6 +31,14 @@ namespace BusinessLogic.Repositories
             context.SaveChanges();
             return poi;
         }
+        public List<Poi> get50()
+        {
+            return this.context.Poi.OrderBy(i => i.Naam).Take(50).ToList();
+        }
+        public List<Poi> get50From(int from)
+        {
+            return this.context.Poi.OrderBy(i => i.Naam).Skip(from).Take(50).ToList();
+        }
 
     }
 }

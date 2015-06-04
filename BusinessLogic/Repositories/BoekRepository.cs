@@ -11,7 +11,7 @@ using System.Data.Entity.Validation;
 
 namespace BusinessLogic.Repositories
 {
-    public class BoekRepository : GenericRepository<Boek>, IBoekRepository
+    public class BoekRepository : GenericRepository<Boek>, BusinessLogic.Repositories.IBoekRepository
     {
         public BoekRepository(ApplicationDbContext context)
             : base(context)
@@ -74,6 +74,14 @@ namespace BusinessLogic.Repositories
             base.Update(entityToUpdate);
             context.SaveChanges();
 
+        }
+        public List<Boek> get50()
+        {
+            return this.context.Boeken.OrderBy(i => i.Naam).Take(50).ToList();
+        }
+        public List<Boek> get50From(int from)
+        {
+            return this.context.Boeken.OrderBy(i => i.Naam).Skip(from).Take(50).ToList();
         }
 
 

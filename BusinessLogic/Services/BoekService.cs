@@ -98,5 +98,45 @@ namespace BusinessLogic.Services
             return repoPoi.Insert(poi);
         }
 
+        public List<ApplicationUser> GetUserFirst50()
+        {
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                return context.Users.OrderBy(i => i.UserName).Take(50).ToList();
+            }
+        }
+        public List<ApplicationUser> GetUserNext50(int from)
+        {
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                return context.Users.OrderBy(i => i.UserName).Skip(from).Take(50).ToList();
+            } 
+        }
+        public List<Activiteit> GetActiviteitFirst50()
+        {
+            return repoActiviteit.get50();
+        }
+        public List<Activiteit> GetActiviteitNext50(int from)
+        {
+            return repoActiviteit.get50From(from);
+        }
+        public List<Boek> GetBoekFirst50()
+        {
+            return repoBoek.get50();
+        }
+        public List<Boek> GetBoekNext50(int from)
+        {
+            return repoBoek.get50From(from);
+        }
+        public List<Poi> GetPoiFirst50()
+        {
+            return repoPoi.get50();
+        }
+        public List<Poi> GetPoiNext50(int from)
+        {
+            return repoPoi.get50From(from);
+        }
+
+
     }
 }
