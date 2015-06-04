@@ -159,6 +159,13 @@
     p.tags {
         margin: 0;
     }
+
+    * {
+        -webkit-transition: all 0.2s ease;
+        -moz-transition:    all 0.2s ease;
+        -ms-transition:     all 0.2s ease;
+        -o-transition:      all 0.2s ease;
+    }
 </style>
 
 <div id="location_picker_wrapper" style="visibility:hidden;">
@@ -167,10 +174,6 @@
     <input class="form-control" type="text" id="us2-lat" />
     <input class="form-control" type="text" id="us2-lon" />
 </div>
-
-<script id="tag-template" type="text/x-handlebars-template">
-    <span>{{tag}}</span>
-</script>
 
 <script id="poi-template" type="text/x-handlebars-template">
     <div class="row poi">
