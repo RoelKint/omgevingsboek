@@ -20,11 +20,14 @@ namespace Omgevingsboek.Controllers
     {
         private IBoekService bs;
         private Flickr flickr;
+        public List<string> FlickrPhotoURLs = new List<string>();
+        
+        public event EventHandler FlickrPhotoURLsLoaded;
 
         public HomeController(IBoekService bs)
         {
             this.bs = bs;
-            flickr = FlickrApiManager.GetInstance();
+            flickr = MvcApplication.flickr;
 
         }
 
@@ -75,6 +78,7 @@ namespace Omgevingsboek.Controllers
 
             return View(hipm);
         }
+        
 
         public ActionResult About()
         {
@@ -109,6 +113,7 @@ namespace Omgevingsboek.Controllers
                     try
                     {
                         pm.Afbeelding = flickr.PhotosGetInfo(poi.Afbeelding).MediumUrl;
+
                     }
                     catch (FlickrNet.Exceptions.PhotoNotFoundException ex)
                     {
@@ -121,6 +126,9 @@ namespace Omgevingsboek.Controllers
             return PartialView("_PoiPartial",JsonConvert.SerializeObject(poipms));
         }
 
+        
+        
+        
 
 
         [HttpPost]
