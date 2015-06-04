@@ -22,8 +22,7 @@ namespace Omgevingsboek
                     action = "FailPage",
                     id = UrlParameter.Optional
                 }
-                );
-
+            );
 
 
             routes.MapRoute(
