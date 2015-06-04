@@ -10,7 +10,6 @@ namespace Models.PresentationModels
     public class PoiPM
     {
         public Poi poi { get; set; }
-        public string Afbeelding { get; set; }
         public List<Activiteit> Activiteiten { get; set; }
 
     }

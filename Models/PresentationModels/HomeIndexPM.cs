@@ -11,6 +11,5 @@ namespace Models.PresentationModels
     {
         public List<Boek> BoekenEigenaar { get; set; }
         public List<Boek> BoekenGedeeld { get; set; }
-        public List<FotoId> FotoIds { get; set; }
     }
 }

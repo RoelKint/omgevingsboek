@@ -20,15 +20,12 @@ namespace Omgevingsboek.Controllers
     {
         private IBoekService bs;
         private Flickr flickr;
-        public List<string> FlickrPhotoURLs = new List<string>();
-        
-        public event EventHandler FlickrPhotoURLsLoaded;
 
         public HomeController(IBoekService bs)
         {
             this.bs = bs;
             flickr = MvcApplication.flickr;
-
+            if (flickr == null) flickr = FlickrApiManager.GetInstance();
         }
 
         [Authorize]
@@ -37,44 +34,6 @@ namespace Omgevingsboek.Controllers
             HomeIndexPM hipm = new HomeIndexPM();
             hipm.BoekenEigenaar = bs.GetBoekenByUser(User.Identity.Name);
             hipm.BoekenGedeeld = bs.GetSharedBoeken(User.Identity.Name);
-            hipm.FotoIds = new List<FotoId>();
-            foreach (Boek boek in hipm.BoekenEigenaar)
-            {
-                FotoId id = new FotoId()
-                {
-                    Id = boek.Id
-                };
-                if (boek.Afbeelding != null && flickr != null)
-                    try
-                    {
-                        id.PhotoUrl = flickr.PhotosGetInfo(boek.Afbeelding).MediumUrl;
-                    }
-                    catch (FlickrNet.Exceptions.PhotoNotFoundException ex)
-                    {
-                        
-                        id.PhotoUrl = null;
-                    }
-                hipm.FotoIds.Add(id);
-            }
-            foreach (Boek boek in hipm.BoekenGedeeld )
-            {
-                FotoId id = new FotoId()
-                {
-                    Id = boek.Id
-                };
-                if (boek.Afbeelding != null && flickr != null)
-                    try
-                    {
-                        id.PhotoUrl = flickr.PhotosGetInfo(boek.Afbeelding).MediumUrl;
-                    }
-                    catch (FlickrNet.Exceptions.PhotoNotFoundException ex)
-                    {
-                        id.PhotoUrl = null;
-                    } catch (System.Net.WebException ex){
-                        id.PhotoUrl = null;
-                    }
-                hipm.FotoIds.Add(id);
-            }
 
             return View(hipm);
         }
@@ -109,16 +68,6 @@ namespace Omgevingsboek.Controllers
                 PoiPM pm = new PoiPM(){
                     poi = poi
                 };
-                if (poi.Afbeelding != null && flickr != null)
-                    try
-                    {
-                        pm.Afbeelding = flickr.PhotosGetInfo(poi.Afbeelding).MediumUrl;
-
-                    }
-                    catch (FlickrNet.Exceptions.PhotoNotFoundException ex)
-                    {
-                        pm.Afbeelding = null;
-                    }
                 pm.Activiteiten = bs.getActiviteitenPerPoi(poi.ID);
                 poipms.Add(pm);
 

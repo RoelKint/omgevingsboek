@@ -109,7 +109,7 @@ function filter(query) {
         var context = {
             title: home.poi.Naam,
             tags: home.poi.Tags.split(" ").map(function (el) { return '<span>' + el + '</span>' }).join(" "),
-            image: home.Afbeelding,
+            image: home.poi.Afbeelding,
             distance: distance,
             city: home.poi.Gemeente,
             activities: home.Activiteiten.map(function(act){ return "<p class='activity'>" + "<a href='/activities/" + act.Id + "'>" + act.Naam + "</a></p>"}).join(""),

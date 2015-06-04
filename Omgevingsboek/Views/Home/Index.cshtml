@@ -9,14 +9,9 @@
         <h3 class="rowheader">Mijn Boeken</h3>
         @foreach (Models.OmgevingsBoek_Models.Boek boek in Model.BoekenEigenaar)
         {
-            string foto = "";
-            foreach (Models.PresentationModels.FotoId fotoid in Model.FotoIds)
-            {
-                if (fotoid.Id == boek.Id) { foto = fotoid.PhotoUrl; }
-            }
             <div class="col-sm-6 col-md-3">
                 <a href="#">
-                    <img class="img-responsive" src="@foto" />
+                    <img class="img-responsive" src="@boek.Afbeelding" />
                     <span class="caption">@boek.Naam</span>
                 </a>
             </div>
@@ -27,14 +22,9 @@
         <h3 class="rowheader">Gedeelde Boeken</h3>
         @foreach (Models.OmgevingsBoek_Models.Boek boek in Model.BoekenGedeeld)
         {
-            string foto = "";
-            foreach (Models.PresentationModels.FotoId fotoid in Model.FotoIds)
-            {
-                if (fotoid.Id == boek.Id) { foto = fotoid.PhotoUrl; }
-            }
             <div class="col-sm-6 col-md-3">
                 <a href="#">
-                    <img src="@foto" />
+                    <img src="@boek.Afbeelding" />
                     <span class="caption">@boek.Naam</span>
                 </a>
             </div>
