@@ -11,7 +11,7 @@ namespace Models.PresentationModels
     {
         public Poi poi { get; set; }
         public string Afbeelding { get; set; }
-        List<Activiteit> Activiteiten { get; set; }
+        public List<Activiteit> Activiteiten { get; set; }
 
     }
 }

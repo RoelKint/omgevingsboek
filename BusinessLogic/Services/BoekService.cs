@@ -137,6 +137,9 @@ namespace BusinessLogic.Services
             return repoPoi.get50From(from);
         }
 
-
+        public List<Activiteit> getActiviteitenPerPoi(int id)
+        {
+            return repoActiviteit.getActiviteitenPerPoi(id);
+        }
     }
 }
