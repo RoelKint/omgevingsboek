@@ -285,6 +285,8 @@
     <Content Include="Content\themes\base\tabs.css" />
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="Experiments\filter.html" />
+    <Content Include="Experiments\fuse.js" />
     <Content Include="Experiments\index.html" />
     <Content Include="Experiments\js\apiExperiments.js" />
     <Content Include="Experiments\js\bootstrap.js" />
