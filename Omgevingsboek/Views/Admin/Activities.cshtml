@@ -1,4 +1,4 @@
-﻿
+﻿@model List<Models.OmgevingsBoek_Models.Activiteit>
 @{
     ViewBag.Title = "Activities";
 }
@@ -20,18 +20,21 @@
             <th style="width:30%; border-bottom: 1px solid black;
     border-collapse: collapse;">Eigenaar</th>
             <th style="width:40%; border-bottom: 1px solid black;
-    border-collapse: collapse;">Activiteiten</th>
+    border-collapse: collapse;">Poi</th>
             <th style="width:10%; border-bottom: 1px solid black;
     border-collapse: collapse;">Select</th>
         </tr>
-        <tr>
-            <td>Hallo</td>
-            <td>Hallo</td>
-            <td>Hallo</td>
-            <td><input type="checkbox" name="vehicle" value="Car"></td>
+        @foreach (var item in Model) {
+            <tr>
+                <td>@item.Naam</td>
+                <td>@item.Eigenaar.Email</td>
+                <td>@item.Poi.Naam</td>
+                <td><input type="checkbox" name="vehicle" value="Car"></td>
+            </tr>
+            }
 
 
-        </tr>
+        
 
 
     </table>

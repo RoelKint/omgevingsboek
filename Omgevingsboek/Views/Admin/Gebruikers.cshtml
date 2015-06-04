@@ -1,4 +1,4 @@
-﻿
+﻿@model List<Models.PresentationModels.UserActivities>
 @{
     ViewBag.Title = "Gebruikers";
 }
@@ -24,15 +24,23 @@
             <th style="width:10%; border-bottom: 1px solid black;
     border-collapse: collapse;">Select</th>
         </tr>
+        @foreach (var item in Model) { 
         <tr>
-            <td>Hallo</td>
-            <td>Hallo</td>
-            <td>Hallo</td>
+            <td>@item.User.Voornaam @item.User.Naam</td>
+            <td>@item.User.Naam</td>
+            <td>@foreach(var itempje in item.Activiteiten) {
+                    if (itempje.Equals(item.Activiteiten.Last())) { 
+                <a href="#">@itempje.Naam</a>
+                    }
+                    else
+                    {
+                        <a href="#">@itempje.Naam</a>@(',')
+                    }
+                }</td>
+                
             <td><input type="checkbox" name="vehicle" value="Car" checked="checked"></td>
-
-
         </tr>
-
+        }
 
     </table>
     </form>

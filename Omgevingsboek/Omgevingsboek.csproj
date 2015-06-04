@@ -381,6 +381,7 @@
     <Content Include="Views\Admin\Gebruikers.cshtml" />
     <Content Include="Views\Admin\Activities.cshtml" />
     <Content Include="Views\Admin\Boeken.cshtml" />
+    <Content Include="Views\Admin\Pois.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
