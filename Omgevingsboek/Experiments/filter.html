@@ -15,33 +15,91 @@
     <div id="list"></div>
     <script>
         //Test data
-        var json = {
-            'boeken': [{
-                "tag": "sport",
-                "lol":"haha",
-                "test":"h",
-                "naam":"Zwemmen"
-            }, {
-              
-                "tag": "natuurkunde",
-                "lol":"haha",
-                "naam":"Kleuters"
-            },
-            {
-                "tag":"natuurkunde",
-                "lol":"haha",
-                "naam":"Peuters"
-            }]
+        var json = [
+  {
+    "poi": {
+      "Eigenaar": null,
+      "Tags": [
+        {
+          "Activiteiten": null,
+          "Pois": [],
+          "ID": 1,
+          "Naam": "Museum"
+        },
+        {
+          "Activiteiten": null,
+          "Pois": [],
+          "ID": 2,
+          "Naam": "geschiedenis"
+        },
+        {
+          "Activiteiten": null,
+          "Pois": [],
+          "ID": 3,
+          "Naam": "Brugge"
+        },
+        {
+          "Activiteiten": null,
+          "Pois": [],
+          "ID": 4,
+          "Naam": "panorama"
         }
+      ],
+      "ID": 1,
+      "Naam": "Gentpoort",
+      "EigenaarId": "13d768d6-fb4c-46b9-bb0a-73c8e7014652",
+      "Afbeelding": "18259403910",
+      "GeoLocatie": null,
+      "Email": "musea@brugge.be",
+      "Telefoon": "+32 50 44 87 43",
+      "Straat": "Gentpoortstraat",
+      "Nummer": "48",
+      "Gemeente": "Brugge",
+      "Postcode": 8000,
+      "MinLeeftijd": 9,
+      "MaxLeeftijd": 12,
+      "Prijs": 0.0
+    },
+    "Afbeelding": "https://farm9.staticflickr.com/8840/18259403910_6138f0a862.jpg"
+  },
+  {
+    "poi": {
+      "Eigenaar": null,
+      "Tags": [
+        {
+          "Activiteiten": null,
+          "Pois": [],
+          "ID": 5,
+          "Naam": "Molen"
+        }
+      ],
+      "ID": 2,
+      "Naam": "Sint-Janshuismolen",
+      "EigenaarId": "13d768d6-fb4c-46b9-bb0a-73c8e7014652",
+      "Afbeelding": "18420708676",
+      "GeoLocatie": null,
+      "Email": "musea@brugge.be",
+      "Telefoon": "+32 50 44 87 43",
+      "Straat": "Kruisvest",
+      "Nummer": "",
+      "Gemeente": "Brugge",
+      "Postcode": 8000,
+      "MinLeeftijd": 11,
+      "MaxLeeftijd": 11,
+      "Prijs": 0.0
+    },
+    "Afbeelding": "https://farm9.staticflickr.com/8888/18420708676_0fda078f15.jpg"
+  }
+]
 
-        var filtered = json.boeken;
+        var filtered = json;
 
         $('#search').bind('input', function () {
             filter($(this).val());
         });
 
         function filter(query) {
-            filtered = json.boeken;
+            filtered = json;
 
             var matcher = /(\S+:\S+)/gi;
 

@@ -67,6 +67,8 @@ namespace Omgevingsboek.Controllers
                     catch (FlickrNet.Exceptions.PhotoNotFoundException ex)
                     {
                         id.PhotoUrl = null;
+                    } catch (System.Net.WebException ex){
+                        id.PhotoUrl = null;
                     }
                 hipm.FotoIds.Add(id);
             }
@@ -116,7 +118,7 @@ namespace Omgevingsboek.Controllers
                 poipms.Add(pm);
 
             }
-            return PartialView("_PoiPartial",poipms);
+            return PartialView("_PoiPartial",JsonConvert.SerializeObject(poipms));
         }
 
 
