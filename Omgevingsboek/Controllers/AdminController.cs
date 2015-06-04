@@ -39,6 +39,7 @@ namespace Omgevingsboek.Controllers
                 UserActivities u = new UserActivities();
                 u.User = user;
                 u.Activiteiten = bs.GetActivitiesByUsername(user.UserName);
+                ua.Add(u);
             }
 
             return View(ua);
