@@ -29,6 +29,17 @@ namespace Omgevingsboek.Controllers
         }
 
         [Authorize]
+        public ActionResult Gebruiker(String gebruikerId)
+            {
+            UserActivities ua = new UserActivities();
+            ApplicationUser user = bs.GetUser(gebruikerId);
+            ua.Activiteiten = bs.GetActivitiesByUsername(user.UserName);
+            ua.Boeken = bs.GetBoekenByUser(user.UserName);
+            ua.User = user;
+            return View(ua);
+        }
+
+        [Authorize]
         public ActionResult Index()
         {
             HomeIndexPM hipm = new HomeIndexPM();
