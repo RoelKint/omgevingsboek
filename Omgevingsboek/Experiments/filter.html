@@ -14,17 +14,22 @@
     <input type="text" id="search" placeholder="tag:lol" />
     <div id="list"></div>
     <script>
+        //Test data
         var json = {
             'boeken': [{
                 "tag": "sport",
+                "lol":"haha",
+                "test":"h",
                 "naam":"Zwemmen"
             }, {
               
                 "tag": "natuurkunde",
+                "lol":"haha",
                 "naam":"Kleuters"
             },
             {
                 "tag":"natuurkunde",
+                "lol":"haha",
                 "naam":"Peuters"
             }]
         }
@@ -37,6 +42,7 @@
 
         function filter(query) {
             filtered = json.boeken;
+
             var matcher = /(\S+:\S+)/gi;
 
             var options = {
@@ -53,38 +59,37 @@
             filters = [];
             match = matcher.exec(query);
             while (match != null) {
-                if (match != null) { console.log(match[1]); filters.push(match[1]); }
+                if (match != null) { filters.push(match[1]); }
                 match = matcher.exec(query);
             }
 
+            //Vind property matchers, e.g. tag:zwemmen
             filters.forEach(function (filter) {
                 prop = filter.split(":")[0];
                 val = filter.split(":")[1];
-                console.log("Checking property '" + prop + "' for '" + val + "'");
 
                 filtered = filtered.filter(function (el) {
-                    console.log("el val: " + el[prop]);
-                    console.log("sr val: " + val);
+
+                    if(el[prop] == null) { return false; }
                     var fuse = new Fuse([el[prop]], options);
                     var res = fuse.search(val);
                     if(res[0] != null){
-                        console.log(res[0]["naam"]);
                         return true;
                     }
                     return false;
                 });
             })
 
+            //Zoek op texts die geen property matchers zijn
             var fuse = new Fuse(filtered, options);
-            console.log(query.replace(matcher, "").replace(" ", ""));
             if(query.replace(matcher, "").replace(" ", "") != ""){
                var filtered = fuse.search(query.replace(matcher, ""));
             }
 
+            //Verwijder huidige nodes en vervang door nieuwe items
             while (document.getElementById("list").firstChild) {
                 document.getElementById("list").removeChild(document.getElementById("list").firstChild);
             }
-
             filtered.forEach(function (home) {
                 var node = document.createElement("LI");     
                 var textnode = document.createTextNode("Tag: " + home.tag);         
