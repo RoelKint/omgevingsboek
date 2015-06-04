@@ -1,5 +1,4 @@
-﻿@model IEnumerable<Models.PresentationModels.PoiPM>
-
+﻿@model String
 
 @{
     
@@ -28,13 +27,7 @@
             </div>
         </form>
         <ul>
-            @if (Model != null)
-            {
-                foreach (var poi in Model)
-                {
-                    <li>@poi.poi.Naam</li>
-                }
-            }
+
         </ul>
         <div class="row">
             <div class="col-md-12"></div>
@@ -124,3 +117,4 @@
 </div>
 
 <script src="~/Content/js/poipartialscript.js"></script>
+<script>var json = @Html.Raw(Json.Encode(Model));</script>

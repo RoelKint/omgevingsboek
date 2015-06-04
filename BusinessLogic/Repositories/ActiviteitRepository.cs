@@ -11,7 +11,7 @@ using System.Data.Entity;
 
 namespace BusinessLogic.Repositories
 {
-    public class ActiviteitRepository : GenericRepository<Activiteit>, BusinessLogic.Repositories.IActiviteitRepository
+    public class ActiviteitRepository : GenericRepository<Activiteit>,  BusinessLogic.Repositories.IActiviteitRepository
     {
         public ActiviteitRepository(ApplicationDbContext context)
             : base(context)
@@ -29,6 +29,13 @@ namespace BusinessLogic.Repositories
             return this.context.Activiteiten.Include(i => i.Boeken).Include(i => i.Benodigdheden).Include(i => i.DeelLijst).Include(i => i.Eigenaar).Include(i => i.Fotoboeken).Include(i => i.Poi).Include(i => i.Routes).Include(i => i.Tags).Include(i => i.Videos);
         }
 
+        public List<Activiteit> getActiviteitenPerPoi(int id)
+
+        {
+            context.Configuration.LazyLoadingEnabled = false;
+            return (from a in context.Activiteiten where a.PoiId == id select a).ToList();
+        }
+
         public override Activiteit GetByID(object id)
         {
             return this.context.Activiteiten.Where(i => i.Id == (int)id).Include(i => i.Boeken).Include(i => i.Benodigdheden).Include(i => i.DeelLijst).Include(i => i.Eigenaar).Include(i => i.Fotoboeken).Include(i => i.Poi).Include(i => i.Routes).Include(i => i.Tags).Include(i => i.Videos).Single();
@@ -37,7 +44,8 @@ namespace BusinessLogic.Repositories
         {
             using (ApplicationDbContext context = new ApplicationDbContext())
             {
-                return (from a in context.Activiteiten.Include(i => i.Boeken).Include(i => i.Benodigdheden).Include(i => i.DeelLijst).Include(i => i.Eigenaar).Include(i => i.Fotoboeken).Include(i => i.Poi).Include(i => i.Routes).Include(i => i.Tags).Include(i => i.Videos) where a.Eigenaar.UserName == Username select a).ToList();
+                context.Configuration.LazyLoadingEnabled = false;
+                return (from a in context.Activiteiten where a.Eigenaar.UserName == Username select a).ToList();
             }
         }
         public List<Activiteit> getSharedActivitiesByUsername(string Username)
@@ -84,6 +92,7 @@ namespace BusinessLogic.Repositories
         {
             return this.context.Activiteiten.OrderBy(i => i.Naam).Skip(from).Take(50).ToList();
         }
+
         
     }
 }
