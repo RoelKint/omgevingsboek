@@ -1,4 +1,6 @@
 ﻿using BusinessLogic.Services;
+using Models.MVC_Models;
+using Models.PresentationModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,8 +33,16 @@ namespace Omgevingsboek.Controllers
         
         public ActionResult Gebruikers(int? vanaf)
         {
+            List<UserActivities> ua = new List<UserActivities>();
             if (!vanaf.HasValue) vanaf = 0;
-            return View(bs.GetUserNext50((int)vanaf));
+            foreach(ApplicationUser user in bs.GetUserNext50((int)vanaf)){
+                UserActivities u = new UserActivities();
+                u.User = user;
+                u.Activiteiten = bs.GetActivitiesByUsername(user.UserName);
+                ua.Add(u);
+            }
+
+            return View(ua);
         }
         
         public ActionResult Boeken(int? vanaf)

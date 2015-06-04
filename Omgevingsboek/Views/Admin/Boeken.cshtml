@@ -1,10 +1,17 @@
-﻿@M
+﻿@model List<Models.OmgevingsBoek_Models.Boek>
+
 @{
     ViewBag.Title = "Boeken";
 }
 
 <h2>Boeken</h2>
-<form action="demo_form.asp" method="get">
+<div class="col-xs-6 col-md-9 content" id="buttonsAdBoven">
+    <button type="submit" form="formA" value="Submit">Delete</button>
+    <button type="submit" form="formA" value="0">vorige 50</button>
+    <button type="submit" form="formA" value="50">volgende 50</button>
+</div>
+<form id="formA" action="demo_form.asp" method="get">
+
     <table style="background-color:green; border: 2px solid black;
     border-collapse: collapse;" class="col-xs-6 col-md-9 content">
         <tr>
@@ -17,16 +24,19 @@
             <th style="width:10%; border-bottom: 1px solid black;
     border-collapse: collapse;">Select</th>
         </tr>
+        @foreach (var boe in Model) { 
         <tr>
             <td>Hallo</td>
             <td>Hallo</td>
             <td>Hallo</td>
             <td><input type="checkbox" name="vehicle" value="Car" checked="checked"></td>
-
-
         </tr>
-
-
+        }
 
     </table>
 </form>
+    <div class="col-xs-6 col-md-9 content" id="buttonsAdBeneden">    
+            <button type="submit" form="formA" value="Submit">Delete</button>
+            <button type="submit" form="formA" value="0">vorige 50</button>
+            <button type="submit" form="formA" value="50">volgende 50</button> 
+    </div>

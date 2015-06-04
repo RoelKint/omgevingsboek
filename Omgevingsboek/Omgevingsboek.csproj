@@ -244,6 +244,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\img\background.png" />
     <Content Include="Content\img\cream_dust.png" />
+    <Content Include="Content\img\favicon.ico" />
     <Content Include="Content\img\paper_fibers.png" />
     <Content Include="Content\js\poipartialscript.js" />
     <Content Include="Content\Main.css">
@@ -381,6 +382,7 @@
     <Content Include="Views\Admin\Gebruikers.cshtml" />
     <Content Include="Views\Admin\Activities.cshtml" />
     <Content Include="Views\Admin\Boeken.cshtml" />
+    <Content Include="Views\Admin\Pois.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
