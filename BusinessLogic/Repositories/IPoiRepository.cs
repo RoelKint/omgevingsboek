@@ -1,7 +1,7 @@
 ﻿using System;
 namespace BusinessLogic.Repositories
 {
-    interface IPoiRepository
+    public interface IPoiRepository
     {
         System.Collections.Generic.IEnumerable<Models.OmgevingsBoek_Models.Poi> All();
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Poi> get50();
