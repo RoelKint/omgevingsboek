@@ -196,15 +196,6 @@ function filter(query) {
     }
 
     filtered.forEach(function (home) {
-        var node = document.createElement("LI");
-        var textnode = document.createTextNode("Tag: " + home.poi.Tags);
-        node.appendChild(textnode);
-        textnode = document.createTextNode(", Naam: " + home.poi.Naam);
-        node.appendChild(textnode);
-        textnode = document.createTextNode(", Naam: " + home.Activiteiten.length);
-        node.appendChild(textnode);
-        //document.getElementById("list").appendChild(node);
-
         var poiSource = $("#poi-template").html();
         var poiTemplate = Handlebars.compile(poiSource);
 
@@ -213,7 +204,7 @@ function filter(query) {
 
         var context = {
             title: home.poi.Naam,
-            tags: home.poi.Tags,
+            tags: home.poi.Tags.split(" ").map(function (el) { return '<span>' + el + '</span>' }).join(" "),
             image: home.Afbeelding,
             distance: "?",
             city: home.poi.Gemeente,
