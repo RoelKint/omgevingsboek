@@ -1,10 +1,10 @@
-﻿@model List<Models.OmgevingsBoek_Models.Boek>
-
+﻿@model List<Models.OmgevingsBoek_Models.Poi>
 @{
-    ViewBag.Title = "Boeken";
+    ViewBag.Title = "PoI's";
 }
 
-<h2>Boeken</h2>
+<h2>Point of Interest's</h2>
+
 <div class="col-xs-6 col-md-9 content" id="buttonsAdBoven">
     <button type="submit" form="formA" value="Submit">Delete</button>
     <button type="submit" form="formA" value="0">vorige 50</button>
@@ -18,25 +18,26 @@
             <th style="width:20%;   border-bottom: 1px solid black;
     border-collapse: collapse;">Naam</th>
             <th style="width:30%; border-bottom: 1px solid black;
-    border-collapse: collapse;">Eigenaar</th>
+    border-collapse: collapse;">Originele boek</th>
             <th style="width:40%; border-bottom: 1px solid black;
-    border-collapse: collapse;">Activiteiten</th>
+    border-collapse: collapse;">Eigenaar</th>
             <th style="width:10%; border-bottom: 1px solid black;
     border-collapse: collapse;">Select</th>
         </tr>
-        @foreach (var boe in Model) { 
-        <tr>
-            <td>Hallo</td>
-            <td>Hallo</td>
-            <td>Hallo</td>
-            <td><input type="checkbox" name="vehicle" value="Car" checked="checked"></td>
-        </tr>
+        @foreach (var pooi in Model)
+        {
+            <tr>
+                <td>Hallo</td>
+                <td>Hallo</td>
+                <td>Hallo</td>
+                <td><input type="checkbox" name="vehicle" value="@pooi.ID"></td>
+            </tr>
         }
 
     </table>
 </form>
-    <div class="col-xs-6 col-md-9 content" id="buttonsAdBeneden">    
-            <button type="submit" form="formA" value="Submit">Delete</button>
-            <button type="submit" form="formA" value="0">vorige 50</button>
-            <button type="submit" form="formA" value="50">volgende 50</button> 
-    </div>
+<div class="col-xs-6 col-md-9 content" id="buttonsAdBeneden">
+    <button type="submit" form="formA" value="Submit">Delete</button>
+    <button type="submit" form="formA" value="0">vorige 50</button>
+    <button type="submit" form="formA" value="50">volgende 50</button>
+</div>
