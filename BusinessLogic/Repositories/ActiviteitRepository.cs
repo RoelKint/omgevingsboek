@@ -28,6 +28,7 @@ namespace BusinessLogic.Repositories
         {
             return this.context.Activiteiten.Include(i => i.Boeken).Include(i => i.Benodigdheden).Include(i => i.DeelLijst).Include(i => i.Eigenaar).Include(i => i.Fotoboeken).Include(i => i.Poi).Include(i => i.Routes).Include(i => i.Tags).Include(i => i.Videos);
         }
+
         public override Activiteit GetByID(object id)
         {
             return this.context.Activiteiten.Where(i => i.Id == (int)id).Include(i => i.Boeken).Include(i => i.Benodigdheden).Include(i => i.DeelLijst).Include(i => i.Eigenaar).Include(i => i.Fotoboeken).Include(i => i.Poi).Include(i => i.Routes).Include(i => i.Tags).Include(i => i.Videos).Single();
@@ -74,6 +75,14 @@ namespace BusinessLogic.Repositories
                         where a.Boeken.Contains(context.Boeken.Select(i => i).Where(i => i.Id == BoekId).FirstOrDefault())
                         select a).ToList();
             }
+        }
+        public List<Activiteit> get50()
+        {
+            return this.context.Activiteiten.OrderBy(i => i.Naam).Take(50).ToList();
+        }
+        public List<Activiteit> get50From(int from)
+        {
+            return this.context.Activiteiten.OrderBy(i => i.Naam).Skip(from).Take(50).ToList();
         }
         
     }

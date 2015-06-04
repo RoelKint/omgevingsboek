@@ -294,6 +294,22 @@ namespace Models.Migrations
                 context.SaveChanges();
 
             }
+
+            if (context.Boeken.Select(i => i).Where(i => i.Naam == "1e graad") == null)
+            {
+                Boek boek3 = new Boek()
+                {
+                    Naam = "1ste graad",
+                    EigenaarId = context.Users.FirstOrDefault().Id,
+                    DeelLijst = context.Users.ToList(),
+                    Afbeelding = "18227981769"
+                };
+
+
+
+            }
+
+
             #endregion
 
         }
