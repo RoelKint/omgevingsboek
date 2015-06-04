@@ -35,7 +35,7 @@ function filter(query) {
 
     //Vind property matchers, e.g. tag:zwemmen
     filters.forEach(function (filter) {
-        prop = filter.split(":")[0];
+        prop = filter.split(":")[0].charAt(0).toUpperCase() + filter.split(":")[0].slice(1);
         val = filter.split(":")[1];
 
         filtered = filtered.filter(function (el) {
