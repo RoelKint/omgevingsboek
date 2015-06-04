@@ -112,7 +112,9 @@ namespace Omgevingsboek.Controllers
                     {
                         pm.Afbeelding = null;
                     }
+                pm.Activiteiten = bs.getActiviteitenPerPoi(poi.ID);
                 poipms.Add(pm);
+
             }
             return PartialView("_PoiPartial",poipms);
         }

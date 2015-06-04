@@ -11,7 +11,7 @@ using System.Data.Entity;
 
 namespace BusinessLogic.Repositories
 {
-    public class ActiviteitRepository : GenericRepository<Activiteit>, BusinessLogic.Repositories.IActiviteitRepository
+    public class ActiviteitRepository : GenericRepository<Activiteit>,  BusinessLogic.Repositories.IActiviteitRepository
     {
         public ActiviteitRepository(ApplicationDbContext context)
             : base(context)
@@ -26,7 +26,13 @@ namespace BusinessLogic.Repositories
 
         public override IEnumerable<Activiteit> All()
         {
+            context.Configuration.LazyLoadingEnabled = false;
             return this.context.Activiteiten.Include(i => i.Boeken).Include(i => i.Benodigdheden).Include(i => i.DeelLijst).Include(i => i.Eigenaar).Include(i => i.Fotoboeken).Include(i => i.Poi).Include(i => i.Routes).Include(i => i.Tags).Include(i => i.Videos);
+        }
+
+        public List<Activiteit> getActiviteitenPerPoi(int id)
+        {
+            return (from a in context.Activiteiten where a.PoiId == id select a).ToList();
         }
 
         public override Activiteit GetByID(object id)
@@ -84,6 +90,7 @@ namespace BusinessLogic.Repositories
         {
             return this.context.Activiteiten.OrderBy(i => i.Naam).Skip(from).Take(50).ToList();
         }
+
         
     }
 }
