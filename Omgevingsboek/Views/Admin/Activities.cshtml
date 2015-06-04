@@ -2,45 +2,47 @@
 @{
     ViewBag.Title = "Activities";
 }
+<div class="adminList">
+    <h2>Activities</h2>
 
-<h2>Activities</h2>
+    <div id="buttonsAdBoven">
+        <button type="submit" form="formA" value="Submit">Delete</button>
+        <button type="submit" form="formA" value="0">vorige 50</button>
+        <button type="submit" form="formA" value="50">volgende 50</button>
+    </div>
 
-<div class="col-xs-6 col-md-9 content" id="buttonsAdBoven">
-    <button type="submit" form="formA" value="Submit">Delete</button>
-    <button type="submit" form="formA" value="0">vorige 50</button>
-    <button type="submit" form="formA" value="50">volgende 50</button>
-</div>
-<form id="formA" action="demo_form.asp" method="get">
 
-    <table style="background-color:green; border: 2px solid black;
-    border-collapse: collapse;" class="col-xs-6 col-md-9 content">
-        <tr>
-            <th style="width:20%;   border-bottom: 1px solid black;
-    border-collapse: collapse;">Naam</th>
-            <th style="width:30%; border-bottom: 1px solid black;
-    border-collapse: collapse;">Eigenaar</th>
-            <th style="width:40%; border-bottom: 1px solid black;
-    border-collapse: collapse;">Poi</th>
-            <th style="width:10%; border-bottom: 1px solid black;
-    border-collapse: collapse;">Select</th>
-        </tr>
-        @foreach (var item in Model) {
+    <form id="formA" action="demo_form.asp" method="get">
+
+        <table class="table table-hover">
+            <colgroup>
+                <col class="col-lg-3 col-xs-3 col-md-3" />
+                <col class="col-lg-3 col-xs-3 col-md-3" />
+                <col class="col-lg-3 col-xs-3 col-md-3" />
+                <col class="col-lg-3 col-xs-3 col-md-3" />
+            </colgroup>
+            
             <tr>
-                <td>@item.Naam</td>
-                <td>@item.Eigenaar.Email</td>
-                <td>@item.Poi.Naam</td>
-                <td><input type="checkbox" name="vehicle" value="Car"></td>
+                <th>Naam</th>
+                <th>Eigenaar</th>
+                <th>Poi</th>
+                <th>Options</th>
             </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Naam</td>
+                    <td>@item.Eigenaar.Email</td>
+                    <td>@item.Poi.Naam</td>
+                    <td>
+                        <div>
+                            <input type="button" name="" value="Details" />
+                            <input type="button" name="" value="Edit" />
+                            <input type="button" name="" value="Remove" />
+                        </div>
+                    </td>
+                </tr>
             }
-
-
-        
-
-
-    </table>
-</form>
-<div class="col-xs-6 col-md-9 content" id="buttonsAdBeneden">
-    <button type="submit" form="formA" value="Submit">Delete</button>
-    <button type="submit" form="formA" value="0">vorige 50</button>
-    <button type="submit" form="formA" value="50">volgende 50</button>
+        </table>
+    </form>
 </div>
