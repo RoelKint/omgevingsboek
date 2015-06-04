@@ -129,6 +129,45 @@ body,html{
     padding-left:15px;
 }
 
+.adminList{
+    padding:15px;
+}
+
+.adminList table{
+    border-collapse:collapse;
+    border:1px solid #3FB9E3;
+    margin-top:10px;
+}
+
+    .adminList table th {
+        background-color: #3FB9E3;
+        color: white;
+        font-family: vagroundedstd-bold-webfont,Arial,Arial, Helvetica, sans-serif;
+        padding-left: 5px;
+    }
+.adminList table tr:nth-child(2n+1){
+    background-color:#f5f5f5;
+}
+.adminList table tr:nth-child(2n){
+    background-color:#fff;
+}
+.adminList table tr td:first-child{
+    font-weight:bold;
+}
+
+.adminList table tr:hover{
+    background-color:#e8e8e8;
+}
+
+.adminList table tr td:last-child div{
+    display:none;
+}
+
+.adminList table tr:hover td:last-child div{
+    display:inline;
+}
+
+
 
 
 
