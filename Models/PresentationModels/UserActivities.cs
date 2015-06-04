@@ -1,4 +1,5 @@
-﻿using Models.OmgevingsBoek_Models;
+﻿using Models.MVC_Models;
+using Models.OmgevingsBoek_Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,11 +8,9 @@ using System.Threading.Tasks;
 
 namespace Models.PresentationModels
 {
-    public class PoiPM
+    public class UserActivities
     {
-        public Poi poi { get; set; }
-        public string Afbeelding { get; set; }
+        public ApplicationUser User { get; set; }
         public List<Activiteit> Activiteiten { get; set; }
-
     }
 }

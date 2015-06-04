@@ -1,4 +1,6 @@
 ﻿using BusinessLogic.Services;
+using Models.MVC_Models;
+using Models.PresentationModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,25 +27,32 @@ namespace Omgevingsboek.Controllers
         
         public ActionResult Activities(int? vanaf)
         {
-            if (!vanaf.HasValue) return RedirectToAction("Activities");
+            if (!vanaf.HasValue) vanaf = 0;
             return View(bs.GetActiviteitNext50((int)vanaf));
         }
-       
+        
         public ActionResult Gebruikers(int? vanaf)
         {
-            if (!vanaf.HasValue) return RedirectToAction("Gebruikers");
-            return View(bs.GetUserNext50((int)vanaf));
+            List<UserActivities> ua = new List<UserActivities>();
+            if (!vanaf.HasValue) vanaf = 0;
+            foreach(ApplicationUser user in bs.GetUserNext50((int)vanaf){
+                UserActivities u = new UserActivities();
+                u.User = user;
+                u.Activiteiten = bs.GetActivitiesByUsername(user.UserName);
+            }
+
+            return View(ua);
         }
         
         public ActionResult Boeken(int? vanaf)
         {
-            if (!vanaf.HasValue) return RedirectToAction("Boeken");
+            if (!vanaf.HasValue) vanaf = 0;
             return View(bs.GetBoekNext50((int)vanaf));
         }
         
         public ActionResult Pois(int? vanaf)
         {
-            if (!vanaf.HasValue) return RedirectToAction("Pois");
+            if (!vanaf.HasValue) vanaf = 0;
             return View(bs.GetPoiNext50((int)vanaf));
         }
     }
