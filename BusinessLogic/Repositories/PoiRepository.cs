@@ -23,7 +23,8 @@ namespace BusinessLogic.Repositories
         }
         public override IEnumerable<Poi> All()
         {
-            return context.Poi.Include(p => p.Eigenaar).Include(p => p.Tags);
+            context.Configuration.LazyLoadingEnabled = false;
+            return context.Poi.Include(p => p.Tags);
         }
         public override Poi Insert(Poi entity)
         {
