@@ -5,10 +5,8 @@
 }
 
 <div class="col-xs-6 col-md-9 content" id="content">
-    <div classname="row books" id="mijnBoeken">
-        <div classname="row books">
-            <h3 classname="rowheader">Mijn Boeken</h3>
-        </div>
+    <div class="row books" id="mijnBoeken">
+        <h3 class="rowheader">Mijn Boeken</h3>
         @foreach (Models.OmgevingsBoek_Models.Boek boek in Model.BoekenEigenaar)
         {
             string foto = "";
@@ -19,16 +17,14 @@
             <div class="col-sm-6 col-md-3">
                 <a href="#">
                     <img class="img-responsive" src="@foto" />
-                    <span classname="caption">@boek.Naam</span>
+                    <span class="caption">@boek.Naam</span>
                 </a>
             </div>
         }
         
     </div>
-    <div classname="row books" id="gedeeldeBoeken">
-        <div classname="row books">
-            <h3 classname="rowheader">Gedeelde Boeken</h3>
-        </div>
+    <div class="row books" id="gedeeldeBoeken">
+        <h3 class="rowheader">Gedeelde Boeken</h3>
         @foreach (Models.OmgevingsBoek_Models.Boek boek in Model.BoekenGedeeld)
         {
             string foto = "";
@@ -39,7 +35,7 @@
             <div class="col-sm-6 col-md-3">
                 <a href="#">
                     <img src="@foto" />
-                    <span classname="caption">@boek.Naam</span>
+                    <span class="caption">@boek.Naam</span>
                 </a>
             </div>
         }
