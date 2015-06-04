@@ -26,12 +26,13 @@ namespace BusinessLogic.Repositories
 
         public override IEnumerable<Activiteit> All()
         {
-            context.Configuration.LazyLoadingEnabled = false;
             return this.context.Activiteiten.Include(i => i.Boeken).Include(i => i.Benodigdheden).Include(i => i.DeelLijst).Include(i => i.Eigenaar).Include(i => i.Fotoboeken).Include(i => i.Poi).Include(i => i.Routes).Include(i => i.Tags).Include(i => i.Videos);
         }
 
         public List<Activiteit> getActiviteitenPerPoi(int id)
+
         {
+            context.Configuration.LazyLoadingEnabled = false;
             return (from a in context.Activiteiten where a.PoiId == id select a).ToList();
         }
 
