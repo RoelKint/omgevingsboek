@@ -13,5 +13,17 @@ namespace Omgevingsboek.Controllers
         {
             return View();
         }
+        public ActionResult Activities()
+        {
+            return View();
+        }
+        public ActionResult Gebruikers()
+        {
+            return View();
+        }
+        public ActionResult Boeken()
+        {
+            return View();
+        }
     }
 }
