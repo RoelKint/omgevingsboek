@@ -175,6 +175,24 @@ body,html{
     display:inline;
 }
 
+.adminList table button{
+    border-radius:50%;
+    background-color:#3FB9E3;
+    box-shadow:none;
+    border:none;
+    height:32px;
+    width:32px;
+    color:white;
+    display:inline-block;
+}
+
+.adminList table button span{
+    vertical-align:middle;
+}
+.adminList table .displayInlineButtons{
+    display:inline;
+}
+
 
 
 
