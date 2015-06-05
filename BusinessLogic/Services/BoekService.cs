@@ -28,10 +28,84 @@ namespace BusinessLogic.Services
             this.repoTag = repoTag;
             this.repoPoi = repoPoi;
         }
+
+        #region Activiteiten
+
         public List<Activiteit> GetActiviteitenList()
         {
             return repoActiviteit.All().ToList();
         }
+        public Activiteit GetActiviteitById(int id)
+        {
+            return repoActiviteit.GetByID(id);
+        }
+        public List<Activiteit> GetActivitiesByUsername(string Username)
+        {
+            return repoActiviteit.getActivitiesByUsername(Username);
+        }
+        public List<Activiteit> GetSharedActivitiesByUsername(string Username)
+        {
+            return repoActiviteit.getSharedActivitiesByUsername(Username);
+        }
+        public List<Activiteit> GetSharedActivitiesByBookId(int BoekId, string Username)
+        {
+            return repoActiviteit.getSharedActivitiesByBookId(BoekId, Username);
+        }
+        public List<Activiteit> getActiviteitenPerPoi(int id)
+        {
+            return repoActiviteit.getActiviteitenPerPoi(id);
+        }
+
+        public List<Activiteit> GetActiviteiten50FromSortNameAZ(int from)
+        {
+            return repoActiviteit.get50FromSortNameAZ(from);
+        }
+        public List<Activiteit> GetActiviteiten50FromSortNameZA(int from)
+        {
+            return repoActiviteit.get50FromSortNameZA(from);
+        }
+        public List<Activiteit> GetActiviteiten50FromSortUserAZ(int from)
+        {
+            return repoActiviteit.get50FromSortUserAZ(from);
+        }
+        public List<Activiteit> GetActiviteiten50FromSortUserZA(int from)
+        {
+            return repoActiviteit.get50FromSortUserZA(from);
+        }
+        public List<Activiteit> GetActiviteiten50FromSortPoiAZ(int from)
+        {
+            return repoActiviteit.get50FromSortPoiAZ(from);
+        }
+        public List<Activiteit> GetActiviteiten50FromSortPoiZA(int from)
+        {
+            return repoActiviteit.get50FromSortPoiZA(from);
+        }
+
+        public List<Activiteit> getActiviteitenUserByUser50from(int from, String Owner, String Visitor)
+        {
+            return repoActiviteit.getUserActiviteitenByUser50from(from, Owner, Visitor);
+        }
+        public void DeleteActiviteitSoft(Activiteit entityToDelete)
+        {
+            repoActiviteit.DeleteSoft(entityToDelete);
+        }
+        public void DeleteActiviteit(Activiteit entityToDelete)
+        {
+            repoActiviteit.Delete(entityToDelete);
+        }
+
+        public List<Activiteit> getActiviteitenByPoiByUser50from(int from, String Owner, int PoiId)
+        {
+            return repoActiviteit.getActiviteitenByPoiByUser50from(from, Owner, PoiId);
+        }
+
+
+        #endregion
+
+
+
+        #region Boeken
+
         public Boek InsertBoek(Boek boek)
         {
             return repoBoek.Insert(boek);
@@ -44,23 +118,7 @@ namespace BusinessLogic.Services
         {
             repoBoek.Delete(boek);
         }
-        public Activiteit GetActiviteitById(int id)
-        {
-            return repoActiviteit.GetByID(id);
-        }
-        public List<Activiteit> GetActivitiesByUsername(string Username)
-        {
-            return repoActiviteit.getActivitiesByUsername(Username);
-        }
 
-        public List<Activiteit> GetSharedActivitiesByUsername(string Username)
-        {
-            return repoActiviteit.getSharedActivitiesByUsername(Username);
-        }
-        public List<Activiteit> GetSharedActivitiesByBookId(int BoekId, string Username)
-        {
-            return repoActiviteit.getSharedActivitiesByBookId(BoekId,Username);
-        }
         public Boek GetBoekByID(object id)
         {
             return repoBoek.GetByID(id);
@@ -74,20 +132,28 @@ namespace BusinessLogic.Services
         {
             return repoBoek.getSharedBoeken(username);
         }
-        public ApplicationUser GetUser(String Username)
+        public List<Boek> GetBoekFirst50()
         {
-            using (ApplicationDbContext context = new ApplicationDbContext())
-            {
-                return context.Users.Select(i => i).Where(i => i.UserName == Username).Single();
-            }
+            return repoBoek.get50();
         }
-        public List<Tag> GetTagList()
+        public List<Boek> GetBoekNext50(int from)
         {
-            return repoTag.All().ToList();
+            return repoBoek.get50From(from);
         }
-        public Tag InsertTag(Tag tag)
+
+        #endregion
+
+
+
+        #region Poi
+
+        public List<Poi> GetPoiFirst50()
         {
-            return repoTag.Insert(tag);
+            return repoPoi.get50();
+        }
+        public List<Poi> GetPoiNext50(int from)
+        {
+            return repoPoi.get50From(from);
         }
         public List<Poi> GetPoiList()
         {
@@ -97,6 +163,36 @@ namespace BusinessLogic.Services
         {
             return repoPoi.Insert(poi);
         }
+
+        #endregion
+
+
+
+        #region Tags
+
+        public List<Tag> GetTagList()
+        {
+            return repoTag.All().ToList();
+        }
+        public Tag InsertTag(Tag tag)
+        {
+            return repoTag.Insert(tag);
+        }
+
+        #endregion
+
+
+
+        #region Users
+
+        public ApplicationUser GetUser(String Username)
+        {
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                return context.Users.Select(i => i).Where(i => i.UserName == Username).Single();
+            }
+        }
+
 
         public List<ApplicationUser> GetUserFirst50()
         {
@@ -110,36 +206,17 @@ namespace BusinessLogic.Services
             using (ApplicationDbContext context = new ApplicationDbContext())
             {
                 return context.Users.OrderBy(i => i.UserName).Skip(from).Take(50).ToList();
-            } 
-        }
-        public List<Activiteit> GetActiviteitFirst50()
-        {
-            return repoActiviteit.get50();
-        }
-        public List<Activiteit> GetActiviteitNext50(int from)
-        {
-            return repoActiviteit.get50From(from);
-        }
-        public List<Boek> GetBoekFirst50()
-        {
-            return repoBoek.get50();
-        }
-        public List<Boek> GetBoekNext50(int from)
-        {
-            return repoBoek.get50From(from);
-        }
-        public List<Poi> GetPoiFirst50()
-        {
-            return repoPoi.get50();
-        }
-        public List<Poi> GetPoiNext50(int from)
-        {
-            return repoPoi.get50From(from);
+            }
         }
 
-        public List<Activiteit> getActiviteitenPerPoi(int id)
-        {
-            return repoActiviteit.getActiviteitenPerPoi(id);
-        }
+        #endregion
+
+
+        
+        
+        
+        
+        
+        
     }
 }

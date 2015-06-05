@@ -1,5 +1,6 @@
 ﻿using BusinessLogic.Services;
 using Models.MVC_Models;
+using Models.OmgevingsBoek_Models;
 using Models.PresentationModels;
 using System;
 using System.Collections.Generic;
@@ -20,16 +21,87 @@ namespace Omgevingsboek.Controllers
         }
 
         // GET: Admin
+        [Authorize(Roles = "Administrator,SuperAdministrator")]
         public ActionResult Index()
         {
             return View();
         }
-        
-        public ActionResult Activities(int? vanaf)
+        [Authorize(Roles = "Administrator,SuperAdministrator")]
+        public ActionResult Activities(int? vanaf, int? desc, int? filter)
         {
+            //desc == 1 -> descending
+            //desc == 0 -> ascending
+
+            List<Activiteit> res = new List<Activiteit>();
+
             if (!vanaf.HasValue) vanaf = 0;
-            return View(bs.GetActiviteitNext50((int)vanaf));
+            if (!desc.HasValue) desc = 0;
+            if (!filter.HasValue) filter = 0;
+
+            switch ((int)filter)
+            {
+                case 1:
+                    //activiteit naam
+                    if (desc == 1)
+                        res = bs.GetActiviteiten50FromSortNameZA((int)vanaf);
+                    else
+                        res = bs.GetActiviteiten50FromSortNameAZ((int)vanaf);
+                    break;
+                case 2:
+                    //gebruiker naam
+                    if (desc == 1)
+                        res = bs.GetActiviteiten50FromSortUserAZ((int)vanaf);
+                    else
+                        res = bs.GetActiviteiten50FromSortUserZA((int)vanaf);
+                    break;
+                case 3:
+                    //poi
+                    if (desc == 1)
+                        res = bs.GetActiviteiten50FromSortPoiAZ((int)vanaf);
+                    else
+                        res = bs.GetActiviteiten50FromSortPoiZA((int)vanaf);
+                    break;
+                default:
+                    if (desc == 1)
+                        res = bs.GetActiviteiten50FromSortNameZA((int)vanaf);
+                    else
+                        res = bs.GetActiviteiten50FromSortNameAZ((int)vanaf);
+                    break;
+            }
+
+            return View(res);
         }
+        [Authorize(Roles = "SuperAdministrator")]
+        [HttpPost]
+        public ActionResult HardDelete(List<Activiteit> ActiviteitenToDelete, int vanaf, int desc, int filter)
+        {
+            if (!User.IsInRole("SuperAdministrator")) return RedirectToAction("Activities");
+            foreach (Activiteit activiteit in ActiviteitenToDelete)
+            {
+                Activiteit a = bs.GetActiviteitById(activiteit.Id);
+                if (a == null) continue;
+                bs.DeleteActiviteit(a);
+            }
+            return RedirectToAction("Activities", "vanaf=" + vanaf + "&desc=" + desc + "&filter="+filter);
+        }
+        [HttpPost]
+        [Authorize(Roles = "Administrator,SuperAdministrator")]
+        public ActionResult Delete(List<Activiteit> ActiviteitenToDelete, int vanaf, int desc, int filter)
+        {
+            if (!User.IsInRole("SuperAdministrator") || !User.IsInRole("Administrator")) return RedirectToAction("Activities");
+            foreach (Activiteit activiteit in ActiviteitenToDelete)
+            {
+                Activiteit a = bs.GetActiviteitById(activiteit.Id);
+                if (a == null) continue;
+                bs.DeleteActiviteit(a);
+            }
+            return RedirectToAction("Activities", "vanaf=" + vanaf + "&desc=" + desc + "&filter=" + filter);
+        }
+        [Authorize(Roles = "Administrator,SuperAdministrator")]
+        [HttpGet]
+        
+
+
         
         public ActionResult Gebruikers(int? vanaf)
         {

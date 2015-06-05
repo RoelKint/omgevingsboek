@@ -3,13 +3,21 @@ namespace BusinessLogic.Services
 {
     public interface IBoekService
     {
+        void DeleteActiviteit(Models.OmgevingsBoek_Models.Activiteit entityToDelete);
+        void DeleteActiviteitSoft(Models.OmgevingsBoek_Models.Activiteit entityToDelete);
         void DeleteBoek(Models.OmgevingsBoek_Models.Boek boek);
         void EditBoek(Models.OmgevingsBoek_Models.Boek boek);
         Models.OmgevingsBoek_Models.Activiteit GetActiviteitById(int id);
+        System.Collections.Generic.List<Models.OmgevingsBoek_Models.Activiteit> GetActiviteiten50FromSortNameAZ(int from);
+        System.Collections.Generic.List<Models.OmgevingsBoek_Models.Activiteit> GetActiviteiten50FromSortNameZA(int from);
+        System.Collections.Generic.List<Models.OmgevingsBoek_Models.Activiteit> GetActiviteiten50FromSortPoiAZ(int from);
+        System.Collections.Generic.List<Models.OmgevingsBoek_Models.Activiteit> GetActiviteiten50FromSortPoiZA(int from);
+        System.Collections.Generic.List<Models.OmgevingsBoek_Models.Activiteit> GetActiviteiten50FromSortUserAZ(int from);
+        System.Collections.Generic.List<Models.OmgevingsBoek_Models.Activiteit> GetActiviteiten50FromSortUserZA(int from);
+        System.Collections.Generic.List<Models.OmgevingsBoek_Models.Activiteit> getActiviteitenByPoiByUser50from(int from, string Owner, int PoiId);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Activiteit> GetActiviteitenList();
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Activiteit> getActiviteitenPerPoi(int id);
-        System.Collections.Generic.List<Models.OmgevingsBoek_Models.Activiteit> GetActiviteitFirst50();
-        System.Collections.Generic.List<Models.OmgevingsBoek_Models.Activiteit> GetActiviteitNext50(int from);
+        System.Collections.Generic.List<Models.OmgevingsBoek_Models.Activiteit> getActiviteitenUserByUser50from(int from, string Owner, string Visitor);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Activiteit> GetActivitiesByUsername(string Username);
         Models.OmgevingsBoek_Models.Boek GetBoekByID(object id);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Boek> GetBoekenByUser(string username);
