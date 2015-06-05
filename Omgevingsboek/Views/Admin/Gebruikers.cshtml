@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "Gebruikers";
 }
-
+<div class="adminList">
 <h2>Gebruikers</h2>
 
 <div class="col-xs-6 col-md-9 content" id="buttonsAdBoven">
@@ -12,40 +12,42 @@
 </div>
 <form id="formA" action="demo_form.asp" method="get">
 
-    <table style=" border: 2px solid black;
-    border-collapse: collapse;" class="col-xs-6 col-md-9 content">
+    <table class="table table-hover">
         <tr>
-            <th style="width:20%;   border-bottom: 1px solid black;
-    border-collapse: collapse;">Naam</th>
-            <th style="width:30%; border-bottom: 1px solid black;
-    border-collapse: collapse;">Eigenaar</th>
-            <th style="width:40%; border-bottom: 1px solid black;
-    border-collapse: collapse;">Activiteiten</th>
-            <th style="width:10%; border-bottom: 1px solid black;
-    border-collapse: collapse;">Select</th>
+            <th>Naam</th>
+            <th>Eigenaar</th>
+            <th>Activiteiten</th>
+            <th>Select</th>
         </tr>
-        @foreach (var item in Model) { 
-        <tr>
-            <td>@item.User.Voornaam @item.User.Naam</td>
-            <td>@item.User.Naam</td>
-            <td>@foreach(var itempje in item.Activiteiten) {
-                    if (itempje.Equals(item.Activiteiten.Last())) { 
-                <a href="#">@itempje.Naam</a>
-                    }
-                    else
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.User.Voornaam @item.User.Naam</td>
+                <td>@item.User.Naam</td>
+                <td>
+                    @foreach (var itempje in item.Activiteiten)
                     {
-                        <a href="#">@itempje.Naam</a>@(',')
+                        if (itempje.Equals(item.Activiteiten.Last()))
+                        {
+                            <a href="#">@itempje.Naam</a>
+                        }
+                        else
+                        {
+                            <a href="#">@itempje.Naam</a>@(',')
+                        }
                     }
-                }</td>
-                
-            <td><input type="checkbox" name="vehicle" value="Car" checked="checked"></td>
+            </td>
+
+                <td>
+                    <div>
+                        <input type="button" name="" value="Details" />
+                        <input type="button" name="" value="Edit" />
+                        <input type="button" name="" value="Remove" />
+                    </div>
+                </td>
         </tr>
         }
 
     </table>
     </form>
-    <div class="col-xs-6 col-md-9 content" id="buttonsAdBeneden">
-        <button type="submit" form="formA" value="Submit">Delete</button>
-        <button type="submit" form="formA" value="0">vorige 50</button>
-        <button type="submit" form="formA" value="50">volgende 50</button>
-    </div>
+</div>

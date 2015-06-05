@@ -3,16 +3,16 @@
     ViewBag.Title = "Activities";
 }
 <div class="adminList">
-<h2>Activities</h2>
+    <h2>Activities</h2>
 
     <div id="buttonsAdBoven">
-    <button type="submit" form="formA" value="Submit">Delete</button>
-    <button type="submit" form="formA" value="0">vorige 50</button>
-    <button type="submit" form="formA" value="50">volgende 50</button>
-</div>
+        <button type="submit" form="formA" value="Submit">Delete</button>
+        <button type="submit" form="formA" value="0">vorige 50</button>
+        <button type="submit" form="formA" value="50">volgende 50</button>
+    </div>
 
 
-<form id="formA" action="demo_form.asp" method="get">
+    <form id="formA" action="" method="get">
 
         <table class="table table-hover">
             <colgroup>
@@ -21,19 +21,19 @@
                 <col class="col-lg-3 col-xs-3 col-md-3" />
                 <col class="col-lg-3 col-xs-3 col-md-3" />
             </colgroup>
-            
-        <tr>
+
+            <tr>
                 <th>Naam</th>
                 <th>Eigenaar</th>
                 <th>Poi</th>
                 <th>Options</th>
-        </tr>
+            </tr>
             @foreach (var item in Model)
             {
-            <tr>
-                <td>@item.Naam</td>
-                <td>@item.Eigenaar.Email</td>
-                <td>@item.Poi.Naam</td>
+                <tr>
+                    <td>@item.Naam</td>
+                    <td>@item.Eigenaar.Email</td>
+                    <td>@item.Poi.Naam</td>
                     <td>
                         <div>
                             <input type="button" name="" value="Details" />
@@ -41,8 +41,8 @@
                             <input type="button" name="" value="Remove" />
                         </div>
                     </td>
-            </tr>
+                </tr>
             }
-    </table>
-</form>
+        </table>
+    </form>
 </div>
