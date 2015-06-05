@@ -5,34 +5,41 @@
 <div class="adminList">
     <h2>Point of Interest's</h2>
 
-    <div class="col-xs-6 col-md-9 content" id="buttonsAdBoven">
-        <button type="submit" form="formA" value="Submit">Delete</button>
-        <button type="submit" form="formA" value="0">vorige 50</button>
-        <button type="submit" form="formA" value="50">volgende 50</button>
+    <div id="buttonsAdBoven">
+        <button><span class="glyphicon glyphicon-chevron-left"></span> Vorige Pag.</button>
+        <button><span class="glyphicon glyphicon-chevron-right"></span> Volgende Pag.</button>
+        <button><span class="glyphicon glyphicon-remove-circle"></span> Verwijderen</button>
+        <button><span class="glyphicon glyphicon-pencil"></span> Bewerken</button>
     </div>
     <form id="formA" action="demo_form.asp" method="get">
 
         <table class="table table-hover">
             <colgroup>
+                <col class="col-lg-1 col-xs-1 col-md-1" />
+                <col class="col-lg-2 col-xs-2 col-md-2" />
+                <col class="col-lg-2 col-xs-2 col-md-2" />
+                <col class="col-lg-2 col-xs-2 col-md-2" />
+                <col class="col-lg-1 col-xs-1 col-md-1" />
                 <col class="col-lg-3 col-xs-3 col-md-3" />
-                <col class="col-lg-3 col-xs-3 col-md-3" />
-                <col class="col-lg-3 col-xs-3 col-md-3" />
-                <col class="col-lg-3 col-xs-3 col-md-3" />
+                <col class="col-lg-1 col-xs-1 col-md-1" />
             </colgroup>
             <tr>
+                <th><span class="glyphicon glyphicon-th-list"></span></th>
                 <th>Naam</th>
                 <th>Mail</th>
                 <th>Adres</th>
+                <th>Telefoon Nr.</th>
                 <th>Tags</th>
-                <th>Select</th>
-                <th>Options</th>
+                <th>Opties</th>
             </tr>
             @foreach (var pooi in Model)
             {
                 <tr>
+                    <td><input type="checkbox" name="vehicle" value="Car"></td>
                     <td>@pooi.Naam</td>
                     <td>@pooi.Eigenaar.Email</td>
                     <td> @pooi.Straat @pooi.Nummer , @pooi.Postcode @pooi.Gemeente</td>
+                    <td>@pooi.Telefoon</td>
                     <td>
                         @foreach (var tag in pooi.Tags)
                         {
@@ -46,12 +53,10 @@
                             }
                         }
                     </td>
-                    <td><input type="checkbox" name="vehicle" value="Car" ></td>
                     <td>
                         <div>
-                            <input type="button" name="" value="Details" />
-                            <input type="button" name="" value="Edit" />
-                            <input type="button" name="" value="Remove" />
+                            <button><span class="glyphicon glyphicon-remove"></span></button>
+                            <button><span class="glyphicon glyphicon-pencil"></span></button>
                         </div>
                     </td>
                 </tr>
