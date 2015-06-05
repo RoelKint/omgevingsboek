@@ -26,19 +26,39 @@ namespace BusinessLogic.Repositories
             context.Configuration.LazyLoadingEnabled = false;
             return context.Poi.Include(p => p.Tags);
         }
+        public override Poi GetByID(object id)
+        {
+            return this.context.Poi.Select(p => p).Where(p => !p.IsDeleted).Single();
+        }
         public override Poi Insert(Poi entity)
         {
             Poi poi = base.Insert(entity);
             context.SaveChanges();
             return poi;
         }
-        public List<Poi> get50()
+        public List<Poi> get50FromSortNameAZ(int from)
         {
-            return this.context.Poi.OrderBy(i => i.Naam).Take(50).ToList();
+            return this.context.Poi.Where(i => !i.IsDeleted).OrderBy(i => i.Naam).Skip(from).Take(50).ToList();
         }
-        public List<Poi> get50From(int from)
+        public List<Poi> get50FromSortNameZA(int from)
         {
-            return this.context.Poi.OrderBy(i => i.Naam).Skip(from).Take(50).ToList();
+            return this.context.Poi.Where(i => !i.IsDeleted).OrderByDescending(i => i.Naam).Skip(from).Take(50).ToList();
+        }
+        public void Delete(Poi EntityToDelete)
+        {
+            base.Delete(EntityToDelete);
+            context.SaveChanges();
+        }
+        public override void Update(Poi entityToUpdate)
+        {
+            base.Update(entityToUpdate);
+            context.SaveChanges();
+        }
+        public void DeleteSoft(Poi poi)
+        {
+            poi.IsDeleted = true;
+            Update(poi);
+            
         }
 
     }

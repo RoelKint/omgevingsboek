@@ -120,11 +120,15 @@ namespace BusinessLogic.Repositories
         {
             entityToDelete.IsDeleted = true;
             Update(entityToDelete);
+            context.SaveChanges();
+
         }
 
         public override void Delete(Activiteit id)
         {
             base.Delete(id);
+            context.SaveChanges();
+
         }
 
         public List<Activiteit> getActiviteitenByPoiByUser50from(int from, String Owner, int PoiId)

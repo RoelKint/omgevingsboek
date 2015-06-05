@@ -26,16 +26,16 @@ namespace BusinessLogic.Repositories
 
         public override Boek GetByID(object id)
         {
-            return this.context.Boeken.Include(b => b.DeelLijst).Include(b => b.Activiteiten).Single();
+            return this.context.Boeken.Include(b => b.DeelLijst).Include(b => b.Activiteiten).Where(b => !b.IsDeleted).Single();
         }
         public List<Boek> getBoekenByUser(string username)
         {
-            return (from b in context.Boeken.Include(b => b.DeelLijst).Include(b => b.Activiteiten) where b.Eigenaar.UserName == username select b).ToList();
+            return (from b in context.Boeken.Include(b => b.DeelLijst).Include(b => b.Activiteiten) where !b.IsDeleted where b.Eigenaar.UserName == username select b).ToList();
         }
         //sharedboeken omvatten niet de eigen boeken.
         public List<Boek> getSharedBoeken(string username)
         {
-            return (from b in context.Boeken.Include(b => b.DeelLijst).Include(b => b.Activiteiten) where b.DeelLijst.Contains(context.Users.Select(i=>i).Where(i => i.UserName == username).FirstOrDefault()) where b.Eigenaar.UserName != username select b).ToList();
+            return (from b in context.Boeken.Include(b => b.DeelLijst).Include(b => b.Activiteiten) where !b.IsDeleted where b.DeelLijst.Contains(context.Users.Select(i=>i).Where(i => i.UserName == username).FirstOrDefault()) where b.Eigenaar.UserName != username select b).ToList();
         }
         public override Boek Insert(Boek entity)
         {
@@ -75,13 +75,35 @@ namespace BusinessLogic.Repositories
             context.SaveChanges();
 
         }
-        public List<Boek> get50()
+
+        public List<Boek> get50FromSortNameAZ(int from)
         {
-            return this.context.Boeken.OrderBy(i => i.Naam).Take(50).ToList();
+            return this.context.Boeken.Where(i => !i.IsDeleted).OrderBy(i => i.Naam).Skip(from).Take(50).ToList();
         }
-        public List<Boek> get50From(int from)
+        public List<Boek> get50FromSortNameZA(int from)
         {
-            return this.context.Boeken.OrderBy(i => i.Naam).Skip(from).Take(50).ToList();
+            return this.context.Boeken.Where(i => !i.IsDeleted).OrderByDescending(i => i.Naam).Skip(from).Take(50).ToList();
+        }
+        public List<Boek> get50FromSortUserAZ(int from)
+        {
+            return this.context.Boeken.Where(i => !i.IsDeleted).OrderBy(i => i.Eigenaar.UserName).Skip(from).Take(50).ToList();
+        }
+        public List<Boek> get50FromSortUserZA(int from)
+        {
+            return this.context.Boeken.Where(i => !i.IsDeleted).OrderByDescending(i => i.Eigenaar.UserName).Skip(from).Take(50).ToList();
+        }
+
+        public void DeleteSoft(Boek entityToDelete)
+        {
+            entityToDelete.IsDeleted = true;
+            Update(entityToDelete);
+            context.SaveChanges();
+
+        }
+
+        public List<Boek> getUserBoekByUser50from(int from, String Owner, String Visitor)
+        {
+            return this.context.Boeken.Where(i => !i.IsDeleted).Where(i => i.Eigenaar.UserName == Owner).Where(i => i.DeelLijst.Contains(context.Users.Select(u => u).Where(u => u.UserName == Visitor).FirstOrDefault())).OrderBy(i => i.Naam).Skip(from).Take(50).ToList();
         }
 
 

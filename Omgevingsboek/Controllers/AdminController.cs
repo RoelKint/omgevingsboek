@@ -50,16 +50,16 @@ namespace Omgevingsboek.Controllers
                 case 2:
                     //gebruiker naam
                     if (desc == 1)
-                        res = bs.GetActiviteiten50FromSortUserAZ((int)vanaf);
-                    else
                         res = bs.GetActiviteiten50FromSortUserZA((int)vanaf);
+                    else
+                        res = bs.GetActiviteiten50FromSortUserAZ((int)vanaf);
                     break;
                 case 3:
                     //poi
                     if (desc == 1)
-                        res = bs.GetActiviteiten50FromSortPoiAZ((int)vanaf);
-                    else
                         res = bs.GetActiviteiten50FromSortPoiZA((int)vanaf);
+                    else
+                        res = bs.GetActiviteiten50FromSortPoiAZ((int)vanaf);
                     break;
                 default:
                     if (desc == 1)
@@ -68,17 +68,20 @@ namespace Omgevingsboek.Controllers
                         res = bs.GetActiviteiten50FromSortNameAZ((int)vanaf);
                     break;
             }
+            ViewBag.vanaf = vanaf;
+            ViewBag.desc = desc;
+            ViewBag.filter = filter;
 
             return View(res);
         }
         [Authorize(Roles = "SuperAdministrator")]
         [HttpPost]
-        public ActionResult HardDelete(List<Activiteit> ActiviteitenToDelete, int vanaf, int desc, int filter)
+        public ActionResult HardDelete(List<int> ActiviteitenToDelete, int vanaf, int desc, int filter)
         {
             if (!User.IsInRole("SuperAdministrator")) return RedirectToAction("Activities");
-            foreach (Activiteit activiteit in ActiviteitenToDelete)
+            foreach (int activiteit in ActiviteitenToDelete)
             {
-                Activiteit a = bs.GetActiviteitById(activiteit.Id);
+                Activiteit a = bs.GetActiviteitById(activiteit);
                 if (a == null) continue;
                 bs.DeleteActiviteit(a);
             }
@@ -86,12 +89,12 @@ namespace Omgevingsboek.Controllers
         }
         [HttpPost]
         [Authorize(Roles = "Administrator,SuperAdministrator")]
-        public ActionResult Delete(List<Activiteit> ActiviteitenToDelete, int vanaf, int desc, int filter)
+        public ActionResult Delete(List<int> ActiviteitenToDelete, int vanaf, int desc, int filter)
         {
             if (!User.IsInRole("SuperAdministrator") || !User.IsInRole("Administrator")) return RedirectToAction("Activities");
-            foreach (Activiteit activiteit in ActiviteitenToDelete)
+            foreach (int activiteit in ActiviteitenToDelete)
             {
-                Activiteit a = bs.GetActiviteitById(activiteit.Id);
+                Activiteit a = bs.GetActiviteitById(activiteit);
                 if (a == null) continue;
                 bs.DeleteActiviteit(a);
             }
@@ -99,34 +102,152 @@ namespace Omgevingsboek.Controllers
         }
         [Authorize(Roles = "Administrator,SuperAdministrator")]
         [HttpGet]
-        
-
-
-        
-        public ActionResult Gebruikers(int? vanaf)
+        public ActionResult Gebruikers(int? vanaf, int? desc)
         {
+            //desc == 1 -> descending
+            //desc == 0 -> ascending
+
             List<UserActivities> ua = new List<UserActivities>();
+            List<ApplicationUser> res = new List<ApplicationUser>();
+
             if (!vanaf.HasValue) vanaf = 0;
-            foreach(ApplicationUser user in bs.GetUserNext50((int)vanaf)){
+            if (!desc.HasValue) desc = 0;
+
+
+            if (desc == 1)
+                res = bs.GetUserNext50SortZA((int)vanaf);
+            else
+                res = bs.GetUserNext50SortAZ((int)vanaf);
+
+            foreach (ApplicationUser user in res)
+            {
                 UserActivities u = new UserActivities();
                 u.User = user;
                 u.Activiteiten = bs.GetActivitiesByUsername(user.UserName);
                 ua.Add(u);
             }
 
+            ViewBag.vanaf = vanaf;
+            ViewBag.desc = desc;
             return View(ua);
         }
-        
-        public ActionResult Boeken(int? vanaf)
+
+        [Authorize(Roles = "Administrator,SuperAdministrator")]
+        [HttpGet]
+        public ActionResult Boeken(int? vanaf, int? desc, int? filter)
         {
+            //desc == 1 -> descending
+            //desc == 0 -> ascending
+
+            List<Boek> res = new List<Boek>();
+
             if (!vanaf.HasValue) vanaf = 0;
-            return View(bs.GetBoekNext50((int)vanaf));
+            if (!desc.HasValue) desc = 0;
+            if (!filter.HasValue) filter = 0;
+
+            switch ((int)filter)
+            {
+                case 1:
+                    //boek naam
+                    if (desc == 1)
+                        res = bs.GetBoeken50FromSortNameZA((int)vanaf);
+                    else
+                        res = bs.GetBoeken50FromSortNameAZ((int)vanaf);
+                    break;
+                case 2:
+                    //gebruiker naam
+                    if (desc == 1)
+                        res = bs.GetBoeken50FromSortUserZA((int)vanaf);
+                    else
+                        res = bs.GetBoeken50FromSortUserAZ((int)vanaf);
+                    break;
+                default:
+                    if (desc == 1)
+                        res = bs.GetBoeken50FromSortNameAZ((int)vanaf);
+                    else
+                        res = bs.GetBoeken50FromSortNameZA((int)vanaf);
+                    break;
+            }
+            ViewBag.vanaf = vanaf;
+            ViewBag.desc = desc;
+            ViewBag.filter = filter;
+            return View(res);
         }
-        
-        public ActionResult Pois(int? vanaf)
+
+        [Authorize(Roles = "SuperAdministrator")]
+        [HttpPost]
+        public ActionResult HardDeleteBoeken(List<int> BoekenToDelete, int vanaf, int desc, int filter)
         {
+            if (!User.IsInRole("SuperAdministrator")) return RedirectToAction("Activities");
+            foreach (int boek in BoekenToDelete)
+            {
+                Boek a = bs.GetBoekByID(boek);
+                if (a == null) continue;
+                bs.DeleteBoek(a);
+            }
+            return RedirectToAction("Activities", "vanaf=" + vanaf + "&desc=" + desc + "&filter=" + filter);
+        }
+        [HttpPost]
+        [Authorize(Roles = "Administrator,SuperAdministrator")]
+        public ActionResult DeleteBoeken(List<int> BoekenToDelete, int vanaf, int desc, int filter)
+        {
+            if (!User.IsInRole("SuperAdministrator") || !User.IsInRole("Administrator")) return RedirectToAction("Activities");
+            foreach (int boek in BoekenToDelete)
+            {
+                Boek a = bs.GetBoekByID(boek);
+                if (a == null) continue;
+                bs.DeleteBoekSoft(a);
+            }
+            return RedirectToAction("Activities", "vanaf=" + vanaf + "&desc=" + desc + "&filter=" + filter);
+        }
+
+        [Authorize(Roles = "Administrator,SuperAdministrator")]
+        [HttpGet]
+        public ActionResult Pois(int? vanaf, int? desc)
+        {
+            //desc == 1 -> descending
+            //desc == 0 -> ascending
+
+            List<Poi> res = new List<Poi>();
+
             if (!vanaf.HasValue) vanaf = 0;
-            return View(bs.GetPoiNext50((int)vanaf));
+            if (!desc.HasValue) desc = 0;
+
+            
+            if (desc == 1)
+                res = bs.GetPoi50FromSortNameZA((int)vanaf);
+            else
+                res = bs.GetPoi50FromSortNameAZ((int)vanaf);
+                    
+            ViewBag.vanaf = vanaf;
+            ViewBag.desc = desc;
+            return View(res);
+        }
+        [Authorize(Roles = "SuperAdministrator")]
+        [HttpPost]
+        public ActionResult HardDeletePoi(List<int> PoisToDelete, int vanaf, int desc, int filter)
+        {
+            if (!User.IsInRole("SuperAdministrator")) return RedirectToAction("Activities");
+            foreach (int poi in PoisToDelete)
+            {
+                Poi a = bs.GetPoiById(poi);
+                if (a == null) continue;
+                bs.DeletePoi(a);
+            }
+            return RedirectToAction("Activities", "vanaf=" + vanaf + "&desc=" + desc + "&filter=" + filter);
+        }
+        [HttpPost]
+        [Authorize(Roles = "Administrator,SuperAdministrator")]
+        public ActionResult DeletePoi(List<int> PoisToDelete, int vanaf, int desc, int filter)
+        {
+            if (!User.IsInRole("SuperAdministrator") || !User.IsInRole("Administrator")) return RedirectToAction("Activities");
+            foreach (int poi in PoisToDelete)
+            {
+                Poi a = bs.GetPoiById(poi);
+                if (a == null) continue;
+                bs.DeletePoiSoft(a);
+            }
+            return RedirectToAction("Activities", "vanaf=" + vanaf + "&desc=" + desc + "&filter=" + filter);
         }
     }
 }
