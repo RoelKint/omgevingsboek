@@ -43,7 +43,7 @@ namespace Models.Migrations
 
 
             // TODO: Updaten naar echte data
-
+            /*
             if (!context.Users.Any(u => u.Email.Equals("testSuperAdmin@howest.be")))
             {
                 var store = new UserStore<Models.MVC_Models.ApplicationUser>(context);
@@ -94,7 +94,7 @@ namespace Models.Migrations
                 manager.Create(user, "paswoord");
                 manager.AddToRole(user.Id, roleNormalUser);
             }
-
+            */
             #endregion
 
             #region DATA
@@ -108,22 +108,27 @@ namespace Models.Migrations
                     Naam = "1ste graad",
                     EigenaarId = context.Users.FirstOrDefault().Id,
                     DeelLijst = context.Users.ToList(),
-                    Afbeelding = "18447813515"
+                    Afbeelding = "https://farm9.staticflickr.com/8885/17827205793_7473869f00.jpg"
                 };
                 Boek boek5 = new Boek()
                 {
                     Naam = "Kleuterklas",
                     EigenaarId = context.Users.FirstOrDefault().Id,
                     DeelLijst = context.Users.ToList(),
-                    Afbeelding = "17827205793"
+                    Afbeelding = "https://farm9.staticflickr.com/8890/18227981769_5d800e8e52.jpg"
                 };
                 Boek boek6 = new Boek()
                 {
                     Naam = "Extras",
                     EigenaarId = context.Users.Select(i => i).Where(i => i.UserName == "testAdmin@howest.be").FirstOrDefault().Id,
                     DeelLijst = context.Users.ToList(),
-                    Afbeelding = "18421446816"
+                    Afbeelding = "https://farm9.staticflickr.com/8838/18421446816_a8f819c2f3.jpg"
                 };
+                context.Boeken.Add(boek4);
+                context.Boeken.Add(boek5);
+                context.Boeken.Add(boek6);
+                context.SaveChanges();
+
             }
 
             if (context.Poi.Count() == 0)
@@ -138,7 +143,7 @@ namespace Models.Migrations
                     Naam = "3de graad",
                     EigenaarId = context.Users.First().Id,
                     DeelLijst = context.Users.ToList(),
-                    Afbeelding = "18415814341"
+                    Afbeelding = "https://farm1.staticflickr.com/512/18415814341_f03e9495bb.jpg"
                 };
                 Boek boek2 = new Boek(){
                     Naam = "2de graad",
@@ -146,14 +151,14 @@ namespace Models.Migrations
                     DeelLijst = new List<ApplicationUser>(){
                         context.Users.First()
                     },
-                    Afbeelding = "18414141365"
+                    Afbeelding = "https://farm1.staticflickr.com/486/18414141365_da47d30153.jpg"
                 };
                 Boek boek3 = new Boek()
                 {
                     Naam = "gedeeld boek",
                     EigenaarId = context.Users.Select(i =>i).Where(i => i.UserName == "testAdmin@howest.be").FirstOrDefault().Id,
                     DeelLijst = context.Users.ToList(),
-                    Afbeelding = "18227981769"
+                    Afbeelding = "https://farm1.staticflickr.com/545/18447813515_08826f57da.jpg"
                 };
                 context.Boeken.Add(boek1);
                 context.SaveChanges();
@@ -221,6 +226,7 @@ namespace Models.Migrations
                     Straat = "Gentpoortstraat",
                     Nummer = "48",
                     Gemeente = "Brugge",
+                    Afbeelding = "https://farm9.staticflickr.com/8840/18259403910_6138f0a862.jpg",
                     Email = "musea@brugge.be",
                     Telefoon = "+32 50 44 87 43",
                     Postcode = 8000,
@@ -243,6 +249,7 @@ namespace Models.Migrations
                     Gemeente = "Brugge",
                     Postcode = 8000,
                     Email = "musea@brugge.be",
+                    Afbeelding = "https://farm9.staticflickr.com/8888/18420708676_0fda078f15.jpg",
                     Telefoon = "+32 50 44 87 43",
                     MinLeeftijd = 11,
                     MaxLeeftijd = 11,

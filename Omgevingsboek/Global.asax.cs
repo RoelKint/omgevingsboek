@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using FlickrNet;
+using Newtonsoft.Json;
+using Omgevingsboek.Config;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,8 +14,10 @@ namespace Omgevingsboek
 {
     public class MvcApplication : System.Web.HttpApplication
     {
+        public static Flickr flickr { get; set; }
         protected void Application_Start()
         {
+            flickr = FlickrApiManager.GetInstance();
             JsonConvert.DefaultSettings = () => new JsonSerializerSettings {
                 Formatting = Newtonsoft.Json.Formatting.Indented,
                 ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore

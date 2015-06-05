@@ -1,0 +1,53 @@
+﻿@model Models.PresentationModels.UserActivities
+@{
+    ViewBag.Title = "Gebruiker";
+}
+
+
+<div class="col-xs-6 col-md-9 content" id="content">
+
+    <h2>@Model.User.Voornaam @Model.User.Naam</h2>
+    <ul style="list-style-type:none">
+        <li><b>Gegevens:</b></li>
+        <li>
+            gsm/tel: @if (Model.User.PhoneNumber == null)
+            { @("Niet opgegeven") }
+            else
+            { @Model.User.PhoneNumber}
+
+
+        </li>
+        <li>
+            email: @if (Model.User.Email == null)
+            { @("Niet opgegeven") }
+            else
+            { @Model.User.Email}
+        </li>
+    </ul>
+
+
+    <h2>Boeken</h2>
+    <div class="row books" id="mijnBoeken">
+        @foreach (var boek in Model.Boeken)
+        {
+
+            <div class="col-sm-6 col-md-3" data-reactid=".0.1:0">
+                <a href="Boeken?vanaf=0" style="" data-reactid=".0.1:0.0">
+                    <span class="caption" data-reactid=".0.1:0.0.0">@boek.Naam</span>
+                </a>
+            </div>
+        }
+    </div>
+    <h2>Activities</h2>
+    <div class="row books" id="mijnActiviteiten">
+        @foreach (var activ in Model.Activiteiten)
+        {
+
+            <div class="col-sm-6 col-md-3" data-reactid=".0.1:0">
+                <a href="Activities?vanaf=0" style="" data-reactid=".0.1:0.0">
+                    <span class="caption" data-reactid=".0.1:0.0.0">@activ.Naam</span>
+                </a>
+            </div>
+        }
+    </div>
+</div>

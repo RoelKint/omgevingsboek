@@ -34,7 +34,7 @@
 {
                 <ul class="nav navbar-nav">
                     <ol class="breadcrumb list-inline">
-                        <li><a href="#">@User.Identity.Name</a></li>
+                        <li><a href="../Home/Gebruiker?gebruikerId=@User.Identity.Name">@User.Identity.Name</a></li>
                         <li class="active">@ViewBag.Title</li>
                     </ol>
                 </ul>
@@ -57,6 +57,8 @@
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="#">Instellingen</a></li>
                                 <li>@Html.ActionLink("Logout", "LogOff", "Account")</li>
+                                <!--alleen coor beheerders maken-->
+                                <li>@Html.ActionLink("Admin", "Index", "Admin")</li>
 
                             </ul>
                         </li>
