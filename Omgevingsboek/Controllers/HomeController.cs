@@ -38,8 +38,9 @@ namespace Omgevingsboek.Controllers
             ua.User = user;
             return View(ua);
         }
-        public ActionResult Poi(String PoiId)
+        public ActionResult Poi(int PoiId)
         {
+            
             return View();
         }
         

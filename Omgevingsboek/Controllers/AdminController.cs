@@ -26,6 +26,35 @@ namespace Omgevingsboek.Controllers
         {
             return View();
         }
+      
+        [Authorize(Roles = "SuperAdministrator")]
+        [HttpPost]
+        public ActionResult HardDelete(ICollection<String> ActiviteitenToDelete, int vanaf, int desc, int filter)
+        {
+          // if (!User.IsInRole("SuperAdministrator")) return RedirectToAction("Activities");
+          // foreach (int  activiteit in ActiviteitenToDelete)
+          // {
+          //     Activiteit a = bs.GetActiviteitById(activiteit);
+          //     if (a == null) continue;
+          //     bs.DeleteActiviteit(a);
+          // }
+            return RedirectToAction("Activities", "vanaf=" + vanaf + "&desc=" + desc + "&filter="+filter);
+        }
+        [HttpPost]
+        [Authorize(Roles = "Administrator,SuperAdministrator")]
+        public ActionResult Delete(ICollection<int> ActiviteitenToDelete, int vanaf, int desc)
+        {
+            if (!User.IsInRole("SuperAdministrator") && !User.IsInRole("Administrator")) return RedirectToAction("Activities");
+            foreach (int activiteit in ActiviteitenToDelete)
+            {
+                Activiteit a = bs.GetActiviteitById(activiteit);
+                if (a == null) continue;
+                bs.DeleteActiviteit(a);
+                
+            }
+            return RedirectToAction("Activities", "vanaf=" + vanaf + "&desc=" + desc);
+        }
+        [HttpGet]
         [Authorize(Roles = "Administrator,SuperAdministrator")]
         public ActionResult Activities(int? vanaf, int? desc, int? filter)
         {
@@ -68,41 +97,14 @@ namespace Omgevingsboek.Controllers
                         res = bs.GetActiviteiten50FromSortNameAZ((int)vanaf);
                     break;
             }
+            ViewBag.vanaf = vanaf;
+            ViewBag.desc = desc;
+            ViewBag.filter = filter;
 
             return View(res);
         }
-        [Authorize(Roles = "SuperAdministrator")]
-        [HttpPost]
-        public ActionResult HardDelete(List<Activiteit> ActiviteitenToDelete, int vanaf, int desc, int filter)
-        {
-            if (!User.IsInRole("SuperAdministrator")) return RedirectToAction("Activities");
-            foreach (Activiteit activiteit in ActiviteitenToDelete)
-            {
-                Activiteit a = bs.GetActiviteitById(activiteit.Id);
-                if (a == null) continue;
-                bs.DeleteActiviteit(a);
-            }
-            return RedirectToAction("Activities", "vanaf=" + vanaf + "&desc=" + desc + "&filter="+filter);
-        }
-        [HttpPost]
-        [Authorize(Roles = "Administrator,SuperAdministrator")]
-        public ActionResult Delete(List<Activiteit> ActiviteitenToDelete, int vanaf, int desc, int filter)
-        {
-            if (!User.IsInRole("SuperAdministrator") || !User.IsInRole("Administrator")) return RedirectToAction("Activities");
-            foreach (Activiteit activiteit in ActiviteitenToDelete)
-            {
-                Activiteit a = bs.GetActiviteitById(activiteit.Id);
-                if (a == null) continue;
-                bs.DeleteActiviteit(a);
-            }
-            return RedirectToAction("Activities", "vanaf=" + vanaf + "&desc=" + desc + "&filter=" + filter);
-        }
         [Authorize(Roles = "Administrator,SuperAdministrator")]
         [HttpGet]
-        
-
-
-        
         public ActionResult Gebruikers(int? vanaf)
         {
             List<UserActivities> ua = new List<UserActivities>();

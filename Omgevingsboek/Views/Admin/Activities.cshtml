@@ -8,36 +8,41 @@
     <div id="buttonsAdBoven">
         <button><span class="glyphicon glyphicon-chevron-left"></span> Vorige Pag.</button>
         <button><span class="glyphicon glyphicon-chevron-right"></span> Volgende Pag.</button>
-        <button><span class="glyphicon glyphicon-remove-circle"></span> Verwijderen</button>
+
+        <button form="formA" type="submit"><span class="glyphicon glyphicon-remove-circle"></span> Verwijderen</button>
         <button><span class="glyphicon glyphicon-pencil"></span> Bewerken</button>
+        <input form="formA" name="filter" type="text" placeholder="Zoeken" />
     </div>
 
 
-    <form id="formA">
-
+    <form id="formA" method="post" action="Delete">
+        <input hidden name="vanaf" value="@ViewBag.vanaf" />
+        <input hidden name="desc" value="@ViewBag.desc" />
         <table class="table table-hover">
             <colgroup>
                 <col class="col-lg-1 col-xs-1 col-md-1" />
+                <col class="col-lg-4 col-xs-4 col-md-3" />
                 <col class="col-lg-3 col-xs-3 col-md-3" />
                 <col class="col-lg-3 col-xs-3 col-md-3" />
-                <col class="col-lg-3 col-xs-3 col-md-3" />
-                <col class="col-lg-2 col-xs-2 col-md-2" />
+                <col class="col-lg-1 col-xs-1 col-md-1" />
             </colgroup>
 
             <tr>
                 <th><span class="glyphicon glyphicon-th-list"></span></th>
                 <th>Naam</th>
                 <th>Eigenaar</th>
-                <th>Poi's</th>
+                <th>Poi</th>
                 <th>Opties</th>
             </tr>
             @foreach (var item in Model)
             {
                 <tr>
-                    <td><input type="checkbox" /></td>
+                    <td>
+                        <input form="formA" name="ActiviteitenToDelete" value="@item.Id" type="checkbox" />
+                    </td>
                     <td>@item.Naam</td>
-                    <td>@item.Eigenaar.Email</td>
-                    <td>@item.Poi.Naam</td>
+                    <td>@item.Eigenaar</td>
+                    <!-- <td>item.Poi.Naam</td>-->
                     <td>
                         <div class="displayInlineButtons">
                             <button><span class="glyphicon glyphicon-remove"></span></button>
