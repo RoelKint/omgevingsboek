@@ -58,7 +58,10 @@
                                 <li><a href="#">Instellingen</a></li>
                                 <li>@Html.ActionLink("Logout", "LogOff", "Account")</li>
                                 <!--alleen coor beheerders maken-->
+                                @if (User.IsInRole("Administrator") || User.IsInRole("SuperAdministrator"))
+                                { 
                                 <li>@Html.ActionLink("Admin", "Index", "Admin")</li>
+                                }
 
                             </ul>
                         </li>
