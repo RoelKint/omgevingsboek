@@ -38,7 +38,11 @@ namespace Omgevingsboek.Controllers
             ua.User = user;
             return View(ua);
         }
-
+        public ActionResult Poi()
+        {
+            return View();
+        }
+        
         [Authorize]
         public ActionResult Index()
         {
