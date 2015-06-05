@@ -17,5 +17,7 @@ namespace Models.OmgevingsBoek_Models
         public virtual ApplicationUser Eigenaar { get; set; }
         public string EigenaarId { get; set; }
         public virtual List<ApplicationUser> DeelLijst { get; set; }
+        public bool IsDeleted { get; set; }
+
     }
 }

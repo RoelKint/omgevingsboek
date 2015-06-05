@@ -92,7 +92,7 @@ namespace BusinessLogic.Repositories
         {
             return this.context.Activiteiten.OrderBy(i => i.Naam).Skip(from).Take(50).ToList();
         }
-
+        
         
     }
 }

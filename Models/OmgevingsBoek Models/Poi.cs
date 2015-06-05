@@ -27,6 +27,8 @@ namespace Models.OmgevingsBoek_Models
         public int MaxLeeftijd { get; set; }
         public double Prijs { get; set; }
         public virtual List<Tag> Tags { get; set; }
+        public bool IsDeleted { get; set; }
+
 
     }
 }
