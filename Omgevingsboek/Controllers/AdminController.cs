@@ -255,5 +255,26 @@ namespace Omgevingsboek.Controllers
             //return RedirectToAction("Activities", "vanaf=" + vanaf + "&desc=" + desc + "&filter=" + filter);
             return RedirectToAction("Activities", new { vanaf = vanaf, desc = desc, filter = filter });
         }
+
+
+
+        [ChildActionOnly]
+        public ActionResult GebrPartial()
+        {
+           /* List<PoiPM> poipms = new List<PoiPM>();
+            List<Poi> pois = bs.GetPoiList();
+            foreach (Poi poi in pois)
+            {
+                PoiPM pm = new PoiPM()
+                {
+                    poi = poi
+                };
+                pm.Activiteiten = bs.getActiviteitenPerPoi(poi.ID);
+                poipms.Add(pm);
+
+            }*/
+            return PartialView("_GebrPartial" /*, JsonConvert.SerializeObject(poipms)*/);
+        }
     }
+
 }
