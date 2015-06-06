@@ -101,6 +101,183 @@ namespace Models.Migrations
 
             //Reële demodata
 
+            Activiteit activiteit9 = new Activiteit()
+            {
+                PoiId = context.Poi.FirstOrDefault().ID,
+                Naam = "Een Activiteit",
+                Boeken = new List<Boek>(){
+                        context.Boeken.FirstOrDefault()
+                    },
+                DeelLijst = context.Boeken.FirstOrDefault().DeelLijst,
+                DitactischeToelichting = "Project: Maak een miniatuurmolen.",
+                Uitleg = "Overbrengingen: tandwielen en riemoverbrenging Binnenin de molen zijn zowel tandwieloverbrengingen, als een riemoverbrenging te zien.U kunt de leerlingen laten experimenteren met verschillende overbrengingen. Hiervoor kunt u gebruik maken van verschillende LEGO® sets rond overbrengingen.",
+                Prijs = 5,
+                MinLeeftijd = 9,
+                MaxLeeftijd = 10,
+                MinDuur = 50,
+                MaxDuur = 50,
+                Eigenaar = context.Users.First(),
+                
+
+            };
+            context.Activiteiten.Add(activiteit9);
+            context.SaveChanges();
+
+            Activiteit activiteit10 = new Activiteit()
+            {
+                PoiId = context.Poi.FirstOrDefault().ID,
+                Naam = "Zo een activiteit zeg",
+                Boeken = new List<Boek>(){
+                        context.Boeken.FirstOrDefault()
+                    },
+                DeelLijst = context.Boeken.FirstOrDefault().DeelLijst,
+                DitactischeToelichting = "Project: Maak een miniatuurmolen.",
+                Uitleg = "Overbrengingen: tandwielen en riemoverbrenging Binnenin de molen zijn zowel tandwieloverbrengingen, als een riemoverbrenging te zien.U kunt de leerlingen laten experimenteren met verschillende overbrengingen. Hiervoor kunt u gebruik maken van verschillende LEGO® sets rond overbrengingen.",
+                Prijs = 5,
+                MinLeeftijd = 9,
+                MaxLeeftijd = 10,
+                MinDuur = 50,
+                MaxDuur = 50,
+                Eigenaar = context.Users.Where(i => i.UserName == "testUser@howest.be").FirstOrDefault()
+
+
+            };
+            context.Activiteiten.Add(activiteit10);
+            context.SaveChanges();
+
+            Activiteit activiteit4 = new Activiteit()
+            {
+                PoiId = context.Poi.FirstOrDefault().ID,
+                Naam = "Nog een andere activiteit",
+                Boeken = new List<Boek>(){
+                        context.Boeken.FirstOrDefault()
+                    },
+                DeelLijst = context.Boeken.FirstOrDefault().DeelLijst,
+                DitactischeToelichting = "Project: Maak een miniatuurmolen.",
+                Uitleg = "Overbrengingen: tandwielen en riemoverbrenging Binnenin de molen zijn zowel tandwieloverbrengingen, als een riemoverbrenging te zien.U kunt de leerlingen laten experimenteren met verschillende overbrengingen. Hiervoor kunt u gebruik maken van verschillende LEGO® sets rond overbrengingen.",
+                Prijs = 5,
+                MinLeeftijd = 9,
+                MaxLeeftijd = 10,
+                MinDuur = 50,
+                MaxDuur = 50,
+                Eigenaar = context.Users.First(),
+
+
+            };
+            context.Activiteiten.Add(activiteit4);
+            context.SaveChanges();
+
+            Activiteit activiteit3 = new Activiteit()
+            {
+                PoiId = context.Poi.FirstOrDefault().ID,
+                Naam = "Activiteit met een zeer lange naam zoals deze hier zo is",
+                Boeken = new List<Boek>(){
+                        context.Boeken.FirstOrDefault()
+                    },
+                DeelLijst = context.Boeken.FirstOrDefault().DeelLijst,
+                DitactischeToelichting = "Project: Maak een miniatuurmolen.",
+                Uitleg = "Overbrengingen: tandwielen en riemoverbrenging Binnenin de molen zijn zowel tandwieloverbrengingen, als een riemoverbrenging te zien.U kunt de leerlingen laten experimenteren met verschillende overbrengingen. Hiervoor kunt u gebruik maken van verschillende LEGO® sets rond overbrengingen.",
+                Prijs = 5,
+                MinLeeftijd = 9,
+                MaxLeeftijd = 10,
+                MinDuur = 50,
+                MaxDuur = 50,
+                Eigenaar = context.Users.Where(i => i.UserName == "testUser@howest.be").FirstOrDefault()
+
+
+            };
+            context.Activiteiten.Add(activiteit3);
+            context.SaveChanges();
+
+
+            Activiteit activiteit5 = new Activiteit()
+            {
+                PoiId = context.Poi.FirstOrDefault().ID,
+                Naam = "1 activiteit",
+                Boeken = new List<Boek>(){
+                        context.Boeken.FirstOrDefault()
+                    },
+                DeelLijst = context.Boeken.FirstOrDefault().DeelLijst,
+                DitactischeToelichting = "Project: Maak een miniatuurmolen.",
+                Uitleg = "Overbrengingen: tandwielen en riemoverbrenging Binnenin de molen zijn zowel tandwieloverbrengingen, als een riemoverbrenging te zien.U kunt de leerlingen laten experimenteren met verschillende overbrengingen. Hiervoor kunt u gebruik maken van verschillende LEGO® sets rond overbrengingen.",
+                Prijs = 5,
+                MinLeeftijd = 9,
+                MaxLeeftijd = 10,
+                MinDuur = 50,
+                MaxDuur = 50,
+                Eigenaar = context.Users.First(),
+                
+
+            };
+            context.Activiteiten.Add(activiteit5);
+            context.SaveChanges();
+
+            Activiteit activiteit6 = new Activiteit()
+            {
+                PoiId = context.Poi.FirstOrDefault().ID,
+                Naam = "Activiteit test",
+                Boeken = new List<Boek>(){
+                        context.Boeken.FirstOrDefault()
+                    },
+                DeelLijst = context.Boeken.FirstOrDefault().DeelLijst,
+                DitactischeToelichting = "Project: Maak een miniatuurmolen.",
+                Uitleg = "Overbrengingen: tandwielen en riemoverbrenging Binnenin de molen zijn zowel tandwieloverbrengingen, als een riemoverbrenging te zien.U kunt de leerlingen laten experimenteren met verschillende overbrengingen. Hiervoor kunt u gebruik maken van verschillende LEGO® sets rond overbrengingen.",
+                Prijs = 5,
+                MinLeeftijd = 9,
+                MaxLeeftijd = 10,
+                MinDuur = 50,
+                MaxDuur = 50,
+                Eigenaar = context.Users.Where(i => i.UserName == "testUser@howest.be").FirstOrDefault()
+
+
+            };
+            context.Activiteiten.Add(activiteit6);
+            context.SaveChanges();
+
+            Activiteit activiteit7 = new Activiteit()
+            {
+                PoiId = context.Poi.FirstOrDefault().ID,
+                Naam = "Meer activiteiten",
+                Boeken = new List<Boek>(){
+                        context.Boeken.FirstOrDefault()
+                    },
+                DeelLijst = context.Boeken.FirstOrDefault().DeelLijst,
+                DitactischeToelichting = "Project: Maak een miniatuurmolen.",
+                Uitleg = "Overbrengingen: tandwielen en riemoverbrenging Binnenin de molen zijn zowel tandwieloverbrengingen, als een riemoverbrenging te zien.U kunt de leerlingen laten experimenteren met verschillende overbrengingen. Hiervoor kunt u gebruik maken van verschillende LEGO® sets rond overbrengingen.",
+                Prijs = 5,
+                MinLeeftijd = 9,
+                MaxLeeftijd = 10,
+                MinDuur = 50,
+                MaxDuur = 50,
+                Eigenaar = context.Users.First(),
+
+
+            };
+            context.Activiteiten.Add(activiteit7);
+            context.SaveChanges();
+
+            Activiteit activiteit8 = new Activiteit()
+            {
+                PoiId = context.Poi.FirstOrDefault().ID,
+                Naam = "Roels magische activiteit",
+                Boeken = new List<Boek>(){
+                        context.Boeken.FirstOrDefault()
+                    },
+                DeelLijst = context.Boeken.FirstOrDefault().DeelLijst,
+                DitactischeToelichting = "Project: Maak een miniatuurmolen.",
+                Uitleg = "Overbrengingen: tandwielen en riemoverbrenging Binnenin de molen zijn zowel tandwieloverbrengingen, als een riemoverbrenging te zien.U kunt de leerlingen laten experimenteren met verschillende overbrengingen. Hiervoor kunt u gebruik maken van verschillende LEGO® sets rond overbrengingen.",
+                Prijs = 5,
+                MinLeeftijd = 9,
+                MaxLeeftijd = 10,
+                MinDuur = 50,
+                MaxDuur = 50,
+                Eigenaar = context.Users.Where(i => i.UserName == "testUser@howest.be").FirstOrDefault()
+
+
+            };
+            context.Activiteiten.Add(activiteit8);
+            context.SaveChanges();
+
             if (context.Boeken.Select(i => i).Where(i => i.Naam == "1e graad") == null)
             {
                 Boek boek4 = new Boek()

@@ -118,7 +118,10 @@ namespace BusinessLogic.Services
         {
             repoBoek.Delete(boek);
         }
-
+        public void DeleteBoekSoft(Boek boek)
+        {
+            repoBoek.DeleteSoft(boek);
+        }
         public Boek GetBoekByID(object id)
         {
             return repoBoek.GetByID(id);
@@ -132,14 +135,28 @@ namespace BusinessLogic.Services
         {
             return repoBoek.getSharedBoeken(username);
         }
-        public List<Boek> GetBoekFirst50()
+
+        public List<Boek> GetBoeken50FromSortNameAZ(int from)
         {
-            return repoBoek.get50();
+            return repoBoek.get50FromSortNameAZ(from);
         }
-        public List<Boek> GetBoekNext50(int from)
+        public List<Boek> GetBoeken50FromSortNameZA(int from)
         {
-            return repoBoek.get50From(from);
+            return repoBoek.get50FromSortNameZA(from);
         }
+        public List<Boek> GetBoeken50FromSortUserAZ(int from)
+        {
+            return repoBoek.get50FromSortUserAZ(from);
+        }
+        public List<Boek> GetBoeken50FromSortUserZA(int from)
+        {
+            return repoBoek.get50FromSortUserZA(from);
+        }
+        public List<Boek> getBoekUserByUser50from(int from, String Owner, String Visitor)
+        {
+            return repoBoek.getUserBoekByUser50from(from, Owner, Visitor);
+        }
+
 
         #endregion
 
@@ -147,14 +164,15 @@ namespace BusinessLogic.Services
 
         #region Poi
 
-        public List<Poi> GetPoiFirst50()
+        public List<Poi> GetPoi50FromSortNameAZ(int from)
         {
-            return repoPoi.get50();
+            return repoPoi.get50FromSortNameAZ(from);
         }
-        public List<Poi> GetPoiNext50(int from)
+        public List<Poi> GetPoi50FromSortNameZA(int from)
         {
-            return repoPoi.get50From(from);
+            return repoPoi.get50FromSortNameZA(from);
         }
+        
         public List<Poi> GetPoiList()
         {
             return repoPoi.All().ToList();
@@ -162,6 +180,19 @@ namespace BusinessLogic.Services
         public Poi InsertPoi(Poi poi)
         {
             return repoPoi.Insert(poi);
+        }
+
+        public void DeletePoi(Poi poi)
+        {
+            repoPoi.Delete(poi);
+        }
+        public void DeletePoiSoft(Poi poi)
+        {
+            repoPoi.DeleteSoft(poi);
+        }
+        public Poi GetPoiById(int Id)
+        {
+            return repoPoi.GetByID(Id);
         }
 
         #endregion
@@ -193,19 +224,27 @@ namespace BusinessLogic.Services
             }
         }
 
-
-        public List<ApplicationUser> GetUserFirst50()
-        {
-            using (ApplicationDbContext context = new ApplicationDbContext())
-            {
-                return context.Users.OrderBy(i => i.UserName).Take(50).ToList();
-            }
-        }
-        public List<ApplicationUser> GetUserNext50(int from)
+        public List<ApplicationUser> GetUserNext50SortAZ(int from)
         {
             using (ApplicationDbContext context = new ApplicationDbContext())
             {
                 return context.Users.OrderBy(i => i.UserName).Skip(from).Take(50).ToList();
+            }
+        }
+
+        public List<ApplicationUser> GetUserNext50SortZA(int from)
+        {
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                return context.Users.OrderByDescending(i => i.UserName).Skip(from).Take(50).ToList();
+            }
+        }
+        // TODO: soft delete 
+        public void DeleteUserHard(ApplicationUser user)
+        {
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                context.Users.Remove(user);
             }
         }
 

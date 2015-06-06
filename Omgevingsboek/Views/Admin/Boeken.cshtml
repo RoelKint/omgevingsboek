@@ -10,12 +10,13 @@
         <button><span class="glyphicon glyphicon-chevron-left"></span> Vorige Pag.</button>
         <button><span class="glyphicon glyphicon-chevron-right"></span> Volgende Pag.</button>
         <button><span class="glyphicon glyphicon-remove-circle"></span> Verwijderen</button>
-        <button><span class="glyphicon glyphicon-pencil"></span> Bewerken</button>
+        <!--<button><span class="glyphicon glyphicon-pencil"></span> Bewerken</button>-->
         <input type="text" placeholder="Zoeken" />
     </div>
 
-    <form id="formA">
-
+    <form id="formA" method="post" action="DeleteBoeken">
+        <input hidden name="vanaf" value="@ViewBag.vanaf" />
+        <input hidden name="desc" value="@ViewBag.desc" />
         <table class="table table-hover">
             <colgroup>
                 <col class="col-lg-1 col-xs-1 col-md-1" />
@@ -30,13 +31,13 @@
                 <th><span class="glyphicon glyphicon-th-list"></span></th>
                 <th>Naam</th>
                 <th>Eigenaar</th>
-                <th>Activiteiten</th> 
+                <th>Activiteiten</th>
                 <th>Opties</th>
             </tr>
             @foreach (var boe in Model)
             {
                 <tr>
-                    <td><input type="checkbox"/></td>
+                    <td><input form="formA" name="BoekenToDelete" value="@boe.Id" type="checkbox" /></td>
                     <td>@boe.Naam</td>
                     <td>@boe.Eigenaar.Email</td>
                     <td>
@@ -51,7 +52,7 @@
                                 <a href="#">@act.Naam</a>@(',')
                             }
                         }
-                    </td>                    
+                    </td>
                     <td>
                         <div class="displayInlineButtons">
                             <button><span class="glyphicon glyphicon-remove-circle"></span></button>
@@ -67,6 +68,5 @@
         <button><span class="glyphicon glyphicon-chevron-left"></span> Vorige Pag.</button>
         <button><span class="glyphicon glyphicon-chevron-right"></span> Volgende Pag.</button>
         <button><span class="glyphicon glyphicon-remove-circle"></span> Verwijderen</button>
-        <button><span class="glyphicon glyphicon-pencil"></span> Bewerken</button>
     </div>
 </div>

@@ -9,10 +9,10 @@
         <button><span class="glyphicon glyphicon-chevron-left"></span> Vorige Pag.</button>
         <button><span class="glyphicon glyphicon-chevron-right"></span> Volgende Pag.</button>
         <button><span class="glyphicon glyphicon-remove-circle"></span> Verwijderen</button>
-        <button><span class="glyphicon glyphicon-pencil"></span> Bewerken</button>
+        <!--<button><span class="glyphicon glyphicon-pencil"></span> Bewerken</button>-->
         <input type="text" placeholder="Zoeken" />
     </div>
-    <form id="formA" action="demo_form.asp" method="get">
+    <form id="formA" action="DeletePoi" method="post">
 
         <table class="table table-hover">
             <colgroup>
@@ -36,7 +36,7 @@
             @foreach (var pooi in Model)
             {
                 <tr>
-                    <td><input type="checkbox" name="vehicle" value="Car"></td>
+                    <td><input form="formA" name="PoisToDelete" value="@pooi.ID" type="checkbox" /></td>
                     <td>@pooi.Naam</td>
                     <td>@pooi.Eigenaar.Email</td>
                     <td> @pooi.Straat @pooi.Nummer , @pooi.Postcode @pooi.Gemeente</td>
@@ -69,6 +69,5 @@
         <button><span class="glyphicon glyphicon-chevron-left"></span> Vorige Pag.</button>
         <button><span class="glyphicon glyphicon-chevron-right"></span> Volgende Pag.</button>
         <button><span class="glyphicon glyphicon-remove-circle"></span> Verwijderen</button>
-        <button><span class="glyphicon glyphicon-pencil"></span> Bewerken</button>
     </div>
 </div>
