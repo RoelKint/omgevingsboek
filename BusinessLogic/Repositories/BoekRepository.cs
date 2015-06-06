@@ -26,7 +26,13 @@ namespace BusinessLogic.Repositories
 
         public override Boek GetByID(object id)
         {
-            return this.context.Boeken.Include(b => b.DeelLijst).Include(b => b.Activiteiten).Where(b => !b.IsDeleted).Single();
+            context.Configuration.LazyLoadingEnabled = false;
+            return this.context.Boeken
+                .Include(b => b.DeelLijst)
+                .Include(b => b.Activiteiten/*.Select(i => i.)*/)
+                .Include(a => a.Eigenaar)
+                .Where(b => !b.IsDeleted)
+                .Single();
         }
         public List<Boek> getBoekenByUser(string username)
         {

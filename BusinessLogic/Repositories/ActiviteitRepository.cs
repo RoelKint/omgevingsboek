@@ -26,7 +26,7 @@ namespace BusinessLogic.Repositories
 
         public override IEnumerable<Activiteit> All()
         {
-            return this.context.Activiteiten.Include(i => i.Boeken).Include(i => i.Benodigdheden).Include(i => i.DeelLijst).Include(i => i.Eigenaar).Include(i => i.Fotoboeken).Include(i => i.Poi).Include(i => i.Routes).Include(i => i.Tags).Include(i => i.Videos);
+            return this.context.Activiteiten.Include(a => a.Boeken).Include(a => a.Benodigdheden).Include(a => a.DeelLijst).Include(a => a.Eigenaar).Include(a => a.Fotoboeken).Include(a => a.Poi).Include(a => a.Routes).Include(a => a.Tags).Include(a => a.Videos);
         }
 
         public List<Activiteit> getActiviteitenPerPoi(int id)
@@ -38,7 +38,7 @@ namespace BusinessLogic.Repositories
 
         public override Activiteit GetByID(object id)
         {
-            return this.context.Activiteiten.Where(i => i.Id == (int)id).Where(i => !i.IsDeleted).Single();
+            return this.context.Activiteiten.Where(a => a.Id == (int)id).Where(i => !i.IsDeleted).Include(a => a.DeelLijst).Include(a => a.Eigenaar).Include(a => a.Fotoboeken).Include(a => a.Benodigdheden).Include(a => a.Videos).Include(a => a.Tags).Single();
         }
         public List<Activiteit> getActivitiesByUsername(string Username)
         {
@@ -52,17 +52,17 @@ namespace BusinessLogic.Repositories
         {
             using (ApplicationDbContext context = new ApplicationDbContext())
             {
-                return (from a in context.Activiteiten.Include(i => i.Boeken)
-                            .Include(i => i.Benodigdheden)
-                            .Include(i => i.DeelLijst)
-                            .Include(i => i.Eigenaar)
-                            .Include(i => i.Fotoboeken)
-                            .Include(i => i.Poi)
-                            .Include(i => i.Routes)
-                            .Include(i => i.Tags)
-                            .Include(i => i.Videos) 
+                return (from a in context.Activiteiten.Include(a => a.Boeken)
+                            .Include(a => a.Benodigdheden)
+                            .Include(a => a.DeelLijst)
+                            .Include(a => a.Eigenaar)
+                            .Include(a => a.Fotoboeken)
+                            .Include(a => a.Poi)
+                            .Include(a => a.Routes)
+                            .Include(a => a.Tags)
+                            .Include(a => a.Videos) 
                         where a.DeelLijst.Contains(context.Users.Select(i=>i).Where(i=>i.UserName == Username).FirstOrDefault())
-                        where a.Eigenaar != context.Users.Select(i => i).Where(i => i.UserName == Username).FirstOrDefault()
+                        where a.Eigenaar != context.Users.Select(u => u).Where(u => u.UserName == Username).FirstOrDefault()
                         where !a.IsDeleted
                         select a).ToList();
             }
@@ -71,17 +71,17 @@ namespace BusinessLogic.Repositories
         {
             using (ApplicationDbContext context = new ApplicationDbContext())
             {
-                return (from a in context.Activiteiten.Include(i => i.Boeken)
-                            .Include(i => i.Benodigdheden)
-                            .Include(i => i.DeelLijst)
-                            .Include(i => i.Eigenaar)
-                            .Include(i => i.Fotoboeken)
-                            .Include(i => i.Poi)
-                            .Include(i => i.Routes)
-                            .Include(i => i.Tags)
-                            .Include(i => i.Videos)
-                        where a.DeelLijst.Contains(context.Users.Select(i => i).Where(i => i.UserName == Username).FirstOrDefault())
-                        where a.Boeken.Contains(context.Boeken.Select(i => i).Where(i => i.Id == BoekId).FirstOrDefault())
+                return (from a in context.Activiteiten.Include(a => a.Boeken)
+                            .Include(a => a.Benodigdheden)
+                            .Include(a => a.DeelLijst)
+                            .Include(a => a.Eigenaar)
+                            .Include(a => a.Fotoboeken)
+                            .Include(a => a.Poi)
+                            .Include(a => a.Routes)
+                            .Include(a => a.Tags)
+                            .Include(a => a.Videos)
+                        where a.DeelLijst.Contains(context.Users.Select(u => u).Where(u => u.UserName == Username).FirstOrDefault())
+                        where a.Boeken.Contains(context.Boeken.Select(b => b).Where(b => b.Id == BoekId).FirstOrDefault())
                         where !a.IsDeleted
                         select a).ToList();
             }
@@ -89,31 +89,31 @@ namespace BusinessLogic.Repositories
         
         public List<Activiteit> get50FromSortNameAZ(int from)
         {
-            return this.context.Activiteiten.Where(i => !i.IsDeleted).OrderBy(i => i.Naam).Skip(from).Take(50).ToList();
+            return this.context.Activiteiten.Where(i => !i.IsDeleted).OrderBy(a => a.Naam).Skip(from).Take(50).ToList();
         }
         public List<Activiteit> get50FromSortNameZA(int from)
         {
-            return this.context.Activiteiten.Where(i => !i.IsDeleted).OrderByDescending(i => i.Naam).Skip(from).Take(50).ToList();
+            return this.context.Activiteiten.Where(i => !i.IsDeleted).OrderByDescending(a => a.Naam).Skip(from).Take(50).ToList();
         }
         public List<Activiteit> get50FromSortUserAZ(int from)
         {
-            return this.context.Activiteiten.Where(i => !i.IsDeleted).OrderBy(i => i.Eigenaar.UserName).Skip(from).Take(50).ToList();
+            return this.context.Activiteiten.Where(i => !i.IsDeleted).OrderBy(a => a.Eigenaar.UserName).Skip(from).Take(50).ToList();
         }
         public List<Activiteit> get50FromSortUserZA(int from)
         {
-            return this.context.Activiteiten.Where(i => !i.IsDeleted).OrderByDescending(i => i.Eigenaar.UserName).Skip(from).Take(50).ToList();
+            return this.context.Activiteiten.Where(i => !i.IsDeleted).OrderByDescending(a => a.Eigenaar.UserName).Skip(from).Take(50).ToList();
         }
         public List<Activiteit> get50FromSortPoiAZ(int from)
         {
-            return this.context.Activiteiten.Where(i => !i.IsDeleted).OrderBy(i => i.Poi.Naam).Skip(from).Take(50).ToList();
+            return this.context.Activiteiten.Where(i => !i.IsDeleted).OrderBy(a => a.Poi.Naam).Skip(from).Take(50).ToList();
         }
         public List<Activiteit> get50FromSortPoiZA(int from)
         {
-            return this.context.Activiteiten.Where(i => !i.IsDeleted).OrderByDescending(i => i.Poi.Naam).Skip(from).Take(50).ToList();
+            return this.context.Activiteiten.Where(i => !i.IsDeleted).OrderByDescending(a => a.Poi.Naam).Skip(from).Take(50).ToList();
         }
         public List<Activiteit> getUserActiviteitenByUser50from(int from, String Owner, String Visitor)
         {
-            return this.context.Activiteiten.Where(i => !i.IsDeleted).Where(i => i.Eigenaar.UserName == Owner).Where(i=> i.DeelLijst.Contains(context.Users.Select(u => u).Where(u => u.UserName == Visitor).FirstOrDefault()) ).OrderBy(i => i.Naam).Skip(from).Take(50).ToList();
+            return this.context.Activiteiten.Where(i => !i.IsDeleted).Where(a => a.Eigenaar.UserName == Owner).Where(i=> i.DeelLijst.Contains(context.Users.Select(u => u).Where(u => u.UserName == Visitor).FirstOrDefault()) ).OrderBy(a => a.Naam).Skip(from).Take(50).ToList();
         }
 
         public void DeleteSoft(Activiteit entityToDelete)
@@ -136,7 +136,7 @@ namespace BusinessLogic.Repositories
             using (ApplicationDbContext context = new ApplicationDbContext())
             {
                 context.Configuration.LazyLoadingEnabled = false;
-                return (from a in context.Activiteiten where !a.IsDeleted where a.Eigenaar.UserName == Owner where a.Poi.ID == PoiId select a).ToList();
+                return (from a in context.Activiteiten where !a.IsDeleted where a.DeelLijst.Contains(context.Users.Where(u => u.UserName == Owner).FirstOrDefault()) where a.Poi.ID == PoiId select a).ToList();
             }
         }
 
