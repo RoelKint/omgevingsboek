@@ -390,6 +390,7 @@
     <Content Include="Views\Admin\Pois.cshtml" />
     <Content Include="Views\Home\Gebruiker.cshtml" />
     <Content Include="Views\Home\Poi.cshtml" />
+    <Content Include="Views\Shared\_GebrPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

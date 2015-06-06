@@ -3,13 +3,13 @@
     ViewBag.Title = "Gebruikers";
 }
 
-<div class="adminList">
+<div class="adminList col-xs-6 col-md-9 content" id="content">
     <h2>Gebruikers</h2>
     <div id="buttonsAdBoven">
         <button><span class="glyphicon glyphicon-chevron-left"></span> Vorige Pag.</button>
         <button><span class="glyphicon glyphicon-chevron-right"></span> Volgende Pag.</button>
         <button><span class="glyphicon glyphicon-remove-circle"></span> Verwijderen</button>
-       <!-- <button><span class="glyphicon glyphicon-pencil"></span> Bewerken</button>-->
+        <!-- <button><span class="glyphicon glyphicon-pencil"></span> Bewerken</button>-->
         <input type="text" placeholder="Zoeken" />
     </div>
 
@@ -17,7 +17,7 @@
 
         <table class="table table-hover">
             <colgroup>
-                <col class="col-lg-1 col-xs-1 col-md-1"/>
+                <col class="col-lg-1 col-xs-1 col-md-1" />
                 <col class="col-lg-2 col-xs-2 col-md-2" />
                 <col class="col-lg-7 col-xs-7 col-md-7" />
                 <col class="col-lg-2 col-xs-2 col-md-2" />
@@ -66,3 +66,4 @@
     </div>
 </div>
 
+@{ Html.RenderAction("GebrPartial", "Admin"); }
