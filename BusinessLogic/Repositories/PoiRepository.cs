@@ -21,6 +21,8 @@ namespace BusinessLogic.Repositories
         {
 
         }
+        
+
         public override IEnumerable<Poi> All()
         {
             context.Configuration.LazyLoadingEnabled = false;
@@ -28,7 +30,7 @@ namespace BusinessLogic.Repositories
         }
         public override Poi GetByID(object id)
         {
-            return this.context.Poi.Select(p => p).Where(p => !p.IsDeleted).Single();
+            return this.context.Poi.Select(p => p).Where(p => !p.IsDeleted).Where(p => p.ID == (int)id).SingleOrDefault();
         }
         public override Poi Insert(Poi entity)
         {

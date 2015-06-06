@@ -31,6 +31,11 @@ namespace BusinessLogic.Services
 
         #region Activiteiten
 
+        public bool IsActivityAccessibleByUser(int activiteitId, string Username)
+        {
+            return repoActiviteit.IsActivityAccessibleByUser(activiteitId, Username);
+        }
+
         public List<Activiteit> GetActiviteitenList()
         {
             return repoActiviteit.All().ToList();
@@ -99,13 +104,15 @@ namespace BusinessLogic.Services
             return repoActiviteit.getActiviteitenByPoiByUser50from(from, Owner, PoiId);
         }
 
-
         #endregion
 
 
 
         #region Boeken
-
+        public bool IsBoekAccessibleByUser(int BoekId, string Username)
+        {
+            return repoBoek.IsBoekAccessibleByUser(BoekId, Username);
+        }
         public Boek InsertBoek(Boek boek)
         {
             return repoBoek.Insert(boek);

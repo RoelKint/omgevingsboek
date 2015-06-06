@@ -23,7 +23,7 @@ namespace BusinessLogic.Repositories
 
         public override Tag Insert(Tag entity)
         {
-            Tag tag = context.Tags.Select(t => t).Where(t => t.Naam.Equals(entity.Naam)).Single();
+            Tag tag = context.Tags.Select(t => t).Where(t => t.Naam.Equals(entity.Naam)).SingleOrDefault();
             if (tag != null) return tag;
             Tag newtag = context.Tags.Add(entity);
             context.SaveChanges();

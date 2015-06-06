@@ -38,7 +38,7 @@ namespace BusinessLogic.Repositories
 
         public override Activiteit GetByID(object id)
         {
-            return this.context.Activiteiten.Where(a => a.Id == (int)id).Where(i => !i.IsDeleted).Include(a => a.DeelLijst).Include(a => a.Eigenaar).Include(a => a.Fotoboeken).Include(a => a.Benodigdheden).Include(a => a.Videos).Include(a => a.Tags).Single();
+            return this.context.Activiteiten.Where(a => a.Id == (int)id).Where(i => !i.IsDeleted).Include(a => a.DeelLijst).Include(a => a.Eigenaar).Include(a => a.Fotoboeken).Include(a => a.Benodigdheden).Include(a => a.Videos).Include(a => a.Tags).SingleOrDefault();
         }
         public List<Activiteit> getActivitiesByUsername(string Username)
         {
@@ -122,6 +122,16 @@ namespace BusinessLogic.Repositories
             Update(entityToDelete);
             context.SaveChanges();
 
+        }
+        public bool IsActivityAccessibleByUser(int activiteitId, string Username) 
+        {
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                ApplicationUser user = context.Users.Where(u => u.UserName == Username).FirstOrDefault();
+                Activiteit d = context.Activiteiten.Where(a => a.Id == activiteitId).FirstOrDefault();
+                return d.DeelLijst.Contains(user);
+
+            }
         }
 
         public override void Delete(Activiteit id)

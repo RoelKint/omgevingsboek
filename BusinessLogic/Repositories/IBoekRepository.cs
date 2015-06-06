@@ -14,6 +14,7 @@ namespace BusinessLogic.Repositories
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Boek> getSharedBoeken(string username);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Boek> getUserBoekByUser50from(int from, string Owner, string Visitor);
         Models.OmgevingsBoek_Models.Boek Insert(Models.OmgevingsBoek_Models.Boek entity);
+        bool IsBoekAccessibleByUser(int BoekId, string Username);
         void Update(Models.OmgevingsBoek_Models.Boek entityToUpdate);
     }
 }

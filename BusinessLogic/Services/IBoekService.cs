@@ -7,8 +7,8 @@ namespace BusinessLogic.Services
         void DeleteActiviteitSoft(Models.OmgevingsBoek_Models.Activiteit entityToDelete);
         void DeleteBoek(Models.OmgevingsBoek_Models.Boek boek);
         void DeleteBoekSoft(Models.OmgevingsBoek_Models.Boek boek);
-        void DeletePoiSoft(Models.OmgevingsBoek_Models.Poi poi);
         void DeletePoi(Models.OmgevingsBoek_Models.Poi poi);
+        void DeletePoiSoft(Models.OmgevingsBoek_Models.Poi poi);
         void DeleteUserHard(Models.MVC_Models.ApplicationUser user);
         void EditBoek(Models.OmgevingsBoek_Models.Boek boek);
         Models.OmgevingsBoek_Models.Activiteit GetActiviteitById(int id);
@@ -44,5 +44,7 @@ namespace BusinessLogic.Services
         Models.OmgevingsBoek_Models.Boek InsertBoek(Models.OmgevingsBoek_Models.Boek boek);
         Models.OmgevingsBoek_Models.Poi InsertPoi(Models.OmgevingsBoek_Models.Poi poi);
         Models.OmgevingsBoek_Models.Tag InsertTag(Models.OmgevingsBoek_Models.Tag tag);
+        bool IsActivityAccessibleByUser(int activiteitId, string Username);
+        bool IsBoekAccessibleByUser(int BoekId, string Username);
     }
 }
