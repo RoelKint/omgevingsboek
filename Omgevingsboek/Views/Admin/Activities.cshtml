@@ -1,14 +1,30 @@
 ﻿@model List<Models.OmgevingsBoek_Models.Activiteit>
 @{
     ViewBag.Title = "Activities";
+    int meer = ViewBag.vanaf + 30;
+    int minder = 0;
+    if (ViewBag.vanaf == 0)
+    {
+        minder = 0;
+    }
+    else
+    {
+        minder = ViewBag.vanaf - 30;
+    }
+    int desc = ViewBag.desc;
 }
+<div class="col-xs-12 col-md-12 nav">
+    <a href="../Admin">&lt;&lt; Terug naar overzicht</a>
+</div>
 <div class="adminList col-xs-6 col-md-9 content" id="content">
     <h2>Activiteiten</h2>
-
-    <div id="buttonsAdBoven">
-        <button><span class="glyphicon glyphicon-chevron-left"></span> Vorige Pag.</button>
-        <button><span class="glyphicon glyphicon-chevron-right"></span> Volgende Pag.</button>
-
+    <div class="col-xs-6 col-md-9">
+        <span style="font-weight:bold">@ViewBag.vanaf - @meer</span>
+    </div>
+    <div class="col-xs-12 col-md-12" id="buttonsAdBoven">
+        
+        <button onclick="location.href='../Admin/Activities?vanaf=@minder&desc=@desc'"><span class="glyphicon glyphicon-chevron-left"></span> Vorige Pag.</button>
+        <button onclick="location.href='../Admin/Activities?vanaf=@meer&desc=@desc'"><span class="glyphicon glyphicon-chevron-right"></span> Volgende Pag.</button>
         <button form="formA" type="submit"><span class="glyphicon glyphicon-remove-circle"></span> Verwijderen</button>
         <input form="formA" name="filter" type="text" placeholder="Zoeken" />
     </div>
@@ -53,8 +69,8 @@
         </table>
     </form>
     <div id="buttonsAdOnder">
-        <button><span class="glyphicon glyphicon-chevron-left"></span> Vorige Pag.</button>
-        <button><span class="glyphicon glyphicon-chevron-right"></span> Volgende Pag.</button>
+        <button onclick="location.href='../Admin/Activities?vanaf=@minder&desc=@desc'"><span class="glyphicon glyphicon-chevron-left"></span> Vorige Pag.</button>
+        <button onclick="location.href='../Admin/Activities?vanaf=@meer&desc=@desc'"><span class="glyphicon glyphicon-chevron-right"></span> Volgende Pag.</button>
         <button><span class="glyphicon glyphicon-remove-circle"></span> Verwijderen</button>
     </div>
 </div>
