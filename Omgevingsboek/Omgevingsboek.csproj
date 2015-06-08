@@ -228,6 +228,7 @@
     <Compile Include="Config\FlickrApiManager.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\BoekenController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -394,6 +395,11 @@
     <Content Include="Views\Home\Gebruiker.cshtml" />
     <Content Include="Views\Home\Poi.cshtml" />
     <Content Include="Views\Shared\_GebrPartial.cshtml" />
+    <Content Include="Views\Boeken\Create.cshtml" />
+    <Content Include="Views\Boeken\Delete.cshtml" />
+    <Content Include="Views\Boeken\Details.cshtml" />
+    <Content Include="Views\Boeken\Edit.cshtml" />
+    <Content Include="Views\Boeken\Index.cshtml" />
     <Content Include="Views\Home\Boek.cshtml" />
   </ItemGroup>
   <ItemGroup>
