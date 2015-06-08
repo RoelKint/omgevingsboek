@@ -83,6 +83,14 @@ namespace Omgevingsboek.Controllers
             return View(poi);
         }
 
+        public ActionResult AddPoi(Poi poi)
+        {
+            
+
+
+            return View();
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

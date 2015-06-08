@@ -3,51 +3,112 @@
     ViewBag.Title = "Gebruiker";
 }
 
+<div class="adminList col-xs-12 col-md-12 content" id="content">
+   
+    <div class="profileHolder col-xs-12 col-md-12">
+        <div style="float:left; background:url(@Model.User.Afbeelding);background-position: center center;
+             background-repeat:no-repeat;
+             background-size:200px; margin-right:20px" class="profilePic"></div>
 
-<div class="col-xs-6 col-md-9 content" id="content">
+        <h2 style="margin-top:30px;">@Model.User.Voornaam @Model.User.Naam</h2>
+    </div>
+    <div style=" col-xs-6 col-md-9">
+        <ul style="list-style-type:none">
+            <li><b>Gegevens:</b></li>
+            <li>
+                gsm/tel: @if (Model.User.PhoneNumber == null)
+                { @("Niet opgegeven") }
+                else
+                { @Model.User.PhoneNumber}
 
-    <h2>@Model.User.Voornaam @Model.User.Naam</h2>
-    <ul style="list-style-type:none">
-        <li><b>Gegevens:</b></li>
-        <li>
-            gsm/tel: @if (Model.User.PhoneNumber == null)
-            { @("Niet opgegeven") }
-            else
-            { @Model.User.PhoneNumber}
 
-
-        </li>
-        <li>
-            email: @if (Model.User.Email == null)
-            { @("Niet opgegeven") }
-            else
-            { @Model.User.Email}
-        </li>
-    </ul>
-
+            </li>
+            <li>
+                email: @if (Model.User.Email == null)
+                { @("Niet opgegeven") }
+                else
+                { @Model.User.Email}
+            </li>
+        </ul>
+    </div>
 
     <h2>Boeken</h2>
     <div class="row books" id="mijnBoeken">
-        @foreach (var boek in Model.Boeken)
+        @if (Model.Boeken.Count > 4)
         {
+            List<Models.OmgevingsBoek_Models.Boek> lijstje = Model.Boeken.Take(4).ToList();
+            foreach (var item in lijstje)
+            {
+                if (item.Equals(lijstje.Last()))
+                {
+                    <div class="col-sm-6 col-md-3 NewItems" data-reactid=".0.1:0">
+                        <a href="Boeken?vanaf=0" style="background:url(@item.Afbeelding)" data-reactid=".0.1:0.0">
+                            <span class="caption" data-reactid=".0.1:0.0.0">More</span>
+                        </a>
+                    </div>
+                }
+                else
+                {
+                    <div class="MoreItems col-sm-6 col-md-3"  data-reactid=".0.1:0">
+                        <a href="Boeken?vanaf=0" style="background:url(@item.Afbeelding)" data-reactid=".0.1:0.0">
+                            <span class="caption" data-reactid=".0.1:0.0.0">@item.Naam</span>
+                        </a>
+                    </div>
+                }
+            }
+            List<Models.OmgevingsBoek_Models.Boek> lijstjes = Model.Boeken.Skip(4).ToList();
+        }
+        else
+        {
+            foreach (var boek in Model.Boeken)
+            {
 
-            <div class="col-sm-6 col-md-3" data-reactid=".0.1:0">
-                <a href="Boeken?vanaf=0" style="" data-reactid=".0.1:0.0">
-                    <span class="caption" data-reactid=".0.1:0.0.0">@boek.Naam</span>
-                </a>
-            </div>
+                <div class="col-sm-6 col-md-3"   data-reactid=".0.1:0">
+                    <a href="Boeken?vanaf=0" style="background:url(@boek.Afbeelding)" data-reactid=".0.1:0.0">
+                        <span class="caption" data-reactid=".0.1:0.0.0">@boek.Naam</span>
+                    </a>
+                </div>
+            }
         }
     </div>
     <h2>Activities</h2>
     <div class="row books" id="mijnActiviteiten">
-        @foreach (var activ in Model.Activiteiten)
+    @if (Model.Activiteiten.Count > 4)
+        {
+            List<Models.OmgevingsBoek_Models.Activiteit> lijstje = Model.Activiteiten.Take(4).ToList();
+         foreach (var item in lijstje)
+            {
+                if (item.Equals(lijstje.Last()))
+                {
+                    <div class="col-sm-6 col-md-3 NewItems" data-reactid=".0.1:0">
+                        <a href="Boeken?vanaf=0" style="@if(@item.AfbeeldingNaam != null) { @("background:url(@activ.AfbeeldingNaam)");
+                                                    }" data-reactid=" .0.1:0.0">
+                            <span class="caption" data-reactid=".0.1:0.0.0">More</span>
+                        </a>
+                    </div>
+                }
+                else
+                {
+                    <div class="MoreItems col-sm-6 col-md-3" data-reactid=".0.1:0">
+                        <a href="Boeken?vanaf=0" style="@if(@item.AfbeeldingNaam != null) { @("background:url(@activ.AfbeeldingNaam)");
+                                                    }" data-reactid=".0.1:0.0">
+                            <span class="caption" data-reactid=".0.1:0.0.0">@item.Naam</span>
+                        </a>
+                    </div>
+                }
+            }
+        }
+    else { 
+        foreach (var activ in Model.Activiteiten)
         {
 
-            <div class="col-sm-6 col-md-3" data-reactid=".0.1:0">
-                <a href="Activities?vanaf=0" style="" data-reactid=".0.1:0.0">
+            <div class="col-sm-6 col-md-3"  data-reactid=".0.1:0">
+                <a href="Activities?vanaf=0" style="@if(@activ.AfbeeldingNaam != null) { @("background:url(@activ.AfbeeldingNaam)");
+                                                    }" data-reactid=".0.1:0.0">
                     <span class="caption" data-reactid=".0.1:0.0.0">@activ.Naam</span>
                 </a>
             </div>
         }
+    }
     </div>
 </div>
