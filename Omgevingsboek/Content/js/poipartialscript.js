@@ -8,6 +8,27 @@
 
 $().ready(function () {
 
+    Array.prototype.getUnique = function () {
+        var u = {}, a = [];
+        for (var i = 0, l = this.length; i < l; ++i) {
+            if (u.hasOwnProperty(this[i])) {
+                continue;
+            }
+            a.push(this[i]);
+            u[this[i]] = 1;
+        }
+        return a;
+    }
+
+    $.get("/home/gettags", function (data) {
+        var tagSource = $.parseJSON(data);
+
+        $('#tags').tagsInput({
+            autocomplete_url: '',
+            autocomplete: { selectFirst: true, autoFill: true, source: tagSource.getUnique(), 'width': '100%' }
+        });
+    });
+
     console.log("Jquery loaded");
     var collapsed = true;
     $("#slider-range").slider({

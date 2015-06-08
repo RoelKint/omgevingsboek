@@ -246,6 +246,7 @@
     <Content Include="Content\img\cream_dust.png" />
     <Content Include="Content\img\favicon.ico" />
     <Content Include="Content\img\paper_fibers.png" />
+    <Content Include="Content\jquery.tagsinput.min.css" />
     <Content Include="Content\js\CooleDingenGebruiker.js" />
     <Content Include="Content\js\filter.js" />
     <Content Include="Content\js\poipartialscript.js" />
@@ -332,6 +333,7 @@
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui-1.11.4.js" />
     <Content Include="Scripts\jquery-ui-1.11.4.min.js" />
+    <Content Include="Scripts\jquery.tagsinput.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -392,6 +394,7 @@
     <Content Include="Views\Home\Gebruiker.cshtml" />
     <Content Include="Views\Home\Poi.cshtml" />
     <Content Include="Views\Shared\_GebrPartial.cshtml" />
+    <Content Include="Views\Home\Boek.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
