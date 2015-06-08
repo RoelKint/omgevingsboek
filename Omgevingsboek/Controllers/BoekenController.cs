@@ -53,6 +53,8 @@ namespace Omgevingsboek.Controllers
         // POST: Boeken/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
+        //TODO: Verwerken met repos
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Naam,Afbeelding,EigenaarId,IsDeleted")] Boek boek)

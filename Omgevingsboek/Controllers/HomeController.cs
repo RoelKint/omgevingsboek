@@ -101,7 +101,7 @@ namespace Omgevingsboek.Controllers
                 if (t == "") continue;
                 tagList.Add(bs.InsertTag(t));
             }
-            
+            //TODO: geolocatie toevoegen en wanneer word uitgelezen checken of het klopt.
             Poi NieuwePoi = new Poi()
             {
                 Naam = poi.Naam,
