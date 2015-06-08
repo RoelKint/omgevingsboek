@@ -29,12 +29,16 @@
         position: relative;
         padding-bottom: 30px;
 
+        span.buttons {
+              opacity:0;
+        }
+
         img {
             min-width: 100%;
         }
 
 
-        a {
+        > a {
             position: relative;
             background-size: cover;
             color: white;
@@ -45,7 +49,7 @@
             height: 100px;
             border-radius: 5px;
 
-            &:last-child {
+            &:last-of-type {
                 background-color: green;
             }
         }
@@ -59,6 +63,25 @@
             top: 0px;
             padding-top: 1.5em;
         }
+
+        &:hover {
+            span.buttons {
+                opacity:1;
+            }
+        }
+    }
+}
+
+span.buttons {
+    position: absolute;
+    top: 5px;
+    left: 0;
+    text-align: center;
+    right: 0;
+    margin: 0% 37%;
+
+    .btn {
+        padding: 0px 3px;
     }
 }
 
@@ -103,10 +126,10 @@ div.stackright {
 }
 
 .input-group-addon.tag {
-    padding:9px;
+    padding: 9px;
 }
 
-.upload-ok{
+.upload-ok {
     background-color: green;
     color: white;
 }
@@ -263,26 +286,29 @@ h3.rowheader {
         border-bottom: 1px solid rgba(211, 211, 211, 0.5);
     }
 }
+
 .profilePic {
     width: 100px;
-background-color:blue;
-	height: 100px;
-	border-radius: 100px;
-	-webkit-border-radius: 100px;
-	-moz-border-radius: 100px;
+    background-color: blue;
+    height: 100px;
+    border-radius: 100px;
+    -webkit-border-radius: 100px;
+    -moz-border-radius: 100px;
     box-shadow: 0 0 3px rgba(0, 0, 0, .8);
-	-webkit-box-shadow: 0 0 3px rgba(0, 0, 0, .8);
-	-moz-box-shadow: 0 0 3px rgba(0, 0, 0, .8); 
-	background: url(http://static.deathandtaxesmag.com/uploads/2013/02/hitler_1881083c.jpeg);
+    -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, .8);
+    -moz-box-shadow: 0 0 3px rgba(0, 0, 0, .8);
+    background: url(http://static.deathandtaxesmag.com/uploads/2013/02/hitler_1881083c.jpeg);
     background-position: center center;
-    background-repeat:no-repeat;
-    background-size:200px;
+    background-repeat: no-repeat;
+    background-size: 200px;
 }
+
 .NewItems {
-    opacity:0.6;
+    opacity: 0.6;
 }
+
 .NewItems:hover {
-    opacity:1;
+    opacity: 1;
 }
 
 

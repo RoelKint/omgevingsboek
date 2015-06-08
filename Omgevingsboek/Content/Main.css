@@ -22,10 +22,13 @@
   position: relative;
   padding-bottom: 30px;
 }
+.books > div span.buttons {
+  opacity: 0;
+}
 .books > div img {
   min-width: 100%;
 }
-.books > div a {
+.books > div > a {
   position: relative;
   background-size: cover;
   color: white;
@@ -36,7 +39,7 @@
   height: 100px;
   border-radius: 5px;
 }
-.books > div a:last-child {
+.books > div > a:last-of-type {
   background-color: green;
 }
 .books > div .caption {
@@ -47,6 +50,20 @@
   text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.4);
   top: 0px;
   padding-top: 1.5em;
+}
+.books > div:hover span.buttons {
+  opacity: 1;
+}
+span.buttons {
+  position: absolute;
+  top: 5px;
+  left: 0;
+  text-align: center;
+  right: 0;
+  margin: 0% 37%;
+}
+span.buttons .btn {
+  padding: 0px 3px;
 }
 div.main {
   position: relative;
