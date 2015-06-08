@@ -39,6 +39,7 @@ namespace BusinessLogic.Services
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Boek> GetSharedBoeken(string username);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Tag> GetTagList();
         Models.MVC_Models.ApplicationUser GetUser(string Username);
+        Models.MVC_Models.ApplicationUser GetUserById(string UserId);
         System.Collections.Generic.List<Models.MVC_Models.ApplicationUser> GetUserNext50SortAZ(int from);
         System.Collections.Generic.List<Models.MVC_Models.ApplicationUser> GetUserNext50SortZA(int from);
         Models.OmgevingsBoek_Models.Boek InsertBoek(Models.OmgevingsBoek_Models.Boek boek);

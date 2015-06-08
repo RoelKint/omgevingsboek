@@ -67,6 +67,12 @@ namespace Omgevingsboek.Controllers
                     else
                         res = bs.GetActiviteiten50FromSortNameAZ((int)vanaf);
                     break;
+                    
+            }
+            foreach (var item in res)
+            {
+                item.Poi = bs.GetPoiById(item.PoiId);
+                item.Eigenaar = bs.GetUserById(item.EigenaarId);
             }
             ViewBag.vanaf = vanaf;
             ViewBag.desc = desc;

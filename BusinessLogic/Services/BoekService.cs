@@ -230,6 +230,13 @@ namespace BusinessLogic.Services
                 return context.Users.Select(i => i).Where(i => i.UserName == Username).Single();
             }
         }
+        public ApplicationUser GetUserById(String UserId)
+        {
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                return context.Users.Select(i => i).Where(i => i.Id == UserId).Single();
+            }
+        }
 
         public List<ApplicationUser> GetUserNext50SortAZ(int from)
         {
