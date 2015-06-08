@@ -8,6 +8,13 @@
 
 $().ready(function () {
 
+    $("input:file").change(function () {
+        var fileName = $(this).val();
+        console.log(fileName);
+        $(".fileUpload").toggleClass("upload-ok");
+        //$(".filename").html(fileName);
+    });
+
     Array.prototype.getUnique = function () {
         var u = {}, a = [];
         for (var i = 0, l = this.length; i < l; ++i) {
