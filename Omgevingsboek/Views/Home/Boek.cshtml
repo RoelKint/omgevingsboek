@@ -1,0 +1,28 @@
+﻿    @model Models.OmgevingsBoek_Models.Boek
+
+@{
+    ViewBag.Title = "Boeken";
+}
+
+<div class="col-xs-6 col-md-9 content" id="content">
+    <div class="row books" id="mijnBoeken">
+        <h3 class="rowheader">@Model.Naam</h3>
+        @foreach (Models.OmgevingsBoek_Models.Activiteit activiteit in Model.Activiteiten)
+        {
+            <div class="col-sm-6 col-md-3">
+                <a href="#">
+                    <p>@activiteit.AfbeeldingNaam</p>
+                    <span class="caption">@activiteit.Naam</span>
+                </a>
+            </div>
+        }
+        
+    </div>
+</div>
+
+
+
+
+@*@Html.Partial("_PoiPartial", Model)*@
+    
+@{ Html.RenderAction("PoiPartial", "Home"); }

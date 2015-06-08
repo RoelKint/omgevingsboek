@@ -4,6 +4,8 @@
 
 }
 
+@Styles.Render("~/Content/tags")
+
 <div class="col-xs-6 col-md-3 expandable sidebar">
     <button id="expand" class="expand btn btn-default input-group-addon">
         <span class="glyphicon glyphicon-map-marker" />
@@ -57,9 +59,6 @@
                 </button>
             </div>
             <div class="form-group col-md-2 actions">
-                <button type="submit" class="btn btn-default">
-                    <span class="glyphicon glyphicon-ok" />
-                </button>
                 <button type="button" id="viewPoi" class="btn btn-default">
                     <span class="glyphicon glyphicon-remove" />
                 </button>
@@ -100,9 +99,17 @@
         </div>
         <div class="row">
             <div class="form-group col-md-12">
+                <label for="amount">Prijs per leerling:</label>
+                <div class="input-group">
+                    <span class="input-group-addon tag"><span class="glyphicon glyphicon-tags"></span></span>
+                    <input name="tags" class="form-control" id="tags" value="" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-12">
                 <button type="submit" class="btn btn-default form-control">
-                    Inladen via FourSquare
-                    <span class="glyphicon glyphicon-search" />
+                    <span class="glyphicon glyphicon-ok" />
                 </button>
             </div>
         </div>
@@ -139,6 +146,7 @@
 <script>var json = JSON.parse(@Html.Raw(Json.Encode(Model)));</script>
 
 <script src="~/Scripts/handlebars.js"></script>
+<script src="~/Scripts/jquery.tagsinput.min.js"></script>
 <script src="~/Content/js/poipartialscript.js"></script>
 <script src="~/Scripts/fuse.js"></script>
 <script src="~/Content/js/filter.js"></script>

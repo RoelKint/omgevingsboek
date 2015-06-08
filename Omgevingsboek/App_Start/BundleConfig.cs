@@ -29,6 +29,9 @@ namespace Omgevingsboek
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/main.css"));
+
+            bundles.Add(new StyleBundle("~/Content/tags").Include(
+                    "~/Content/jquery.tagsinput.min.css"));
         }
     }
 }

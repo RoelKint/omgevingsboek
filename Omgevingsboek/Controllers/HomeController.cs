@@ -141,6 +141,7 @@ namespace Omgevingsboek.Controllers
         {
             List<Models.OmgevingsBoek_Models.Tag> tags = bs.GetTagList();
             List<SimpleTag> stl = new List<SimpleTag>();
+            List<String> tagList = new List<String>();
             foreach (Models.OmgevingsBoek_Models.Tag tag in tags)
             {
                 stl.Add(new SimpleTag()
@@ -148,8 +149,11 @@ namespace Omgevingsboek.Controllers
                     Id = tag.ID,
                     Naam = tag.Naam
                 });
+
+                tagList.Add(tag.Naam);
+
             }
-            return Json(JsonConvert.SerializeObject(stl), JsonRequestBehavior.AllowGet);
+            return Json(JsonConvert.SerializeObject(tagList), JsonRequestBehavior.AllowGet);
         }
     }
 }

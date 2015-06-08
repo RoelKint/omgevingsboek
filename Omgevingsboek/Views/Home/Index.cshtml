@@ -10,12 +10,17 @@
         @foreach (Models.OmgevingsBoek_Models.Boek boek in Model.BoekenEigenaar)
         {
             <div class="col-sm-6 col-md-3">
-                <a href="#">
+                <a href="/home/Boek?id=@boek.Id">
                     <img class="img-responsive" src="@boek.Afbeelding" />
                     <span class="caption">@boek.Naam</span>
                 </a>
             </div>
         }
+        <div class="col-sm-6 col-md-3">
+            <a href="/Boeken/Create">
+                <span class="caption"><span class="glyphicon glyphicon-plus"></span> Boek toevoegen</span>
+            </a>
+        </div>
         
     </div>
     <div class="row books" id="gedeeldeBoeken">
@@ -23,7 +28,7 @@
         @foreach (Models.OmgevingsBoek_Models.Boek boek in Model.BoekenGedeeld)
         {
             <div class="col-sm-6 col-md-3">
-                <a href="#">
+                <a href="/home/Boek?id=@boek.Id">
                     <img src="@boek.Afbeelding" />
                     <span class="caption">@boek.Naam</span>
                 </a>
