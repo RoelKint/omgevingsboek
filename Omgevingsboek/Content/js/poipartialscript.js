@@ -32,6 +32,9 @@ $().ready(function () {
 
         $('#tags').tagsInput({
             autocomplete_url: '',
+            defaultText: '',
+            minChars: 0,
+            maxChars: 0,
             autocomplete: { selectFirst: true, autoFill: true, source: tagSource.getUnique(), 'width': '100%' }
         });
     });
