@@ -40,13 +40,14 @@
             </div>
         </div>
     </div>
-    <form class="form-horizontal" hidden method="post" action="Home/">
-        <div class="row">
+    @using (Html.BeginForm("AddPoi", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    { 
+        <div class="row" >
             <div class="form-group col-md-5 upload">
                 <label for="exampleInputFile">Upload afbeelding</label>
                 <div class="fileUpload btn btn-default form-control">
                     <span>Upload Foto</span>
-                    <input type="file" class="upload" id="exampleInputFile">
+                    <input type="file" class="upload" name="Afbeelding" id="exampleInputFile">
                 </div>
             </div>
             <div class="form-group col-md-5">
@@ -66,9 +67,13 @@
         </div>
         <div class="row">
             <div class="form-group col-md-12">
-                <input type="text" class="form-control adresinputs" id="inputEmail" placeholder="Email">
-                <input type="text" class="form-control adresinputs" id="inputTelefoon" placeholder="Telefoon">
+                <input type="text" class="form-control adresinputs" id="inputEmail" name="Email" placeholder="Email">
+                <input type="text" class="form-control adresinputs" id="inputTelefoon" name="Telefoon" placeholder="Telefoon">
                 <input type="text" class="form-control adresinputs" readonly id="inputAdres" placeholder="Adres">
+                <input type="hidden" name="Straat" id="straatHidden"/>
+                <input type="hidden" name="Nummer" id="nummerHidden" />
+                <input type="hidden" name="Gemeente" id="gemeenteHidden"/>
+
             </div>
         </div>
         <div class="row">
@@ -79,6 +84,8 @@
                     <span class="input-group-addon" id="minAge"></span>
                     <div class="form-control" id="slider-range"></div>
                     <span class="input-group-addon" id="maxAge"></span>
+                    <input type="hidden" name="MinLeeftijd" id="minAgeHidden"/>
+                    <input type="hidden" name="MaxLeeftijd" id="maxAgeHidden" />
                 </div>
             </div>
         </div>
@@ -87,7 +94,7 @@
                 <label for="amount">Prijs per leerling:</label>
                 <div class="input-group">
                     <span class="input-group-addon">&euro;</span>
-                    <input class="form-control" type="number" id="prijsLeerling">
+                    <input class="form-control" type="number" id="prijsLeerling" name="Prijs">
                 </div>
             </div>
         </div>
@@ -99,7 +106,7 @@
                 </button>
             </div>
         </div>
-    </form>
+    }
 </div>
 
 <div id="location_picker_wrapper" style="visibility:hidden;">
