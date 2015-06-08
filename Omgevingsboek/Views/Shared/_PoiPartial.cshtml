@@ -42,7 +42,7 @@
             </div>
         </div>
     </div>
-    @using (Html.BeginForm("AddPoi", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    @using (Html.BeginForm("AddPoi", "Home", FormMethod.Post, new { enctype = "multipart/form-data", @class = "hidden" }))
     { 
         <div class="row" >
             <div class="form-group col-md-5 upload">

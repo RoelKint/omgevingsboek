@@ -49,8 +49,8 @@ $().ready(function () {
             $("#minAge").text("" + ui.values[0]);
             $("#maxAge").text("" + ui.values[1]);
 
-            $("#minAgeHidden").text(ui.values[0]);
-            $("#maxAgeHidden").text(ui.values[1]);
+            $("#minAgeHidden").val(ui.values[0]);
+            $("#maxAgeHidden").val(ui.values[1]);
             console.log("slider changed");
 
         }
@@ -59,11 +59,10 @@ $().ready(function () {
     $("#amount").val("" + $("#slider-range").slider("values", 0) +
             " - " + $("#slider-range").slider("values", 1));
 
-    $("#minAge").val("5");
-    $("#maxAge").val("10");
-
-    $("#minAgeHidden").text($("#slider-range").slider("values", 0));
-    $("#maxAgeHidden").text($("#slider-range").slider("values", 1));
+    $("#minAge").text("5");
+    $("#maxAge").text("10");
+    $("#minAgeHidden").val("5");
+    $("#maxAgeHidden").val("10");
 
     $('#locationPicker').popover({
         html: true,
@@ -102,13 +101,13 @@ $().ready(function () {
     });
 
     $("#addPoi").click(function () {
-        $(".sidebar > form").removeAttr("hidden");
-        $(".sidebar .poi").attr("hidden","hidden");
+        $(".sidebar > form").toggleClass("hidden");
+        $(".sidebar .poi").toggleClass("hidden");
     });
 
     $("#viewPoi").click(function () {
-        $(".sidebar > form").attr("hidden","hidden")
-        $(".sidebar .poi").removeAttr("hidden");
+        $(".sidebar > form").toggleClass("hidden")
+        $(".sidebar .poi").toggleClass("hidden");
     });
 
 });
