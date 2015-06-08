@@ -100,7 +100,7 @@ namespace Models.Migrations
             #region DATA
 
             //Reële demodata
-
+            /*
             Activiteit activiteit9 = new Activiteit()
             {
                 PoiId = context.Poi.FirstOrDefault().ID,
@@ -277,6 +277,7 @@ namespace Models.Migrations
             };
             context.Activiteiten.Add(activiteit8);
             context.SaveChanges();
+             */
 
             if (context.Boeken.Select(i => i).Where(i => i.Naam == "1e graad") == null)
             {

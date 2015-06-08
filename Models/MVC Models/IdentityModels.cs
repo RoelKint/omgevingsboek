@@ -15,7 +15,7 @@ namespace Models.MVC_Models
         public string Naam { get; set; }
         public string Voornaam { get; set; }
         public bool Deleted { get; set; }
-
+        public string Afbeelding { get; set; }
         // Voor de aanmaak van de tussentabellen voor te delen.
 
         public virtual List<Activiteit> Activiteiten { get; set; }

@@ -112,6 +112,10 @@
     <Compile Include="Migrations\201506051055582_model-update-softdeletes.Designer.cs">
       <DependentUpon>201506051055582_model-update-softdeletes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201506080759048_user-foto.cs" />
+    <Compile Include="Migrations\201506080759048_user-foto.Designer.cs">
+      <DependentUpon>201506080759048_user-foto.cs</DependentUpon>
+    </Compile>
     <Compile Include="OmgevingsBoek Models\Activiteit.cs" />
     <Compile Include="OmgevingsBoek Models\Benodigdheid.cs" />
     <Compile Include="OmgevingsBoek Models\Boek.cs" />
@@ -181,6 +185,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201506051055582_model-update-softdeletes.resx">
       <DependentUpon>201506051055582_model-update-softdeletes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506080759048_user-foto.resx">
+      <DependentUpon>201506080759048_user-foto.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
