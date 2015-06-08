@@ -40,11 +40,11 @@ namespace BusinessLogic.Repositories
         }
         public List<Poi> get50FromSortNameAZ(int from)
         {
-            return this.context.Poi.Where(i => !i.IsDeleted).OrderBy(i => i.Naam).Skip(from).Take(50).ToList();
+            return this.context.Poi.Where(i => !i.IsDeleted).OrderBy(i => i.Naam).Skip(from).Take(30).ToList();
         }
         public List<Poi> get50FromSortNameZA(int from)
         {
-            return this.context.Poi.Where(i => !i.IsDeleted).OrderByDescending(i => i.Naam).Skip(from).Take(50).ToList();
+            return this.context.Poi.Where(i => !i.IsDeleted).OrderByDescending(i => i.Naam).Skip(from).Take(30).ToList();
         }
         public void Delete(Poi EntityToDelete)
         {

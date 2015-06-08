@@ -58,7 +58,7 @@ namespace Omgevingsboek.Controllers
             if (!Id.HasValue) return RedirectToAction("Index");
             Boek boek = bs.GetBoekByID((int)Id);
             if (boek == null) return RedirectToAction("Index");
-            if (boek.Eigenaar.UserName != User.Identity.Name || !bs.IsBoekAccessibleByUser((int) Id,User.Identity.Name)) return RedirectToAction("Index");
+            if (!bs.IsBoekAccessibleByUser((int) Id,User.Identity.Name)) return RedirectToAction("Index");
 
             return View(boek);
         }
@@ -68,7 +68,7 @@ namespace Omgevingsboek.Controllers
             if (!Id.HasValue) return RedirectToAction("Index");
             Activiteit activiteit = bs.GetActiviteitById((int)Id);
             if (activiteit == null) return RedirectToAction("Index");
-            if (activiteit.Eigenaar.UserName != User.Identity.Name || !bs.IsActivityAccessibleByUser((int)Id, User.Identity.Name)) return RedirectToAction("Index");
+            if (!bs.IsActivityAccessibleByUser((int)Id, User.Identity.Name)) return RedirectToAction("Index");
             
             return View(activiteit);
         }

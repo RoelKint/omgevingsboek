@@ -242,7 +242,7 @@ namespace BusinessLogic.Services
         {
             using (ApplicationDbContext context = new ApplicationDbContext())
             {
-                return context.Users.OrderBy(i => i.UserName).Skip(from).Take(50).ToList();
+                return context.Users.OrderBy(i => i.UserName).Skip(from).Take(30).ToList();
             }
         }
 
@@ -250,7 +250,7 @@ namespace BusinessLogic.Services
         {
             using (ApplicationDbContext context = new ApplicationDbContext())
             {
-                return context.Users.OrderByDescending(i => i.UserName).Skip(from).Take(50).ToList();
+                return context.Users.OrderByDescending(i => i.UserName).Skip(from).Take(30).ToList();
             }
         }
         // TODO: soft delete 

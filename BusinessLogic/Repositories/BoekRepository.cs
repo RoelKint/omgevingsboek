@@ -96,19 +96,19 @@ namespace BusinessLogic.Repositories
 
         public List<Boek> get50FromSortNameAZ(int from)
         {
-            return this.context.Boeken.Where(i => !i.IsDeleted).OrderBy(i => i.Naam).Skip(from).Take(50).ToList();
+            return this.context.Boeken.Where(i => !i.IsDeleted).OrderBy(i => i.Naam).Skip(from).Take(30).ToList();
         }
         public List<Boek> get50FromSortNameZA(int from)
         {
-            return this.context.Boeken.Where(i => !i.IsDeleted).OrderByDescending(i => i.Naam).Skip(from).Take(50).ToList();
+            return this.context.Boeken.Where(i => !i.IsDeleted).OrderByDescending(i => i.Naam).Skip(from).Take(30).ToList();
         }
         public List<Boek> get50FromSortUserAZ(int from)
         {
-            return this.context.Boeken.Where(i => !i.IsDeleted).OrderBy(i => i.Eigenaar.UserName).Skip(from).Take(50).ToList();
+            return this.context.Boeken.Where(i => !i.IsDeleted).OrderBy(i => i.Eigenaar.UserName).Skip(from).Take(30).ToList();
         }
         public List<Boek> get50FromSortUserZA(int from)
         {
-            return this.context.Boeken.Where(i => !i.IsDeleted).OrderByDescending(i => i.Eigenaar.UserName).Skip(from).Take(50).ToList();
+            return this.context.Boeken.Where(i => !i.IsDeleted).OrderByDescending(i => i.Eigenaar.UserName).Skip(from).Take(30).ToList();
         }
 
         public void DeleteSoft(Boek entityToDelete)
