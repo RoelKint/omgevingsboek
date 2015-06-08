@@ -14,14 +14,16 @@
                     <p>@activiteit.AfbeeldingNaam</p>
                     <span class="caption">@activiteit.Naam</span>
                 </a>
+                <span class="buttons">
+                    <a href="/home/Activiteit?id=@activiteit.Id&action=share" class="expand btn btn-default" type="button"><span class="glyphicon glyphicon-share"></span></a>
+                    <a href="/home/Activiteit?id=@activiteit.Id&action=public" class="expand btn btn-default" type="button"><span class="glyphicon glyphicon-eye-close"></span></a>
+                    <a href="/home/Activiteit?id=@activiteit.Id&action=settings" class="expand btn btn-default" type="button"><span class="glyphicon glyphicon-cog"></span></a>
+                </span>
             </div>
         }
         
     </div>
 </div>
-
-
-
 
 @*@Html.Partial("_PoiPartial", Model)*@
     

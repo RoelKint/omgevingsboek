@@ -42,11 +42,11 @@
             </div>
         </div>
     </div>
-    @using (Html.BeginForm("AddPoi", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    @using (Html.BeginForm("AddPoi", "Home", FormMethod.Post, new { enctype = "multipart/form-data", @class = "hidden" }))
     { 
         <div class="row" >
             <div class="form-group col-md-5 upload">
-                <label for="exampleInputFile">Upload afbeelding</label>
+                <label for="inputFile">Upload afbeelding</label>
                 <div class="fileUpload btn btn-default form-control">
                     <span>Upload Foto</span>
                     <input type="file" class="upload" name="AfbeeldingFile" id="exampleInputFile">
@@ -66,6 +66,7 @@
         </div>
         <div class="row">
             <div class="form-group col-md-12">
+                <label for="amount">Contactinfo:</label>
                 <input type="text" class="form-control adresinputs" id="inputEmail" name="Email" placeholder="Email">
                 <input type="text" class="form-control adresinputs" id="inputTelefoon" name="Telefoon" placeholder="Telefoon">
                 <input type="text" class="form-control adresinputs" readonly id="inputAdres" placeholder="Adres">
@@ -101,7 +102,7 @@
         </div>
         <div class="row">
             <div class="form-group col-md-12">
-                <label for="amount">Prijs per leerling:</label>
+                <label for="amount">Tags:</label>
                 <div class="input-group">
                     <span class="input-group-addon tag"><span class="glyphicon glyphicon-tags"></span></span>
                     <input name="TagsString" class="form-control" id="tags" value="" />
