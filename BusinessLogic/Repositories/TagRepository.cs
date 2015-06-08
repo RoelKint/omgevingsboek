@@ -2,6 +2,7 @@
 using Models.OmgevingsBoek_Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,12 +22,13 @@ namespace BusinessLogic.Repositories
 
         }
 
-        public override Tag Insert(Tag entity)
+        public Tag Insert(string entity)
         {
-            Tag tag = context.Tags.Select(t => t).Where(t => t.Naam.Equals(entity.Naam)).SingleOrDefault();
+            Tag tag = context.Tags.Select(t => t).Where(t => t.Naam.Equals(entity)).SingleOrDefault();
             if (tag != null) return tag;
-            Tag newtag = context.Tags.Add(entity);
+            Tag newtag = context.Tags.Add(new Tag() { Naam = entity });
             context.SaveChanges();
+            context.Entry(newtag).State = EntityState.Detached;
             return newtag;
         }
         public override IEnumerable<Tag> All()

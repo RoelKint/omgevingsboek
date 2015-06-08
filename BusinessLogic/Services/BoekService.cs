@@ -212,7 +212,7 @@ namespace BusinessLogic.Services
         {
             return repoTag.All().ToList();
         }
-        public Tag InsertTag(Tag tag)
+        public Tag InsertTag(string tag)
         {
             return repoTag.Insert(tag);
         }

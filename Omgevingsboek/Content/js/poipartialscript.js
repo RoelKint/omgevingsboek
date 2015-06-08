@@ -42,9 +42,9 @@ $().ready(function () {
             $("#minAge").text("" + ui.values[0]);
             $("#maxAge").text("" + ui.values[1]);
 
-            $("#minAgeHidden").text(ui.values[0]);
-            $("#maxAgeHidden").text(ui.values[1]);
-            console.log("slider changed");
+
+            $("#minAgeHidden").val(ui.values[0]);
+            $("#maxAgeHidden").val(ui.values[1]);
 
         }
     });
@@ -55,8 +55,8 @@ $().ready(function () {
     $("#minAge").val("5");
     $("#maxAge").val("10");
 
-    $("#minAgeHidden").text($("#slider-range").slider("values", 0));
-    $("#maxAgeHidden").text($("#slider-range").slider("values", 1));
+    $("#minAgeHidden").val($("#slider-range").slider("values", 0));
+    $("#maxAgeHidden").val($("#slider-range").slider("values", 1));
 
     $('#locationPicker').popover({
         html: true,
@@ -79,9 +79,13 @@ $().ready(function () {
             enableAutocomplete: true,
             onchanged: function (currentLocation, radius, isMarkerDropped) {
                 var addressComponents = $(this).locationpicker('map').location.addressComponents;
-                $('#inputAdres input').val(addressComponents.addressLine1 + ", " + addressComponents.postalCode + " " + addressComponents.city + ", " + addressComponents.country);
-                $("#straatHidden input").val(addressComponents.addressLine1);
-                $("#gemeenteHidden input").val(addressComponents.city);
+                $('#inputAdres').val(addressComponents.addressLine1 + ", " + addressComponents.postalCode + " " + addressComponents.city + ", " + addressComponents.country);
+                $('#straatHidden').val(addressComponents.streetName);
+                $('#gemeenteHidden').val(addressComponents.city);
+                $('#postcodeHidden').val(addressComponents.postalCode);
+                $('#nummerHidden').val(addressComponents.streetNumber);
+
+                console.log(addressComponents);
             }
         });
     });
