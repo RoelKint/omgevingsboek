@@ -1,0 +1,57 @@
+﻿
+@{
+    
+}
+
+
+<div class="col-xs-6 col-md-3 expandable sidebar">
+    <button id="expand" class="expand btn btn-default input-group-addon">
+        <span class="glyphicon glyphicon-map-marker" />
+    </button>
+    
+    <form class="form-horizontal">
+        <div class="row">
+            <div class="form-group col-md-8 upload">
+                <label for="exampleInputFile">Aanmaken Gebruiken</label>
+                
+            </div>
+            <div class="form-group col-md-4 actions">
+                <button type="submit" class="btn btn-default">
+                    <span class="glyphicon glyphicon-ok" />
+                </button>
+            </div>
+            </div>
+            <div class="row">
+            <div class="form-group col-md-12">
+                <input type="text" class="form-control adresinputs" id="inputNaam" placeholder="Naam">
+                <input type="text" class="form-control adresinputs" id="inputVoorNaam" placeholder="VoorNaam">
+                
+            </div>
+            
+        </div>
+        <div class="row">
+            <div class="form-group col-md-12">
+                <input type="text" class="form-control adresinputs" id="inputEmail" placeholder="Email">
+                <input type="text" class="form-control adresinputs" id="inputTelefoon" placeholder="Telefoon">
+            </div>
+        </div>
+        
+        
+    </form>
+</div>
+
+<div id="location_picker_wrapper" style="visibility:hidden;">
+    <input class="form-control" type="text" id="us2-address" />
+    <div id="us2" style="width: 244px; height: 244px;"></div>
+    <input class="form-control" type="text" id="us2-lat" />
+    <input class="form-control" type="text" id="us2-lon" />
+</div>
+
+
+
+<script>var json = JSON.parse(@Html.Raw(Json.Encode(Model)));</script>
+
+<script src="~/Scripts/handlebars.js"></script>
+<script src="~/Content/js/poipartialscript.js"></script>
+<script src="~/Scripts/fuse.js"></script>
+<script src="~/Content/js/filter.js"></script>

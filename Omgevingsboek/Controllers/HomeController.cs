@@ -29,19 +29,17 @@ namespace Omgevingsboek.Controllers
         }
 
         [Authorize]
-        public ActionResult Gebruiker(String gebruikerId)
-            {
+        public ActionResult Gebruiker(String gebruikerId,int? vanafActiviteit, int? vanafBoek )
+        {
+            if (!vanafActiviteit.HasValue) vanafActiviteit = 0;
+            if (!vanafBoek.HasValue) vanafBoek = 0;
+
             UserActivities ua = new UserActivities();
             ApplicationUser user = bs.GetUser(gebruikerId);
-            ua.Activiteiten = bs.GetActivitiesByUsername(user.UserName);
-            ua.Boeken = bs.GetBoekenByUser(user.UserName);
+            ua.Activiteiten = bs.getActiviteitenUserByUser50from((int) vanafActiviteit, user.UserName, User.Identity.Name);
+            ua.Boeken = bs.getBoekUserByUser50from((int) vanafBoek, user.UserName, User.Identity.Name);
             ua.User = user;
             return View(ua);
-        }
-        public ActionResult Poi(int PoiId)
-        {
-            
-            return View();
         }
         
         [Authorize]
@@ -53,7 +51,37 @@ namespace Omgevingsboek.Controllers
 
             return View(hipm);
         }
-        
+        [Authorize]
+        public ActionResult Boek(int? Id)
+        {
+            //activities zitten er in
+            if (!Id.HasValue) return RedirectToAction("Index");
+            Boek boek = bs.GetBoekByID((int)Id);
+            if (boek == null) return RedirectToAction("Index");
+            if (boek.Eigenaar.UserName != User.Identity.Name || !bs.IsBoekAccessibleByUser((int) Id,User.Identity.Name)) return RedirectToAction("Index");
+
+            return View(boek);
+        }
+
+        public ActionResult Activiteit(int? Id)
+        {
+            if (!Id.HasValue) return RedirectToAction("Index");
+            Activiteit activiteit = bs.GetActiviteitById((int)Id);
+            if (activiteit == null) return RedirectToAction("Index");
+            if (activiteit.Eigenaar.UserName != User.Identity.Name || !bs.IsActivityAccessibleByUser((int)Id, User.Identity.Name)) return RedirectToAction("Index");
+            
+            return View(activiteit);
+        }
+
+        public ActionResult Poi(int? Id)
+        {
+            if (!Id.HasValue) return RedirectToAction("Index");
+            Poi poi = bs.GetPoiById((int)Id);
+            if (poi == null) return RedirectToAction("Index");
+            if (poi.Eigenaar.UserName != User.Identity.Name) return RedirectToAction("Index");
+            
+            return View(poi);
+        }
 
         public ActionResult About()
         {
@@ -84,17 +112,12 @@ namespace Omgevingsboek.Controllers
                 PoiPM pm = new PoiPM(){
                     poi = poi
                 };
-                pm.Activiteiten = bs.getActiviteitenPerPoi(poi.ID);
+                pm.Activiteiten = bs.getActiviteitenByPoiByUser50from(0, User.Identity.Name, poi.ID);
                 poipms.Add(pm);
 
             }
             return PartialView("_PoiPartial",JsonConvert.SerializeObject(poipms));
         }
-
-        
-        
-        
-
 
         [HttpPost]
         public ActionResult Test(HttpPostedFileBase picture)

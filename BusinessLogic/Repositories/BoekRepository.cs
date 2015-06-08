@@ -24,9 +24,27 @@ namespace BusinessLogic.Repositories
 
         }
 
+        public bool IsBoekAccessibleByUser(int BoekId, string Username)
+        {
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                ApplicationUser user = context.Users.Where(u => u.UserName == Username).FirstOrDefault();
+                Boek b = context.Boeken.Where(a => a.Id == BoekId).FirstOrDefault();
+                return b.DeelLijst.Contains(user);
+
+            }
+        }
+
         public override Boek GetByID(object id)
         {
-            return this.context.Boeken.Include(b => b.DeelLijst).Include(b => b.Activiteiten).Where(b => !b.IsDeleted).Single();
+            context.Configuration.LazyLoadingEnabled = false;
+            return this.context.Boeken
+                .Include(b => b.DeelLijst)
+                .Include(b => b.Activiteiten/*.Select(i => i.)*/)
+                .Include(a => a.Eigenaar)
+                .Where(b => !b.IsDeleted)
+                .Where(b => b.Id == (int)id)
+                .SingleOrDefault();
         }
         public List<Boek> getBoekenByUser(string username)
         {

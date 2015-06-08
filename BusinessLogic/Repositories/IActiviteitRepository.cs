@@ -19,5 +19,6 @@ namespace BusinessLogic.Repositories
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Activiteit> getSharedActivitiesByBookId(int BoekId, string Username);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Activiteit> getSharedActivitiesByUsername(string Username);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Activiteit> getUserActiviteitenByUser50from(int from, string Owner, string Visitor);
+        bool IsActivityAccessibleByUser(int activiteitId, string Username);
     }
 }

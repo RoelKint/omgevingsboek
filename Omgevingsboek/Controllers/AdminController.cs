@@ -67,6 +67,12 @@ namespace Omgevingsboek.Controllers
                     else
                         res = bs.GetActiviteiten50FromSortNameAZ((int)vanaf);
                     break;
+                    
+            }
+            foreach (var item in res)
+            {
+                item.Poi = bs.GetPoiById(item.PoiId);
+                item.Eigenaar = bs.GetUserById(item.EigenaarId);
             }
             ViewBag.vanaf = vanaf;
             ViewBag.desc = desc;
@@ -255,5 +261,26 @@ namespace Omgevingsboek.Controllers
             //return RedirectToAction("Activities", "vanaf=" + vanaf + "&desc=" + desc + "&filter=" + filter);
             return RedirectToAction("Activities", new { vanaf = vanaf, desc = desc, filter = filter });
         }
+
+
+
+        [ChildActionOnly]
+        public ActionResult GebrPartial()
+        {
+           /* List<PoiPM> poipms = new List<PoiPM>();
+            List<Poi> pois = bs.GetPoiList();
+            foreach (Poi poi in pois)
+            {
+                PoiPM pm = new PoiPM()
+                {
+                    poi = poi
+                };
+                pm.Activiteiten = bs.getActiviteitenPerPoi(poi.ID);
+                poipms.Add(pm);
+
+            }*/
+            return PartialView("_GebrPartial" /*, JsonConvert.SerializeObject(poipms)*/);
+        }
     }
+
 }
