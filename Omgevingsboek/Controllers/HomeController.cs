@@ -98,6 +98,7 @@ namespace Omgevingsboek.Controllers
 
             foreach (string t in tags)
             {
+                if (t == "") continue;
                 tagList.Add(bs.InsertTag(t));
             }
             
