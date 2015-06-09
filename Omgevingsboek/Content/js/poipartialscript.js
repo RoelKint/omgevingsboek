@@ -8,6 +8,10 @@
 
 $().ready(function () {
 
+    $('button[type=submit]').on('click', function () {
+        var $btn = $(this).button('loading')
+    })
+
     $("input:file").change(function () {
         var fileName = $(this).val();
         console.log(fileName);
@@ -89,11 +93,12 @@ $().ready(function () {
             onchanged: function (currentLocation, radius, isMarkerDropped) {
                 var addressComponents = $(this).locationpicker('map').location.addressComponents;
                 $('#inputAdres').val(addressComponents.addressLine1 + ", " + addressComponents.postalCode + " " + addressComponents.city + ", " + addressComponents.country);
-                $('#inputAdres').val(addressComponents.addressLine1 + ", " + addressComponents.postalCode + " " + addressComponents.city + ", " + addressComponents.country);
                 $('#straatHidden').val(addressComponents.streetName);
                 $('#gemeenteHidden').val(addressComponents.city);
                 $('#postcodeHidden').val(addressComponents.postalCode);
                 $('#nummerHidden').val(addressComponents.streetNumber);
+                $('#latitudeHidden').val(currentLocation.latitude);
+                $('#longitudeHidden').val(currentLocation.longitude);
             }
         });
     });

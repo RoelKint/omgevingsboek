@@ -3,7 +3,7 @@
     ViewBag.Title = "Gebruiker";
 }
 
-<div class="adminList col-xs-12 col-md-12 content" id="content">
+<div class="col-xs-12 col-md-12 content" id="content">
    
     <div  class="profileHolder col-xs-12 col-md-12">
         <div id="profPic" style="float:left; background:url(@Model.User.Afbeelding);background-position: center center;
@@ -71,7 +71,7 @@
             }
         }
     </div>
-    <h2>Activities</h2>
+    <h2>Activiteiten</h2>
     <div class="row books" id="mijnActiviteiten">
     @if (Model.Activiteiten.Count > 4)
         {

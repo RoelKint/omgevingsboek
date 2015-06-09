@@ -59,7 +59,7 @@
                 </button>
             </div>
             <div class="form-group col-md-2 actions">
-                <button type="button" id="viewPoi" class="btn btn-default">
+                <button type="button" id="viewPoi" class="btn btn-danger">
                     <span class="glyphicon glyphicon-remove" />
                 </button>
             </div>
@@ -74,6 +74,8 @@
                 <input type="hidden" name="Nummer" id="nummerHidden" />
                 <input type="hidden" name="Gemeente" id="gemeenteHidden"/>
                 <input type="hidden" name="Postcode" id="postcodeHidden"/>
+                <input type="hidden" name="Latitude" id="latitudeHidden" />
+                <input type="hidden" name="Longitude" id="longitudeHidden" />
 
             </div>
         </div>
@@ -96,7 +98,7 @@
                 <label for="amount">Prijs per leerling:</label>
                 <div class="input-group">
                     <span class="input-group-addon">&euro;</span>
-                    <input class="form-control" type="number" id="prijsLeerling" name="Prijs">
+                    <input class="form-control" type="number" id="prijsLeerling" step="any" name="Prijs">
                 </div>
             </div>
         </div>
@@ -111,7 +113,7 @@
         </div>
         <div class="row">
             <div class="form-group col-md-12">
-                <button type="submit" class="btn btn-default form-control">
+                <button type="submit" class="btn btn-success form-control" data-loading-text='<i class="fa fa-spinner fa-pulse"></i>'>
                     <span class="glyphicon glyphicon-ok" />
                 </button>
             </div>
@@ -131,7 +133,7 @@
         <div class="col-md-4 preview" style="background-image:url('{{image}}');">
         </div>
         <div class="col-md-8 info">
-            <h3><a href="/poi/{{id}}">{{title}}</a></h3>
+            <h3><a href="../Home/poi?id={{id}}">{{title}}</a></h3>
             <p class="tags">{{{tags}}}</p>
             <p class="location">{{distance}}km {{city}}</p>
             <button data-toggle="popover"
