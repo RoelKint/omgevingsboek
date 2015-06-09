@@ -74,7 +74,7 @@ namespace Omgevingsboek.Controllers
             
             return View(activiteit);
         }
-
+        [HttpPost]
         public ActionResult AddTagToPoi(int PoiId, string tag)
         {
             if (bs.GetPoiById(PoiId) == null) return null;
