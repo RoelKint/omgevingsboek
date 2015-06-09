@@ -243,7 +243,7 @@ namespace Omgevingsboek.Controllers
                 + "@"
                 + @"((([\-\w]+\.)+[a-zA-Z]{2,4})|(([0-9]{1,3}\.){3}[0-9]{1,3}))$");
             string[] Emails = new string[0];
-            Emails = Mails.Split(new string[] { "\r\n", ",", " " }, StringSplitOptions.None);
+            Emails = Mails.Split(new string[] { "\r\n", ",", " ",";" }, StringSplitOptions.None);
 
             foreach (string m in Emails)
             {
