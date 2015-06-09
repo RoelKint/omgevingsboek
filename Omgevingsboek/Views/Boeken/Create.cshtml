@@ -8,7 +8,7 @@
 <div class="createpage">
     <h2>Boek aanmaken</h2>
 
-    @using (Html.BeginForm("Create", "Boeken", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    @using (Html.BeginForm("Create", "Boeken", FormMethod.Post, new { enctype = "multipart/form-data", @id= "createBoekenForm" }))
     {
         @Html.AntiForgeryToken()
 
@@ -19,7 +19,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Naam, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-4">
-                    @Html.EditorFor(model => model.Naam, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.Naam, new { htmlAttributes = new { @class = "form-control", required=true } })
                     @Html.ValidationMessageFor(model => model.Naam, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -32,7 +32,9 @@
             </div>
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-4">
-                    <input type="submit" value="Boek aanmaken" class="btn btn-default" />
+                    <button type="submit" class="btn btn-success">
+                        <span class="glyphicon glyphicon-ok"></span> Boek aanmaken
+                    </button>
                 </div>
             </div>
         </div>
@@ -41,4 +43,15 @@
     <div>
         @Html.ActionLink("Terug naar de homepagina", "Index")
     </div>
+    <script>
+        var form = $("#createBoekenForm");
+        form.validate();
+        $('button[type=submit]').on('click', function () {
+            $this = $(this);
+            if (form.valid())
+            {
+                var $btn = $this.button('loading');
+            } 
+        })
+    </script>
 </div>
