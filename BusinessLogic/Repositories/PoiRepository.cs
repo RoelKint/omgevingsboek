@@ -31,7 +31,7 @@ namespace BusinessLogic.Repositories
         }
         public override Poi GetByID(object id)
         {
-            return this.context.Poi.Select(p => p).Where(p => !p.IsDeleted).Where(p => p.ID == (int)id).SingleOrDefault();
+            return this.context.Poi.Select(p => p).Where(p => !p.IsDeleted).Include(p => p.Tags).Where(p => p.ID == (int)id).SingleOrDefault();
         }
         public Poi Insert(Poi entity)
         {
@@ -77,11 +77,26 @@ namespace BusinessLogic.Repositories
             base.Update(entityToUpdate);
             context.SaveChanges();
         }
+
+        public void AddTag(int PoiId, int TagId)
+        {
+            Poi poi = GetByID(PoiId);
+            if (poi.Tags == null) poi.Tags = new List<Tag>();
+            poi.Tags.Add(context.Tags.Where(t => t.ID == TagId).FirstOrDefault());
+            Update(poi);
+            
+            
+        }
+
         public void DeleteSoft(Poi poi)
         {
             poi.IsDeleted = true;
             Update(poi);
             
+        }
+        public List<Tag> GetTags(int PoiId)
+        {
+            return GetByID(PoiId).Tags;
         }
 
     }

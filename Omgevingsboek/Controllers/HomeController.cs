@@ -74,6 +74,37 @@ namespace Omgevingsboek.Controllers
             
             return View(activiteit);
         }
+        [HttpPost]
+        public ActionResult AddTagToPoi(int PoiId, string tag)
+        {
+            if (bs.GetPoiById(PoiId) == null) return null;
+            Models.OmgevingsBoek_Models.Tag t = bs.InsertTag(tag);
+            bs.AddTagToPoi(PoiId, t.ID);
+            
+            return null;
+        }
+
+        public ActionResult GetTagsByPoi(int PoiId)
+        {
+            if (bs.GetPoiById(PoiId) == null) return null;
+            List<Models.OmgevingsBoek_Models.Tag> tags = bs.getTagsByPoi(PoiId);
+            List<SimpleTag> stl = new List<SimpleTag>();
+            List<String> tagList = new List<String>();
+            foreach (Models.OmgevingsBoek_Models.Tag tag in tags)
+            {
+                stl.Add(new SimpleTag()
+                {
+                    Id = tag.ID,
+                    Naam = tag.Naam
+                });
+
+                tagList.Add(tag.Naam);
+
+            }
+            return Json(JsonConvert.SerializeObject(tagList), JsonRequestBehavior.AllowGet);
+        }
+
+
         [Authorize]
         public ActionResult Poi(int? Id)
         {

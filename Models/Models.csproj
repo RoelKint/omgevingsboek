@@ -120,6 +120,10 @@
     <Compile Include="Migrations\201506090758027_update-poi-model.Designer.cs">
       <DependentUpon>201506090758027_update-poi-model.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201506091204219_update-uitnodiging.cs" />
+    <Compile Include="Migrations\201506091204219_update-uitnodiging.Designer.cs">
+      <DependentUpon>201506091204219_update-uitnodiging.cs</DependentUpon>
+    </Compile>
     <Compile Include="OmgevingsBoek Models\Activiteit.cs" />
     <Compile Include="OmgevingsBoek Models\Benodigdheid.cs" />
     <Compile Include="OmgevingsBoek Models\Boek.cs" />
@@ -138,6 +142,7 @@
     <Compile Include="MVC Models\ManageViewModels.cs" />
     <Compile Include="OmgevingsBoek Models\Poi.cs" />
     <Compile Include="OmgevingsBoek Models\RouteListItem.cs" />
+    <Compile Include="OmgevingsBoek Models\Uitnodiging.cs" />
     <Compile Include="PresentationModels\FotoId.cs" />
     <Compile Include="PresentationModels\HomeIndexPM.cs" />
     <Compile Include="PresentationModels\PoiPM.cs" />
@@ -195,6 +200,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201506090758027_update-poi-model.resx">
       <DependentUpon>201506090758027_update-poi-model.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506091204219_update-uitnodiging.resx">
+      <DependentUpon>201506091204219_update-uitnodiging.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
