@@ -36,7 +36,7 @@ $().ready(function () {
     $.get("/home/gettags", function (data) {
         var tagSource = $.parseJSON(data);
 
-        $('#tags').tagsInput({
+        $('.tags').tagsInput({
             autocomplete_url: '',
             defaultText: '',
             minChars: 0,

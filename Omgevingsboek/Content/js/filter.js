@@ -125,7 +125,9 @@ function filter(query) {
 
     $(function () {
         $('[data-toggle="popover"]').popover()
-    })
+    });
+
+    var listLoaded = true;
 }
 
 filter("");
