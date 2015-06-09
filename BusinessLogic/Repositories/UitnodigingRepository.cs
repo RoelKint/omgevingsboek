@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLogic.Repositories
 {
-    class UitnodigingRepository : GenericRepository<Uitnodiging>, BusinessLogic.Repositories.IUitnodigingRepository
+    public class UitnodigingRepository : GenericRepository<Uitnodiging>, BusinessLogic.Repositories.IUitnodigingRepository
     {
         public UitnodigingRepository(ApplicationDbContext context)
             : base(context)

@@ -18,6 +18,8 @@ namespace Omgevingsboek
             container.RegisterType<ITagRepository, TagRepository>();
             container.RegisterType<IBoekService, BoekService>();
             container.RegisterType<IPoiRepository, PoiRepository>();
+            container.RegisterType<IUitnodigingRepository, UitnodigingRepository>();
+
 
             container.RegisterType<AccountController>(new InjectionConstructor());
 
