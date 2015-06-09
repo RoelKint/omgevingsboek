@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
+using Models.OmgevingsBoek_Models;
 
 namespace BusinessLogic.Repositories
 {
@@ -38,6 +39,7 @@ namespace BusinessLogic.Repositories
 
         public virtual TEntity Insert(TEntity entity)
         {
+            
             return dbSet.Add(entity);
         }
 

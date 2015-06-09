@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 
 namespace BusinessLogic.Repositories
 {
@@ -32,10 +33,30 @@ namespace BusinessLogic.Repositories
         {
             return this.context.Poi.Select(p => p).Where(p => !p.IsDeleted).Where(p => p.ID == (int)id).SingleOrDefault();
         }
-        public override Poi Insert(Poi entity)
+        public Poi Insert(Poi entity)
         {
-            Poi poi = base.Insert(entity);
-            context.SaveChanges();
+            List<Tag> tags = new List<Tag>();
+
+            foreach (Tag tag in entity.Tags)
+            {
+                tags.Add(context.Tags.Find(tag.ID));
+            }
+            entity.Tags = tags;
+
+            Poi poi = context.Poi.Add(entity);
+            try
+            {
+                context.SaveChanges();
+            }
+            catch (DbEntityValidationException ex)
+            {
+                var errorMessages = ex.EntityValidationErrors
+                    .SelectMany(x => x.ValidationErrors)
+                    .Select(x => x.ErrorMessage);
+                var fullErrorMessage = string.Join("; ", errorMessages);
+                var exceptionMessage = string.Concat(ex.Message, " The validation errors are: ", fullErrorMessage);
+                throw new DbEntityValidationException(exceptionMessage, ex.EntityValidationErrors);
+            }
             return poi;
         }
         public List<Poi> get50FromSortNameAZ(int from)

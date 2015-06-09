@@ -44,7 +44,7 @@ namespace BusinessLogic.Services
         System.Collections.Generic.List<Models.MVC_Models.ApplicationUser> GetUserNext50SortZA(int from);
         Models.OmgevingsBoek_Models.Boek InsertBoek(Models.OmgevingsBoek_Models.Boek boek);
         Models.OmgevingsBoek_Models.Poi InsertPoi(Models.OmgevingsBoek_Models.Poi poi);
-        Models.OmgevingsBoek_Models.Tag InsertTag(Models.OmgevingsBoek_Models.Tag tag);
+        Models.OmgevingsBoek_Models.Tag InsertTag(string tag);
         bool IsActivityAccessibleByUser(int activiteitId, string Username);
         bool IsBoekAccessibleByUser(int BoekId, string Username);
     }

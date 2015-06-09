@@ -8,6 +8,13 @@
 
 $().ready(function () {
 
+    $("input:file").change(function () {
+        var fileName = $(this).val();
+        console.log(fileName);
+        $(".fileUpload").toggleClass("upload-ok");
+        //$(".filename").html(fileName);
+    });
+
     Array.prototype.getUnique = function () {
         var u = {}, a = [];
         for (var i = 0, l = this.length; i < l; ++i) {
@@ -25,6 +32,9 @@ $().ready(function () {
 
         $('#tags').tagsInput({
             autocomplete_url: '',
+            defaultText: '',
+            minChars: 0,
+            maxChars: 0,
             autocomplete: { selectFirst: true, autoFill: true, source: tagSource.getUnique(), 'width': '100%' }
         });
     });
@@ -41,14 +51,21 @@ $().ready(function () {
 
             $("#minAge").text("" + ui.values[0]);
             $("#maxAge").text("" + ui.values[1]);
+
+            $("#minAgeHidden").val(ui.values[0]);
+            $("#maxAgeHidden").val(ui.values[1]);
+            console.log("slider changed");
+
         }
     });
 
     $("#amount").val("" + $("#slider-range").slider("values", 0) +
             " - " + $("#slider-range").slider("values", 1));
 
-    $("#minAge").text($("#slider-range").slider("values", 0));
-    $("#maxAge").text($("#slider-range").slider("values", 1));
+    $("#minAge").text("5");
+    $("#maxAge").text("10");
+    $("#minAgeHidden").val("5");
+    $("#maxAgeHidden").val("10");
 
     $('#locationPicker').popover({
         html: true,
@@ -72,6 +89,11 @@ $().ready(function () {
             onchanged: function (currentLocation, radius, isMarkerDropped) {
                 var addressComponents = $(this).locationpicker('map').location.addressComponents;
                 $('#inputAdres').val(addressComponents.addressLine1 + ", " + addressComponents.postalCode + " " + addressComponents.city + ", " + addressComponents.country);
+                $('#inputAdres').val(addressComponents.addressLine1 + ", " + addressComponents.postalCode + " " + addressComponents.city + ", " + addressComponents.country);
+                $('#straatHidden').val(addressComponents.streetName);
+                $('#gemeenteHidden').val(addressComponents.city);
+                $('#postcodeHidden').val(addressComponents.postalCode);
+                $('#nummerHidden').val(addressComponents.streetNumber);
             }
         });
     });
@@ -85,13 +107,13 @@ $().ready(function () {
     });
 
     $("#addPoi").click(function () {
-        $(".sidebar > form").removeAttr("hidden");
-        $(".sidebar .poi").attr("hidden","hidden");
+        $(".sidebar > form").toggleClass("hidden");
+        $(".sidebar .poi").toggleClass("hidden");
     });
 
     $("#viewPoi").click(function () {
-        $(".sidebar > form").attr("hidden","hidden")
-        $(".sidebar .poi").removeAttr("hidden");
+        $(".sidebar > form").toggleClass("hidden")
+        $(".sidebar .poi").toggleClass("hidden");
     });
 
 });

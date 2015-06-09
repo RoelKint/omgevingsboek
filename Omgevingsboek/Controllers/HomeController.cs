@@ -63,6 +63,8 @@ namespace Omgevingsboek.Controllers
             return View(boek);
         }
 
+        [Authorize]
+
         public ActionResult Activiteit(int? Id)
         {
             if (!Id.HasValue) return RedirectToAction("Index");
@@ -72,6 +74,7 @@ namespace Omgevingsboek.Controllers
             
             return View(activiteit);
         }
+        [Authorize]
 
         public ActionResult Poi(int? Id)
         {
@@ -81,6 +84,63 @@ namespace Omgevingsboek.Controllers
             if (poi.Eigenaar.UserName != User.Identity.Name) return RedirectToAction("Index");
             
             return View(poi);
+        }
+        [Authorize]
+        
+        public ActionResult AddPoi(Poi poi, HttpPostedFileBase AfbeeldingFile,string TagsString)
+        {
+            String fotoId;
+            PhotoInfo fotoInfo;
+            if (!ModelState.IsValid) return RedirectToAction("Index");
+            
+            String[] tags = TagsString.Split(',');
+            List<Models.OmgevingsBoek_Models.Tag> tagList = new List<Models.OmgevingsBoek_Models.Tag>();
+
+            foreach (string t in tags)
+            {
+                if (t == "") continue;
+                tagList.Add(bs.InsertTag(t));
+            }
+            
+            Poi NieuwePoi = new Poi()
+            {
+                Naam = poi.Naam,
+                EigenaarId = bs.GetUser(User.Identity.Name).Id,
+                Email = poi.Email,
+                Gemeente = poi.Gemeente,
+                MaxLeeftijd = poi.MaxLeeftijd,
+                MinLeeftijd = poi.MinLeeftijd,
+                Nummer = poi.Nummer,
+                Postcode = poi.Postcode,
+                Prijs = poi.Prijs,
+                Straat = poi.Straat,
+                Telefoon = poi.Telefoon,
+                Tags = tagList
+            };
+
+            if (AfbeeldingFile != null)
+            {
+                try
+                {
+                    fotoId = flickr.UploadPicture(AfbeeldingFile.InputStream, poi.Naam, poi.Naam, "", "", false, false, false, ContentType.Photo, SafetyLevel.Safe, HiddenFromSearch.Hidden);
+                    flickr.PhotosetsAddPhoto(ConfigurationManager.AppSettings.Get("FlickrPoiAlbumId"), fotoId);
+                    fotoInfo = flickr.PhotosGetInfo(fotoId);
+                    NieuwePoi.Afbeelding = fotoInfo.MediumUrl;
+
+                }
+                catch (Exception ex)
+                {
+                    return RedirectToAction("Index");
+                }
+            }
+
+            Poi p = bs.InsertPoi(NieuwePoi);
+            if (p.ID > 0)
+            {
+                //Feedback???
+            }
+
+            return RedirectToAction("Index");
         }
 
         public ActionResult About()

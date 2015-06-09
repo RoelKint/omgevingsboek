@@ -42,17 +42,18 @@
             </div>
         </div>
     </div>
-    <form class="form-horizontal" hidden method="post" action="Home/">
-        <div class="row">
+    @using (Html.BeginForm("AddPoi", "Home", FormMethod.Post, new { enctype = "multipart/form-data", @class = "hidden" }))
+    { 
+        <div class="row" >
             <div class="form-group col-md-5 upload">
-                <label for="exampleInputFile">Upload afbeelding</label>
+                <label for="inputFile">Upload afbeelding</label>
                 <div class="fileUpload btn btn-default form-control">
                     <span>Upload Foto</span>
-                    <input type="file" class="upload" id="exampleInputFile">
+                    <input type="file" class="upload" name="AfbeeldingFile" id="exampleInputFile" accept="image/x-png, image/gif, image/jpeg">
                 </div>
             </div>
             <div class="form-group col-md-5">
-                <input type="text" class="form-control" id="inputNaam" placeholder="Naam">
+                <input type="text" class="form-control" id="inputNaam" placeholder="Naam" name="Naam">
                 <button type="button" class="btn btn-default form-control" id="locationPicker" placeholder="Locatie" data-container="body" data-toggle="popover" data-placement="bottom">
                     Locatie
                 </button>
@@ -65,9 +66,15 @@
         </div>
         <div class="row">
             <div class="form-group col-md-12">
-                <input type="text" class="form-control adresinputs" id="inputEmail" placeholder="Email">
-                <input type="text" class="form-control adresinputs" id="inputTelefoon" placeholder="Telefoon">
+                <label for="amount">Contactinfo:</label>
+                <input type="text" class="form-control adresinputs" id="inputEmail" name="Email" placeholder="Email">
+                <input type="text" class="form-control adresinputs" id="inputTelefoon" name="Telefoon" placeholder="Telefoon">
                 <input type="text" class="form-control adresinputs" readonly id="inputAdres" placeholder="Adres">
+                <input type="hidden" name="Straat" id="straatHidden"/>
+                <input type="hidden" name="Nummer" id="nummerHidden" />
+                <input type="hidden" name="Gemeente" id="gemeenteHidden"/>
+                <input type="hidden" name="Postcode" id="postcodeHidden"/>
+
             </div>
         </div>
         <div class="row">
@@ -78,6 +85,9 @@
                     <span class="input-group-addon" id="minAge"></span>
                     <div class="form-control" id="slider-range"></div>
                     <span class="input-group-addon" id="maxAge"></span>
+                    <input type="hidden" name="MaxLeeftijd" id="maxAgeHidden" />
+                    <input type="hidden" name="MinLeeftijd" id="minAgeHidden" />
+                    
                 </div>
             </div>
         </div>
@@ -86,16 +96,16 @@
                 <label for="amount">Prijs per leerling:</label>
                 <div class="input-group">
                     <span class="input-group-addon">&euro;</span>
-                    <input class="form-control" type="number" id="prijsLeerling">
+                    <input class="form-control" type="number" id="prijsLeerling" name="Prijs">
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="form-group col-md-12">
-                <label for="amount">Prijs per leerling:</label>
+                <label for="amount">Tags:</label>
                 <div class="input-group">
                     <span class="input-group-addon tag"><span class="glyphicon glyphicon-tags"></span></span>
-                    <input name="tags" class="form-control" id="tags" value="" />
+                    <input name="TagsString" class="form-control" id="tags" value="" />
                 </div>
             </div>
         </div>
@@ -106,7 +116,7 @@
                 </button>
             </div>
         </div>
-    </form>
+    }
 </div>
 
 <div id="location_picker_wrapper" style="visibility:hidden;">

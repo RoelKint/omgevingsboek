@@ -99,6 +99,16 @@ namespace Models.Migrations
 
             #region DATA
 
+            Boek boek10 = new Boek()
+            {
+                Naam = "Roel <3 oude kalende mannen",
+                EigenaarId = context.Users.FirstOrDefault().Id,
+                DeelLijst = context.Users.ToList(),
+                Afbeelding = "https://farm9.staticflickr.com/8885/17827205793_7473869f00.jpg"
+            };
+            context.Boeken.Add(boek10);
+            context.SaveChanges();
+
             //Reële demodata
             /*
             Activiteit activiteit9 = new Activiteit()
