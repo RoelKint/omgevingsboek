@@ -251,6 +251,23 @@ h3.rowheader {
 .NewItems:hover {
   opacity: 1;
 }
+li.tags {
+  margin: 0;
+}
+li.tags span {
+  padding: 1px 4px;
+  margin-right: 3px;
+  background-color: green;
+  border-radius: 5px;
+  color: white;
+}
+li.tags input {
+  padding: 1px 4px;
+  margin-right: 3px;
+  background-color: green;
+  border-radius: 5px;
+  color: white;
+}
 /*lol*/
 * {
   -webkit-transition: all 0.2s ease;

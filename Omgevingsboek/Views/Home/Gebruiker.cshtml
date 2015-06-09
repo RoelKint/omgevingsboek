@@ -42,7 +42,7 @@
                 if (item.Equals(lijstje.Last()))
                 {
                     <div class="col-sm-6 col-md-3 NewItems" data-reactid=".0.1:0">
-                        <a href="Boeken?vanaf=0" style="background:url(@item.Afbeelding)" data-reactid=".0.1:0.0">
+                        <a href="Boek?id=@item.Id" style="background:url(@item.Afbeelding)" data-reactid=".0.1:0.0">
                             <span class="caption" data-reactid=".0.1:0.0.0">More</span>
                         </a>
                     </div>
@@ -50,7 +50,7 @@
                 else
                 {
                     <div class="MoreItems col-sm-6 col-md-3"  data-reactid=".0.1:0">
-                        <a href="Boeken?vanaf=0" style="background:url(@item.Afbeelding)" data-reactid=".0.1:0.0">
+                        <a href="Boek?id=@item.Id" style="background:url(@item.Afbeelding)" data-reactid=".0.1:0.0">
                             <span class="caption" data-reactid=".0.1:0.0.0">@item.Naam</span>
                         </a>
                     </div>
@@ -64,7 +64,7 @@
             {
 
                 <div class="col-sm-6 col-md-3"   data-reactid=".0.1:0">
-                    <a href="Boeken?vanaf=0" style="background:url(@boek.Afbeelding)" data-reactid=".0.1:0.0">
+                    <a href="Boek?id=@boek.Id" style="background:url(@boek.Afbeelding)" data-reactid=".0.1:0.0">
                         <span class="caption" data-reactid=".0.1:0.0.0">@boek.Naam</span>
                     </a>
                 </div>
