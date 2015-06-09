@@ -3,6 +3,7 @@
     joinedtags = poi.poi["Tags"].map(function (tag) {
         return tag.Naam;
     }).join(" ");
+    poi.poi["OrigTags"] = poi.poi["Tags"];
     poi.poi["Tags"] = joinedtags;
 });
 
@@ -106,9 +107,11 @@ function filter(query) {
             'lng2': 3.265
         }));
 
+        console.log(home.poi.OrigTags);
+
         var context = {
             title: home.poi.Naam,
-            tags: home.poi.Tags.split(" ").map(function (el) { return '<span>' + el + '</span>' }).join(" "),
+            tags: home.poi.OrigTags.map(function(el){return "<span>" + el.Naam + "</span>"}).join(" "),
             image: home.poi.Afbeelding,
             distance: distance,
             city: home.poi.Gemeente,

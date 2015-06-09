@@ -243,11 +243,15 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\css\font-awesome.css" />
+    <Content Include="Content\css\font-awesome.min.css" />
+    <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\img\background.png" />
     <Content Include="Content\img\cream_dust.png" />
     <Content Include="Content\img\favicon.ico" />
     <Content Include="Content\img\paper_fibers.png" />
     <Content Include="Content\jquery.tagsinput.min.css" />
+    <Content Include="Content\js\boekenScript.js" />
     <Content Include="Content\js\CooleDingenGebruiker.js" />
     <Content Include="Content\js\CooleDingenPoi.js" />
     <Content Include="Content\js\filter.js" />
@@ -325,6 +329,11 @@
     <Content Include="fonts\vagroundedstd-thin-webfont.ttf" />
     <Content Include="fonts\vagroundedstd-thin-webfont.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\fonts\FontAwesome.otf" />
     <None Include="Properties\PublishProfiles\testomgevingsboek - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\testomgevingsboek - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />

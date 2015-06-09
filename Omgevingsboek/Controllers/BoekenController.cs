@@ -75,7 +75,7 @@ namespace Omgevingsboek.Controllers
                 }
                 catch (Exception ex)
                 {
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index","Home");
                 }
             }
             NieuwBoek = bs.InsertBoek(NieuwBoek);
@@ -84,7 +84,7 @@ namespace Omgevingsboek.Controllers
                 //feedback?
             }
 
-            return View(boek);
+            return RedirectToAction("Index","Home");
         }
         
     }

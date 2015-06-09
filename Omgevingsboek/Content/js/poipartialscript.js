@@ -7,6 +7,12 @@
 }
 
 $().ready(function () {
+    $('button[type=submit]').on('click', function () {
+        if ($('#addPoi').valid()) {
+            var $btn = $(this).button('loading')
+        }
+        
+    })
 
     $("input:file").change(function () {
         var fileName = $(this).val();
@@ -93,8 +99,11 @@ $().ready(function () {
                 $('#gemeenteHidden').val(addressComponents.city);
                 $('#postcodeHidden').val(addressComponents.postalCode);
                 $('#nummerHidden').val(addressComponents.streetNumber);
-                $('#latitudeHidden').val(currentLocation.latitude);
+                $('#latitudeHidden').val((currentLocation.latitude));
+                $('#latitudeHidden').val($('#latitudeHidden').val().replace(".", ","));
                 $('#longitudeHidden').val(currentLocation.longitude);
+                $('#longitudeHidden').val($('#longitudeHidden').val().replace(".", ","));
+
             }
         });
     });

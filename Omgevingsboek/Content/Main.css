@@ -275,4 +275,21 @@ li.tags input {
   -ms-transition: all 0.2s ease;
   -o-transition: all 0.2s ease;
 }
+#toevoegenBoek {
+  cursor: pointer;
+}
+#toevoegenBoek .toevoegenClick {
+  display: none;
+  text-align: center;
+}
+#toevoegenBoek .toevoegenClick input {
+  font-size: 12px;
+  font-family: 'vagroundedstd-thin-webfont';
+  color: #000;
+  font-weight: normal;
+}
+.createpage {
+  padding-top: 15px;
+  padding-left: 15px;
+}
 /*# sourceMappingURL=Main.css.map */
