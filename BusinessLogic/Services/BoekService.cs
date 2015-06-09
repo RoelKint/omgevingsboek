@@ -277,7 +277,7 @@ namespace BusinessLogic.Services
 
         #region uitnodigingen
 
-        public Uitnodiging Create(string UitgenodigdDoorUserName, string EmailUitgenodigde)
+        public Uitnodiging CreateUitnodiging(string UitgenodigdDoorUserName, string EmailUitgenodigde)
         {
             return repoUitnodiging.Create(UitgenodigdDoorUserName, EmailUitgenodigde);
 

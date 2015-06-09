@@ -1,32 +1,13 @@
-﻿var dummy = '<input type="text" title="AddTag"placeholder="___" />';
+﻿var dummy = '<input class="inputf" type="text" title="AddTag" size=2 />';
+var plusje = '<span class="addTag glyphicons glyphicons-plus">&#x002b</span>';
 var parent;
 var input;
 var ja;
 
 $().ready(function () {
     
-    $('.addTag').click(function () {
-        parent = $(this).parent();
-        console.log(parent);
-        $(this).fadeOut(100, function () {
-            parent.append('<input class="inputf" type="text" title="AddTag" size=2 />');
-            input = $('.inputf');
-            
-            input.bind('click', function () {
-                ja = 1;
-            });
-
-            input.bind('keydown', function() {
-               
-                console.log(this.size);
-                console.log(this.value.length);
-                this.size = this.value.length * 1+2;
-            })
+    $('.addTag').click(false, function () { allesRondInput() });
                 
-            
-            
-
-
             $('.row').bind('click', function () {
                 if(ja == 1) {
                     ja = 0;
@@ -44,11 +25,27 @@ $().ready(function () {
         });
         
         
-    });
-});
+    
+function allesRondInput() {
+    parent = $('.addTag').parent();
+    console.log(parent);
+    $('.addTag').fadeOut(100, function () {
+        parent.append(dummy);
+        input = $('.inputf');
 
+        input.bind('click', function () {
+            ja = 1;
+        });
+
+        input.bind('keydown', function () {
+            this.size = this.value.length * 1 + 2;
+        });
+    });
+}
+        
 function refreshTags() {
     var par = input.parent()
-    par.html('lolletjes');
-    console.log(input.parent());
+    par.html('lolletjes' + plusje);
+    $('.addTag').click(false, function () { allesRondInput() });
+    
 }
