@@ -85,9 +85,11 @@
     <Compile Include="Repositories\IGenericRepository.cs" />
     <Compile Include="Repositories\IPoiRepository.cs" />
     <Compile Include="Repositories\ITagRepository.cs" />
+    <Compile Include="Repositories\IUitnodigingRepository.cs" />
     <Compile Include="Repositories\PoiRepository.cs" />
     <Compile Include="Repositories\RouteRepository.cs" />
     <Compile Include="Repositories\TagRepository.cs" />
+    <Compile Include="Repositories\UitnodigingRepository.cs" />
     <Compile Include="Services\BoekService.cs" />
     <Compile Include="Services\IBoekService.cs" />
   </ItemGroup>

@@ -46,6 +46,8 @@ namespace Models.MVC_Models
         public DbSet<Fotoboek> Fotoboeken { get; set; }
         public DbSet<Poi> Poi { get; set; }
         public DbSet<Video> Videos { get; set; }
+        public DbSet<Uitnodiging> Uitnodigingen { get; set; }
+
 
 
         public ApplicationDbContext()

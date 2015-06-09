@@ -3,6 +3,8 @@ namespace BusinessLogic.Services
 {
     public interface IBoekService
     {
+        void AddTagToPoi(int PoiId, int TagId);
+        Models.OmgevingsBoek_Models.Uitnodiging Create(string UitgenodigdDoorUserName, string EmailUitgenodigde);
         void DeleteActiviteit(Models.OmgevingsBoek_Models.Activiteit entityToDelete);
         void DeleteActiviteitSoft(Models.OmgevingsBoek_Models.Activiteit entityToDelete);
         void DeleteBoek(Models.OmgevingsBoek_Models.Boek boek);
@@ -38,6 +40,10 @@ namespace BusinessLogic.Services
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Activiteit> GetSharedActivitiesByUsername(string Username);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Boek> GetSharedBoeken(string username);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Tag> GetTagList();
+        System.Collections.Generic.List<Models.OmgevingsBoek_Models.Tag> getTagsByPoi(int PoiId);
+        Models.OmgevingsBoek_Models.Uitnodiging GetUitnodigingByKey(string key);
+        System.Collections.Generic.List<Models.OmgevingsBoek_Models.Uitnodiging> GetUitnodigingenAllByUser(string Username);
+        System.Collections.Generic.List<Models.OmgevingsBoek_Models.Uitnodiging> GetUitnodigingenOpenByUser(string Username);
         Models.MVC_Models.ApplicationUser GetUser(string Username);
         Models.MVC_Models.ApplicationUser GetUserById(string UserId);
         System.Collections.Generic.List<Models.MVC_Models.ApplicationUser> GetUserNext50SortAZ(int from);
@@ -47,5 +53,7 @@ namespace BusinessLogic.Services
         Models.OmgevingsBoek_Models.Tag InsertTag(string tag);
         bool IsActivityAccessibleByUser(int activiteitId, string Username);
         bool IsBoekAccessibleByUser(int BoekId, string Username);
+        bool IsValidKey(string Key);
+        bool SetUitnodigingGebruikt(int UitnodigingId, string GebruiktDoorUserName);
     }
 }

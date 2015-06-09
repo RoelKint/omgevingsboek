@@ -9,24 +9,27 @@ using System.Threading.Tasks;
 
 namespace BusinessLogic.Services
 {
-    public class BoekService : BusinessLogic.Services.IBoekService 
+    public class BoekService : BusinessLogic.Services.IBoekService, BusinessLogic.Services.IBoekService, BusinessLogic.Services.IBoekService 
     {
         private ITagRepository repoTag = null;
         private IActiviteitRepository repoActiviteit = null;
         private IBoekRepository repoBoek = null;
         private IPoiRepository repoPoi = null;
+        private IUitnodigingRepository repoUitnodiging = null;
 
         public BoekService(
             ITagRepository repoTag,
             IActiviteitRepository repoActiviteit,
             IBoekRepository repoBoek,
-            IPoiRepository repoPoi
+            IPoiRepository repoPoi,
+            IUitnodigingRepository repoUitnodiging
             )
         {
             this.repoActiviteit = repoActiviteit;
             this.repoBoek = repoBoek;
             this.repoTag = repoTag;
             this.repoPoi = repoPoi;
+            this.repoUitnodiging = repoUitnodiging;
         }
 
         #region Activiteiten
@@ -201,6 +204,14 @@ namespace BusinessLogic.Services
         {
             return repoPoi.GetByID(Id);
         }
+        public void AddTagToPoi(int PoiId, int TagId)
+        {
+            repoPoi.AddTag(PoiId, TagId);
+        }
+        public List<Tag> getTagsByPoi(int PoiId)
+        {
+            return repoPoi.GetTags(PoiId);
+        }
 
         #endregion
 
@@ -264,12 +275,44 @@ namespace BusinessLogic.Services
 
         #endregion
 
+        #region uitnodigingen
 
+        public Uitnodiging Create(string UitgenodigdDoorUserName, string EmailUitgenodigde)
+        {
+            return repoUitnodiging.Create(UitgenodigdDoorUserName, EmailUitgenodigde);
+
+        }
+        public bool IsValidKey(string Key)
+        {
+            return repoUitnodiging.IsValidKey(key);
+        }
+        public Uitnodiging GetUitnodigingByKey(string key)
+        {
+            return repoUitnodiging.GetUitnodigingByKey(key);
+        }
+
+        public List<Uitnodiging> GetUitnodigingenOpenByUser(string Username)
+        {
+            return repoUitnodiging.GetUitnodigingenOpenByUser(Username);
+        }
+        public List<Uitnodiging> GetUitnodigingenAllByUser(string Username)
+        {
+            return repoUitnodiging.GetUitnodigingenAllByUser(Username);
+        }
         
+        public bool SetUitnodigingGebruikt(int UitnodigingId, string GebruiktDoorUserName)
+        {
+            return repoUitnodiging.SetUitnodigingGebruikt(UitnodigingId, GebruiktDoorUserName);
+
+        }
         
-        
-        
-        
-        
+
+        #endregion
+
+
+
+
+
+
     }
 }

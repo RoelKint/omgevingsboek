@@ -20,6 +20,8 @@ namespace Omgevingsboek.Controllers
 
         public AccountController()
         {
+            Guid g = Guid.NewGuid();
+            string a = g.ToString();
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
