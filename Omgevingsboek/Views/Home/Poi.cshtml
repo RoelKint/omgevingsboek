@@ -6,29 +6,41 @@
 
 <div class="col-xs-12 col-md-12 content" id="content">
 
-    <h2>@Model.Naam</h2>
+    <div class="col-xs-12 col-md-12">
+        <h2>@Model.Naam</h2>
+        </div>
+    <div class="col-xs-6 col-md-6">
+        <div class="ImageCrop img-responsive img-rounded" style="background:url('@Model.Afbeelding'); background-position: center center;">
+        </div>
+    </div>
+    <div class="col-xs-6 col-md-6">
+        <ul style="list-style-type:none">
+            <li><b>Gegevens</b></li>
+            <li>
+                gsm/tel: @if (Model.Telefoon == null)
+                { @("Niet opgegeven") }
+                else
+                { @Model.Telefoon}
+            </li>
+            <li>
+                email: @if (Model.Email == null)
+                { @("Niet opgegeven") }
+                else
+                { @Model.Email}
+            </li>
+            <li>Adres:  @Model.Straat @Model.Nummer, @Model.Postcode @Model.Gemeente</li>
+            @if (Model.MinLeeftijd != null)
+            {
+                <li>doelgroep: @Model.MinLeeftijd tot @Model.MaxLeeftijd</li>}
+        </ul>
+    </div>
+    <div class="col-xs-12 col-md-12">
+        <h2>Activiteiten</h2>
 
-    <div class="ImageCrop img-responsive img-rounded"  style="background:url('@Model.Afbeelding')">
-   </div>
-    <ul style="list-style-type:none">
-        <li><b>Gegevens</b></li>
-        <li>
-            gsm/tel: @if (Model.Telefoon == null)
-            { @("Niet opgegeven") }
-            else
-            { @Model.Telefoon}
-        </li>
-        <li>
-            email: @if (Model.Email == null)
-            { @("Niet opgegeven") }
-            else
-            { @Model.Email}
-        </li>
-        <li>Adres:  @Model.Straat @Model.Nummer, @Model.Postcode @Model.Gemeente</li>
-        @if (Model.MinLeeftijd != null)
-        {
-            <li>doelgroep: @Model.MinLeeftijd tot @Model.MaxLeeftijd</li>}
-    </ul>
-   
+        @Model.
 
+
+
+
+    </div>
     </div>

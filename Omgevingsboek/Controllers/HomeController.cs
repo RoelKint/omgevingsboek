@@ -75,7 +75,6 @@ namespace Omgevingsboek.Controllers
             return View(activiteit);
         }
         [Authorize]
-
         public ActionResult Poi(int? Id)
         {
             if (!Id.HasValue) return RedirectToAction("Index");
