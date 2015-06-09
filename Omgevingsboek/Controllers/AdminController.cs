@@ -5,6 +5,8 @@ using Models.PresentationModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 
@@ -233,6 +235,59 @@ namespace Omgevingsboek.Controllers
             ViewBag.desc = desc;
             return View(res);
         }
+        [Authorize(Roles = "Administrator,SuperAdministrator")]
+
+        public ActionResult AddUsers(String Mails)
+        {
+            Regex regex = new Regex(@"^[\w!#$%&'*+\-/=?\^_`{|}~]+(\.[\w!#$%&'*+\-/=?\^_`{|}~]+)*"
+                + "@"
+                + @"((([\-\w]+\.)+[a-zA-Z]{2,4})|(([0-9]{1,3}\.){3}[0-9]{1,3}))$");
+            string[] Emails = new string[0];
+            Emails = Mails.Split(new string[] { "\r\n", ",", " " }, StringSplitOptions.None);
+            
+            foreach (string m in Emails)
+            {
+                if (regex.Match(m.Trim()).Success)
+                {
+                    //TODO: Frontend checken
+
+                    Uitnodiging u = bs.CreateUitnodiging(User.Identity.Name, m.Trim());
+                    ApplicationUser zenderNaam = bs.GetUser(User.Identity.Name);
+                    UitnodigingSturen(m.Trim(), zenderNaam.Voornaam + " " + zenderNaam.Naam, u.Key);
+
+                }
+                    
+            }
+
+
+            return View();
+        }
+
+        public void UitnodigingSturen(string MailTo, string MailFrom, string Key)
+        {
+            SmtpClient smtpClient = new SmtpClient("smtp.sendgrid.net", 587);
+
+            smtpClient.Credentials = new System.Net.NetworkCredential("azure_9bab81a4769eae1b17dfaf2e69d71fd7@azure.com", "h8C2xnCHIEuESrt");
+            smtpClient.UseDefaultCredentials = true;
+            smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+            smtpClient.EnableSsl = true;
+            MailMessage mail = new MailMessage();
+
+
+            mail.From = new MailAddress("dylan.deceulaer@student.howest.be", "Omgevingsboek Team");
+            mail.To.Add(new MailAddress("dylandeceulaer@hotmail.com"));
+            mail.Subject = "Uitnodiging voor het Omgevingsboek van"+MailFrom;
+            mail.Body = "Beste,</br>" + "username" + " heeft je uitgenodigd om een account aan te maken op het omgevingsboek van Howest.</br>" +
+            "Klik op onderstaande link om een account aan te maken." +
+            "<a href=\"" + "http://http://localhost:44946/Account/register/Key" + Key +"\"/>  </br>" +
+            "Met vriendelijke groeten, </br> Het Howest Omgevingsboek team.";
+            
+            
+
+            smtpClient.Send(mail);
+        }
+
+
         [Authorize(Roles = "SuperAdministrator")]
         [HttpPost]
         public ActionResult HardDeletePoi(List<int> PoisToDelete, int vanaf, int desc, int filter)
