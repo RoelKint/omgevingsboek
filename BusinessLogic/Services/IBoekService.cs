@@ -4,7 +4,7 @@ namespace BusinessLogic.Services
     public interface IBoekService
     {
         void AddTagToPoi(int PoiId, int TagId);
-        Models.OmgevingsBoek_Models.Uitnodiging Create(string UitgenodigdDoorUserName, string EmailUitgenodigde);
+        Models.OmgevingsBoek_Models.Uitnodiging CreateUitnodiging(string UitgenodigdDoorUserName, string EmailUitgenodigde);
         void DeleteActiviteit(Models.OmgevingsBoek_Models.Activiteit entityToDelete);
         void DeleteActiviteitSoft(Models.OmgevingsBoek_Models.Activiteit entityToDelete);
         void DeleteBoek(Models.OmgevingsBoek_Models.Boek boek);

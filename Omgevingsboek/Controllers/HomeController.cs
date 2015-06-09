@@ -84,10 +84,11 @@ namespace Omgevingsboek.Controllers
             return null;
         }
 
-        public ActionResult GetTagsByPoi(int PoiId)
+        public ActionResult GetTagsByPoi(int? PoiId)
         {
-            if (bs.GetPoiById(PoiId) == null) return null;
-            List<Models.OmgevingsBoek_Models.Tag> tags = bs.getTagsByPoi(PoiId);
+            if (!PoiId.HasValue) return null;
+            if (bs.GetPoiById((int)PoiId) == null) return null;
+            List<Models.OmgevingsBoek_Models.Tag> tags = bs.getTagsByPoi((int)PoiId);
             List<SimpleTag> stl = new List<SimpleTag>();
             List<String> tagList = new List<String>();
             foreach (Models.OmgevingsBoek_Models.Tag tag in tags)
