@@ -94,7 +94,6 @@ namespace Omgevingsboek.Controllers
         
         public ActionResult AddPoi(Poi poi, HttpPostedFileBase AfbeeldingFile,string TagsString)
         {
-            poi.Latitude = 3.2581556665038534;
             String fotoId;
             PhotoInfo fotoInfo;
             if (!ModelState.IsValid) return RedirectToAction("Index");
