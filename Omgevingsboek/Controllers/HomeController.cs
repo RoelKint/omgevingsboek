@@ -81,14 +81,21 @@ namespace Omgevingsboek.Controllers
             if (!Id.HasValue) return RedirectToAction("Index");
             Poi poi = bs.GetPoiById((int)Id);
             if (poi == null) return RedirectToAction("Index");
-            if (poi.Eigenaar.UserName != User.Identity.Name) return RedirectToAction("Index");
+            List<Poi> pois = bs.GetPoiList();
             
-            return View(poi);
+            PoiPM pm = new PoiPM()
+            {
+                poi = poi
+            };
+            pm.Activiteiten = bs.getActiviteitenByPoiByUser50from(0, User.Identity.Name, poi.ID);
+
+            return View(pm);
         }
         [Authorize]
         
         public ActionResult AddPoi(Poi poi, HttpPostedFileBase AfbeeldingFile,string TagsString)
         {
+            poi.Latitude = 3.2581556665038534;
             String fotoId;
             PhotoInfo fotoInfo;
             if (!ModelState.IsValid) return RedirectToAction("Index");
