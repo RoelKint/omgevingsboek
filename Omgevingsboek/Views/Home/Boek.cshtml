@@ -21,9 +21,52 @@
                 </span>
             </div>
         }
-        
+        <div class="col-sm-6 col-md-3">
+            <a href="#" class="toggleActivityForm">
+                <span class="caption"><span class="glyphicon glyphicon-plus"></span> Activiteit toevoegen</span>
+            </a>
+        </div>
     </div>
 </div>
+
+<div class="col-xs-6 col-md-9 content" id="activityForm" style="
+  position: absolute;
+  bottom: 5%;
+  height: 80%;
+  overflow: hidden;
+  display: none;
+  background-color: white;
+    -webkit-transition: none;
+    -moz-transition: none;
+    -ms-transition: none;
+    -o-transition: none;
+">
+    <div class="col-md-12">
+        <a href="#" class="toggleActivityForm">
+            <span class="caption"><span class="glyphicon glyphicon-plus"></span> Activiteit toevoegen</span>
+        </a>
+    </div>
+    <div role="tabpanel">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#basis" aria-controls="basis" role="tab" data-toggle="tab">Basis info</a></li>
+            <li role="presentation"><a href="#media" aria-controls="media" role="tab" data-toggle="tab">Media</a></li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade in active" id="basis">Sapperloot!</div>
+            <div role="tabpanel" class="tab-pane fade" id="media">Amai mijn gedacht!</div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(".toggleActivityForm").click(function (e) {
+        e.preventDefault();
+        $("#activityForm").slideToggle(400, function () {
+        });
+    });
+</script>
 
 @*@Html.Partial("_PoiPartial", Model)*@
     
