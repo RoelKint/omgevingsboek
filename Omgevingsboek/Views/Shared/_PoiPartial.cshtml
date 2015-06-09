@@ -74,6 +74,8 @@
                 <input type="hidden" name="Nummer" id="nummerHidden" />
                 <input type="hidden" name="Gemeente" id="gemeenteHidden"/>
                 <input type="hidden" name="Postcode" id="postcodeHidden"/>
+                <input type="hidden" name="Latitude" id="latitudeHidden" />
+                <input type="hidden" name="Longitude" id="longitudeHidden" />
 
             </div>
         </div>
@@ -131,7 +133,7 @@
         <div class="col-md-4 preview" style="background-image:url('{{image}}');">
         </div>
         <div class="col-md-8 info">
-            <h3><a href="/poi/{{id}}">{{title}}</a></h3>
+            <h3><a href="../Home/poi?id={{id}}">{{title}}</a></h3>
             <p class="tags">{{{tags}}}</p>
             <p class="location">{{distance}}km {{city}}</p>
             <button data-toggle="popover"
