@@ -1,4 +1,4 @@
-﻿    @model Models.OmgevingsBoek_Models.Boek
+﻿@model Models.OmgevingsBoek_Models.Boek
 
 @{
     ViewBag.Title = "Boeken";
@@ -41,21 +41,34 @@
     -ms-transition: none;
     -o-transition: none;
 ">
-    <div class="col-md-12">
-        <a href="#" class="toggleActivityForm">
-            <span class="caption"><span class="glyphicon glyphicon-plus"></span> Activiteit toevoegen</span>
-        </a>
+    <div class="row">
+        <div class="col-md-4">
+            <input type="text" class="form-control" id="name" name="name" placeholder="Naam van activiteit">
+            <input type="text" class="form-control" id="poiName" placeholder="Klik op een POI." disabled>
+            <input type="hidden" class="form-control" id="poi" name="poi">
+        </div>
+        <div class="col-md-5">
+            <input type="text" class="form-control" id="tags" name="tags" placeholder="Tags">
+        </div>
+        <div class="col-md-3">
+            <button class="toggleActivityForm btn btn-danger">
+                <span class="caption"><span class="glyphicon glyphicon-remove"></span></span>
+            </button>
+        </div>
+
     </div>
-    <div role="tabpanel">
-        <!-- Nav tabs -->
-        <ul class="nav nav-tabs" role="tablist">
-            <li role="presentation" class="active"><a href="#basis" aria-controls="basis" role="tab" data-toggle="tab">Basis info</a></li>
-            <li role="presentation"><a href="#media" aria-controls="media" role="tab" data-toggle="tab">Media</a></li>
-        </ul>
-        <!-- Tab panes -->
-        <div class="tab-content">
-            <div role="tabpanel" class="tab-pane fade in active" id="basis">Sapperloot!</div>
-            <div role="tabpanel" class="tab-pane fade" id="media">Amai mijn gedacht!</div>
+    <div class="row">
+        <div role="tabpanel" class="col-md-12">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#basis" aria-controls="basis" role="tab" data-toggle="tab">Basis info</a></li>
+                <li role="presentation"><a href="#media" aria-controls="media" role="tab" data-toggle="tab">Media</a></li>
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane fade in active" id="basis">Sapperloot!</div>
+                <div role="tabpanel" class="tab-pane fade" id="media">Amai mijn gedacht!</div>
+            </div>
         </div>
     </div>
 </div>
@@ -66,8 +79,31 @@
         $("#activityForm").slideToggle(400, function () {
         });
     });
+
+    function setListItemListeners() {
+        $("#list .row.poi").each(
+         function (element) {
+             var poi = this;
+             $(this).children(".preview").click(
+               function (element) {
+                   $("#poi").val($(poi).attr("data-id"));
+                   $("#poiName").val($(poi).attr("data-title"));
+                   console.log($(poi).attr("data-title"));
+               }
+             );
+         });
+    }
+
+    function defer(method) {
+        if (json != null) {
+            method();
+        } else
+            setTimeout(function () { defer(method) }, 50);
+    }
+
+    defer(setListItemListeners);
 </script>
 
 @*@Html.Partial("_PoiPartial", Model)*@
-    
+
 @{ Html.RenderAction("PoiPartial", "Home"); }
