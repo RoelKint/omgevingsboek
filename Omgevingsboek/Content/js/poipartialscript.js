@@ -97,8 +97,11 @@ $().ready(function () {
                 $('#gemeenteHidden').val(addressComponents.city);
                 $('#postcodeHidden').val(addressComponents.postalCode);
                 $('#nummerHidden').val(addressComponents.streetNumber);
-                $('#latitudeHidden').val(currentLocation.latitude);
+                $('#latitudeHidden').val((currentLocation.latitude));
+                $('#latitudeHidden').val($('#latitudeHidden').val().replace(".", ","));
                 $('#longitudeHidden').val(currentLocation.longitude);
+                $('#longitudeHidden').val($('#longitudeHidden').val().replace(".", ","));
+
             }
         });
     });
