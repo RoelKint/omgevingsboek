@@ -16,6 +16,8 @@
 <div class="col-xs-12 col-md-12 nav">
     <a href="../Admin">&lt;&lt; Terug naar overzicht</a>
 </div>
+<div class="adminList col-xs-6 col-md-9 content" id="content">
+    <h2>Activiteiten</h2>
     <div class="col-xs-6 col-md-9">
         <span style="font-weight:bold">@ViewBag.vanaf - @meer</span>
     </div>
@@ -28,8 +30,9 @@
         <input type="text" placeholder="Zoeken" />
     </div>
 
-    <form id="formA">
-
+    <form id="formA" method="post" action="Delete">
+        <input hidden name="vanaf" value="@ViewBag.vanaf" />
+        <input hidden name="desc" value="@ViewBag.desc" />
         <table class="table table-hover">
             <colgroup>
                 <col class="col-lg-1 col-xs-1 col-md-1" />
@@ -47,7 +50,7 @@
             </tr>
 
             @foreach (var item in Model)
-           { 
+            {
                 <tr>
                     <td><input type="checkbox" name="checkbox" value="@item.User.Naam"></td>
                     <td>@item.User.Naam @item.User.Voornaam</td>
@@ -74,11 +77,14 @@
             }
         </table>
     </form>
+
     <div id="buttonsAdOnder">
         <button onclick="location.href='../Admin/Gebruikers?vanaf=@minder&desc=@desc'"><span class="glyphicon glyphicon-chevron-left"></span> Vorige Pag.</button>
         <button onclick="location.href='../Admin/Gebruikers?vanaf=@meer&desc=@desc'"><span class="glyphicon glyphicon-chevron-right"></span> Volgende Pag.</button>
         <button><span class="glyphicon glyphicon-remove-circle"></span> Verwijderen</button>
     </div>
 </div>
+
+
 
 @{ Html.RenderAction("GebrPartial", "Admin"); }
