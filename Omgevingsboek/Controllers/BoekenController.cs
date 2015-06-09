@@ -84,7 +84,7 @@ namespace Omgevingsboek.Controllers
                 //feedback?
             }
 
-            return View(boek);
+            return RedirectToAction("Index");
         }
         
     }

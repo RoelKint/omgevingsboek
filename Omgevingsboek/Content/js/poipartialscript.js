@@ -8,6 +8,10 @@
 
 $().ready(function () {
 
+    $('button[type=submit]').on('click', function () {
+        var $btn = $(this).button('loading')
+    })
+
     $("input:file").change(function () {
         var fileName = $(this).val();
         console.log(fileName);
