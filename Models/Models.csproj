@@ -116,6 +116,10 @@
     <Compile Include="Migrations\201506080759048_user-foto.Designer.cs">
       <DependentUpon>201506080759048_user-foto.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201506090758027_update-poi-model.cs" />
+    <Compile Include="Migrations\201506090758027_update-poi-model.Designer.cs">
+      <DependentUpon>201506090758027_update-poi-model.cs</DependentUpon>
+    </Compile>
     <Compile Include="OmgevingsBoek Models\Activiteit.cs" />
     <Compile Include="OmgevingsBoek Models\Benodigdheid.cs" />
     <Compile Include="OmgevingsBoek Models\Boek.cs" />
@@ -188,6 +192,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201506080759048_user-foto.resx">
       <DependentUpon>201506080759048_user-foto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506090758027_update-poi-model.resx">
+      <DependentUpon>201506090758027_update-poi-model.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

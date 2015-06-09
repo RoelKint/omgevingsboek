@@ -16,7 +16,6 @@ namespace Models.OmgevingsBoek_Models
         public virtual ApplicationUser Eigenaar { get; set; }
         public string EigenaarId { get; set; }
         public string Afbeelding { get; set; }
-        public string GeoLocatie { get; set; }
         public string Email { get; set; }
         public string Telefoon { get; set; }
         public string Straat { get; set; }
@@ -28,6 +27,8 @@ namespace Models.OmgevingsBoek_Models
         public double Prijs { get; set; }
         public virtual List<Tag> Tags { get; set; }
         public bool IsDeleted { get; set; }
+        public double Longitude { get; set; }
+        public double Latitude { get; set; }
 
 
     }
