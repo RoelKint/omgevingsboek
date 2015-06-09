@@ -48,6 +48,7 @@ namespace BusinessLogic.Services
         Models.MVC_Models.ApplicationUser GetUserById(string UserId);
         System.Collections.Generic.List<Models.MVC_Models.ApplicationUser> GetUserNext50SortAZ(int from);
         System.Collections.Generic.List<Models.MVC_Models.ApplicationUser> GetUserNext50SortZA(int from);
+        bool HeeftEmailAlEenUitnodiging(string Email);
         Models.OmgevingsBoek_Models.Boek InsertBoek(Models.OmgevingsBoek_Models.Boek boek);
         Models.OmgevingsBoek_Models.Poi InsertPoi(Models.OmgevingsBoek_Models.Poi poi);
         Models.OmgevingsBoek_Models.Tag InsertTag(string tag);

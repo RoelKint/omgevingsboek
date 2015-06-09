@@ -275,6 +275,8 @@ namespace BusinessLogic.Services
 
         #endregion
 
+
+
         #region uitnodigingen
 
         public Uitnodiging CreateUitnodiging(string UitgenodigdDoorUserName, string EmailUitgenodigde)
@@ -305,7 +307,10 @@ namespace BusinessLogic.Services
             return repoUitnodiging.SetUitnodigingGebruikt(UitnodigingId, GebruiktDoorUserName);
 
         }
-        
+        public bool HeeftEmailAlEenUitnodiging(string Email)
+        {
+           return repoUitnodiging.HeeftEmailAlEenUitnodiging(Email);
+        }
 
         #endregion
 
