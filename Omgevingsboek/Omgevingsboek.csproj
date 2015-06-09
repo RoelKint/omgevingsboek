@@ -248,6 +248,7 @@
     <Content Include="Content\img\favicon.ico" />
     <Content Include="Content\img\paper_fibers.png" />
     <Content Include="Content\jquery.tagsinput.min.css" />
+    <Content Include="Content\js\boekenScript.js" />
     <Content Include="Content\js\CooleDingenGebruiker.js" />
     <Content Include="Content\js\filter.js" />
     <Content Include="Content\js\poipartialscript.js" />

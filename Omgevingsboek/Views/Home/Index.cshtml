@@ -16,9 +16,16 @@
                 </a>
             </div>
         }
-        <div class="col-sm-6 col-md-3">
+        <div class="col-sm-6 col-md-3" id="toevoegenBoek">
             <a href="/Boeken/Create">
-                <span class="caption"><span class="glyphicon glyphicon-plus"></span> Boek toevoegen</span>
+                @*<div class="toevoegen">*@
+                    <span class="caption"><span class="glyphicon glyphicon-plus"></span> Boek toevoegen</span>
+                @*</div>*@
+                @*<div class="toevoegenClick">
+                    <input type="text" placeholder="Titel van het boek" id="boekTitel" naam="boekTitel" />
+                    <input type="submit" />
+
+                </div>*@
             </a>
         </div>
         
@@ -43,3 +50,4 @@
 @*@Html.Partial("_PoiPartial", Model)*@
     
 @{ Html.RenderAction("PoiPartial", "Home"); }
+@*<script src="~/Content/js/boekenScript.js"></script>*@
