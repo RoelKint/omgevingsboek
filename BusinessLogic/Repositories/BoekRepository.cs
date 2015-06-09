@@ -57,20 +57,11 @@ namespace BusinessLogic.Repositories
         }
         public override Boek Insert(Boek entity)
         {
-            Boek res = base.Insert(entity);
-            if(res.DeelLijst != null)
-            foreach (var item in res.DeelLijst)
-            {
-                context.Entry(item).State = EntityState.Unchanged;
-            }
-            if(res.Activiteiten != null)
-            foreach (var item in res.Activiteiten)
-            {
-                context.Entry(item).State = EntityState.Unchanged;
-            }
-            if(res.Eigenaar != null)
-            context.Entry(res.Eigenaar).State = EntityState.Unchanged;
-
+            Boek res = entity;
+            res.DeelLijst = new List<ApplicationUser>();
+            res.DeelLijst.Add(context.Users.Where(u => u.Id == entity.EigenaarId).FirstOrDefault());
+            res = base.Insert(entity);
+            
             try
             {
                 context.SaveChanges();
