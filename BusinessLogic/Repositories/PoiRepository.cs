@@ -10,7 +10,7 @@ using System.Data.Entity.Validation;
 
 namespace BusinessLogic.Repositories
 {
-    public class PoiRepository : GenericRepository<Poi>, BusinessLogic.Repositories.IPoiRepository, BusinessLogic.Repositories.IPoiRepository, BusinessLogic.Repositories.IPoiRepository
+    public class PoiRepository : GenericRepository<Poi>, BusinessLogic.Repositories.IPoiRepository
     {
         public PoiRepository(ApplicationDbContext context)
             : base(context)
