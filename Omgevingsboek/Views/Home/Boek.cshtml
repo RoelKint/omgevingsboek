@@ -221,21 +221,19 @@
         });
     }
 
-    function defer(method) {
-        console.log("checking listener");
-        if (typeof listLoaded !== 'undefined') {
-            if (listLoaded == true) {
-                console.log("updated listener");
+    function deferListener(method) {
+        console.log("lel");
+        if (typeof listLoaded !== 'undefined' && listLoaded == true) {
                 method();
                 listLoaded = false;
-            } 
-        }
-
+                $('#searchPoi').bind('input', function () {
+                    method();
+                });
+        } else
+            setTimeout(function () { deferListener(method)}, 50);
     }
 
-    setInterval(function () {
-        defer(setListItemListeners)
-    }, 50);
+    deferListener(setListItemListeners);
 
     initSliders();
 </script>
