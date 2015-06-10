@@ -69,7 +69,7 @@ namespace Omgevingsboek.Controllers
                     else
                         res = bs.GetActiviteiten50FromSortNameAZ((int)vanaf);
                     break;
-                    
+
             }
             foreach (var item in res)
             {
@@ -108,7 +108,7 @@ namespace Omgevingsboek.Controllers
                 bs.DeleteActiviteit(a);
             }
             //return RedirectToAction("Activities", "vanaf=" + vanaf + "&desc=" + desc + "&filter=" + filter);
-            return RedirectToAction("Activities", new { vanaf = vanaf , desc = desc, filter = filter});
+            return RedirectToAction("Activities", new { vanaf = vanaf, desc = desc, filter = filter });
         }
         [Authorize(Roles = "Administrator,SuperAdministrator")]
         [HttpGet]
@@ -225,12 +225,12 @@ namespace Omgevingsboek.Controllers
             if (!vanaf.HasValue) vanaf = 0;
             if (!desc.HasValue) desc = 0;
 
-            
+
             if (desc == 1)
                 res = bs.GetPoi50FromSortNameZA((int)vanaf);
             else
                 res = bs.GetPoi50FromSortNameAZ((int)vanaf);
-                    
+
             ViewBag.vanaf = vanaf;
             ViewBag.desc = desc;
             return View(res);
@@ -243,29 +243,32 @@ namespace Omgevingsboek.Controllers
                 + "@"
                 + @"((([\-\w]+\.)+[a-zA-Z]{2,4})|(([0-9]{1,3}\.){3}[0-9]{1,3}))$");
             string[] Emails = new string[0];
-            Emails = Mails.Split(new string[] { "\r\n", ",", " " }, StringSplitOptions.None);
-            
+            Emails = Mails.Split(new string[] { "\r\n", ",", " ",";" }, StringSplitOptions.None);
+
             foreach (string m in Emails)
             {
                 if (regex.Match(m.Trim()).Success)
                 {
                     //TODO: Frontend checken
 
+                    if (bs.HeeftEmailAlEenUitnodiging(m.Trim())) return RedirectToAction("Gebruikers"); //TODO: in frondend zeggen dat hij al is uitgenodigd
                     Uitnodiging u = bs.CreateUitnodiging(User.Identity.Name, m.Trim());
                     ApplicationUser zenderNaam = bs.GetUser(User.Identity.Name);
                     UitnodigingSturen(m.Trim(), zenderNaam.Voornaam + " " + zenderNaam.Naam, u.Key);
 
                 }
-                    
+
             }
 
 
-            return View();
+            return RedirectToAction("Gebruikers");
         }
 
         public void UitnodigingSturen(string MailTo, string MailFrom, string Key)
         {
             SmtpClient smtpClient = new SmtpClient("smtp.sendgrid.net", 587);
+
+            System.Net.NetworkCredential creds = new System.Net.NetworkCredential("azure_9bab81a4769eae1b17dfaf2e69d71fd7@azure.com", "h8C2xnCHIEuESrt");
 
             smtpClient.Credentials = new System.Net.NetworkCredential("azure_9bab81a4769eae1b17dfaf2e69d71fd7@azure.com", "h8C2xnCHIEuESrt");
             smtpClient.UseDefaultCredentials = true;
@@ -273,17 +276,18 @@ namespace Omgevingsboek.Controllers
             smtpClient.EnableSsl = true;
             MailMessage mail = new MailMessage();
 
-
-            mail.From = new MailAddress("dylan.deceulaer@student.howest.be", "Omgevingsboek Team");
+            
+            mail.IsBodyHtml = true;
+            mail.From = new MailAddress("azure_9bab81a4769eae1b17dfaf2e69d71fd7@azure.com", "Omgevingsboek Team");
             mail.To.Add(new MailAddress("dylandeceulaer@hotmail.com"));
-            mail.Subject = "Uitnodiging voor het Omgevingsboek van"+MailFrom;
-            mail.Body = "Beste,</br>" + "username" + " heeft je uitgenodigd om een account aan te maken op het omgevingsboek van Howest.</br>" +
-            "Klik op onderstaande link om een account aan te maken." +
-            "<a href=\"" + "http://http://localhost:44946/Account/register/Key" + Key +"\"/>  </br>" +
+            mail.Subject = "Uitnodiging voor het Omgevingsboek van " + MailFrom;
+            mail.Body = "Beste,</br>" + MailFrom + " heeft je uitgenodigd om een account aan te maken op het omgevingsboek van Howest.</br>" +
+            "Klik op onderstaande link om een account aan te maken. </br>" +
+            "<a href=\"" + "http://localhost:44946/Account/register/" + Key + "\"> http://localhost:44946/Account/register/" + Key + " </a> </br> </br>" +
             "Met vriendelijke groeten, </br> Het Howest Omgevingsboek team.";
-            
-            
 
+            
+            smtpClient.Credentials = creds;
             smtpClient.Send(mail);
         }
 
@@ -322,18 +326,18 @@ namespace Omgevingsboek.Controllers
         [ChildActionOnly]
         public ActionResult GebrPartial()
         {
-           /* List<PoiPM> poipms = new List<PoiPM>();
-            List<Poi> pois = bs.GetPoiList();
-            foreach (Poi poi in pois)
-            {
-                PoiPM pm = new PoiPM()
-                {
-                    poi = poi
-                };
-                pm.Activiteiten = bs.getActiviteitenPerPoi(poi.ID);
-                poipms.Add(pm);
+            /* List<PoiPM> poipms = new List<PoiPM>();
+             List<Poi> pois = bs.GetPoiList();
+             foreach (Poi poi in pois)
+             {
+                 PoiPM pm = new PoiPM()
+                 {
+                     poi = poi
+                 };
+                 pm.Activiteiten = bs.getActiviteitenPerPoi(poi.ID);
+                 poipms.Add(pm);
 
-            }*/
+             }*/
             return PartialView("_GebrPartial" /*, JsonConvert.SerializeObject(poipms)*/);
         }
     }

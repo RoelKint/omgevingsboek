@@ -98,7 +98,7 @@ namespace Models.Migrations
             #endregion
 
             #region DATA
-
+            /*
             Boek boek10 = new Boek()
             {
                 Naam = "Roel <3 oude kalende mannen",
@@ -108,6 +108,7 @@ namespace Models.Migrations
             };
             context.Boeken.Add(boek10);
             context.SaveChanges();
+             */
 
             //Reële demodata
             /*
