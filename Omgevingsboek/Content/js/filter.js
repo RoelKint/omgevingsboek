@@ -1,4 +1,6 @@
-﻿json.forEach(function (poi) {
+﻿var listLoaded;
+
+json.forEach(function (poi) {
     //console.log(poi.poi.Tags);
     joinedtags = poi.poi["Tags"].map(function (tag) {
         return tag.Naam;
@@ -9,6 +11,7 @@
 
 $('#searchPoi').bind('input', function () {
     filter($(this).val());
+    listLoaded = true;
 });
 
 function distanceFrom(points) {
@@ -96,7 +99,6 @@ function filter(query) {
         var tagSource = $("#poi-template").html();
         var tagTemplate = Handlebars.compile(tagSource);
 
-        console.log("TODO GEBRUIK ECHTE GEO DATA");
 
         var distance = parseInt(distanceFrom({
             // School locatie
@@ -106,8 +108,6 @@ function filter(query) {
             'lat2': 50.828056, 
             'lng2': 3.265
         }));
-
-        console.log(home.poi.OrigTags);
 
         var context = {
             title: home.poi.Naam,
@@ -127,7 +127,7 @@ function filter(query) {
         $('[data-toggle="popover"]').popover()
     });
 
-    var listLoaded = true;
+    listLoaded = true;
 }
 
 filter("");
