@@ -4,8 +4,20 @@
 .nav .breadcrumb {
   margin: 0 7px;
 }
-.nav .username {
-  font-weight: bold;
+.navbar-default {
+  height: 7%;
+}
+body,
+html {
+  height: 100%;
+  overflow-y: hidden;
+}
+footer {
+  position: fixed;
+  bottom: 0;
+  background-color: white;
+  left: 1%;
+  z-index: 2;
 }
 #activityForm .fileUpload {
   height: 95px;
@@ -83,10 +95,14 @@ span.buttons .btn {
 }
 div.main {
   position: relative;
+  height: 90%;
+}
+div.main > row {
+  height: 100%;
 }
 .expandable {
-  border-left: 1px solid #D3D3D3;
-  border-top: 1px solid #D3D3D3;
+  border: 1px solid #D3D3D3;
+  border-bottom-left-radius: 5px;
 }
 .expandable button.expand {
   position: absolute;
@@ -122,6 +138,14 @@ div.stackright button {
 }
 .sidebar {
   padding-top: 10px;
+}
+.sidebar > .poi {
+  height: 100%;
+}
+.sidebar > .poi #list {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 93%;
 }
 .sidebar .form-horizontal {
   margin-left: 0px;
@@ -195,8 +219,10 @@ h3.rowheader {
   z-index: 9999;
 }
 .row.poi {
-  padding-bottom: 5px;
+  width: 100%;
   padding-top: 7px;
+  margin: 0;
+  padding-bottom: 5px;
   border-top: 1px solid rgba(211, 211, 211, 0.5);
 }
 .row.poi h3 a {
