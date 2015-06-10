@@ -13,7 +13,7 @@
             <div class="row">
                 <div class="form-group col-md-12">
                     <label for="amount">Nodig gebruikers uit:</label>
-                    <div class="input-group">
+                    <div>
                         
                         <textarea name="Mails" id="mails" class="form-control" rows="10"></textarea>
                         <p>meerdere adressen mogelijk</p>
@@ -27,5 +27,37 @@
                 </button>
                 </div>
             </div>
+        @if(ViewBag.IsFout != null){
+            if (!ViewBag.IsFout)
+            {
+                <p>Alle Uitnodigingen zijn succesvol verstuurt.</p>
+            }
+            else
+            {
+                if (ViewBag.Fouten != null)
+                {
+                    <p>Volgende email adressen zijn incorrect:</p>
+                    <ul>
+                    @foreach (string fout in ViewBag.Fouten)
+                    {
+                        <li>@fout</li>
+                    }
+                    </ul>
+                }
+                if (ViewBag.Gebruikt != null)
+                {
+                    <p>Volgende email adressen hebben al een uitnodiging:</p>
+                    <ul>
+                        @foreach (string fout in ViewBag.Gebruikt)
+                        {
+                            <li>@fout</li>
+                        }
+                    </ul>
+                }
+            }
+
+        }
+
+
     </form>
 </div>
