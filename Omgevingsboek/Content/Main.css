@@ -4,9 +4,9 @@
 .nav .breadcrumb {
   margin: 0 7px;
 }
-.navbar-default {
-  height: 7%;
-}
+/*.navbar-default {
+    height: 7%;
+}*/
 body,
 html {
   height: 100%;
