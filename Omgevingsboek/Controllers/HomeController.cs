@@ -194,11 +194,7 @@ namespace Omgevingsboek.Controllers
             return View();
         }
 
-        public ActionResult Test()
-        {
-            
-            return View();
-        }
+        
 
         [ChildActionOnly]
         public ActionResult PoiPartial()
@@ -216,16 +212,22 @@ namespace Omgevingsboek.Controllers
             return PartialView("_PoiPartial",JsonConvert.SerializeObject(poipms));
         }
 
+        [Authorize]        
         [HttpPost]
-        public ActionResult Test(HttpPostedFileBase picture)
+        public ActionResult UpdateAfbeelding(HttpPostedFileBase Afbeelding)
         {
-            String a = flickr.UploadPicture(picture.InputStream, "test", "test", "test", "", false, false, false, ContentType.Photo, SafetyLevel.Safe, HiddenFromSearch.Hidden);
-            
-            flickr.PhotosetsAddPhoto(ConfigurationManager.AppSettings.Get("FlickrBoekCoverId"), a);
-            
+            string UserName = User.Identity.Name;
+            ApplicationUser appuser = bs.GetUser(UserName);
+            string fotoId = flickr.UploadPicture(Afbeelding.InputStream, UserName, UserName, "", "", false, false, false, ContentType.Photo, SafetyLevel.Safe, HiddenFromSearch.Hidden);
+            flickr.PhotosetsAddPhoto(ConfigurationManager.AppSettings.Get("FlickrGebruikersAlbumId"), fotoId);
+            PhotoInfo fotoInfo = flickr.PhotosGetInfo(fotoId);
+            appuser.Afbeelding = fotoInfo.MediumUrl;
+            bs.UpdateUserAfbeelding(appuser);
 
             return View();
         }
+
+
         public ActionResult GetTags()
         {
             List<Models.OmgevingsBoek_Models.Tag> tags = bs.GetTagList();

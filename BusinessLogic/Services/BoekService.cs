@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLogic.Services
 {
-    public class BoekService : BusinessLogic.Services.IBoekService 
+    public class BoekService : BusinessLogic.Services.IBoekService
     {
         private ITagRepository repoTag = null;
         private IActiviteitRepository repoActiviteit = null;
@@ -272,6 +272,18 @@ namespace BusinessLogic.Services
                 context.Users.Remove(user);
             }
         }
+
+        public ApplicationUser UpdateUserAfbeelding(ApplicationUser user)
+        {
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                ApplicationUser appuser = context.Users.Where(u => u.Id == user.Id).FirstOrDefault();
+                appuser.Afbeelding = user.Afbeelding;
+                context.SaveChanges();
+                return appuser;
+            }
+        }
+
 
         #endregion
 
