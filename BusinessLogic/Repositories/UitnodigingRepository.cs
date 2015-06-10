@@ -72,6 +72,10 @@ namespace BusinessLogic.Repositories
             return true;
 
         }
+        public bool HeeftEmailAlEenUitnodiging(string Email)
+        {
+            return (context.Uitnodigingen.Where(u => u.EmailUitgenodigde == Email).FirstOrDefault() != null);
+        }
 
 
 

@@ -4,6 +4,16 @@
 .nav .breadcrumb {
   margin: 0 7px;
 }
+#activityForm .fileUpload {
+  height: 95px;
+}
+#activityForm button.toggleActivityForm {
+  float: right;
+  margin-top: 25px;
+}
+#activityForm .tab-content {
+  padding-top: 1em;
+}
 @media (min-width: 768px) {
   .nav .breadcrumb {
     float: left;
@@ -195,10 +205,10 @@ h3.rowheader {
   font-weight: bold;
   width: 100%;
 }
-.row.poi .info p.tags {
+.row.poi .info p.poiTags {
   margin: 0;
 }
-.row.poi .info p.tags span {
+.row.poi .info p.poiTags span {
   padding: 1px 4px;
   margin-right: 3px;
   background-color: green;
