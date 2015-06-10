@@ -9,6 +9,11 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Models.MVC_Models;
+using BusinessLogic.Services;
+using Models.OmgevingsBoek_Models;
+using FlickrNet;
+using Omgevingsboek.Config;
+using System.Configuration;
 
 namespace Omgevingsboek.Controllers
 {
@@ -17,18 +22,24 @@ namespace Omgevingsboek.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private IBoekService bs;
+        private Flickr flickr;
 
-        public AccountController()
+        public AccountController(IBoekService bs)
         {
-            
+            this.bs = bs;
+            flickr = MvcApplication.flickr;
+            if (flickr == null) flickr = FlickrApiManager.GetInstance();
+        
         }
+        /*
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
         {
             UserManager = userManager;
             SignInManager = signInManager;
         }
-
+        */
         public ApplicationSignInManager SignInManager
         {
             get
@@ -138,9 +149,15 @@ namespace Omgevingsboek.Controllers
         //
         // GET: /Account/Register
         [AllowAnonymous]
-        public ActionResult Register()
+        public ActionResult Register(string Key)
         {
-            return View();
+            RegisterViewModel rVM = new RegisterViewModel();
+            if (Key == null) return RedirectToAction("Login");
+            if (!bs.IsValidKey(Key)) return View("OngeldigeSleutel");
+            
+            rVM.Email = bs.GetUitnodigingByKey(Key).EmailUitgenodigde;
+            rVM.Key = Key;
+            return View(rVM);
         }
 
         //
@@ -150,12 +167,37 @@ namespace Omgevingsboek.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
+            String fotoId;
+            PhotoInfo fotoInfo;
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                if (!bs.IsValidKey(model.Key)) return RedirectToAction("Login");
+                var user = new ApplicationUser { Naam = model.Naam,Voornaam = model.Voornaam };
+                
+                Uitnodiging u = bs.GetUitnodigingByKey(model.Key);
+                user.Email = u.EmailUitgenodigde;
+                user.UserName = u.EmailUitgenodigde;
+
+                if (model.Afbeelding != null)
+                {
+                    try
+                    {
+                        fotoId = flickr.UploadPicture(model.Afbeelding.InputStream, model.Email, model.Email, "", "", false, false, false, ContentType.Photo, SafetyLevel.Safe, HiddenFromSearch.Hidden);
+                        flickr.PhotosetsAddPhoto(ConfigurationManager.AppSettings.Get("FlickrGebruikersAlbumId"), fotoId);
+                        fotoInfo = flickr.PhotosGetInfo(fotoId);
+                        user.Afbeelding = fotoInfo.MediumUrl;
+
+                    }
+                    catch (Exception ex)
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
+
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    bs.SetUitnodigingGebruikt(u.Id, user.Email);
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771

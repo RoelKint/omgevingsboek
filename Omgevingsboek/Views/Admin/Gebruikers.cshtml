@@ -1,4 +1,4 @@
-﻿@model List<Models.PresentationModels.UserActivities>
+﻿@model Models.PresentationModels.GebruikersPM
 @{
     ViewBag.Title = "Gebruikers";
     int meer = ViewBag.vanaf+30;
@@ -14,11 +14,13 @@
     int desc = ViewBag.desc;
 }
 
+
+
 <div class="col-xs-12 col-md-12 nav">
     <a href="../Admin">&lt;&lt; Terug naar overzicht</a>
 </div>
 <div class="adminList col-xs-6 col-md-9 content" id="content">
-    <h2>Activiteiten</h2>
+    <h2>Gebruikers</h2>
     <div class="col-xs-6 col-md-9">
         <span style="font-weight:bold">@ViewBag.vanaf - @meer</span>
     </div>
@@ -50,7 +52,7 @@
 
             </tr>
 
-            @foreach (var item in Model)
+            @foreach (Models.PresentationModels.UserActivities item in Model.UserActivities)
             {
                 <tr>
                     <td><input type="checkbox" name="checkbox" value="@item.User.Naam"></td>
@@ -79,6 +81,46 @@
         </table>
     </form>
 
+    <h2>Uitnodigingen</h2>
+    
+    
+    <form id="formA" method="post" action="Delete">
+        <table class="table table-hover">
+            <colgroup>
+                <col class="col-lg-1 col-xs-1 col-md-1" />
+                <col class="col-lg-2 col-xs-2 col-md-2" />
+                <col class="col-lg-7 col-xs-7 col-md-7" />
+                <col class="col-lg-2 col-xs-2 col-md-2" />
+            </colgroup>
+
+            <tr>
+                <th><span class="glyphicon glyphicon-th-list"></span></th>
+                <th>Uitgenodigde</th>
+                <th>Uitgenodigd door</th>
+                <th>Opties</th>
+
+            </tr>
+
+            @foreach (Models.OmgevingsBoek_Models.Uitnodiging item in Model.Uitnodigingen)
+            {
+                <tr>
+                    <td><input type="checkbox" name="checkbox" value="@item.Id"></td>
+                    <td>@item.EmailUitgenodigde</td>
+                    <td>
+                        @item.Eigenaar.UserName
+                    </td>
+                    <td>
+                        <div class="displayInlineButtons">
+                            <button><span class="glyphicon glyphicon-remove"></span></button>
+                            <button><span class="glyphicon glyphicon-pencil"></span></button>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </table>
+    </form>
+
+
     <div id="buttonsAdOnder">
         <button onclick="location.href='../Admin/Gebruikers?vanaf=@minder&desc=@desc'"><span class="glyphicon glyphicon-chevron-left"></span> Vorige Pag.</button>
         <button onclick="location.href='../Admin/Gebruikers?vanaf=@meer&desc=@desc'"><span class="glyphicon glyphicon-chevron-right"></span> Volgende Pag.</button>
@@ -88,4 +130,4 @@
 
 
 
-@{ Html.RenderAction("GebrPartial", "Admin"); }
+@Html.Partial("_GebrPartial");

@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Data.Entity;
+
 using System.Threading.Tasks;
 
 namespace BusinessLogic.Repositories
@@ -47,7 +49,7 @@ namespace BusinessLogic.Repositories
 
         public List<Uitnodiging> GetUitnodigingenOpenByUser(string Username)
         {
-            return context.Uitnodigingen.Where(u => u.Gebruikt == false).Where(u => u.EigenaarId == context.Users.Where(i => i.UserName == Username).FirstOrDefault().Id).ToList();
+            return context.Uitnodigingen.Include(u => u.Eigenaar).Where(u => u.Gebruikt == false).Where(u => u.EigenaarId == context.Users.Where(i => i.UserName == Username).FirstOrDefault().Id).ToList();
         }
         public List<Uitnodiging> GetUitnodigingenAllByUser(string Username)
         {

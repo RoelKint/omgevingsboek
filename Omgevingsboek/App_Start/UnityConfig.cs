@@ -21,7 +21,7 @@ namespace Omgevingsboek
             container.RegisterType<IUitnodigingRepository, UitnodigingRepository>();
 
 
-            container.RegisterType<AccountController>(new InjectionConstructor());
+            
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
