@@ -9,20 +9,22 @@ using System.Threading.Tasks;
 
 namespace BusinessLogic.Services
 {
-    public class BoekService : BusinessLogic.Services.IBoekService
+    public class BoekService : BusinessLogic.Services.IBoekService 
     {
         private ITagRepository repoTag = null;
         private IActiviteitRepository repoActiviteit = null;
         private IBoekRepository repoBoek = null;
         private IPoiRepository repoPoi = null;
         private IUitnodigingRepository repoUitnodiging = null;
+        private IBenodigdheidRepository repoBenodigdheid = null;
 
         public BoekService(
             ITagRepository repoTag,
             IActiviteitRepository repoActiviteit,
             IBoekRepository repoBoek,
             IPoiRepository repoPoi,
-            IUitnodigingRepository repoUitnodiging
+            IUitnodigingRepository repoUitnodiging,
+            IBenodigdheidRepository repoBenodigdheid
             )
         {
             this.repoActiviteit = repoActiviteit;
@@ -30,6 +32,7 @@ namespace BusinessLogic.Services
             this.repoTag = repoTag;
             this.repoPoi = repoPoi;
             this.repoUitnodiging = repoUitnodiging;
+            this.repoBenodigdheid = repoBenodigdheid;
         }
 
         #region Activiteiten
@@ -226,6 +229,21 @@ namespace BusinessLogic.Services
         public Tag InsertTag(string tag)
         {
             return repoTag.Insert(tag);
+        }
+
+        #endregion
+
+
+
+        #region Benodigdheden
+
+        public List<Benodigdheid> GetBenodigdhedenList()
+        {
+            return repoBenodigdheid.All().ToList() ;
+        }
+        public Benodigdheid InsertBenodigdheid(string benodigdheid)
+        {
+            return repoBenodigdheid.Insert(benodigdheid);
         }
 
         #endregion
