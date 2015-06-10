@@ -4,9 +4,13 @@
 .nav .breadcrumb {
   margin: 0 7px;
 }
-.navbar-default {
-  height: 7%;
+::-webkit-scrollbar {
+  width: 1em;
+  height: 1em;
 }
+/*.navbar-default {
+    height: 7%;
+}*/
 body,
 html {
   height: 100%;
@@ -68,7 +72,7 @@ footer {
   border-radius: 5px;
 }
 .books > div > a:last-of-type {
-  background-color: #1C5163;
+  background-color: #216075;
 }
 .books > div .caption {
   left: 0px;
@@ -254,10 +258,10 @@ h3.rowheader {
 .row.poi .info p.poiTags span {
   padding: 0px 4px;
   margin-right: 3px;
-  background-color: #F5F5F5;
+  background-color: #216075;
   border-radius: 5px;
-  color: black;
-  box-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
+  border: solid 1px rgba(211, 211, 211, 0.5);
+  color: white;
 }
 .row.poi .preview {
   padding: 0;
@@ -315,14 +319,14 @@ h3.rowheader {
 }
 #vlakEnIcoon span {
   z-index: 3;
-  font-size: 84px;
+  font-size: 40px;
   width: 84px;
   height: 100px;
   position: absolute;
   top: 50%;
   left: 50%;
-  margin-top: -40px;
-  margin-left: -42px;
+  margin-top: -20px;
+  margin-left: -20px;
 }
 #vlakEnIcoon input.upload {
   z-index: 4;
@@ -356,12 +360,12 @@ li.tags span {
   background-color: #F5F5F5;
   border-radius: 5px;
   color: black;
-  box-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 5px #86cfe8;
 }
 li.tags input {
   padding: 1px 4px;
   margin-right: 3px;
-  background-color: #F5F5F6;
+  background-color: #F5F5F5;
   border-radius: 5px;
   color: black;
 }

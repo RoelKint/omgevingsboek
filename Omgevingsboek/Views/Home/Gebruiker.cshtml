@@ -7,7 +7,7 @@
 
     <div class="profileHolder col-xs-12 col-md-12">
 
-        @if (1 == 1/*User.Identity.Name == Model.User.UserName*/)
+        @if (User.Identity.Name == Model.User.UserName)
         {
             <div class="profileImage" style="height:100px;">
 
@@ -16,8 +16,8 @@
                      background-repeat:no-repeat;
                      background-size:200px; margin-right:20px" class="profilePic bewProf">
                 </div>
-                
-                <div id="vlakEnIcoon"><input type="file" class="upload" name="AfbeeldingFile" id="exampleInputFile" accept="image/x-png, image/gif, image/jpeg"><span class="glyphicon glyphicon-upload"></span>  </div>
+
+                <div id="vlakEnIcoon"><input type="file" class="upload" name="AfbeeldingFile" id="exampleInputFile" accept="image/x-png, image/gif, image/jpeg"><span class="glyphicon glyphicon-pencil"></span>  </div>
             </div>
         }
         else
@@ -30,30 +30,55 @@
             </div>
         }
 
-                <h2 style="margin-top:30px;">@Model.User.Voornaam @Model.User.Naam</h2>
-            </div>
-    <div style=" col-xs-6 col-md-9">
-        <ul style="list-style-type:none">
-            <li><b>Gegevens:</b></li>
-            <li>
-                gsm/tel: @if (Model.User.PhoneNumber == null)
-                { @("Niet opgegeven") }
-                else
-                { @Model.User.PhoneNumber}
-
-
-            </li>
-            <li>
-                email: @if (Model.User.Email == null)
-                { @("Niet opgegeven") }
-                else
-                { @Model.User.Email}
-            </li>
-            <li>@Model.User.UserName</li>
-            <li>@User.Identity.Name</li>
-        </ul>   
+        <h2 style="margin-top:30px;">@Model.User.Voornaam @Model.User.Naam</h2>
     </div>
+  <div style="col-xs-6 col-md-9">
+      <p>@Model.User.UserName</p>
+      <!-- 
+        <input type="hidden" name="tel" value="@Model.User.PhoneNumber">
+        <input type="hidden" name="ema" value="@Model.User.Email">
+        <ul class="infoProf" style="list-style-type:none">
+            @if (User.Identity.Name != Model.User.UserName)
+            {
+                <li><b>Gegevens:</b></li>
+                <li>
+                    gsm/tel: @if (Model.User.PhoneNumber == null)
+                    { @("Niet opgegeven") }
+                    else
+                    { @Model.User.PhoneNumber}
 
+
+                </li>
+                <li>
+                    email: @if (Model.User.Email == null)
+                    { @("Niet opgegeven") }
+                    else
+                    { @Model.User.Email}
+                </li>
+            }
+            else
+            {
+                <li class="bewInfo"><a>bewerk</a></li>
+                <li><b>Gegevens:</b></li>
+                <li>
+                    gsm/tel: @if (Model.User.PhoneNumber == null)
+                    { @("Niet opgegeven") }
+                    else
+                    { @Model.User.PhoneNumber}
+
+
+                </li>
+                <li>
+                    email: @if (Model.User.Email == null)
+                    { @("Niet opgegeven") }
+                    else
+                    { @Model.User.Email}
+                </li>
+            }
+        </ul>
+          --> 
+    </div>
+     @if(Model.Boeken.Count != 0) {
     <h2>Boeken</h2>
     <div class="row books" id="mijnBoeken">
         @if (Model.Boeken.Count > 4)
@@ -93,6 +118,8 @@
             }
         }
     </div>
+    }
+    @if(Model.Activiteiten.Count != 0) {
     <h2>Activiteiten</h2>
     <div class="row books" id="mijnActiviteiten">
         @if (Model.Activiteiten.Count > 4)
@@ -134,6 +161,7 @@
             }
         }
     </div>
+        }
 </div>
 
 
