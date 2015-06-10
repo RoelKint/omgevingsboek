@@ -14,10 +14,10 @@ $().ready(function () {
         
     })
 
-    $("input:file").change(function () {
+    $(".sidebar input:file").change(function () {
         var fileName = $(this).val();
         console.log(fileName);
-        $(".fileUpload").toggleClass("upload-ok");
+        $(".sidebar .fileUpload").toggleClass("upload-ok");
         //$(".filename").html(fileName);
     });
 
@@ -47,7 +47,7 @@ $().ready(function () {
 
     console.log("Jquery loaded");
     var collapsed = true;
-    $("#slider-range").slider({
+    $("#slider-poi").slider({
         range: true,
         min: 0,
         max: 18,
@@ -55,11 +55,11 @@ $().ready(function () {
         slide: function (event, ui) {
             $("#amount").val("" + ui.values[0] + " - " + ui.values[1]);
 
-            $("#minAge").text("" + ui.values[0]);
-            $("#maxAge").text("" + ui.values[1]);
+            $("#minAgePoi").text("" + ui.values[0]);
+            $("#maxAgePoi").text("" + ui.values[1]);
 
-            $("#minAgeHidden").val(ui.values[0]);
-            $("#maxAgeHidden").val(ui.values[1]);
+            $("#minAgeHiddenPoi").val(ui.values[0]);
+            $("#maxAgeHiddenPoi").val(ui.values[1]);
             console.log("slider changed");
 
         }
