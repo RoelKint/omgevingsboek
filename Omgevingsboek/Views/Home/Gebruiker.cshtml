@@ -2,7 +2,8 @@
 @{
     ViewBag.Title = "Gebruiker";
 }
-
+<div id="div_loading"></div>
+     
 <div class="col-xs-12 col-md-12 content" id="content">
 
     <div class="profileHolder col-xs-12 col-md-12">
@@ -34,7 +35,7 @@
     </div>
   <div style="col-xs-6 col-md-9">
       <p>@Model.User.UserName</p>
-      <!-- 
+      <!--
         <input type="hidden" name="tel" value="@Model.User.PhoneNumber">
         <input type="hidden" name="ema" value="@Model.User.Email">
         <ul class="infoProf" style="list-style-type:none">
@@ -76,7 +77,7 @@
                 </li>
             }
         </ul>
-          --> 
+          -->
     </div>
      @if(Model.Boeken.Count != 0) {
     <h2>Boeken</h2>
