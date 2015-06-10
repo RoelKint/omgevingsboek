@@ -17,7 +17,7 @@
                      background-size:200px; margin-right:20px" class="profilePic bewProf">
                 </div>
 
-                <div id="vlakEnIcoon"><input type="file" class="upload" name="AfbeeldingFile" id="exampleInputFile" accept="image/x-png, image/gif, image/jpeg"><span class="glyphicon glyphicon-upload"></span>  </div>
+                <div id="vlakEnIcoon"><input type="file" class="upload" name="AfbeeldingFile" id="exampleInputFile" accept="image/x-png, image/gif, image/jpeg"><span class="glyphicon glyphicon-pencil"></span>  </div>
             </div>
         }
         else
@@ -32,7 +32,9 @@
 
         <h2 style="margin-top:30px;">@Model.User.Voornaam @Model.User.Naam</h2>
     </div>
-    <div style="col-xs-6 col-md-9">
+  <div style="col-xs-6 col-md-9">
+      <p>@Model.User.UserName</p>
+      <!-- 
         <input type="hidden" name="tel" value="@Model.User.PhoneNumber">
         <input type="hidden" name="ema" value="@Model.User.Email">
         <ul class="infoProf" style="list-style-type:none">
@@ -74,8 +76,9 @@
                 </li>
             }
         </ul>
+          --> 
     </div>
-
+     @if(Model.Boeken.Count != 0) {
     <h2>Boeken</h2>
     <div class="row books" id="mijnBoeken">
         @if (Model.Boeken.Count > 4)
@@ -115,6 +118,8 @@
             }
         }
     </div>
+    }
+    @if(Model.Activiteiten.Count != 0) {
     <h2>Activiteiten</h2>
     <div class="row books" id="mijnActiviteiten">
         @if (Model.Activiteiten.Count > 4)
@@ -156,6 +161,7 @@
             }
         }
     </div>
+        }
 </div>
 
 

@@ -1,6 +1,5 @@
 ﻿$().ready(function () {
-    var dummyInfo = '<li><b>Gegevens:</b></li><li><input type="tel" value="' + document.getElementsByName("tel").item(0).value + '" name="phonenumber" /></li><li><input type="email" value="' + document.getElementsByName("ema").item(0).value + '" name="email" /></li>'
-    var button = '<li><button id="BtnEditGegevens" type="button">Click Me!</button></li>';
+    
     var bew;
     var bewInfo;
     var par;
@@ -19,27 +18,11 @@
         bewInfo.click(false, function () { ChangeToInput() });
 
     }
-    function ChangeToInput() {
-        console.log("sexy Roel");
-        $('.infoProf').empty();
-        $('.infoProf').html(dummyInfo + button);
-        $('#BtnEditGegevens')
-        
-        btn = $('#BtnEditGegevens');
-        btn.click(false, function () { submitNewGegevens() });
-    }
-    function submitNewGegevens() {
-        console.log(btn);
-    }
+   
     function uploadNew() {
 
     }
-    function setDetails() {
-        $('.infoProf').empty();
-        $.post("../home/GetTagsByPoi?poiId=" + $('#poiId').val(), function (data) {
-            console.log(data);
-        }
-    }
+   
     
 
 
