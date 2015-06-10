@@ -8,6 +8,10 @@
 
     <div class="col-xs-12 col-md-12">
         <h2>@Model.poi.Naam</h2>
+        @*<ol class="breadcrumb list-inline">
+            <li><a href="@Url.Action("Index","Home")"><span class="glyphicon glyphicon-home"></span></a></li>
+            <li class="active">POI: @Model.poi.Naam</li>
+        </ol>*@
         <input type="text" id="poiId" style="visibility:hidden" value="@Model.poi.ID" />
         </div>
     <div class="col-xs-12 col-sm-5 col-md-4">
