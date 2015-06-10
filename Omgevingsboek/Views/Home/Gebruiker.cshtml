@@ -4,14 +4,34 @@
 }
 
 <div class="col-xs-12 col-md-12 content" id="content">
-   
-    <div  class="profileHolder col-xs-12 col-md-12">
-        <div id="profPic" style="float:left; background:url(@Model.User.Afbeelding);background-position: center center;
-             background-repeat:no-repeat;
-             background-size:200px; margin-right:20px" class="profilePic"></div>
 
-        <h2 style="margin-top:30px;">@Model.User.Voornaam @Model.User.Naam</h2>
-    </div>
+    <div class="profileHolder col-xs-12 col-md-12">
+
+        @if (1 == 1/*User.Identity.Name == Model.User.UserName*/)
+        {
+            <div class="profileImage" style="height:100px;">
+
+
+                <div style="float:left; background:url(@Model.User.Afbeelding);background-position: center center;
+                     background-repeat:no-repeat;
+                     background-size:200px; margin-right:20px" class="profilePic bewProf">
+                </div>
+                
+                <div id="vlakEnIcoon"><input type="file" class="upload" name="AfbeeldingFile" id="exampleInputFile" accept="image/x-png, image/gif, image/jpeg"><span class="glyphicon glyphicon-upload"></span>  </div>
+            </div>
+        }
+        else
+        {
+            <div class="profileImage">
+                <div style="float:left; background:url(@Model.User.Afbeelding);background-position: center center;
+                     background-repeat:no-repeat;
+                     background-size:200px; margin-right:20px" class="profilePic">
+                </div>
+            </div>
+        }
+
+                <h2 style="margin-top:30px;">@Model.User.Voornaam @Model.User.Naam</h2>
+            </div>
     <div style=" col-xs-6 col-md-9">
         <ul style="list-style-type:none">
             <li><b>Gegevens:</b></li>
@@ -29,7 +49,9 @@
                 else
                 { @Model.User.Email}
             </li>
-        </ul>
+            <li>@Model.User.UserName</li>
+            <li>@User.Identity.Name</li>
+        </ul>   
     </div>
 
     <h2>Boeken</h2>
@@ -49,7 +71,7 @@
                 }
                 else
                 {
-                    <div class="MoreItems col-sm-6 col-md-3"  data-reactid=".0.1:0">
+                    <div class="MoreItems col-sm-6 col-md-3" data-reactid=".0.1:0">
                         <a href="Boek?id=@item.Id" style="background:url(@item.Afbeelding)" data-reactid=".0.1:0.0">
                             <span class="caption" data-reactid=".0.1:0.0.0">@item.Naam</span>
                         </a>
@@ -63,7 +85,7 @@
             foreach (var boek in Model.Boeken)
             {
 
-                <div class="col-sm-6 col-md-3"   data-reactid=".0.1:0">
+                <div class="col-sm-6 col-md-3" data-reactid=".0.1:0">
                     <a href="Boek?id=@boek.Id" style="background:url(@boek.Afbeelding)" data-reactid=".0.1:0.0">
                         <span class="caption" data-reactid=".0.1:0.0.0">@boek.Naam</span>
                     </a>
@@ -73,10 +95,10 @@
     </div>
     <h2>Activiteiten</h2>
     <div class="row books" id="mijnActiviteiten">
-    @if (Model.Activiteiten.Count > 4)
+        @if (Model.Activiteiten.Count > 4)
         {
             List<Models.OmgevingsBoek_Models.Activiteit> lijstje = Model.Activiteiten.Take(4).ToList();
-         foreach (var item in lijstje)
+            foreach (var item in lijstje)
             {
                 if (item.Equals(lijstje.Last()))
                 {
@@ -98,18 +120,19 @@
                 }
             }
         }
-    else { 
-        foreach (var activ in Model.Activiteiten)
+        else
         {
+            foreach (var activ in Model.Activiteiten)
+            {
 
-            <div class="col-sm-6 col-md-3"  data-reactid=".0.1:0">
-                <a href="Activities?vanaf=0" style="@if(@activ.AfbeeldingNaam != null) { @("background:url(@activ.AfbeeldingNaam)");
+                <div class="col-sm-6 col-md-3" data-reactid=".0.1:0">
+                    <a href="Activities?vanaf=0" style="@if(@activ.AfbeeldingNaam != null) { @("background:url(@activ.AfbeeldingNaam)");
                                                     }" data-reactid=".0.1:0.0">
-                    <span class="caption" data-reactid=".0.1:0.0.0">@activ.Naam</span>
-                </a>
-            </div>
+                        <span class="caption" data-reactid=".0.1:0.0.0">@activ.Naam</span>
+                    </a>
+                </div>
+            }
         }
-    }
     </div>
 </div>
 
