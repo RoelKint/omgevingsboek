@@ -250,7 +250,7 @@ namespace Omgevingsboek.Controllers
                 if (regex.Match(m.Trim()).Success)
                 {
                     //TODO: Frontend checken
-
+                    //TODO: check dat mail al een key heeft
                     Uitnodiging u = bs.CreateUitnodiging(User.Identity.Name, m.Trim());
                     ApplicationUser zenderNaam = bs.GetUser(User.Identity.Name);
                     UitnodigingSturen(m.Trim(), zenderNaam.Voornaam + " " + zenderNaam.Naam, u.Key);
