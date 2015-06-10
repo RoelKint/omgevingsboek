@@ -163,19 +163,7 @@
         });
     });
 
-    function setListItemListeners() {
-        $("#list .row.poi").each(
-         function (element) {
-             var poi = this;
-             $(this).children(".preview").click(
-               function (element) {
-                   $("#poi").val($(poi).attr("data-id"));
-                   $("#poiName").val($(poi).attr("data-title"));
-                   console.log($(poi).attr("data-title"));
-               }
-             );
-         });
-
+    function initSliders() {
         $("#slider-boek-time").slider({
             range: true,
             min: 0,
@@ -210,6 +198,20 @@
 
             }
         });
+    }
+
+    function setListItemListeners() {
+        $("#list .row.poi").each(
+         function (element) {
+             var poi = this;
+             $(this).children(".preview").click(
+               function (element) {
+                   $("#poi").val($(poi).attr("data-id"));
+                   $("#poiName").val($(poi).attr("data-title"));
+                   console.log($(poi).attr("data-title"));
+               }
+             );
+         });
 
         $("#activityForm input:file").change(function () {
             var fileName = $(this).val();
@@ -220,15 +222,22 @@
     }
 
     function defer(method) {
+        console.log("checking listener");
         if (typeof listLoaded !== 'undefined') {
-            method();
-        } else
-            setTimeout(function () {
-                defer(method)
-            }, 50);
+            if (listLoaded == true) {
+                console.log("updated listener");
+                method();
+                listLoaded = false;
+            } 
+        }
+
     }
 
-    defer(setListItemListeners);
+    setInterval(function () {
+        defer(setListItemListeners)
+    }, 50);
+
+    initSliders();
 </script>
 
 @*@Html.Partial("_PoiPartial", Model)*@
