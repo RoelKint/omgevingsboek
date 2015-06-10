@@ -88,11 +88,11 @@
                                 <label for="amount">Leeftijd doelgroep:</label>
                                 <input type="hidden" class="form-control" id="amount" readonly style="">
                                 <div class="input-group">
-                                    <span class="input-group-addon" id="minAge"></span>
-                                    <div class="form-control" class="slider" id="slider-range"></div>
-                                    <span class="input-group-addon" id="maxAge"></span>
-                                    <input type="hidden" name="MaxLeeftijd" id="maxAgeHidden" />
-                                    <input type="hidden" name="MinLeeftijd" id="minAgeHidden" />
+                                    <span class="input-group-addon" id="minAgeBoek"></span>
+                                    <div class="form-control slider" id="slider-boek-age"></div>
+                                    <span class="input-group-addon" id="maxAgeBoek"></span>
+                                    <input type="hidden" name="MaxLeeftijd" id="maxAgeHiddenBoek" />
+                                    <input type="hidden" name="MinLeeftijd" id="minAgeHiddenBoek" />
 
                                 </div>
                             </div>
@@ -100,11 +100,11 @@
                                 <label for="amount">Geschatte tijdsduur:</label>
                                 <input type="hidden" class="form-control" id="amount" readonly style="">
                                 <div class="input-group">
-                                    <span class="input-group-addon" id="minAge"></span>
-                                    <div class="form-control" class="slider" id="slider-range"></div>
-                                    <span class="input-group-addon" id="maxAge"></span>
-                                    <input type="hidden" name="MaxLeeftijd" id="maxAgeHidden" />
-                                    <input type="hidden" name="MinLeeftijd" id="minAgeHidden" />
+                                    <span class="input-group-addon" id="minTimeBook"></span>
+                                    <div class="form-control" class="slider" id="slider-boek-time"></div>
+                                    <span class="input-group-addon" id="maxTimeBook"></span>
+                                    <input type="hidden" name="MaxLeeftijd" id="maxTimeHiddenBook" />
+                                    <input type="hidden" name="MinLeeftijd" id="minTimeHiddenBook" />
 
                                 </div>
                             </div>
@@ -171,6 +171,48 @@
                }
              );
          });
+
+        $("#slider-boek-time").slider({
+            range: true,
+            min: 0,
+            max: 18,
+            values: [5, 10],
+            slide: function (event, ui) {
+                $("#amount").val("" + ui.values[0] + " - " + ui.values[1]);
+
+                $("#minTimeBook").text("" + ui.values[0]);
+                $("#maxTimeBook").text("" + ui.values[1]);
+
+                $("#minTimeHiddenBook").val(ui.values[0]);
+                $("#maxTimeHiddenBook").val(ui.values[1]);
+                console.log("slider changed");
+
+            }
+        });
+
+        $("#slider-boek-age").slider({
+            range: true,
+            min: 0,
+            max: 18,
+            values: [5, 10],
+            slide: function (event, ui) {
+
+                $("#minAgeBoek").text("" + ui.values[0]);
+                $("#maxAgeBoek").text("" + ui.values[1]);
+
+                $("#minAgeHiddenBoek").val(ui.values[0]);
+                $("#maxAgeHiddenBoek").val(ui.values[1]);
+                console.log("slider changed");
+
+            }
+        });
+
+        $("#activityForm input:file").change(function () {
+            var fileName = $(this).val();
+            console.log(fileName);
+            $("#activityForm .fileUpload").toggleClass("upload-ok");
+            //$(".filename").html(fileName);
+        });
     }
 
     function defer(method) {
