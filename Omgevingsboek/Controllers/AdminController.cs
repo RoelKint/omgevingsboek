@@ -114,6 +114,19 @@ namespace Omgevingsboek.Controllers
         [HttpGet]
         public ActionResult Gebruikers(int? vanaf, int? desc)
         {
+            if (TempData["Feedback"] != null)
+            {
+                UitnodigingFeedbackPM fb = TempData["Feedback"] as UitnodigingFeedbackPM;
+                if (fb.Foutief == null && fb.Gebruikt == null) ViewBag.IsFout = false;
+                else
+                {
+                    ViewBag.IsFout = true;
+                    ViewBag.Fouten = fb.Foutief;
+                    ViewBag.Gebruikt = fb.Gebruikt;
+                }
+            }
+
+
             //desc == 1 -> descending
             //desc == 0 -> ascending
 
@@ -139,7 +152,10 @@ namespace Omgevingsboek.Controllers
 
             ViewBag.vanaf = vanaf;
             ViewBag.desc = desc;
-            return View(ua);
+            GebruikersPM gpm = new GebruikersPM();
+            gpm.UserActivities = ua;
+            gpm.Uitnodigingen = bs.GetUitnodigingenOpenByUser(User.Identity.Name);
+            return View(gpm);
         }
 
         [Authorize(Roles = "Administrator,SuperAdministrator")]
@@ -239,6 +255,7 @@ namespace Omgevingsboek.Controllers
 
         public ActionResult AddUsers(String Mails)
         {
+            UitnodigingFeedbackPM fbPM = new UitnodigingFeedbackPM();
             Regex regex = new Regex(@"^[\w!#$%&'*+\-/=?\^_`{|}~]+(\.[\w!#$%&'*+\-/=?\^_`{|}~]+)*"
                 + "@"
                 + @"((([\-\w]+\.)+[a-zA-Z]{2,4})|(([0-9]{1,3}\.){3}[0-9]{1,3}))$");
@@ -249,18 +266,25 @@ namespace Omgevingsboek.Controllers
             {
                 if (regex.Match(m.Trim()).Success)
                 {
-                    //TODO: Frontend checken
 
-                    if (bs.HeeftEmailAlEenUitnodiging(m.Trim())) return RedirectToAction("Gebruikers"); //TODO: in frondend zeggen dat hij al is uitgenodigd
+                    if (bs.HeeftEmailAlEenUitnodiging(m.Trim()))
+                    {
+                        if (fbPM.Gebruikt == null) fbPM.Gebruikt = new List<string>();
+                        fbPM.Gebruikt.Add(m.Trim());
+                        continue;
+                    }
                     Uitnodiging u = bs.CreateUitnodiging(User.Identity.Name, m.Trim());
                     ApplicationUser zenderNaam = bs.GetUser(User.Identity.Name);
                     UitnodigingSturen(m.Trim(), zenderNaam.Voornaam + " " + zenderNaam.Naam, u.Key);
-
                 }
-
+                else
+                {
+                    if (fbPM.Foutief == null) fbPM.Foutief = new List<string>();
+                    fbPM.Foutief.Add(m.Trim());
+                }
             }
 
-
+            TempData["Feedback"] = fbPM;
             return RedirectToAction("Gebruikers");
         }
 
@@ -279,11 +303,11 @@ namespace Omgevingsboek.Controllers
             
             mail.IsBodyHtml = true;
             mail.From = new MailAddress("azure_9bab81a4769eae1b17dfaf2e69d71fd7@azure.com", "Omgevingsboek Team");
-            mail.To.Add(new MailAddress("dylandeceulaer@hotmail.com"));
+            mail.To.Add(new MailAddress(MailTo));
             mail.Subject = "Uitnodiging voor het Omgevingsboek van " + MailFrom;
             mail.Body = "Beste,</br>" + MailFrom + " heeft je uitgenodigd om een account aan te maken op het omgevingsboek van Howest.</br>" +
             "Klik op onderstaande link om een account aan te maken. </br>" +
-            "<a href=\"" + "http://localhost:44946/Account/register/" + Key + "\"> http://localhost:44946/Account/register/" + Key + " </a> </br> </br>" +
+            "<a href=\"" + "http://localhost:44946/Account/register?Key=" + Key + "\"> http://localhost:44946/Account/register?Key=" + Key + " </a> </br> </br>" +
             "Met vriendelijke groeten, </br> Het Howest Omgevingsboek team.";
 
             

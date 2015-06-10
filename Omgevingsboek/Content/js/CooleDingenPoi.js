@@ -9,7 +9,7 @@ var tags;
 $().ready(function () {
     $(document).keyup(function(e) {
 
-        if (e.keyCode == 27 || e.keyCode == 35) { refreshTags(); }   // escape key maps to keycode `27` en de andere is break
+        if (e.keyCode == 27 || e.keyCode == 35) { refreshTags(); }   // escape key maps to keycode `27` en de andere is break (die knop naast home)
     });
     $('.addTag').click(false, function () { allesRondInput() });
                 
