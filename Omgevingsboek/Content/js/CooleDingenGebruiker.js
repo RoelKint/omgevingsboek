@@ -23,8 +23,7 @@
         if (e.lengthComputable) {
             $('progress').attr({ value: e.loaded, max: e.total });
         }
-    }
-   
+    } 
     function uploadNew(file) {
         console.log("hey");
 
@@ -69,14 +68,10 @@
        // });
                 //$('progress').attr({ value: e.loaded, max: e.total });
 
-        }
-    
+        } 
     function completeHandler() {
 
     }
-    
-
-
     $("input:file").change(function () {
         var file = this.files[0];
         var name = file.name;
@@ -94,8 +89,35 @@
         //$(".filename").html(fileName);
     });
 
+    $('.NewAct').click(function () {
+        console.log("aoi");
+        $('actlist')
+    });
+    $('.NewBoek').click(function () {
+        console.log($('.booklist'));
+        var lijst = $('.booklist');
+        console.log(lijst);
+        var i = 0;
+        lijst.children('div').each(function () {
+            i += 1;
+            var j = (i % 4);
+            console.log(j);
+            //this.css("position", "relative");
+            console.log($(this).children('a').offset());
 
+            $(this).css("position", "relative");
+            console.log($(this).children('a').position());
+            $(this).css("visibility", "visible");
+            $(this).children('a').css("position", "relative");
+            $('.NewItems').remove();
+            console.log($(this).css("position", "relative"));
 
+        });
+    });
+    function sleep(milisec) {
+        var e = new Date().getTime() + (milisec * 10);
+        while (new Date().getTime() <= e) { }
+    }
     console.log(parInfo);
     console.log(bewInfo);
     console.log(document.getElementsByName("tel"));

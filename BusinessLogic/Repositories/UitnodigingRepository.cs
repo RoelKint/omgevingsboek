@@ -78,6 +78,10 @@ namespace BusinessLogic.Repositories
         {
             return (context.Uitnodigingen.Where(u => u.EmailUitgenodigde == Email).FirstOrDefault() != null);
         }
+        public override Uitnodiging GetByID(object id)
+        {
+            return context.Uitnodigingen.Where(u => u.Id == (int)id).Include(u => u.Eigenaar).SingleOrDefault();
+        }
 
 
 

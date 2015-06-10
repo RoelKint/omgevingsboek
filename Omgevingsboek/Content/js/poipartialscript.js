@@ -44,6 +44,18 @@ $().ready(function () {
         });
     });
 
+    $.get("/home/getBenodigdheden", function (data) {
+        var tagSource = $.parseJSON(data);
+
+        $('.shopping').tagsInput({
+            autocomplete_url: '',
+            defaultText: '',
+            minChars: 0,
+            maxChars: 0,
+            autocomplete: { selectFirst: true, autoFill: true, source: tagSource.getUnique(), 'width': '100%' }
+        });
+    });
+
     console.log("Jquery loaded");
     var collapsed = true;
     $("#slider-poi").slider({

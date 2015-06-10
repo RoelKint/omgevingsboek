@@ -46,7 +46,7 @@
     -ms-transition: none;
     -o-transition: none;
 ">
-    @using (Html.BeginForm("AddActivity", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    @using (Html.BeginForm("Create", "Boek", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         <div class="row">
             <div class="col-md-4">
@@ -135,7 +135,7 @@
                                 <label for="amount">Benodigdheden:</label>
                                 <div class="input-group">
                                     <span class="input-group-addon tag"><span class="glyphicon glyphicon-shopping-cart"></span></span>
-                                    <input name="TagsString" class="form-control tags" id="poiTags" value="" />
+                                    <input name="TagsString" class="form-control shopping" id="poiTags" value="" />
                                 </div>
                             </div>
                         </div>

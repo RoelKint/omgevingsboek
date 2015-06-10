@@ -245,5 +245,14 @@ namespace Omgevingsboek.Controllers
             }
             return Json(JsonConvert.SerializeObject(tagList), JsonRequestBehavior.AllowGet);
         }
+        public ActionResult GetBenodigdheden()
+        {
+            List<string> res = new List<string>();
+            foreach (Benodigdheid b in bs.GetBenodigdhedenList())
+            {
+                res.Add(b.Naam);
+            }
+            return Json(JsonConvert.SerializeObject(res), JsonRequestBehavior.AllowGet);
+        }
     }
 }
