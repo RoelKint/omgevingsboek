@@ -31,38 +31,31 @@
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-@if (User.Identity.Name != "")
-{
-                <ul class="nav navbar-nav">
-                    <ol class="breadcrumb list-inline">
-                        <li><a href="../Home/Gebruiker?gebruikerId=@User.Identity.Name">@User.Identity.Name</a></li>
-                        <li class="active">@ViewBag.Title</li>
-                    </ol>
-                </ul>
+                @if (User.Identity.Name != "")
+                {
+                    <form class="navbar-form navbar-left" role="search">
+                        <div class="input-group">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="submit">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                    &nbsp;
+                                </button>
+                            </span>
+                            <input type="text" class="form-control" placeholder="Geef uw zoekterm op...">
+                        </div>
+                    </form>
 
-                <form class="navbar-form navbar-left" role="search">
-                    <div class="input-group">
-                        <span class="input-group-btn">
-                            <button class="btn btn-default" type="submit">
-                                <span class="glyphicon glyphicon-search"></span>
-                                &nbsp;
-                            </button>
-                        </span>
-                        <input type="text" class="form-control" placeholder="Geef uw zoekterm op...">
-                    </div>
-                </form>
-                
                     <ul class="nav navbar-nav navbar-right">
+                        <li class="username"><a href="../Home/Gebruiker?gebruikerId=@User.Identity.Name">@User.Identity.Name<span class="glyphicon glyphicon-user"></span></a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-cog"></span></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="#">Instellingen</a></li>
-                                
                                 <!--alleen voor beheerders maken-->
                                 @if (User.IsInRole("Administrator") || User.IsInRole("SuperAdministrator"))
-                                { 
-                                <li class="divider"></li>
-                                <li>@Html.ActionLink("Beheer", "Index", "Admin")</li>
+                                {
+                                    <li class="divider"></li>
+                                    <li>@Html.ActionLink("Beheer", "Index", "Admin")</li>
                                 }
                                 <li class="divider"></li>
                                 <li>@Html.ActionLink("Afmelden", "LogOff", "Account")</li>
@@ -83,4 +76,3 @@
     </div>
 </body>
 </html>
-

@@ -4,6 +4,9 @@
 .nav .breadcrumb {
   margin: 0 7px;
 }
+.nav .username {
+  font-weight: bold;
+}
 #activityForm .fileUpload {
   height: 95px;
 }
@@ -13,6 +16,9 @@
 }
 #activityForm .tab-content {
   padding-top: 1em;
+}
+#activityForm textarea {
+  resize: vertical;
 }
 @media (min-width: 768px) {
   .nav .breadcrumb {

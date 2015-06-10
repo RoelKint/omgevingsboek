@@ -2,9 +2,8 @@
     $("#toevoegenBoek").click(function () {
         $('.toevoegen').hide();
         $('.toevoegenClick').show();
-        $(this)
-               .animate({ top: "+=50px", left: "0" })
-               .animate({ marginLeft:"" })
-               .animate({ top: "-=50px" }, function () { $(this).off()});
+        $(this).addClass("col-md-6 col-sm-12").removeClass("col-md-3 col-sm-6", 500);
     });
+
+
 });
