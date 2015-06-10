@@ -189,7 +189,7 @@ namespace Omgevingsboek.Controllers
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "Neem hier contact met ons op";
 
             return View();
         }

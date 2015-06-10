@@ -10,6 +10,23 @@
     margin: 0 7px;
 }
 
+.navbar-default {
+    height: 7%;
+}
+
+body, html {
+    height: 100%;
+    overflow-y:hidden;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    background-color: white;
+    left: 1%;
+    z-index: 2;
+}
+
 #activityForm {
     .fileUpload {
         height:95px;
@@ -23,6 +40,10 @@
     .tab-content {
         padding-top: 1em;
     }
+
+    textarea{
+        resize:vertical;
+}
 }
 
 @media (min-width: 768px) {
@@ -65,7 +86,7 @@
             border-radius: 5px;
 
             &:last-of-type {
-                background-color: green;
+                background-color: #1C5163;
             }
         }
 
@@ -102,6 +123,11 @@ span.buttons {
 
 div.main {
     position: relative;
+    height:90%;
+    
+    > row {
+        height:100%;
+    }
 }
 
 .expandable {
@@ -156,6 +182,16 @@ div.stackright {
 
 .sidebar {
     padding-top: 10px;
+
+    > .poi {
+        height:100%;
+
+       #list {
+            overflow-y: scroll;
+            overflow-x: hidden;
+            height: 93%;
+        }
+    }
 
     .form-horizontal {
         margin-left: 0px;
@@ -255,6 +291,14 @@ h3.rowheader {
     padding-top: 7px;
     border-top: 1px solid rgba(211, 211, 211, 0.5);
 
+    h3 a{
+        color:#3FB9E3;
+        &:hover{
+            text-decoration:none;
+            color:#92E1FC;
+        }
+    }
+
     .info {
         padding-left: 0;
 
@@ -263,21 +307,24 @@ h3.rowheader {
         }
 
         .tag {
-            background-color: green;
+            background-color:#86CFE8;
             color: white;
             font-weight: bold;
             width: 100%;
+            border-color:#FFFFFF;
+            box-shadow:0 0 2px rgba(255,255, 255, 0.75);
         }
 
         p.poiTags {
             margin: 0;
 
             span {
-                padding: 1px 4px;
+                padding: 0px 4px;
                 margin-right: 3px;
-                background-color: green;
+                background-color:#F5F5F5;
                 border-radius: 5px;
-                color: white;
+                color: black;
+                box-shadow: 0 0 1px rgba(0, 0, 0, .3);
             }
         }
 
@@ -386,18 +433,20 @@ li.tags {
      margin: 0;
 
             span {
-                padding: 1px 4px;
+                padding: 2px 4px;
                 margin-right: 3px;
-                background-color: green;
+                margin-left:3px;
+                background-color:#F5F5F5;
                 border-radius: 5px;
-                color: white;
+                color: black;
+                box-shadow: 0 0 1px rgba(0, 0, 0, .3);
             }
             input {
                 padding: 1px 4px;
                 margin-right: 3px;
-                background-color: green;
+                background-color:#F5F5F6;
                 border-radius: 5px;
-                color: white;
+                color: black;
             }
 }
 
