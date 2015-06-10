@@ -42,6 +42,7 @@ namespace BusinessLogic.Services
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Boek> GetSharedBoeken(string username);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Tag> GetTagList();
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Tag> getTagsByPoi(int PoiId);
+        Models.OmgevingsBoek_Models.Uitnodiging GetUitnodigingById(int id);
         Models.OmgevingsBoek_Models.Uitnodiging GetUitnodigingByKey(string key);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Uitnodiging> GetUitnodigingenAllByUser(string Username);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Uitnodiging> GetUitnodigingenOpenByUser(string Username);

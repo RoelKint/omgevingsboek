@@ -288,6 +288,20 @@ namespace Omgevingsboek.Controllers
             return RedirectToAction("Gebruikers");
         }
 
+        [Authorize(Roles = "Administrator,SuperAdministrator")]
+        public ActionResult HerzendUitnodiging(int? Id)
+        {
+            if (!Id.HasValue) return RedirectToAction("Gebruikers");
+            Uitnodiging u = bs.GetUitnodigingById((int)Id);
+            if (u == null) return RedirectToAction("Gebruikers");
+            if (u.Gebruikt) return RedirectToAction("Gebruikers");
+            ApplicationUser zenderNaam = bs.GetUser(u.Eigenaar.UserName);
+            UitnodigingSturen(u.EmailUitgenodigde, zenderNaam.Voornaam + " " + zenderNaam.Naam, u.Key);
+
+            return View();
+        }
+
+
         public void UitnodigingSturen(string MailTo, string MailFrom, string Key)
         {
             SmtpClient smtpClient = new SmtpClient("smtp.sendgrid.net", 587);

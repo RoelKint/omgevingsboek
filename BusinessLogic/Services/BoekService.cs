@@ -342,6 +342,11 @@ namespace BusinessLogic.Services
            return repoUitnodiging.HeeftEmailAlEenUitnodiging(Email);
         }
 
+        public Uitnodiging GetUitnodigingById(int id)
+        {
+            return repoUitnodiging.GetByID(id);
+        }
+
         #endregion
 
 
