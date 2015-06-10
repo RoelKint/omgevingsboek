@@ -25,6 +25,7 @@ namespace BusinessLogic.Services
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Activiteit> getActiviteitenPerPoi(int id);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Activiteit> getActiviteitenUserByUser50from(int from, string Owner, string Visitor);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Activiteit> GetActivitiesByUsername(string Username);
+        System.Collections.Generic.List<Models.OmgevingsBoek_Models.Benodigdheid> GetBenodigdhedenList();
         Models.OmgevingsBoek_Models.Boek GetBoekByID(object id);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Boek> GetBoeken50FromSortNameAZ(int from);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Boek> GetBoeken50FromSortNameZA(int from);
@@ -41,6 +42,7 @@ namespace BusinessLogic.Services
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Boek> GetSharedBoeken(string username);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Tag> GetTagList();
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Tag> getTagsByPoi(int PoiId);
+        Models.OmgevingsBoek_Models.Uitnodiging GetUitnodigingById(int id);
         Models.OmgevingsBoek_Models.Uitnodiging GetUitnodigingByKey(string key);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Uitnodiging> GetUitnodigingenAllByUser(string Username);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Uitnodiging> GetUitnodigingenOpenByUser(string Username);
@@ -49,6 +51,7 @@ namespace BusinessLogic.Services
         System.Collections.Generic.List<Models.MVC_Models.ApplicationUser> GetUserNext50SortAZ(int from);
         System.Collections.Generic.List<Models.MVC_Models.ApplicationUser> GetUserNext50SortZA(int from);
         bool HeeftEmailAlEenUitnodiging(string Email);
+        Models.OmgevingsBoek_Models.Benodigdheid InsertBenodigdheid(string benodigdheid);
         Models.OmgevingsBoek_Models.Boek InsertBoek(Models.OmgevingsBoek_Models.Boek boek);
         Models.OmgevingsBoek_Models.Poi InsertPoi(Models.OmgevingsBoek_Models.Poi poi);
         Models.OmgevingsBoek_Models.Tag InsertTag(string tag);

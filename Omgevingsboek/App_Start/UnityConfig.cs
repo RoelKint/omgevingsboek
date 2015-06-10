@@ -19,7 +19,7 @@ namespace Omgevingsboek
             container.RegisterType<IBoekService, BoekService>();
             container.RegisterType<IPoiRepository, PoiRepository>();
             container.RegisterType<IUitnodigingRepository, UitnodigingRepository>();
-
+            container.RegisterType<IBenodigdheidRepository, BenodigdheidRepository>();
 
             
 

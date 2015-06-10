@@ -4,10 +4,10 @@
 .nav .breadcrumb {
   margin: 0 7px;
 }
-::-webkit-scrollbar {
-  width: 1em;
-  height: 1em;
-}
+/*::-webkit-scrollbar{
+    width:1em;
+    height:1em;
+}*/
 /*.navbar-default {
     height: 7%;
 }*/
@@ -377,12 +377,15 @@ li.tags input {
 #toevoegenBoek .toevoegenClick {
   display: none;
   text-align: center;
+  cursor: default;
+  text-decoration: none;
 }
 #toevoegenBoek .toevoegenClick input {
-  font-size: 12px;
+  font-size: 14px;
   font-family: 'vagroundedstd-thin-webfont';
   color: #000;
   font-weight: normal;
+  text-decoration: none;
 }
 .createpage {
   padding-top: 15px;
