@@ -56,5 +56,6 @@ namespace BusinessLogic.Services
         bool IsBoekAccessibleByUser(int BoekId, string Username);
         bool IsValidKey(string Key);
         bool SetUitnodigingGebruikt(int UitnodigingId, string GebruiktDoorUserName);
+        Models.MVC_Models.ApplicationUser UpdateUserAfbeelding(Models.MVC_Models.ApplicationUser user);
     }
 }
