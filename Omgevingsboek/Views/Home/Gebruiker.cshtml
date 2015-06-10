@@ -7,7 +7,7 @@
 
     <div class="profileHolder col-xs-12 col-md-12">
 
-        @if (1 == 1/*User.Identity.Name == Model.User.UserName*/)
+        @if (User.Identity.Name == Model.User.UserName)
         {
             <div class="profileImage" style="height:100px;">
 
@@ -16,7 +16,7 @@
                      background-repeat:no-repeat;
                      background-size:200px; margin-right:20px" class="profilePic bewProf">
                 </div>
-                
+
                 <div id="vlakEnIcoon"><input type="file" class="upload" name="AfbeeldingFile" id="exampleInputFile" accept="image/x-png, image/gif, image/jpeg"><span class="glyphicon glyphicon-upload"></span>  </div>
             </div>
         }
@@ -30,28 +30,50 @@
             </div>
         }
 
-                <h2 style="margin-top:30px;">@Model.User.Voornaam @Model.User.Naam</h2>
-            </div>
-    <div style=" col-xs-6 col-md-9">
-        <ul style="list-style-type:none">
-            <li><b>Gegevens:</b></li>
-            <li>
-                gsm/tel: @if (Model.User.PhoneNumber == null)
-                { @("Niet opgegeven") }
-                else
-                { @Model.User.PhoneNumber}
+        <h2 style="margin-top:30px;">@Model.User.Voornaam @Model.User.Naam</h2>
+    </div>
+    <div style="col-xs-6 col-md-9">
+        <input type="hidden" name="tel" value="@Model.User.PhoneNumber">
+        <input type="hidden" name="ema" value="@Model.User.Email">
+        <ul class="infoProf" style="list-style-type:none">
+            @if (User.Identity.Name != Model.User.UserName)
+            {
+                <li><b>Gegevens:</b></li>
+                <li>
+                    gsm/tel: @if (Model.User.PhoneNumber == null)
+                    { @("Niet opgegeven") }
+                    else
+                    { @Model.User.PhoneNumber}
 
 
-            </li>
-            <li>
-                email: @if (Model.User.Email == null)
-                { @("Niet opgegeven") }
-                else
-                { @Model.User.Email}
-            </li>
-            <li>@Model.User.UserName</li>
-            <li>@User.Identity.Name</li>
-        </ul>   
+                </li>
+                <li>
+                    email: @if (Model.User.Email == null)
+                    { @("Niet opgegeven") }
+                    else
+                    { @Model.User.Email}
+                </li>
+            }
+            else
+            {
+                <li class="bewInfo"><a>bewerk</a></li>
+                <li><b>Gegevens:</b></li>
+                <li>
+                    gsm/tel: @if (Model.User.PhoneNumber == null)
+                    { @("Niet opgegeven") }
+                    else
+                    { @Model.User.PhoneNumber}
+
+
+                </li>
+                <li>
+                    email: @if (Model.User.Email == null)
+                    { @("Niet opgegeven") }
+                    else
+                    { @Model.User.Email}
+                </li>
+            }
+        </ul>
     </div>
 
     <h2>Boeken</h2>
