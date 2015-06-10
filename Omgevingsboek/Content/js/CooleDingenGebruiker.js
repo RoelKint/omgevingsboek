@@ -1,9 +1,30 @@
 ﻿$().ready(function () {
-    $('#profPic').hover(function () {
-        $(this).fadeTo("slow", 0.5, function () {
-            // Animation complete.
-            //amai zo cool zeg, amai
-            //danku danku
-        });
+
+    var bew;
+    var par;
+    if ('.bewProf') { 
+    par = $('#vlakEnIcoon').parent();
+    bew = par.children().eq(1);
+    bew.click(false, function () { uploadNew });
+    }
+    function uploadNew() {
+
+    }
+
+
+
+    $("input:file").change(function () {
+        var fileName = $(this).val();
+        console.log(fileName);
+        $(".fileUpload").toggleClass("upload-ok");
+        //$(".filename").html(fileName);
     });
+
+
+
+    console.log(par);
+    console.log(bew);
+
 });
+
+

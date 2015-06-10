@@ -353,6 +353,7 @@ h3.rowheader {
 }
 
 .profilePic {
+    position:absolute;
     width: 100px;
     background-color: blue;
     height: 100px;
@@ -366,6 +367,52 @@ h3.rowheader {
     background-position: center center;
     background-repeat: no-repeat;
     background-size: 200px;
+}
+.profileImage {
+    width: 100px;
+    height: 100px;
+}
+.profileImage:hover div#vlakEnIcoon  {
+    opacity:0.5;
+    visibility:visible;
+}
+
+#vlakEnIcoon {
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -ms-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    opacity:0;
+    border-radius: 100px;
+    visibility:hidden;
+    position:absolute;
+    width: 100px;
+    height: 100px;
+    background-color:white;
+    z-index:0;
+
+}
+#vlakEnIcoon
+            {
+ span  {
+     z-index:3;
+    font-size: 84px;
+   width:84px;
+   height:100px;
+   position:absolute;
+   top:50%;
+   left:50%;
+   margin-top:-40px;
+   margin-left:-42px;
+
+        }
+input.upload {
+    z-index:4;
+    height:100px !important;
+    width:100px !important;
+    opacity:0;
+    position:absolute;
+        }
 }
 .ImageCrop {
     width:300px;
@@ -404,8 +451,7 @@ li.tags {
                 color: black;
             }
 }
-.profileHolder {
-}
+
 /*lol*/
 * {
     -webkit-transition: all 0.2s ease;
