@@ -197,6 +197,8 @@ namespace Omgevingsboek.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    UserManager.SetLockoutEnabled(user.Id, false);
+                    UserManager.AddToRole(user.Id, "User");
                     bs.SetUitnodigingGebruikt(u.Id, user.Email);
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     

@@ -214,7 +214,7 @@ namespace Omgevingsboek.Controllers
 
         [Authorize]        
         [HttpPost]
-        public ActionResult UpdateAfbeelding(HttpPostedFileBase Afbeelding)
+        public void UpdateAfbeelding(HttpPostedFileBase Afbeelding)
         {
             string UserName = User.Identity.Name;
             ApplicationUser appuser = bs.GetUser(UserName);
@@ -224,7 +224,6 @@ namespace Omgevingsboek.Controllers
             appuser.Afbeelding = fotoInfo.MediumUrl;
             bs.UpdateUserAfbeelding(appuser);
 
-            return View();
         }
 
 
@@ -254,6 +253,75 @@ namespace Omgevingsboek.Controllers
                 res.Add(b.Naam);
             }
             return Json(JsonConvert.SerializeObject(res), JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult AddActivity(Activiteit activiteit, string TagsString, string BenodigdhedenString, HttpPostedFileBase AfbeeldingFile,string Prijs)
+        {
+            String fotoId;
+            PhotoInfo fotoInfo;
+            if (!ModelState.IsValid) return RedirectToAction("Boek");
+            if(bs.GetPoiById(activiteit.PoiId) == null) return RedirectToAction("Boek");
+
+            String[] tags = TagsString.Split(',');
+            List<Models.OmgevingsBoek_Models.Tag> tagList = new List<Models.OmgevingsBoek_Models.Tag>();
+
+            foreach (string t in tags)
+            {
+                if (t == "") continue;
+                tagList.Add(bs.InsertTag(t));
+            }
+
+
+            String[] benodigdheden = TagsString.Split(',');
+            List<Benodigdheid> benodigdhedenList = new List<Benodigdheid>();
+
+            foreach (string b in benodigdheden)
+            {
+                if (b == "") continue;
+                tagList.Add(bs.InsertTag(b));
+            }
+
+
+            //TODO: geolocatie toevoegen en wanneer word uitgelezen checken of het klopt.
+            Activiteit NieuweActiviteit = new Activiteit()
+            {
+                Naam = activiteit.Naam,
+                EigenaarId = bs.GetUser(User.Identity.Name).Id,
+                MaxLeeftijd = activiteit.MaxLeeftijd,
+                MinLeeftijd = activiteit.MinLeeftijd,
+                Prijs = activiteit.Prijs,
+                DitactischeToelichting = activiteit.DitactischeToelichting,
+                MinDuur = activiteit.MinDuur,
+                MaxDuur = activiteit.MaxDuur,
+                PoiId = activiteit.PoiId,
+                Uitleg = activiteit.Uitleg,
+                
+                Benodigdheden = benodigdhedenList,
+                Tags = tagList
+            };
+
+            if (AfbeeldingFile != null)
+            {
+                try
+                {
+                    fotoId = flickr.UploadPicture(AfbeeldingFile.InputStream, activiteit.Naam, activiteit.Naam, "", "", false, false, false, ContentType.Photo, SafetyLevel.Safe, HiddenFromSearch.Hidden);
+                    flickr.PhotosetsAddPhoto(ConfigurationManager.AppSettings.Get("FlickrPoiAlbumId"), fotoId);
+                    fotoInfo = flickr.PhotosGetInfo(fotoId);
+                    NieuweActiviteit.AfbeeldingNaam = fotoInfo.MediumUrl;
+
+                }
+                catch (Exception ex)
+                {
+                    return RedirectToAction("Index");
+                }
+            }
+
+            Activiteit p = bs.InsertActiviteit(activiteit);
+            if (p.Id > 0)
+            {
+                //Feedback???
+            }
+
+            return RedirectToAction("Boek");
         }
     }
 }

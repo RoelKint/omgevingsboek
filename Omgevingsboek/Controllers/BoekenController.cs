@@ -41,11 +41,18 @@ namespace Omgevingsboek.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         
         //TODO: Verwerken met repos
+        [Authorize]
         public ActionResult Create()
         {
             return View();
         }
+
+
+
+
+
         [HttpPost]
+        [Authorize]
         public ActionResult Create(Boek boek, HttpPostedFileBase AfbeeldingFile)
         {
             if (!ModelState.IsValid) return RedirectToAction("Index","Home");
