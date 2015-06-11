@@ -36,48 +36,55 @@
     <form id="formA" method="post" action="Delete">
         <input hidden name="vanaf" value="@ViewBag.vanaf" />
         <input hidden name="desc" value="@ViewBag.desc" />
-        <table class="table table-hover">
-            <colgroup>
-                <col class="col-lg-1 col-xs-1 col-md-1" />
-                <col class="col-lg-2 col-xs-2 col-md-2" />
-                <col class="col-lg-7 col-xs-7 col-md-7" />
-                <col class="col-lg-2 col-xs-2 col-md-2" />
-            </colgroup>
-
-            <tr>
-                <th><span class="glyphicon glyphicon-th-list"></span></th>
-                <th>Naam</th>
-                <th>Activiteiten</th>
-                <th>Opties</th>
-
-            </tr>
-
-            @foreach (Models.PresentationModels.UserActivities item in Model.UserActivities)
-            {
+        <table class="table table-hover" id="tableGebruikers">
+                <colgroup>
+                    <col class="col-lg-1 col-xs-1 col-md-1" />
+                    <col class="col-lg-2 col-xs-2 col-md-2" />
+                    <col class="col-lg-2 col-xs-2 col-md-2" />
+                    <col class="col-lg-6 col-xs-7 col-md-4" />
+                    <col class="col-lg-2 col-xs-2 col-md-2" />
+                </colgroup>
+            <thead>
                 <tr>
-                    <td><input type="checkbox" name="checkbox" value="@item.User.Naam"></td>
-                    <td>@item.User.Naam @item.User.Voornaam</td>
-                    <td>
-                        @foreach (var itempje in item.Activiteiten)
-                        {
-                            if (itempje.Equals(item.Activiteiten.Last()))
-                            {
-                                <a href="#">@itempje.Naam</a>
-                            }
-                            else
-                            {
-                                <a href="#">@itempje.Naam</a>@(',')
-                            }
-                        }
-                    </td>
-                    <td>
-                        <div class="displayInlineButtons">
-                            <button><span class="glyphicon glyphicon-remove"></span></button>
-                            <button><span class="glyphicon glyphicon-pencil"></span></button>
-                        </div>
-                    </td>
+                    <th><span class="glyphicon glyphicon-th-list"></span></th>
+                    <th>Naam</th>
+                    <th>Email</th>
+                    <th>Activiteiten</th>
+                    <th>Opties</th>
+
+
                 </tr>
-            }
+            </thead>
+            <tbody>
+                @foreach (Models.PresentationModels.UserActivities item in Model.UserActivities)
+                {
+                    <tr>
+                        <td><input type="checkbox" name="checkbox" value="@item.User.Id"></td>
+                        <td>@item.User.Naam @item.User.Voornaam</td>
+                        <td>@item.User.UserName</td>
+                        <td>
+                            @foreach (var itempje in item.Activiteiten)
+                            {
+                                if (itempje.Equals(item.Activiteiten.Last()))
+                                {
+                                    <a href="#">@itempje.Naam</a>
+                                }
+                                else
+                                {
+                                    <a href="#">@itempje.Naam</a>@(',')
+                                }
+                            }
+                        </td>
+                        <td>
+                            <div class="displayInlineButtons">
+                                <button><span class="glyphicon glyphicon-remove"></span></button>
+                                <button><span class="glyphicon glyphicon-pencil"></span></button>
+                            </div>
+                        </td>
+                    </tr>
+
+                }
+            </tbody>
         </table>
     </form>
 

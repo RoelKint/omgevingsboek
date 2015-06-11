@@ -260,10 +260,21 @@ namespace Omgevingsboek.Controllers
 
         public ActionResult ZoekGebruiker(string q)
         {
+
+            //TODO: optimaliseren
+            if (q == "GEENWAARDEMEEGEGEVEN") q = "";
+            List<UserActivities> ua = new List<UserActivities>();
             List<ApplicationUser> geb = bs.GetUserSearch(q);
-
-
-            return Json(JsonConvert.SerializeObject(geb), JsonRequestBehavior.AllowGet);
+            foreach (ApplicationUser user in geb)
+            {
+                UserActivities u = new UserActivities();
+                u.User = user;
+                u.Activiteiten = bs.GetActivitiesByUsername(user.UserName);
+                ua.Add(u);
+            }
+            var jsonResult = Json(JsonConvert.SerializeObject(ua), JsonRequestBehavior.AllowGet);
+            jsonResult.MaxJsonLength = int.MaxValue;
+            return jsonResult;
         }
 
 
