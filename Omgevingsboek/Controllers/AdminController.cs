@@ -2,6 +2,7 @@
 using Models.MVC_Models;
 using Models.OmgevingsBoek_Models;
 using Models.PresentationModels;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -157,6 +158,15 @@ namespace Omgevingsboek.Controllers
             gpm.Uitnodigingen = bs.GetUitnodigingenOpenByUser(User.Identity.Name);
             return View(gpm);
         }
+
+        public ActionResult ZoekGebruiker(string q)
+        {
+            List<ApplicationUser> geb = bs.GetUserSearch(q);
+
+
+            return Json(JsonConvert.SerializeObject(geb), JsonRequestBehavior.AllowGet);
+        }
+
 
         [Authorize(Roles = "Administrator,SuperAdministrator")]
         [HttpGet]
