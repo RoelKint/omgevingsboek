@@ -1,5 +1,6 @@
 ﻿
-var pagina = $('.tittel').html();
+var pagina = $('[name="controllerNaam"]').val();
+var vanaf = $('[name="vanaf"]').val();
 var table;
 var TopRow;
 if($('[name="filter"]').val() != "") {
@@ -51,8 +52,8 @@ $().ready(function () {
                     }
                 }
                 console.log(pagina);
-                $.post("../home/Get" + pagina + "?vanaf" + "&desc=" + hoe + "&filter=" + row, function (data) {
-                    console.log(pagina);
+                $.post("../Admin/" + pagina + "?vanaf=" + vanaf + "&desc=" + hoe + "&filter=" + row, function (data) {
+                    
                     console.log(data);
                     var els = jQuery.parseJSON(data);
                     console.log(els);
