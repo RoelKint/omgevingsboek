@@ -74,6 +74,9 @@ footer {
 .books > div > a:last-of-type {
   background-color: #216075;
 }
+.books > div > a:last-child {
+  color: white;
+}
 .books > div .caption {
   left: 0px;
   position: absolute;
@@ -281,6 +284,7 @@ h3.rowheader {
   border-radius: 5px;
   border: solid 1px rgba(211, 211, 211, 0.5);
   color: white;
+  cursor: pointer;
 }
 .row.poi .preview {
   padding: 0;

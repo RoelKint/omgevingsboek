@@ -117,7 +117,7 @@
                                 <label for="amount">Prijs per leerling:</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">&euro;</span>
-                                    <input class="form-control" type="number" id="prijsLeerling" step="any" name="Prijs">
+                                    <input class="form-control" pattern="[0-9]+([,][0-9]+)?" type="number" id="prijsLeerling" step="0,1" name="Prijs">
                                 </div>
                             </div>
                         </div>
@@ -136,13 +136,13 @@
                                 <label for="amount">Benodigdheden:</label>
                                 <div class="input-group">
                                     <span class="input-group-addon tag"><span class="glyphicon glyphicon-shopping-cart"></span></span>
-                                    <input name="BenodigdhedenString" class="form-control tags" id="poiTags" value="" />
+                                    <input name="BenodigdhedenString" class="form-control shopping" id="poiTags" value="" />
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div role="tabpanel" class="tab-pane fade" id="media">
-                        <img src="https://farm1.staticflickr.com/406/18646821431_d7abcd1b1d_o_d.jpg"/>
+                        <img src="http://cdn.yourepeat.com/media/gif/000/910/431/a34fc2a47ddc1137b324afa006daac9d.gif" />
                              amai mijn gedacht!</div>
                 </div>
             </div>
@@ -183,6 +183,11 @@
             }
         });
 
+        $("#minTimeBook").text("5");
+        $("#maxTimeBook").text("10");
+        $("#minTimeHiddenBook").val("5");
+        $("#maxTimeHiddenBook").val("10");
+
         $("#slider-boek-age").slider({
             range: true,
             min: 0,
@@ -200,6 +205,11 @@
             }
         });
     }
+
+    $("#minAgeBoek").text("5");
+    $("#maxAgeBoek").text("10");
+    $("#minAgeHiddenBoek").val("5");
+    $("#maxAgeHiddenBoek").val("10");
 
     function setListItemListeners() {
         $("#list .row.poi").each(
