@@ -109,6 +109,10 @@ namespace BusinessLogic.Services
         {
             return repoActiviteit.getActiviteitenByPoiByUser50from(from, Owner, PoiId);
         }
+        public Activiteit InsertActiviteit(Activiteit activiteit)
+        {
+            return repoActiviteit.Insert(activiteit);
+        }
 
         #endregion
 

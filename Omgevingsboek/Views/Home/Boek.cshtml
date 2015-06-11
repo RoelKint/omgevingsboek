@@ -51,10 +51,10 @@
         <div class="row">
             <div class="col-md-4">
                 <label for="amount">Naam:</label>
-                <input type="text" class="form-control" id="name" name="name" placeholder="Naam van activiteit">
+                <input type="text" class="form-control" id="name" name="Naam" placeholder="Naam van activiteit">
                 <label for="amount">POI:</label>
                 <input type="text" class="form-control" id="poiName" placeholder="Klik op een POI." disabled>
-                <input type="hidden" class="form-control" id="poi" name="poi">
+                <input type="hidden" class="form-control" id="poi" name="PoiId">
             </div>
             <div class="form-group col-md-5">
                 <label for="amount">Tags:</label>
@@ -107,8 +107,8 @@
                                     <span class="input-group-addon" id="minTimeBook"></span>
                                     <div class="form-control" class="slider" id="slider-boek-time"></div>
                                     <span class="input-group-addon" id="maxTimeBook"></span>
-                                    <input type="hidden" name="MaxLeeftijd" id="maxTimeHiddenBook" />
-                                    <input type="hidden" name="MinLeeftijd" id="minTimeHiddenBook" />
+                                    <input type="hidden" name="MaxDuur" id="maxTimeHiddenBook" />
+                                    <input type="hidden" name="MinDuur" id="minTimeHiddenBook" />
 
                                 </div>
                             </div>
@@ -123,11 +123,11 @@
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label for="amount">Toelichting:</label>
-                                <textarea class="form-control" type="text" id="prijsLeerling" name="Prijs"></textarea>
+                                <textarea class="form-control" type="text" id="prijsLeerling" name="DitactischeToelichting"></textarea>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="amount">Uitleg activiteit:</label>
-                                <textarea class="form-control" type="text" id="prijsLeerling" name="Prijs"></textarea>
+                                <textarea class="form-control" type="text" id="prijsLeerling" name="Uitleg"></textarea>
                             </div>
                         </div>
                         <div class="row">
@@ -135,7 +135,7 @@
                                 <label for="amount">Benodigdheden:</label>
                                 <div class="input-group">
                                     <span class="input-group-addon tag"><span class="glyphicon glyphicon-shopping-cart"></span></span>
-                                    <input name="TagsString" class="form-control tags" id="poiTags" value="" />
+                                    <input name="BenodigdhedenString" class="form-control tags" id="poiTags" value="" />
                                 </div>
                             </div>
                         </div>
