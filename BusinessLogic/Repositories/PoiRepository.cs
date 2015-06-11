@@ -20,6 +20,7 @@ namespace BusinessLogic.Repositories
         public PoiRepository()
             : base(new ApplicationDbContext())
         {
+            context.Configuration.LazyLoadingEnabled = false;
 
         }
         
@@ -61,11 +62,11 @@ namespace BusinessLogic.Repositories
         }
         public List<Poi> get50FromSortNameAZ(int from)
         {
-            return this.context.Poi.Where(i => !i.IsDeleted).OrderBy(i => i.Naam).Skip(from).Take(30).ToList();
+            return this.context.Poi.Include(p => p.Tags).Where(i => !i.IsDeleted).OrderBy(i => i.Naam).Skip(from).Take(30).ToList();
         }
         public List<Poi> get50FromSortNameZA(int from)
         {
-            return this.context.Poi.Where(i => !i.IsDeleted).OrderByDescending(i => i.Naam).Skip(from).Take(30).ToList();
+            return this.context.Poi.Include(p => p.Tags).Where(i => !i.IsDeleted).OrderByDescending(i => i.Naam).Skip(from).Take(30).ToList();
         }
         public void Delete(Poi EntityToDelete)
         {

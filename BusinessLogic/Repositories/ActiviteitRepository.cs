@@ -21,7 +21,7 @@ namespace BusinessLogic.Repositories
         public ActiviteitRepository()
             : base(new ApplicationDbContext())
         {
-
+            context.Configuration.LazyLoadingEnabled = false;
         }
 
         public override IEnumerable<Activiteit> All()
@@ -89,11 +89,11 @@ namespace BusinessLogic.Repositories
         
         public List<Activiteit> get50FromSortNameAZ(int from)
         {
-            return this.context.Activiteiten.Where(i => !i.IsDeleted).OrderBy(a => a.Naam).Skip(from).Take(30).ToList();
+            return this.context.Activiteiten.Include(a => a.Eigenaar).Include(a => a.Poi).Where(i => !i.IsDeleted).OrderBy(a => a.Naam).Skip(from).Take(30).ToList();
         }
         public List<Activiteit> get50FromSortNameZA(int from)
         {
-            return this.context.Activiteiten.Where(i => !i.IsDeleted).OrderByDescending(a => a.Naam).Skip(from).Take(30).ToList();
+            return this.context.Activiteiten.Include(a => a.Eigenaar).Include(a => a.Poi).Where(i => !i.IsDeleted).OrderByDescending(a => a.Naam).Skip(from).Take(30).ToList();
         }
         public List<Activiteit> get50FromSortUserAZ(int from)
         {
@@ -113,7 +113,7 @@ namespace BusinessLogic.Repositories
         }
         public List<Activiteit> getUserActiviteitenByUser50from(int from, String Owner, String Visitor)
         {
-            return this.context.Activiteiten.Where(i => !i.IsDeleted).Where(a => a.Eigenaar.UserName == Owner).Where(i=> i.DeelLijst.Contains(context.Users.Select(u => u).Where(u => u.UserName == Visitor).FirstOrDefault()) ).OrderBy(a => a.Naam).Skip(from).Take(30).ToList();
+            return this.context.Activiteiten.Include(a => a.Eigenaar).Include(a => a.Poi).Where(i => !i.IsDeleted).Where(a => a.Eigenaar.UserName == Owner).Where(i => i.DeelLijst.Contains(context.Users.Select(u => u).Where(u => u.UserName == Visitor).FirstOrDefault())).OrderBy(a => a.Naam).Skip(from).Take(30).ToList();
         }
 
         public void DeleteSoft(Activiteit entityToDelete)

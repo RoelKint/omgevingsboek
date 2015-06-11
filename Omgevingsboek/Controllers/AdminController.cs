@@ -83,6 +83,55 @@ namespace Omgevingsboek.Controllers
 
             return View(res);
         }
+        public ActionResult JActivities(int? vanaf, int? desc, int? filter)
+        {
+            //desc == 1 -> descending
+            //desc == 0 -> ascending
+
+            List<Activiteit> res = new List<Activiteit>();
+
+            if (!vanaf.HasValue) vanaf = 0;
+            if (!desc.HasValue) desc = 0;
+            if (!filter.HasValue) filter = 0;
+
+            switch ((int)filter)
+            {
+                case 1:
+                    //activiteit naam
+                    if (desc == 1)
+                        res = bs.GetActiviteiten50FromSortNameZA((int)vanaf);
+                    else
+                        res = bs.GetActiviteiten50FromSortNameAZ((int)vanaf);
+                    break;
+                case 2:
+                    //gebruiker naam
+                    if (desc == 1)
+                        res = bs.GetActiviteiten50FromSortUserZA((int)vanaf);
+                    else
+                        res = bs.GetActiviteiten50FromSortUserAZ((int)vanaf);
+                    break;
+                case 3:
+                    //poi
+                    if (desc == 1)
+                        res = bs.GetActiviteiten50FromSortPoiZA((int)vanaf);
+                    else
+                        res = bs.GetActiviteiten50FromSortPoiAZ((int)vanaf);
+                    break;
+                default:
+                    if (desc == 1)
+                        res = bs.GetActiviteiten50FromSortNameZA((int)vanaf);
+                    else
+                        res = bs.GetActiviteiten50FromSortNameAZ((int)vanaf);
+                    break;
+
+            }
+            
+            ViewBag.vanaf = vanaf;
+            ViewBag.desc = desc;
+            ViewBag.filter = filter;
+
+            return Json(JsonConvert.SerializeObject(res), JsonRequestBehavior.AllowGet);
+        }
         [Authorize(Roles = "SuperAdministrator")]
         [HttpPost]
         public ActionResult HardDelete(List<int> ActiviteitenToDelete, int vanaf, int desc, int? filter)
@@ -160,6 +209,54 @@ namespace Omgevingsboek.Controllers
             gpm.Uitnodigingen = bs.GetUitnodigingenOpenByUser(User.Identity.Name);
             return View(gpm);
         }
+        [Authorize(Roles = "Administrator,SuperAdministrator")]
+        [HttpGet]
+        public ActionResult JGebruikers(int? vanaf, int? desc)
+        {
+            if (TempData["Feedback"] != null)
+            {
+                UitnodigingFeedbackPM fb = TempData["Feedback"] as UitnodigingFeedbackPM;
+                if (fb.Foutief == null && fb.Gebruikt == null) ViewBag.IsFout = false;
+                else
+                {
+                    ViewBag.IsFout = true;
+                    ViewBag.Fouten = fb.Foutief;
+                    ViewBag.Gebruikt = fb.Gebruikt;
+                }
+            }
+
+
+            //desc == 1 -> descending
+            //desc == 0 -> ascending
+
+            List<UserActivities> ua = new List<UserActivities>();
+            List<ApplicationUser> res = new List<ApplicationUser>();
+
+            if (!vanaf.HasValue) vanaf = 0;
+            if (!desc.HasValue) desc = 0;
+
+
+            if (desc == 1)
+                res = bs.GetUserNext50SortZA((int)vanaf);
+            else
+                res = bs.GetUserNext50SortAZ((int)vanaf);
+
+            foreach (ApplicationUser user in res)
+            {
+                UserActivities u = new UserActivities();
+                u.User = user;
+                u.Activiteiten = bs.GetActivitiesByUsername(user.UserName);
+                ua.Add(u);
+            }
+
+            ViewBag.vanaf = vanaf;
+            ViewBag.desc = desc;
+            GebruikersPM gpm = new GebruikersPM();
+            gpm.UserActivities = ua;
+            gpm.Uitnodigingen = bs.GetUitnodigingenOpenByUser(User.Identity.Name);
+            
+            return Json(JsonConvert.SerializeObject(gpm), JsonRequestBehavior.AllowGet);
+        }
 
         public ActionResult ZoekGebruiker(string q)
         {
@@ -210,6 +307,48 @@ namespace Omgevingsboek.Controllers
             ViewBag.desc = desc;
             ViewBag.filter = filter;
             return View(res);
+        }
+        [Authorize(Roles = "Administrator,SuperAdministrator")]
+        [HttpGet]
+        public ActionResult JBoeken(int? vanaf, int? desc, int? filter)
+        {
+            //desc == 1 -> descending
+            //desc == 0 -> ascending
+
+            List<Boek> res = new List<Boek>();
+
+            if (!vanaf.HasValue) vanaf = 0;
+            if (!desc.HasValue) desc = 0;
+            if (!filter.HasValue) filter = 0;
+
+            switch ((int)filter)
+            {
+                case 1:
+                    //boek naam
+                    if (desc == 1)
+                        res = bs.GetBoeken50FromSortNameZA((int)vanaf);
+                    else
+                        res = bs.GetBoeken50FromSortNameAZ((int)vanaf);
+                    break;
+                case 2:
+                    //gebruiker naam
+                    if (desc == 1)
+                        res = bs.GetBoeken50FromSortUserZA((int)vanaf);
+                    else
+                        res = bs.GetBoeken50FromSortUserAZ((int)vanaf);
+                    break;
+                default:
+                    if (desc == 1)
+                        res = bs.GetBoeken50FromSortNameAZ((int)vanaf);
+                    else
+                        res = bs.GetBoeken50FromSortNameZA((int)vanaf);
+                    break;
+            }
+            ViewBag.vanaf = vanaf;
+            ViewBag.desc = desc;
+            ViewBag.filter = filter;
+            return Json(JsonConvert.SerializeObject(res), JsonRequestBehavior.AllowGet);
+       
         }
 
         [Authorize(Roles = "SuperAdministrator")]
@@ -263,6 +402,31 @@ namespace Omgevingsboek.Controllers
             ViewBag.desc = desc;
             return View(res);
         }
+        [Authorize(Roles = "Administrator,SuperAdministrator")]
+        [HttpGet]
+        public ActionResult JPois(int? vanaf, int? desc)
+        {
+            //desc == 1 -> descending
+            //desc == 0 -> ascending
+
+            List<Poi> res = new List<Poi>();
+
+            if (!vanaf.HasValue) vanaf = 0;
+            if (!desc.HasValue) desc = 0;
+
+
+            if (desc == 1)
+                res = bs.GetPoi50FromSortNameZA((int)vanaf);
+            else
+                res = bs.GetPoi50FromSortNameAZ((int)vanaf);
+
+            ViewBag.vanaf = vanaf;
+            ViewBag.desc = desc;
+            return Json(JsonConvert.SerializeObject(res), JsonRequestBehavior.AllowGet);
+       
+        }
+
+
         [Authorize(Roles = "Administrator,SuperAdministrator")]
 
         public ActionResult AddUsers(String Mails)
