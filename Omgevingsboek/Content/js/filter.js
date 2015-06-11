@@ -133,6 +133,8 @@ function filter(query) {
         filter($("#searchPoi").val());
         listLoaded = true;
     })
+
+    listLoaded = true;
 }
 
 filter("");
