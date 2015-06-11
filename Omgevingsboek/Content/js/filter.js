@@ -108,8 +108,8 @@ function filter(query) {
             'lat1': 51.20944,
             'lng1': 3.22528,
             // Poi
-            'lat2': 50.828056, 
-            'lng2': 3.265
+            'lat2': 50 + Math.random(),
+            'lng2': 3 + Math.random()
         }));
 
         var context = {

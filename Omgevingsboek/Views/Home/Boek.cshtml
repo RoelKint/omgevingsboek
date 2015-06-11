@@ -15,7 +15,7 @@
         {
             <div class="col-sm-6 col-md-3">
                 <a href="#">
-                    <p>@activiteit.AfbeeldingNaam</p>
+                    <img class="img-responsive" src="@activiteit.AfbeeldingNaam" />
                     <span class="caption">@activiteit.Naam</span>
                 </a>
                 <span class="buttons">
@@ -253,6 +253,8 @@
                         tagSel.poi.MinLeeftijd,
                         tagSel.poi.MaxLeeftijd
                     );
+
+                   $("#prijsLeerling").val(tagSel.poi.Prijs);
                }
              );
          });
