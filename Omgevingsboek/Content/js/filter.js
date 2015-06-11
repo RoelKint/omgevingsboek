@@ -107,7 +107,7 @@ function filter(query) {
         console.log(query.replace(matcher, "").replace(" ", ""));
         filtered = filtered.filter(function (el) {
             var fuse = new Fuse([el.poi.Naam], options);
-            var res = fuse.search(query.replace(matcher, ""));
+            var res = fuse.search(query.replace(matcher, "").replace(" ", "").trim());
             if (res[0] != null) {
                 return true;
             }
@@ -159,9 +159,12 @@ function filter(query) {
         document.getElementById("searchPoi").value = document.getElementById("searchPoi").value + " Tags:" + $(this)[0].innerText;
         filter($("#searchPoi").val());
         listLoaded = true;
+        $("#searchPoi").trigger("input");
     })
 
     listLoaded = true;
+
+    //$("#searchPoi").trigger("input");
 }
 
 filter("");
