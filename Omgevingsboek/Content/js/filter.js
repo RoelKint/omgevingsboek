@@ -4,7 +4,7 @@ json.forEach(function (poi) {
     //console.log(poi.poi.Tags);
     joinedtags = poi.poi["Tags"].map(function (tag) {
         return tag.Naam;
-    }).join(" ");
+    });
     poi.poi["OrigTags"] = poi.poi["Tags"];
     poi.poi["Tags"] = joinedtags;
 });
@@ -66,16 +66,38 @@ function filter(query) {
         prop = filter.split(":")[0].charAt(0).toUpperCase() + filter.split(":")[0].slice(1);
         val = filter.split(":")[1];
 
-        filtered = filtered.filter(function (el) {
+        //console.log(val);
+        //console.log(prop);
 
-            if (el.poi[prop] == null) { return false; }
-            var fuse = new Fuse([el.poi[prop]], options);
-            var res = fuse.search(val);
-            if (res[0] != null) {
-                return true;
-            }
-            return false;
+        filtered = filtered.filter(function (el) {
+            var matched = false;
+
+                if (el.poi[prop] == null) { matched = false; }
+                if (typeof el.poi[prop] == "object") {
+                    return el.poi[prop].some(function (propEl) {
+                        //console.log("Checking " + propEl);
+                        var fuse = new Fuse([propEl], options);
+                        var res = fuse.search(val)
+                        if (res[0] != null) {
+                            console.log(propEl);
+                            console.log(val);
+                            console.log("<<" + el.poi["Naam"] + ">>");
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    });
+                } else {
+                    var fuse = new Fuse([el.poi[prop]], options);
+                    var res = fuse.search(val);
+                    if (res[0] != null) {
+                        matched = true;
+                    }
+                    matched = false;
+                }
+            return matched;
         });
+
     })
 
     //Zoek op texts die geen property matchers zijn
