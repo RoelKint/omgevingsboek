@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Data.Entity;
 using System.Threading.Tasks;
 
 namespace BusinessLogic.Services
@@ -283,7 +284,8 @@ namespace BusinessLogic.Services
         {
             using (ApplicationDbContext context = new ApplicationDbContext())
             {
-                return context.Users.OrderBy(i => i.UserName).Take(50).Where(u => u.UserName.Contains(query) || u.Voornaam.Contains(query) || u.Naam.Contains(query)).ToList();
+                context.Configuration.LazyLoadingEnabled = false;
+                return context.Users.OrderBy(i => i.UserName).Include(a => a.Activiteiten).Include(a => a.Boeken).Include(a => a.Routes).Take(50).Where(u => u.UserName.Contains(query) || u.Voornaam.Contains(query) || u.Naam.Contains(query)).ToList();
             }
         }
 

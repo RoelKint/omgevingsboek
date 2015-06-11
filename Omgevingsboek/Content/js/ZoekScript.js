@@ -5,7 +5,13 @@
         delay(function () {
             $.ajax({
                 type: "GET",
-                url: "ZoekGebruiker?q=" + $('#ZoekenGebruikers').val()
+                url: "ZoekGebruiker?q=" + $('#ZoekenGebruikers').val(),
+                success: function(data){
+                    console.log(data);
+
+                    $("#formA tbody").empty();
+                }
+                
             });
 
 
