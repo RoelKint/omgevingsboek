@@ -125,11 +125,7 @@ namespace Omgevingsboek.Controllers
                     break;
 
             }
-            foreach (var item in res)
-            {
-                item.Poi = bs.GetPoiById(item.PoiId);
-                item.Eigenaar = bs.GetUserById(item.EigenaarId);
-            }
+            
             ViewBag.vanaf = vanaf;
             ViewBag.desc = desc;
             ViewBag.filter = filter;
