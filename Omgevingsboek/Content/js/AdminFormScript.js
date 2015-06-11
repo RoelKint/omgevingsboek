@@ -51,8 +51,17 @@ $().ready(function () {
                         hoe = 1;
                     }
                 }
+                if (row == "Naam") {
+                    row = 1;
+                } else if (row == "Eigenaar") {
+                    row = 2;
+                } else if (row == "Poi") {
+                    row = 3;
+                } 
                 console.log(pagina);
-                $.post("../Admin/" + pagina + "?vanaf=" + vanaf + "&desc=" + hoe + "&filter=" + row, function (data) {
+
+                //DIT IS WAAR IK MIJN JSON GA HALEN. EN DIT GEEFT EEN ERROR TERUG
+                $.getJSON("../Admin/J" + pagina + "?vanaf=" + vanaf + "&desc=" + hoe + "&filter=" + row, function (data) {
                     
                     console.log(data);
                     var els = jQuery.parseJSON(data);
