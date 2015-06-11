@@ -158,6 +158,10 @@
 </div>
 
 <script>
+
+    var ageSlider;
+    var timeSlider;
+
     $(".toggleActivityForm").click(function (e) {
         e.preventDefault();
         $("#activityForm").slideToggle(400, function () {
@@ -165,51 +169,68 @@
     });
 
     function initSliders() {
-        $("#slider-boek-time").slider({
+        setSliderInputValues(
+            $("#minTimeBook"),
+            $("#maxTimeBook"),
+            $("#minTimeHiddenBook"),
+            $("#maxTimeHiddenBook"),
+            0,
+            24
+        );
+
+        setSliderInputValues(
+            $("#minAgeBoek"),
+            $("#maxAgeBoek"),
+            $("#minAgeHiddenBoek"),
+            $("#maxAgeHiddenBoek"),
+            0,
+            18
+        );
+
+        ageSlider = setSliderValues(
+            $("#slider-boek-age"),
+            $("#minAgeBoek"),
+            $("#maxAgeBoek"),
+            $("#minAgeHiddenBoek"),
+            $("#maxAgeHiddenBoek"),
+            0,
+            18
+        );
+
+        timeSlider = setSliderValues(
+            $("#slider-boek-time"),
+            $("#minTimeBook"),
+            $("#maxTimeBook"),
+            $("#minTimeHiddenBook"),
+            $("#maxTimeHiddenBook"),
+            0,
+            24
+        );
+    }
+
+    function setSliderValues(sliderEl, minShow, maxShow, minHidden, maxHidden, minVal, maxVal) {
+        return sliderEl.slider({
             range: true,
-            min: 0,
-            max: 24,
-            values: [5, 10],
+            min: minVal,
+            max: maxVal,
+            values: [minVal, maxVal],
             slide: function (event, ui) {
-                $("#amount").val("" + ui.values[0] + " - " + ui.values[1]);
-
-                $("#minTimeBook").text("" + ui.values[0]);
-                $("#maxTimeBook").text("" + ui.values[1]);
-
-                $("#minTimeHiddenBook").val(ui.values[0]);
-                $("#maxTimeHiddenBook").val(ui.values[1]);
+                setSliderInputValues(minShow, maxShow, minHidden, maxHidden, ui.values[0], ui.values[1]);
                 console.log("slider changed");
-
-            }
-        });
-
-        $("#minTimeBook").text("5");
-        $("#maxTimeBook").text("10");
-        $("#minTimeHiddenBook").val("5");
-        $("#maxTimeHiddenBook").val("10");
-
-        $("#slider-boek-age").slider({
-            range: true,
-            min: 0,
-            max: 18,
-            values: [5, 10],
-            slide: function (event, ui) {
-
-                $("#minAgeBoek").text("" + ui.values[0]);
-                $("#maxAgeBoek").text("" + ui.values[1]);
-
-                $("#minAgeHiddenBoek").val(ui.values[0]);
-                $("#maxAgeHiddenBoek").val(ui.values[1]);
-                console.log("slider changed");
-
             }
         });
     }
 
-    $("#minAgeBoek").text("5");
-    $("#maxAgeBoek").text("10");
-    $("#minAgeHiddenBoek").val("5");
-    $("#maxAgeHiddenBoek").val("10");
+    function moveSliders(sliderEl, minVal, maxVal) {
+        sliderEl.slider("values", [minVal, maxVal]);
+    }
+
+    function setSliderInputValues(minShow, maxShow, minHidden, maxHidden, minVal, maxVal) {
+        minShow.text(minVal);
+        maxShow.text(maxVal);
+        minHidden.val(minVal);
+        maxHidden.val(maxVal);
+    }
 
     function setListItemListeners() {
         $("#list .row.poi").each(
@@ -217,9 +238,21 @@
              var poi = this;
              $(this).children(".preview").click(
                function (element) {
-                   $("#poi").val($(poi).attr("data-id"));
-                   $("#poiName").val($(poi).attr("data-title"));
-                   console.log($(poi).attr("data-title"));
+                   tagSel = json.filter(function (el) { return el.poi.ID == $(poi).attr("data-id") })[0];
+                   $("#poi").val(tagSel.poi.ID);
+                   $("#poiName").val(tagSel.poi.Naam);
+                   console.log(tagSel.poi.MaxLeeftijd);
+                   console.log(tagSel.poi.MinLeeftijd);
+
+                   moveSliders($("#slider-boek-age"), tagSel.poi.MinLeeftijd, tagSel.poi.MaxLeeftijd);
+                   setSliderInputValues(
+                        $("#minAgeBoek"),
+                        $("#maxAgeBoek"),
+                        $("#minAgeHiddenBoek"),
+                        $("#maxAgeHiddenBoek"),
+                        tagSel.poi.MinLeeftijd,
+                        tagSel.poi.MaxLeeftijd
+                    );
                }
              );
          });

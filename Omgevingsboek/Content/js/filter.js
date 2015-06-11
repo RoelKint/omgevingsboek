@@ -9,6 +9,8 @@ json.forEach(function (poi) {
     poi.poi["Tags"] = joinedtags;
 });
 
+console.log(json);
+
 $('#searchPoi').bind('input', function () {
     filter($(this).val());
     listLoaded = true;
