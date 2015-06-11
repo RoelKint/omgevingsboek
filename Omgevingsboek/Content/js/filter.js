@@ -36,6 +36,9 @@ function distanceFrom(points) {
 function filter(query) {
     var filtered = json;
 
+    query = query.trim();
+    query = query.replace(/ +(?= )/g,'');
+
     var matcher = /(\S+:\S+)/gi;
 
     var options = {
