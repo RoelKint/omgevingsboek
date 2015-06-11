@@ -68,10 +68,11 @@ function filter(query) {
 
         //console.log(val);
         //console.log(prop);
-
+        console.log("\n");
+        console.log(filtered.length);
         filtered = filtered.filter(function (el) {
             var matched = false;
-
+            console.log("\n");
                 if (el.poi[prop] == null) { matched = false; }
                 if (typeof el.poi[prop] == "object") {
                     return el.poi[prop].some(function (propEl) {
@@ -82,6 +83,7 @@ function filter(query) {
                             console.log(propEl);
                             console.log(val);
                             console.log("<<" + el.poi["Naam"] + ">>");
+                            console.log("\n");
                             return true;
                         } else {
                             return false;
@@ -99,9 +101,10 @@ function filter(query) {
         });
 
     })
-
+    console.log(filtered);
     //Zoek op texts die geen property matchers zijn
-    if (query.replace(matcher, "").replace(" ", "") != "") {
+    if (query.replace(matcher, "").replace(" ", "").trim() != "") {
+        console.log(query.replace(matcher, "").replace(" ", ""));
         filtered = filtered.filter(function (el) {
             var fuse = new Fuse([el.poi.Naam], options);
             var res = fuse.search(query.replace(matcher, ""));
@@ -111,7 +114,7 @@ function filter(query) {
             return false;
         });
     }
-
+    console.log(filtered);
     //Verwijder huidige nodes en vervang door nieuwe items
     while (document.getElementById("list").firstChild) {
         document.getElementById("list").removeChild(document.getElementById("list").firstChild);
