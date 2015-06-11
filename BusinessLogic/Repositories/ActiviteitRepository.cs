@@ -151,8 +151,34 @@ namespace BusinessLogic.Repositories
         }
         public override Activiteit Insert(Activiteit entity)
         {
-            Activiteit res = new Activiteit();
-            return res;
+
+            entity.DeelLijst = new List<ApplicationUser>();
+            entity.DeelLijst.Add(context.Users.Where(u => u.Id == entity.EigenaarId).FirstOrDefault());
+
+            List<Tag> tags = new List<Tag>();
+
+            foreach (Tag tag in entity.Tags)
+            {
+                tags.Add(context.Tags.Find(tag.ID));
+            }
+            entity.Tags = tags;
+
+            List<Benodigdheid> be = new List<Benodigdheid>();
+
+            foreach (Benodigdheid b in entity.Benodigdheden)
+            {
+                be.Add(context.Benodigdheden.Find(b.Id));
+            }
+            entity.Benodigdheden = be;
+
+            entity.Boeken = new List<Boek>(){
+                context.Boeken.Find(entity.Boeken.FirstOrDefault().Id)
+            };
+
+
+            context.Activiteiten.Add(entity);
+            context.SaveChanges();
+            return entity;
         }
 
 

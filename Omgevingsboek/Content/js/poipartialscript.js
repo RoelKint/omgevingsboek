@@ -9,7 +9,7 @@
 $().ready(function () {
     $('button[type=submit]').on('click', function () {
         if ($('#addPoi').valid()) {
-            var $btn = $(this).button('loading')
+            var $btn = $(this).button('loading');
         }    
     })
 
@@ -79,10 +79,10 @@ $().ready(function () {
     $("#amount").val("" + $("#slider-range").slider("values", 0) +
             " - " + $("#slider-range").slider("values", 1));
 
-    $("#minAge").text("5");
-    $("#maxAge").text("10");
-    $("#minAgeHidden").val("5");
-    $("#maxAgeHidden").val("10");
+    $("#minAgePoi").text("5");
+    $("#maxAgePoi").text("10");
+    $("#minAgeHiddenPoi").val("5");
+    $("#maxAgeHiddenPoi").val("10");
 
     $('#locationPicker').popover({
         html: true,

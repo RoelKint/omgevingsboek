@@ -49,6 +49,8 @@ namespace Omgevingsboek.Controllers
             hipm.BoekenEigenaar = bs.GetBoekenByUser(User.Identity.Name);
             hipm.BoekenGedeeld = bs.GetSharedBoeken(User.Identity.Name);
 
+            ViewBag.UserImageUrl = "";
+
             return View(hipm);
         }
         [Authorize]
@@ -254,12 +256,17 @@ namespace Omgevingsboek.Controllers
             }
             return Json(JsonConvert.SerializeObject(res), JsonRequestBehavior.AllowGet);
         }
-        public ActionResult AddActivity(Activiteit activiteit, string TagsString, string BenodigdhedenString, HttpPostedFileBase AfbeeldingFile,string Prijs)
+        public ActionResult AddActivity(Activiteit activiteit, string TagsString, string BenodigdhedenString, HttpPostedFileBase AfbeeldingFile, string Prijs, int? BoekId)
         {
             String fotoId;
+            
             PhotoInfo fotoInfo;
-            if (!ModelState.IsValid) return RedirectToAction("Boek");
-            if(bs.GetPoiById(activiteit.PoiId) == null) return RedirectToAction("Boek");
+
+            if (!BoekId.HasValue) return RedirectToAction("Index");
+            if (bs.GetBoekByID((int)BoekId) == null) return RedirectToAction("index");
+            if (!ModelState.IsValid) return RedirectToAction("Boek", new { id = (int)BoekId });
+            if (bs.GetPoiById(activiteit.PoiId) == null) return RedirectToAction("Boek", new { id = (int)BoekId });
+
 
             String[] tags = TagsString.Split(',');
             List<Models.OmgevingsBoek_Models.Tag> tagList = new List<Models.OmgevingsBoek_Models.Tag>();
@@ -281,7 +288,6 @@ namespace Omgevingsboek.Controllers
             }
 
 
-            //TODO: geolocatie toevoegen en wanneer word uitgelezen checken of het klopt.
             Activiteit NieuweActiviteit = new Activiteit()
             {
                 Naam = activiteit.Naam,
@@ -295,10 +301,14 @@ namespace Omgevingsboek.Controllers
                 PoiId = activiteit.PoiId,
                 Uitleg = activiteit.Uitleg,
                 
+                
+                
                 Benodigdheden = benodigdhedenList,
                 Tags = tagList
             };
 
+            NieuweActiviteit.Boeken = new List<Boek>();
+            NieuweActiviteit.Boeken.Add(bs.GetBoekByID((int)BoekId));
             if (AfbeeldingFile != null)
             {
                 try
@@ -311,17 +321,17 @@ namespace Omgevingsboek.Controllers
                 }
                 catch (Exception ex)
                 {
-                    return RedirectToAction("Index");
+                    //return RedirectToAction("Index");
                 }
             }
 
-            Activiteit p = bs.InsertActiviteit(activiteit);
+            Activiteit p = bs.InsertActiviteit(NieuweActiviteit);
             if (p.Id > 0)
             {
                 //Feedback???
             }
 
-            return RedirectToAction("Boek");
+            return RedirectToAction("Boek", new { id = (int)BoekId });
         }
     }
 }

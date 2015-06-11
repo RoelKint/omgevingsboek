@@ -4,10 +4,12 @@ json.forEach(function (poi) {
     //console.log(poi.poi.Tags);
     joinedtags = poi.poi["Tags"].map(function (tag) {
         return tag.Naam;
-    }).join(" ");
+    });
     poi.poi["OrigTags"] = poi.poi["Tags"];
     poi.poi["Tags"] = joinedtags;
 });
+
+console.log(json);
 
 $('#searchPoi').bind('input', function () {
     filter($(this).val());
@@ -36,6 +38,9 @@ function distanceFrom(points) {
 function filter(query) {
     var filtered = json;
 
+    query = query.trim();
+    query = query.replace(/ +(?= )/g,'');
+
     var matcher = /(\S+:\S+)/gi;
 
     var options = {
@@ -61,20 +66,45 @@ function filter(query) {
         prop = filter.split(":")[0].charAt(0).toUpperCase() + filter.split(":")[0].slice(1);
         val = filter.split(":")[1];
 
+        //console.log(val);
+        //console.log(prop);
+        console.log("\n");
+        console.log(filtered.length);
         filtered = filtered.filter(function (el) {
-
-            if (el.poi[prop] == null) { return false; }
-            var fuse = new Fuse([el.poi[prop]], options);
-            var res = fuse.search(val);
-            if (res[0] != null) {
-                return true;
-            }
-            return false;
+            var matched = false;
+            console.log("\n");
+                if (el.poi[prop] == null) { matched = false; }
+                if (typeof el.poi[prop] == "object") {
+                    return el.poi[prop].some(function (propEl) {
+                        //console.log("Checking " + propEl);
+                        var fuse = new Fuse([propEl], options);
+                        var res = fuse.search(val)
+                        if (res[0] != null) {
+                            console.log(propEl);
+                            console.log(val);
+                            console.log("<<" + el.poi["Naam"] + ">>");
+                            console.log("\n");
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    });
+                } else {
+                    var fuse = new Fuse([el.poi[prop]], options);
+                    var res = fuse.search(val);
+                    if (res[0] != null) {
+                        matched = true;
+                    }
+                    matched = false;
+                }
+            return matched;
         });
-    })
 
+    })
+    console.log(filtered);
     //Zoek op texts die geen property matchers zijn
-    if (query.replace(matcher, "").replace(" ", "") != "") {
+    if (query.replace(matcher, "").replace(" ", "").trim() != "") {
+        console.log(query.replace(matcher, "").replace(" ", ""));
         filtered = filtered.filter(function (el) {
             var fuse = new Fuse([el.poi.Naam], options);
             var res = fuse.search(query.replace(matcher, ""));
@@ -84,7 +114,7 @@ function filter(query) {
             return false;
         });
     }
-
+    console.log(filtered);
     //Verwijder huidige nodes en vervang door nieuwe items
     while (document.getElementById("list").firstChild) {
         document.getElementById("list").removeChild(document.getElementById("list").firstChild);
@@ -103,8 +133,8 @@ function filter(query) {
             'lat1': 51.20944,
             'lng1': 3.22528,
             // Poi
-            'lat2': 50.828056, 
-            'lng2': 3.265
+            'lat2': 50 + Math.random(),
+            'lng2': 3 + Math.random()
         }));
 
         var context = {
@@ -124,6 +154,12 @@ function filter(query) {
     $(function () {
         $('[data-toggle="popover"]').popover()
     });
+
+    $(".poiTags span").click(function (tag) {
+        document.getElementById("searchPoi").value = document.getElementById("searchPoi").value + " Tags:" + $(this)[0].innerText;
+        filter($("#searchPoi").val());
+        listLoaded = true;
+    })
 
     listLoaded = true;
 }

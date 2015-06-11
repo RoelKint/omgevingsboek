@@ -2,6 +2,7 @@
 using Models.MVC_Models;
 using Models.OmgevingsBoek_Models;
 using Models.PresentationModels;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -101,6 +102,8 @@ namespace Omgevingsboek.Controllers
         public ActionResult Delete(List<int> ActiviteitenToDelete, int vanaf, int desc, int? filter)
         {
             if (!User.IsInRole("SuperAdministrator") && !User.IsInRole("Administrator")) return RedirectToAction("Activities");
+            
+            //TODO: ervoor zorgen dat lege gebruiker ook kan verwijderd worden.
             foreach (int activiteit in ActiviteitenToDelete)
             {
                 Activiteit a = bs.GetActiviteitById(activiteit);
@@ -157,6 +160,15 @@ namespace Omgevingsboek.Controllers
             gpm.Uitnodigingen = bs.GetUitnodigingenOpenByUser(User.Identity.Name);
             return View(gpm);
         }
+
+        public ActionResult ZoekGebruiker(string q)
+        {
+            List<ApplicationUser> geb = bs.GetUserSearch(q);
+
+
+            return Json(JsonConvert.SerializeObject(geb), JsonRequestBehavior.AllowGet);
+        }
+
 
         [Authorize(Roles = "Administrator,SuperAdministrator")]
         [HttpGet]

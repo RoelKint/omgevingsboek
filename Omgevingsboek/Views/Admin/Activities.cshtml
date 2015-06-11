@@ -1,4 +1,6 @@
-﻿@model List<Models.OmgevingsBoek_Models.Activiteit>
+﻿@Culture.
+@model List<Models.OmgevingsBoek_Models.Activiteit>
+
 @{
     ViewBag.Title = "Activities";
     int meer = ViewBag.vanaf + 30;
@@ -13,6 +15,8 @@
     }
     int desc = ViewBag.desc;
 }
+
+
 <div class="col-xs-12 col-md-12 nav">
     <a href="../Admin">&lt;&lt; Terug naar overzicht</a>
 </div>

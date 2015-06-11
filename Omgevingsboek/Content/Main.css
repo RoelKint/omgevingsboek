@@ -23,6 +23,12 @@ footer {
   left: 1%;
   z-index: 2;
 }
+a {
+  -moz-transition: color 0.2s ease-out;
+  -o-transition: color 0.2s ease-out;
+  -webkit-transition: color 0.2s ease-out;
+  transition: color 0.2s ease-out;
+}
 #activityForm .fileUpload {
   height: 95px;
 }
@@ -70,9 +76,19 @@ footer {
   overflow: hidden;
   height: 100px;
   border-radius: 5px;
+  -moz-transition: border-width 0.1s ease;
+  -o-transition: border-width 0.1s ease;
+  -webkit-transition: border-width 0.1s ease;
+  transition: border-width 0.1s ease;
+}
+.books > div > a:hover {
+  border: 1px solid white;
 }
 .books > div > a:last-of-type {
   background-color: #216075;
+}
+.books > div > a:last-child {
+  color: white;
 }
 .books > div .caption {
   left: 0px;
@@ -280,7 +296,9 @@ h3.rowheader {
   background-color: #216075;
   border-radius: 5px;
   border: solid 1px rgba(211, 211, 211, 0.5);
+  text-transform: capitalize;
   color: white;
+  cursor: pointer;
 }
 .row.poi .preview {
   padding: 0;
@@ -407,5 +425,8 @@ li.tags input {
 .createpage {
   padding-top: 15px;
   padding-left: 15px;
+}
+label.error {
+  color: red;
 }
 /*# sourceMappingURL=Main.css.map */

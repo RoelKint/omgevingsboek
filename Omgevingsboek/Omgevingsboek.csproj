@@ -261,6 +261,8 @@
     <Content Include="Content\js\filter.js" />
     <Content Include="Content\js\gebruikerpartialscript.js" />
     <Content Include="Content\js\poipartialscript.js" />
+    <Content Include="Content\js\validationFixes.js" />
+    <Content Include="Content\js\ZoekScript.js" />
     <Content Include="Content\Main.css">
       <DependentUpon>Main.less</DependentUpon>
     </Content>
@@ -417,6 +419,9 @@
     <Content Include="Views\Boeken\Index.cshtml" />
     <Content Include="Views\Home\Boek.cshtml" />
     <Content Include="Views\Account\OngeldigeSleutel.cshtml" />
+    <Content Include="Scripts\jquery.validate.min.js.map">
+      <DependentUpon>jquery.validate.min.js</DependentUpon>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

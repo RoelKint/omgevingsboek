@@ -30,7 +30,7 @@
         <button onclick="location.href='../Admin/Gebruikers?vanaf=@meer&desc=@desc'"><span class="glyphicon glyphicon-chevron-right"></span> Volgende Pag.</button>
         <button><span class="glyphicon glyphicon-remove-circle"></span> Verwijderen</button>
         <!-- <button><span class="glyphicon glyphicon-pencil"></span> Bewerken</button>-->
-        <input type="text" placeholder="Zoeken" />
+        <input type="text" placeholder="Zoeken" id="ZoekenGebruikers" />
     </div>
 
     <form id="formA" method="post" action="Delete">
@@ -129,5 +129,5 @@
 </div>
 
 
-
+<script src="~/Content/js/ZoekScript.js"></script>
 @Html.Partial("_GebrPartial")
