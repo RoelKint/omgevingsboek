@@ -21,7 +21,7 @@
     <a href="../Admin">&lt;&lt; Terug naar overzicht</a>
 </div>
 <div class="adminList col-xs-6 col-md-9 content" id="content">
-    <h2>Activiteiten</h2>
+    <h2 class="tittel">Activiteiten</h2>
     <div class="col-xs-6 col-md-9">
         <span style="font-weight:bold">@ViewBag.vanaf - @meer</span>
     </div>
@@ -37,7 +37,8 @@
     <form id="formA" method="post" action="Delete">
         <input hidden name="vanaf" value="@ViewBag.vanaf" />
         <input hidden name="desc" value="@ViewBag.desc" />
-        <table class="table table-hover">
+        <input hidden name="filter" value="@ViewBag.filter"/>
+        <input hidden name="controllerNaam" value="Activities"><table class="AdminTable table table-hover">
             <colgroup>
                 <col class="col-lg-1 col-xs-1 col-md-1" />
                 <col class="col-lg-4 col-xs-4 col-md-3" />
@@ -48,16 +49,16 @@
 
             <tr>
                 <th><span class="glyphicon glyphicon-th-list"></span></th>
-                <th>Naam</th>
-                <th>Eigenaar</th>
-                <th>Poi</th>
-                <th>Opties</th>
+                <th><span>Naam</span></th>
+                <th><span>Eigenaar</span></th>
+                <th><span>Poi</span></th>
+                <th><span>Opties</span></th>
             </tr>
             @foreach (var item in Model)
             {
                 <tr>
                     <td>
-                        <input form="formA" name="ActiviteitenToDelete" value="@item.Id" type="checkbox" />
+                        <input form="formA" id="DylanToch" name="ActiviteitenToDelete" value="@item.Id" type="checkbox" />
                     </td>
                     <td>@item.Naam</td>
                     <td>@item.Eigenaar.Email</td>
@@ -78,3 +79,9 @@
         <button><span class="glyphicon glyphicon-remove-circle"></span> Verwijderen</button>
     </div>
 </div>
+
+<script type="text/javascript" src="~/Content/js/adminformscript.js"></script>
+
+
+
+
