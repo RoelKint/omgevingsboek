@@ -36,6 +36,9 @@ function distanceFrom(points) {
 function filter(query) {
     var filtered = json;
 
+    query = query.trim();
+    query = query.replace(/ +(?= )/g,'');
+
     var matcher = /(\S+:\S+)/gi;
 
     var options = {
@@ -124,6 +127,12 @@ function filter(query) {
     $(function () {
         $('[data-toggle="popover"]').popover()
     });
+
+    $(".poiTags span").click(function (tag) {
+        document.getElementById("searchPoi").value = document.getElementById("searchPoi").value + " Tags:" + $(this)[0].innerText;
+        filter($("#searchPoi").val());
+        listLoaded = true;
+    })
 
     listLoaded = true;
 }
