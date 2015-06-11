@@ -415,6 +415,9 @@
     <Content Include="Views\Boeken\Index.cshtml" />
     <Content Include="Views\Home\Boek.cshtml" />
     <Content Include="Views\Account\OngeldigeSleutel.cshtml" />
+    <Content Include="Scripts\jquery.validate.min.js.map">
+      <DependentUpon>jquery.validate.min.js</DependentUpon>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -102,6 +102,8 @@ namespace Omgevingsboek.Controllers
         public ActionResult Delete(List<int> ActiviteitenToDelete, int vanaf, int desc, int? filter)
         {
             if (!User.IsInRole("SuperAdministrator") && !User.IsInRole("Administrator")) return RedirectToAction("Activities");
+            
+            //TODO: ervoor zorgen dat lege gebruiker ook kan verwijderd worden.
             foreach (int activiteit in ActiviteitenToDelete)
             {
                 Activiteit a = bs.GetActiviteitById(activiteit);
