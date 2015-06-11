@@ -116,7 +116,7 @@
                                 <label for="amount">Prijs per leerling:</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">&euro;</span>
-                                    <input class="form-control" type="number" id="prijsLeerling" step="any" name="Prijs">
+                                    <input class="form-control" pattern="[0-9]+([,][0-9]+)?" type="number" id="prijsLeerling" step="0,1" name="Prijs">
                                 </div>
                             </div>
                         </div>
@@ -182,6 +182,11 @@
             }
         });
 
+        $("#minTimeBook").text("5");
+        $("#maxTimeBook").text("10");
+        $("#minTimeHiddenBook").val("5");
+        $("#maxTimeHiddenBook").val("10");
+
         $("#slider-boek-age").slider({
             range: true,
             min: 0,
@@ -199,6 +204,11 @@
             }
         });
     }
+
+    $("#minAgeBoek").text("5");
+    $("#maxAgeBoek").text("10");
+    $("#minAgeHiddenBoek").val("5");
+    $("#maxAgeHiddenBoek").val("10");
 
     function setListItemListeners() {
         $("#list .row.poi").each(
