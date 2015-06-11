@@ -20,7 +20,7 @@
             </div>
         }
         <div class="col-sm-6 col-md-3" id="toevoegenBoek">
-            <a href="#">
+            <a href="/Boeken/Create" id="toevoegenBoek">
                 <div class="toevoegen">
                     <span class="caption"><span class="glyphicon glyphicon-plus"></span> Boek toevoegen</span>
                 </div>
@@ -30,7 +30,7 @@
                             Browse <input type="file" placeholder="Kies een bestand" />
                         </span>
                     <input class="btn btn-default" type="submit" />
-                    <input class="btn btn-default" type="button" value="Annuleren" />
+                    <input class="btn btn-default" type="button" value="Annuleren" id="btnAnnulerenAddBoek" />
 
                 </div>
             </a>
@@ -57,4 +57,4 @@
 @*@Html.Partial("_PoiPartial", Model)*@
 
 @{ Html.RenderAction("PoiPartial", "Home"); }
-<script src="~/Content/js/boekenScript.js"></script>
+@*<script src="~/Content/js/boekenScript.js"></script>*@

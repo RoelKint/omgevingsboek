@@ -9,7 +9,7 @@
 $().ready(function () {
     $('button[type=submit]').on('click', function () {
         if ($('#addPoi').valid()) {
-            var $btn = $(this).button('loading')
+            var $btn = $(this).button('loading');
         }    
     })
 
