@@ -49,6 +49,8 @@ namespace Omgevingsboek.Controllers
             hipm.BoekenEigenaar = bs.GetBoekenByUser(User.Identity.Name);
             hipm.BoekenGedeeld = bs.GetSharedBoeken(User.Identity.Name);
 
+            ViewBag.UserImageUrl = "";
+
             return View(hipm);
         }
         [Authorize]
