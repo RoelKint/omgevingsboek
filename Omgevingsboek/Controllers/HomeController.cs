@@ -214,7 +214,7 @@ namespace Omgevingsboek.Controllers
 
         [Authorize]        
         [HttpPost]
-        public ActionResult UpdateAfbeelding(HttpPostedFileBase Afbeelding)
+        public void UpdateAfbeelding(HttpPostedFileBase Afbeelding)
         {
             string UserName = User.Identity.Name;
             ApplicationUser appuser = bs.GetUser(UserName);
@@ -224,7 +224,6 @@ namespace Omgevingsboek.Controllers
             appuser.Afbeelding = fotoInfo.MediumUrl;
             bs.UpdateUserAfbeelding(appuser);
 
-            return View();
         }
 
 

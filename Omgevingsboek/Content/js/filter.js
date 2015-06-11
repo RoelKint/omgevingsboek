@@ -41,8 +41,8 @@ function filter(query) {
     var options = {
         caseSensitive: true,
         includeScore: false,
-        shouldSort: false,
-        threshold: 0.6,
+        shouldSort: true,
+        threshold: 0.5,
         location: 0,
         distance: 100,
         maxPatternLength: 32,
@@ -64,7 +64,6 @@ function filter(query) {
         filtered = filtered.filter(function (el) {
 
             if (el.poi[prop] == null) { return false; }
-            console.log(el.poi.Tags);
             var fuse = new Fuse([el.poi[prop]], options);
             var res = fuse.search(val);
             if (res[0] != null) {
@@ -79,7 +78,6 @@ function filter(query) {
         filtered = filtered.filter(function (el) {
             var fuse = new Fuse([el.poi.Naam], options);
             var res = fuse.search(query.replace(matcher, ""));
-            console.log(res);
             if (res[0] != null) {
                 return true;
             }

@@ -10,7 +10,7 @@ $().ready(function () {
     $('button[type=submit]').on('click', function () {
         if ($('#addPoi').valid()) {
             var $btn = $(this).button('loading')
-        }    
+        }
     })
 
     $(".sidebar input:file").change(function () {
@@ -32,49 +32,7 @@ $().ready(function () {
         return a;
     }
 
-    $.get("/home/gettags", function (data) {
-        var tagSource = $.parseJSON(data);
-
-        $('.tags').tagsInput({
-            autocomplete_url: '',
-            defaultText: '',
-            minChars: 0,
-            maxChars: 0,
-            autocomplete: { selectFirst: true, autoFill: true, source: tagSource.getUnique(), 'width': '100%' }
-        });
-    });
-
-    $.get("/home/getBenodigdheden", function (data) {
-        var tagSource = $.parseJSON(data);
-
-        $('.shopping').tagsInput({
-            autocomplete_url: '',
-            defaultText: '',
-            minChars: 0,
-            maxChars: 0,
-            autocomplete: { selectFirst: true, autoFill: true, source: tagSource.getUnique(), 'width': '100%' }
-        });
-    });
-
-    console.log("Jquery loaded");
-    var collapsed = true;
-    $("#slider-poi").slider({
-        range: true,
-        min: 0,
-        max: 18,
-        values: [5, 10],
-        slide: function (event, ui) {
-            $("#amount").val("" + ui.values[0] + " - " + ui.values[1]);
-
-            $("#minAgePoi").text("" + ui.values[0]);
-            $("#maxAgePoi").text("" + ui.values[1]);
-
-            $("#minAgeHiddenPoi").val(ui.values[0]);
-            $("#maxAgeHiddenPoi").val(ui.values[1]);
-            console.log("slider changed");
-
-        }
-    });
+  
 
     $("#amount").val("" + $("#slider-range").slider("values", 0) +
             " - " + $("#slider-range").slider("values", 1));
