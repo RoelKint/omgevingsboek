@@ -255,6 +255,7 @@
     <Content Include="Content\js\CooleDingenGebruiker.js" />
     <Content Include="Content\js\CooleDingenPoi.js" />
     <Content Include="Content\js\filter.js" />
+    <Content Include="Content\js\gebruikerpartialscript.js" />
     <Content Include="Content\js\poipartialscript.js" />
     <Content Include="Content\Main.css">
       <DependentUpon>Main.less</DependentUpon>

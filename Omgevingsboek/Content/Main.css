@@ -111,6 +111,23 @@ div.main > .row {
   border: 1px solid #D3D3D3;
   border-bottom-left-radius: 5px;
 }
+.expandable button.expand2 {
+  position: absolute;
+  left: -26px;
+  top: -1px;
+  height: 150px;
+  padding: 12px;
+}
+.expandable button.expand2 p {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 115px;
+  -webkit-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  -o-transform: rotate(-90deg);
+}
 .expandable button.expand {
   position: absolute;
   left: -26px;
@@ -202,6 +219,8 @@ h3.rowheader {
 }
 .content-exp {
   width: 100%;
+}
+.content {
   height: 100%;
   overflow-y: auto;
 }

@@ -149,6 +149,12 @@ namespace BusinessLogic.Repositories
                 return (from a in context.Activiteiten where !a.IsDeleted where a.DeelLijst.Contains(context.Users.Where(u => u.UserName == Owner).FirstOrDefault()) where a.Poi.ID == PoiId select a).ToList();
             }
         }
+        public override Activiteit Insert(Activiteit entity)
+        {
+            Activiteit res = new Activiteit();
+            return res;
+        }
+
 
     }
 }

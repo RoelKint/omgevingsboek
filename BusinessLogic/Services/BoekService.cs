@@ -9,20 +9,22 @@ using System.Threading.Tasks;
 
 namespace BusinessLogic.Services
 {
-    public class BoekService : BusinessLogic.Services.IBoekService
+    public class BoekService : BusinessLogic.Services.IBoekService 
     {
         private ITagRepository repoTag = null;
         private IActiviteitRepository repoActiviteit = null;
         private IBoekRepository repoBoek = null;
         private IPoiRepository repoPoi = null;
         private IUitnodigingRepository repoUitnodiging = null;
+        private IBenodigdheidRepository repoBenodigdheid = null;
 
         public BoekService(
             ITagRepository repoTag,
             IActiviteitRepository repoActiviteit,
             IBoekRepository repoBoek,
             IPoiRepository repoPoi,
-            IUitnodigingRepository repoUitnodiging
+            IUitnodigingRepository repoUitnodiging,
+            IBenodigdheidRepository repoBenodigdheid
             )
         {
             this.repoActiviteit = repoActiviteit;
@@ -30,6 +32,7 @@ namespace BusinessLogic.Services
             this.repoTag = repoTag;
             this.repoPoi = repoPoi;
             this.repoUitnodiging = repoUitnodiging;
+            this.repoBenodigdheid = repoBenodigdheid;
         }
 
         #region Activiteiten
@@ -105,6 +108,10 @@ namespace BusinessLogic.Services
         public List<Activiteit> getActiviteitenByPoiByUser50from(int from, String Owner, int PoiId)
         {
             return repoActiviteit.getActiviteitenByPoiByUser50from(from, Owner, PoiId);
+        }
+        public Activiteit InsertActiviteit(Activiteit activiteit)
+        {
+            return repoActiviteit.Insert(activiteit);
         }
 
         #endregion
@@ -232,6 +239,21 @@ namespace BusinessLogic.Services
 
 
 
+        #region Benodigdheden
+
+        public List<Benodigdheid> GetBenodigdhedenList()
+        {
+            return repoBenodigdheid.All().ToList() ;
+        }
+        public Benodigdheid InsertBenodigdheid(string benodigdheid)
+        {
+            return repoBenodigdheid.Insert(benodigdheid);
+        }
+
+        #endregion
+
+
+
         #region Users
 
         public ApplicationUser GetUser(String Username)
@@ -322,6 +344,11 @@ namespace BusinessLogic.Services
         public bool HeeftEmailAlEenUitnodiging(string Email)
         {
            return repoUitnodiging.HeeftEmailAlEenUitnodiging(Email);
+        }
+
+        public Uitnodiging GetUitnodigingById(int id)
+        {
+            return repoUitnodiging.GetByID(id);
         }
 
         #endregion
