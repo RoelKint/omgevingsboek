@@ -67,18 +67,18 @@ namespace Models.MVC_Models
     {
         [Required]
         [EmailAddress]
-        [Display(Name = "Email")]
+        [Display(Name = "E-mail")]
         public string Email { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Paswoord")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Display(Name = "Bevestig paswoord")]
+        [Compare("Password", ErrorMessage = "De wachtwoorden komen niet overeen.")]
         public string ConfirmPassword { get; set; }
         [Required]
         public string Naam { get; set; }

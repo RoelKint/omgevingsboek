@@ -1,57 +1,57 @@
 ﻿@model Models.MVC_Models.RegisterViewModel
 @{
-    ViewBag.Title = "Register";
+    ViewBag.Title = "Registreer nieuwe gebruiker";
 }
 <div class="row loginpage">
-    <h2>@ViewBag.Title.</h2>
+    <h2>@ViewBag.Title</h2>
 
     @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
     {
         @Html.AntiForgeryToken()
-        <h4>Create a new account.</h4>
+        <h4>Registreer een nieuwe account.</h4>
         <hr />
-        @Html.ValidationSummary("", new { @class = "text-danger" })
+        @Html.ValidationSummary("", new { @class = "text-danger"})
         <div class="form-group">
             @Html.LabelFor(m => m.Voornaam, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(m => m.Voornaam, new { @class = "form-control" })
+            <div class="col-md-6 col-xs-8 col-sm-6">
+                @Html.TextBoxFor(m => m.Voornaam, new { @class = "form-control", required = "required" })
             </div>
         </div>
         <div class="form-group">
             @Html.LabelFor(m => m.Naam, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
+            <div class="col-md-6 col-xs-8 col-sm-6">
                 @Html.TextBoxFor(m => m.Naam, new { @class = "form-control" })
             </div>
         </div>
         <div class="form-group">
             @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
+            <div class="col-md-6 col-xs-8 col-sm-6">
                 @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @readonly = "readonly" })
             </div>
         </div>
         <div class="form-group">
             @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
+            <div class="col-md-6 col-xs-8 col-sm-6">
                 @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
             </div>
         </div>
         <div class="form-group">
             @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
+            <div class="col-md-6 col-xs-8 col-sm-6">
                 @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
             </div>
         </div>
         <div class="form-group">
             @Html.LabelFor(m => m.Afbeelding, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
+            <div class="col-md-6 col-xs-8 col-sm-6">
                 <input type="file" class="form-control" name="Afbeelding" id="Afbeelding">
             </div>
         </div>
         @Html.HiddenFor(m => m.Key)
 
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" class="btn btn-default" value="Register" />
+            <div class="col-md-offset-2 col-md-6 col-xs-8 col-sm-6">
+                <input type="submit" class="btn btn-default btn-primary" value="Registreer" />
             </div>
         </div>
     }

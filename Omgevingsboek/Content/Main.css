@@ -74,6 +74,9 @@ footer {
 .books > div > a:last-of-type {
   background-color: #216075;
 }
+.books > div > a:last-child {
+  color: white;
+}
 .books > div .caption {
   left: 0px;
   position: absolute;
