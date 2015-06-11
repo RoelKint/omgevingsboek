@@ -14,6 +14,7 @@ using Models.OmgevingsBoek_Models;
 using FlickrNet;
 using Omgevingsboek.Config;
 using System.Configuration;
+using System.Net.Mail;
 
 namespace Omgevingsboek.Controllers
 {
@@ -248,7 +249,7 @@ namespace Omgevingsboek.Controllers
             if (ModelState.IsValid)
             {
                 var user = await UserManager.FindByNameAsync(model.Email);
-                if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
+                if (user == null)
                 {
                     // Don't reveal that the user does not exist or is not confirmed
                     return View("ForgotPasswordConfirmation");
@@ -256,14 +257,42 @@ namespace Omgevingsboek.Controllers
 
                 // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                 // Send an email with this link
-                // string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
-                // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
-                // return RedirectToAction("ForgotPasswordConfirmation", "Account");
+                string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+                var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
+                //await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                ResetWachtwoordVersturen(user.Email, "<a href=\"" + callbackUrl + "\">"+callbackUrl+"</a>");
+                return RedirectToAction("ForgotPasswordConfirmation", "Account");
+
             }
 
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+
+        public void ResetWachtwoordVersturen(string MailTo, string link)
+        {
+            SmtpClient smtpClient = new SmtpClient("smtp.sendgrid.net", 587);
+
+            System.Net.NetworkCredential creds = new System.Net.NetworkCredential("azure_9bab81a4769eae1b17dfaf2e69d71fd7@azure.com", "h8C2xnCHIEuESrt");
+
+            smtpClient.Credentials = new System.Net.NetworkCredential("azure_9bab81a4769eae1b17dfaf2e69d71fd7@azure.com", "h8C2xnCHIEuESrt");
+            smtpClient.UseDefaultCredentials = true;
+            smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
+            smtpClient.EnableSsl = true;
+            MailMessage mail = new MailMessage();
+
+
+            mail.IsBodyHtml = true;
+            mail.From = new MailAddress("azure_9bab81a4769eae1b17dfaf2e69d71fd7@azure.com", "Omgevingsboek Team");
+            mail.To.Add(new MailAddress(MailTo));
+            mail.Subject = "Wachtwoord herstel aanvraag Omgevingsboek";
+            mail.Body = "Beste,</br>" +
+            "Om uw wachtwoord te herstellen volg dan de volgende link: </br>" +
+            link+
+            "Met vriendelijke groeten, </br> Het Howest Omgevingsboek team.";
+
+            smtpClient.Credentials = creds;
+            smtpClient.Send(mail);
         }
 
         //
