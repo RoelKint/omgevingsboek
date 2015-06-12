@@ -28,6 +28,19 @@ $().ready(function () {
                     
                 }
             });
+
+
+
+            $('.NewPoi').click(function () {
+                var lijst = $('.poilist');
+                lijst.children('div').each(function () {
+                    //this.css("position", "relative");
+                    $(this).css("position", "relative");
+                    $(this).css("visibility", "visible");
+                    $(this).children('a').css("position", "relative");
+                });
+                $('.MorePoi').remove();
+            });
         });
         
         
@@ -70,4 +83,5 @@ function refreshTags() {
         $('.addTag').click(false, function () { allesRondInput() });
     });
     
-    }
+}
+

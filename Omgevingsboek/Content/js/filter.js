@@ -76,14 +76,9 @@ function filter(query) {
                 if (el.poi[prop] == null) { matched = false; }
                 if (typeof el.poi[prop] == "object") {
                     return el.poi[prop].some(function (propEl) {
-                        //console.log("Checking " + propEl);
                         var fuse = new Fuse([propEl], options);
                         var res = fuse.search(val)
                         if (res[0] != null) {
-                            console.log(propEl);
-                            console.log(val);
-                            console.log("<<" + el.poi["Naam"] + ">>");
-                            console.log("\n");
                             return true;
                         } else {
                             return false;
@@ -104,7 +99,6 @@ function filter(query) {
     console.log(filtered);
     //Zoek op texts die geen property matchers zijn
     if (query.replace(matcher, "").replace(" ", "").trim() != "") {
-        console.log(query.replace(matcher, "").replace(" ", ""));
         filtered = filtered.filter(function (el) {
             var fuse = new Fuse([el.poi.Naam], options);
             var res = fuse.search(query.replace(matcher, "").replace(" ", "").trim());
@@ -163,8 +157,6 @@ function filter(query) {
     })
 
     listLoaded = true;
-
-    //$("#searchPoi").trigger("input");
 }
 
 filter("");
