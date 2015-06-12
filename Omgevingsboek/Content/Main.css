@@ -368,6 +368,17 @@ h3.rowheader {
   margin-top: -20px;
   margin-left: -20px;
 }
+#vlakEnIcoon span {
+  z-index: 3;
+  font-size: 40px;
+  width: 84px;
+  height: 100px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -20px;
+  margin-left: -20px;
+}
 #vlakEnIcoon input.upload {
   z-index: 4;
   height: 100px !important;
