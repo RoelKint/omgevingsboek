@@ -84,10 +84,10 @@ namespace Omgevingsboek.Controllers
             ViewBag.desc = desc;
             ViewBag.filter = filter;
 
-            if((int) mode == 1)
-                return Json(JsonConvert.SerializeObject(res), JsonRequestBehavior.AllowGet);
+            if (!mode.HasValue || (int)mode == 0)
+                return View(res);
             else
-            return View(res);
+                return Json(JsonConvert.SerializeObject(res), JsonRequestBehavior.AllowGet);
         }
 
 
@@ -122,6 +122,7 @@ namespace Omgevingsboek.Controllers
         }
 
         #endregion
+
 
         #region Gebruikers
 
@@ -172,11 +173,15 @@ namespace Omgevingsboek.Controllers
             GebruikersPM gpm = new GebruikersPM();
             gpm.UserActivities = ua;
             gpm.Uitnodigingen = bs.GetUitnodigingenOpenByUser(User.Identity.Name);
-
-            if ((int)mode == 1)
-                return Json(JsonConvert.SerializeObject(gpm), JsonRequestBehavior.AllowGet);
-            else
+            
+            if (!mode.HasValue || (int)mode == 0)
                 return View(gpm);
+            else
+            {
+                var jsonResult = Json(JsonConvert.SerializeObject(ua), JsonRequestBehavior.AllowGet);
+                jsonResult.MaxJsonLength = int.MaxValue;
+                return jsonResult;
+            }
         }
 
         public ActionResult ZoekGebruiker(string q)
@@ -326,10 +331,10 @@ namespace Omgevingsboek.Controllers
             ViewBag.desc = desc;
             ViewBag.filter = filter;
 
-            if ((int)mode == 1)
-                return Json(JsonConvert.SerializeObject(res), JsonRequestBehavior.AllowGet);
-            else
+            if (!mode.HasValue || (int)mode == 0)
                 return View(res);
+            else
+                return Json(JsonConvert.SerializeObject(res), JsonRequestBehavior.AllowGet);
         }
 
 
@@ -364,6 +369,7 @@ namespace Omgevingsboek.Controllers
 
         #endregion
 
+
         #region Pois
 
         [Authorize(Roles = "Administrator,SuperAdministrator")]
@@ -388,10 +394,10 @@ namespace Omgevingsboek.Controllers
 
             ViewBag.vanaf = vanaf;
             ViewBag.desc = desc;
-            if((int) mode == 1)
-                return Json(JsonConvert.SerializeObject(res), JsonRequestBehavior.AllowGet);
-            else
+            if (!mode.HasValue || (int)mode == 0)
                 return View(res);
+            else
+                return Json(JsonConvert.SerializeObject(res), JsonRequestBehavior.AllowGet);
         }
 
 
@@ -419,7 +425,6 @@ namespace Omgevingsboek.Controllers
                 if (a == null) continue;
                 bs.DeletePoiSoft(a);
             }
-            //return RedirectToAction("Activities", "vanaf=" + vanaf + "&desc=" + desc + "&filter=" + filter);
             return RedirectToAction("Activities", new { vanaf = vanaf, desc = desc, filter = filter });
         }
 
