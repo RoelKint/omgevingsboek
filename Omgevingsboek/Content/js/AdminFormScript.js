@@ -1,4 +1,4 @@
-﻿
+﻿console.log("hhey" + vanaf);
 var pagina = $('[name="controllerNaam"]').val();
 var vanaf = $('[name="vanaf"]').val();
 var table;

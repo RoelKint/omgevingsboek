@@ -2,15 +2,12 @@
 
     $('#ZoekenGebruikers').keyup(function () {
 
-        var value = $('#ZoekenGebruikers').val();
-        console.log(value);
         delay(function () {
+            var value = $('#ZoekenGebruikers').val();
             $.ajax({
                 type: "GET",
-                
-                url: "ZoekGebruiker?q=" + value,
+                url: "Gebruikers?search=" + value + "&mode=1&desc="+desc,
                 success: function (data) {
-
                     $("#formA tbody tr").remove();
                     $.each($.parseJSON(data), function () {
                         var item = $(this)[0];
@@ -33,7 +30,7 @@
                     
                 }
             });
-        }, 500);
+        }, 300);
     });
 
     var delay = (function () {
