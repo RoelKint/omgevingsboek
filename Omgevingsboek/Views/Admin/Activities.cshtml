@@ -43,25 +43,30 @@
 
 
     <form id="formA" method="post" action="Delete">
-        <input hidden name="vanaf" value="@ViewBag.vanaf" />
-        <input hidden name="desc" value="@ViewBag.desc" />
-        <input hidden name="filter" value="@ViewBag.filter"/>
-        <input hidden name="controllerNaam" value="Activities"><table class="AdminTable table table-hover">
-            <colgroup>
-                <col class="col-lg-1 col-xs-1 col-md-1" />
-                <col class="col-lg-4 col-xs-4 col-md-3" />
-                <col class="col-lg-3 col-xs-3 col-md-3" />
-                <col class="col-lg-3 col-xs-3 col-md-3" />
-                <col class="col-lg-1 col-xs-1 col-md-1" />
-            </colgroup>
+        
+            <input hidden name="vanaf" value="@ViewBag.vanaf" />
+            <input hidden name="desc" value="@ViewBag.desc" />
+            <input hidden name="filter" value="@ViewBag.filter" />
+            <input hidden name="controllerNaam" value="Activities">
+            <table class="AdminTable table table-hover">
 
-            <tr>
-                <th><span class="glyphicon glyphicon-th-list"></span></th>
-                <th><span>Naam</span></th>
-                <th><span>Eigenaar</span></th>
-                <th><span>Poi</span></th>
-                <th><span>Opties</span></th>
-            </tr>
+                <colgroup>
+                    <col class="col-lg-1 col-xs-1 col-md-1" />
+                    <col class="col-lg-4 col-xs-4 col-md-3" />
+                    <col class="col-lg-3 col-xs-3 col-md-3" />
+                    <col class="col-lg-3 col-xs-3 col-md-3" />
+                    <col class="col-lg-1 col-xs-1 col-md-1" />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th><span class="glyphicon glyphicon-th-list"></span></th>
+                        <th><span>Naam</span></th>
+                        <th><span>Eigenaar</span></th>
+                        <th><span>Poi</span></th>
+                        <th><span>Opties</span></th>
+                    </tr>
+                </thead>
+        <tbody>
             @foreach (var item in Model)
             {
                 <tr>
@@ -79,8 +84,9 @@
                     </td>
                 </tr>
             }
-        </table>
-    </form>
+        </tbody>
+            </table>
+</form>
     <div id="buttonsAdOnder">
         <button onclick="location.href='../Admin/Activities?vanaf=@minder&desc=@desc'"><span class="glyphicon glyphicon-chevron-left"></span> Vorige Pag.</button>
         <button onclick="location.href='../Admin/Activities?vanaf=@meer&desc=@desc'"><span class="glyphicon glyphicon-chevron-right"></span> Volgende Pag.</button>
