@@ -54,7 +54,7 @@ a {
 
     textarea {
         resize: vertical;
-    }
+}
 }
 
 @media (min-width: 768px) {
@@ -147,7 +147,7 @@ span.buttons {
 div.main {
     position: relative;
     height: 90%;
-
+    
     > .row {
         height: 100%;
     }
@@ -228,7 +228,7 @@ div.stackright {
     > .poi {
         height: 100%;
 
-        #list {
+       #list {
             overflow-y: scroll;
             overflow-x: hidden;
             height: 93%;
@@ -428,6 +428,9 @@ h3.rowheader {
     visibility: visible;
 }
 
+.pleps {
+    background-color:#216075;
+}
 #vlakEnIcoon {
     -webkit-transition: all 0.2s ease;
     -moz-transition: all 0.2s ease;
@@ -439,9 +442,19 @@ h3.rowheader {
     position: absolute;
     width: 100px;
     height: 100px;
-    background-color: white;
-    z-index: 0;
-}
+    background-color:white;
+    z-index:0;
+
+ span  {
+     z-index:3;
+    font-size: 40px;
+   width:84px;
+   height:100px;
+   position:absolute;
+   top:50%;
+   left:50%;
+   margin-top:-20px;
+   margin-left:-20px;
 
 #vlakEnIcoon {
     span {
@@ -454,15 +467,15 @@ h3.rowheader {
         left: 50%;
         margin-top: -20px;
         margin-left: -20px;
-    }
+        }
 
-    input.upload {
+input.upload {
         z-index: 4;
         height: 100px !important;
         width: 100px !important;
         opacity: 0;
         position: absolute;
-    }
+        }
 }
 
 .ImageCrop {
@@ -484,25 +497,25 @@ h3.rowheader {
 }
 
 li.tags {
-    margin: 0;
+     margin: 0;
 
-    span {
-        padding: 2px 4px;
-        margin-right: 3px;
+            span {
+                padding: 2px 4px;
+                margin-right: 3px;
         margin-left: 3px;
         background-color: #F5F5F5;
-        border-radius: 5px;
-        color: black;
-        box-shadow: 0 0 5px rgba(134, 207, 232, 1);
-    }
+                border-radius: 5px;
+                color: black;
+                box-shadow: 0 0 5px rgba(134, 207, 232, 1);
+            }
 
-    input {
-        padding: 1px 4px;
-        margin-right: 3px;
+            input {
+                padding: 1px 4px;
+                margin-right: 3px;
         background-color: #F5F5F5;
-        border-radius: 5px;
-        color: black;
-    }
+                border-radius: 5px;
+                color: black;
+            }
 }
 
 #toevoegenBoek {
@@ -559,11 +572,11 @@ label.error {
 
     .post-sign-in {
         display: none;
-    }
+}
 
     .during-upload {
         display: none;
-    }
+        }
 
     .post-upload {
         display: none;
@@ -571,7 +584,7 @@ label.error {
 
     label {
         display: block;
-    }
+}
 
     input[type="text"], textarea, progress {
         font-size: 0.75em;
@@ -579,7 +592,7 @@ label.error {
         margin-bottom: 1em;
         padding: 0.5em;
         font-family: "Open Sans", sans-serif;
-    }
+}
 
     textarea {
         height: 7em;

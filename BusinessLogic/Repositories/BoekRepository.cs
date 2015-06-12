@@ -21,7 +21,7 @@ namespace BusinessLogic.Repositories
         public BoekRepository()
             : base(new ApplicationDbContext())
         {
-
+            context.Configuration.LazyLoadingEnabled = false;
         }
 
         public bool IsBoekAccessibleByUser(int BoekId, string Username)
@@ -85,21 +85,21 @@ namespace BusinessLogic.Repositories
 
         }
 
-        public List<Boek> get50FromSortNameAZ(int from)
+        public List<Boek> get50FromSortNameAZ(int from, string search)
         {
-            return this.context.Boeken.Where(i => !i.IsDeleted).OrderBy(i => i.Naam).Skip(from).Take(30).ToList();
+            return this.context.Boeken.Include(b => b.Eigenaar).Include(b => b.Activiteiten).Where(i => !i.IsDeleted).Where(b => b.Naam.Contains(search) || b.Eigenaar.UserName.Contains(search)).OrderBy(i => i.Naam).Skip(from).Take(30).ToList();
         }
-        public List<Boek> get50FromSortNameZA(int from)
+        public List<Boek> get50FromSortNameZA(int from, string search)
         {
-            return this.context.Boeken.Where(i => !i.IsDeleted).OrderByDescending(i => i.Naam).Skip(from).Take(30).ToList();
+            return this.context.Boeken.Include(b => b.Eigenaar).Include(b => b.Activiteiten).Where(i => !i.IsDeleted).Where(b => b.Naam.Contains(search) || b.Eigenaar.UserName.Contains(search)).OrderByDescending(i => i.Naam).Skip(from).Take(30).ToList();
         }
-        public List<Boek> get50FromSortUserAZ(int from)
+        public List<Boek> get50FromSortUserAZ(int from, string search)
         {
-            return this.context.Boeken.Where(i => !i.IsDeleted).OrderBy(i => i.Eigenaar.UserName).Skip(from).Take(30).ToList();
+            return this.context.Boeken.Include(b => b.Eigenaar).Include(b => b.Activiteiten).Where(i => !i.IsDeleted).Where(b => b.Naam.Contains(search) || b.Eigenaar.UserName.Contains(search)).OrderBy(i => i.Eigenaar.UserName).Skip(from).Take(30).ToList();
         }
-        public List<Boek> get50FromSortUserZA(int from)
+        public List<Boek> get50FromSortUserZA(int from, string search)
         {
-            return this.context.Boeken.Where(i => !i.IsDeleted).OrderByDescending(i => i.Eigenaar.UserName).Skip(from).Take(30).ToList();
+            return this.context.Boeken.Include(b => b.Eigenaar).Include(b => b.Activiteiten).Where(i => !i.IsDeleted).Where(b => b.Naam.Contains(search) || b.Eigenaar.UserName.Contains(search) ).OrderByDescending(i => i.Eigenaar.UserName).Skip(from).Take(30).ToList();
         }
 
         public void DeleteSoft(Boek entityToDelete)

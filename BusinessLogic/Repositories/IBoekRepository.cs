@@ -5,10 +5,10 @@ namespace BusinessLogic.Repositories
     {
         void Delete(Models.OmgevingsBoek_Models.Boek entityToDelete);
         void DeleteSoft(Models.OmgevingsBoek_Models.Boek entityToDelete);
-        System.Collections.Generic.List<Models.OmgevingsBoek_Models.Boek> get50FromSortNameAZ(int from);
-        System.Collections.Generic.List<Models.OmgevingsBoek_Models.Boek> get50FromSortNameZA(int from);
-        System.Collections.Generic.List<Models.OmgevingsBoek_Models.Boek> get50FromSortUserAZ(int from);
-        System.Collections.Generic.List<Models.OmgevingsBoek_Models.Boek> get50FromSortUserZA(int from);
+        System.Collections.Generic.List<Models.OmgevingsBoek_Models.Boek> get50FromSortNameAZ(int from, string search);
+        System.Collections.Generic.List<Models.OmgevingsBoek_Models.Boek> get50FromSortNameZA(int from, string search);
+        System.Collections.Generic.List<Models.OmgevingsBoek_Models.Boek> get50FromSortUserAZ(int from, string search);
+        System.Collections.Generic.List<Models.OmgevingsBoek_Models.Boek> get50FromSortUserZA(int from, string search);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Boek> getBoekenByUser(string username);
         Models.OmgevingsBoek_Models.Boek GetByID(object id);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Boek> getSharedBoeken(string username);
