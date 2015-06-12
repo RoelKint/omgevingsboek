@@ -340,6 +340,9 @@ h3.rowheader {
   opacity: 0.5;
   visibility: visible;
 }
+.pleps {
+  background-color: #216075;
+}
 #vlakEnIcoon {
   -webkit-transition: all 0.2s ease;
   -moz-transition: all 0.2s ease;
