@@ -75,10 +75,33 @@ $().ready(function () {
     function switchTable() {
         var body = table.children('tbody');
         body.children('tr').remove();
+        var string = "";
         for (i = 0; i < els.length; i++) {
             if (pagina == "Activities") {
-                body.append("<tr><td><input form='formA' id='DylanToch' name='ActiviteitenToDelete' value='" + els[i]["Id"] + "' type='checkbox' /></td>" + "<td>" + els[i]["Naam"] + "</td><td>" + els[i]["Eigenaar"]["UserName"] + "</td>" + "<td>" + els[i]["Poi"]["Naam"] + "</td>" + "<td><div class='displayInlineButtons'><button><span class='glyphicon glyphicon-remove'></span></button><!--<button><span class='glyphicon glyphicon-pencil'></span></button>--></div></td></tr>");
-            } 
+                string = "<tr><td><input form='formA' id='DylanToch' name='ActiviteitenToDelete' value='" + els[i]["Id"] + "' type='checkbox' /></td>" + "<td>" + els[i]["Naam"] + "</td><td>" + els[i]["Eigenaar"]["UserName"] + "</td>" + "<td>" + els[i]["Poi"]["Naam"] + "</td>" + "<td><div class='displayInlineButtons'><button><span class='glyphicon glyphicon-remove'></span></button></div></td></tr>";
+            } else if (pagina == "Boeken") {
+
+                string = "<tr><td><input form='formA' name='BoekenToDelete' value='" + els[i]["Id"] + "' type='checkbox' /></td><td>" + els[i]["Naam"] + "</td><td>" + els[i]["Eigenaar"]["UserName"] + "</td>" + "<td>";
+                
+                for(j = 0 ;j <els[i]["Activiteiten"].length ;j++) {
+                    string += els[i]["Activiteiten"][j];
+                }
+                string += "</td><td><div class='displayInlineButtons'><button><span class='glyphicon glyphicon-remove'></span></button></div></td></tr>"
+
+            } else if (pagina == "Pois") {
+                string = "<tr><td><input form='formA name='PoisToDelete' value='" + els[i]["Id"] + "'type='checkbox' /> </td><td>" + els[i]["Naam"] + "</td><td>" + els[i]["Eigenaar"]["UserName"] + "</td><td>" + els[i]["Straat"] + " " + els[i]["Nummer"] + " " + els[i]["PostCode"] + " " + els[i]["Gemeente"] + "</td><td>"+els[i]["Telefoon"]+"</td><td>";
+
+                for (j = 0 ; j < els[i]["Tags"].length ; j++) {
+                    string += els[i]["Tags"][j];
+                }
+                string += "</td><td><div class='displayInlineButtons'><button><span class='glyphicon glyphicon-remove'></span></button></div></td></tr>";
+
+
+            } else if (pagina == "Gebruikers") {
+                string = "<tr><td><input form='formA name='GebruikersToDelete' value='" + els[i]["Id"] + "'type='checkbox' /> </td><td>" + els[i]["VoorNaam"] + els[i]["Naam"] + "</td><td>" + els[i]["UserName"] + "</td><td>" + els[i]["Straat"] + " " + els[i]["Nummer"] + " " + els[i]["PostCode"] + " " + els[i]["Gemeente"] + "</td><td>";
+
+            }
+        body.append(string);
         }
     }
 });

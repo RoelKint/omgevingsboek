@@ -41,8 +41,6 @@
     </div>
 
     <form id="formA" method="post" action="DeleteBoeken">
-        <input hidden name="vanaf" value="@ViewBag.vanaf" />
-        <input hidden name="desc" value="@ViewBag.desc" />
         <table class="table table-hover">
             <colgroup>
                 <col class="col-lg-1 col-xs-1 col-md-1" />
@@ -51,7 +49,6 @@
                 <col class="col-lg-3 col-xs-3 col-md-3" />
                 <col class="col-lg-2 col-xs-2 col-md-2" />
             </colgroup>
-
             <thead>
                 <tr>
                     <th><span class="glyphicon glyphicon-th-list"></span></th>
@@ -84,7 +81,6 @@
                         <td>
                             <div class="displayInlineButtons">
                                 <button><span class="glyphicon glyphicon-remove-circle"></span></button>
-                                <button><span class="glyphicon glyphicon-pencil"></span></button>
                             </div>
                         </td>
                     </tr>
@@ -99,3 +95,4 @@
     </div>
 </div>
 <script src="~/Content/js/ZoekScript.js"></script>
+<script type="text/javascript" src="~/Content/js/adminformscript.js"></script>
