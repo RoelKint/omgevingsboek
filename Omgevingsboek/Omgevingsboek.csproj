@@ -302,16 +302,20 @@
     <Content Include="Content\themes\base\tabs.css" />
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="Experiments\css\upload_video.css" />
     <Content Include="Experiments\filter.html" />
     <Content Include="Experiments\fuse.js" />
     <Content Include="Experiments\index.html" />
     <Content Include="Experiments\js\apiExperiments.js" />
     <Content Include="Experiments\js\bootstrap.js" />
     <Content Include="Experiments\js\bootstrap.min.js" />
+    <Content Include="Experiments\js\cors_upload.js" />
     <Content Include="Experiments\js\npm.js" />
     <Content Include="Experiments\css\style.css" />
     <Content Include="Experiments\js\StreetviewSequence.js" />
     <Content Include="Experiments\js\TweenLite.js" />
+    <Content Include="Experiments\js\upload_video.js" />
+    <Content Include="Experiments\upload_video.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -344,6 +348,7 @@
     <None Include="Properties\PublishProfiles\testomgevingsboek - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\testomgevingsboek - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\cors_upload.js" />
     <Content Include="Scripts\fuse.js" />
     <Content Include="Scripts\handlebars.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -361,6 +366,7 @@
     <Content Include="Scripts\npm.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\upload_video.js" />
     <Content Include="Scripts\View\Components\react-fuzzy-search.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">

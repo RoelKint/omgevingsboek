@@ -429,4 +429,46 @@ li.tags input {
 label.error {
   color: red;
 }
+.upload_video #channel-image {
+  width: 2em;
+  height: 2em;
+  vertical-align: middle;
+}
+.upload_video #channel-name {
+  margin-left: 0.2em;
+  margin-right: 0.2em;
+}
+.upload_video #disclaimer {
+  font-size: 0.75em;
+  color: #aeaeae;
+  max-width: 350px;
+}
+.upload_video body {
+  font-family: "Open Sans", sans-serif;
+  font-size: 1.5em;
+}
+.upload_video .post-sign-in {
+  display: none;
+}
+.upload_video .during-upload {
+  display: none;
+}
+.upload_video .post-upload {
+  display: none;
+}
+.upload_video label {
+  display: block;
+}
+.upload_video input[type="text"],
+.upload_video textarea,
+.upload_video progress {
+  font-size: 0.75em;
+  width: 15em;
+  margin-bottom: 1em;
+  padding: 0.5em;
+  font-family: "Open Sans", sans-serif;
+}
+.upload_video textarea {
+  height: 7em;
+}
 /*# sourceMappingURL=Main.css.map */
