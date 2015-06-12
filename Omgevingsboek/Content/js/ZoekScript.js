@@ -3,7 +3,6 @@
     $('#ZoekenGebruikers').keyup(function () {
 
         var value = $('#ZoekenGebruikers').val();
-        if (value == "") value = "GEENWAARDEMEEGEGEVEN";
         console.log(value);
         delay(function () {
             $.ajax({
