@@ -77,7 +77,7 @@ $().ready(function () {
         body.children('tr').remove();
         for (i = 0; i < els.length; i++) {
             if (pagina == "Activities") {
-                body.append("<tr><td><input form='formA' id='DylanToch' name='ActiviteitenToDelete' value='" + els[i]["Id"] + "' type='checkbox' /></td>" + "<td>" + els[i]["Naam"] + "</td><td>" + els[i]["Eigenaar"]["UserName"] + "</td>" + "<td>" + els[i]["Poi"]["Naam"] + "</td>" + "</tr>");
+                body.append("<tr><td><input form='formA' id='DylanToch' name='ActiviteitenToDelete' value='" + els[i]["Id"] + "' type='checkbox' /></td>" + "<td>" + els[i]["Naam"] + "</td><td>" + els[i]["Eigenaar"]["UserName"] + "</td>" + "<td>" + els[i]["Poi"]["Naam"] + "</td>" + "<td><div class='displayInlineButtons'><button><span class='glyphicon glyphicon-remove'></span></button><!--<button><span class='glyphicon glyphicon-pencil'></span></button>--></div></td></tr>");
             } 
         }
     }
