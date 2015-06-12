@@ -30,11 +30,14 @@ namespace Omgevingsboek.Controllers
             return View();
         }
         [Authorize(Roles = "Administrator,SuperAdministrator")]
-        public ActionResult Activities(int? vanaf, int? desc, int? filter)
+        public ActionResult Activities(int? vanaf, int? desc, int? filter, string search, int? mode)
         {
+            //mode == 1 -> json
+            //mode == 0/null -> view
+
             //desc == 1 -> descending
             //desc == 0 -> ascending
-
+            if (search == null) search = "";
             List<Activiteit> res = new List<Activiteit>();
 
             if (!vanaf.HasValue) vanaf = 0;
@@ -46,82 +49,29 @@ namespace Omgevingsboek.Controllers
                 case 1:
                     //activiteit naam
                     if (desc == 1)
-                        res = bs.GetActiviteiten50FromSortNameZA((int)vanaf);
+                        res = bs.GetActiviteiten50FromSortNameZA((int)vanaf,search);
                     else
-                        res = bs.GetActiviteiten50FromSortNameAZ((int)vanaf);
+                        res = bs.GetActiviteiten50FromSortNameAZ((int)vanaf,search);
                     break;
                 case 2:
                     //gebruiker naam
                     if (desc == 1)
-                        res = bs.GetActiviteiten50FromSortUserZA((int)vanaf);
+                        res = bs.GetActiviteiten50FromSortUserZA((int)vanaf, search);
                     else
-                        res = bs.GetActiviteiten50FromSortUserAZ((int)vanaf);
+                        res = bs.GetActiviteiten50FromSortUserAZ((int)vanaf, search);
                     break;
                 case 3:
                     //poi
                     if (desc == 1)
-                        res = bs.GetActiviteiten50FromSortPoiZA((int)vanaf);
+                        res = bs.GetActiviteiten50FromSortPoiZA((int)vanaf, search);
                     else
-                        res = bs.GetActiviteiten50FromSortPoiAZ((int)vanaf);
+                        res = bs.GetActiviteiten50FromSortPoiAZ((int)vanaf, search);
                     break;
                 default:
                     if (desc == 1)
-                        res = bs.GetActiviteiten50FromSortNameZA((int)vanaf);
+                        res = bs.GetActiviteiten50FromSortNameZA((int)vanaf, search);
                     else
-                        res = bs.GetActiviteiten50FromSortNameAZ((int)vanaf);
-                    break;
-
-            }
-            foreach (var item in res)
-            {
-                item.Poi = bs.GetPoiById(item.PoiId);
-                item.Eigenaar = bs.GetUserById(item.EigenaarId);
-            }
-            ViewBag.vanaf = vanaf;
-            ViewBag.desc = desc;
-            ViewBag.filter = filter;
-
-            return View(res);
-        }
-        public ActionResult JActivities(int? vanaf, int? desc, int? filter)
-        {
-            //desc == 1 -> descending
-            //desc == 0 -> ascending
-
-            List<Activiteit> res = new List<Activiteit>();
-
-            if (!vanaf.HasValue) vanaf = 0;
-            if (!desc.HasValue) desc = 0;
-            if (!filter.HasValue) filter = 0;
-
-            switch ((int)filter)
-            {
-                case 1:
-                    //activiteit naam
-                    if (desc == 1)
-                        res = bs.GetActiviteiten50FromSortNameZA((int)vanaf);
-                    else
-                        res = bs.GetActiviteiten50FromSortNameAZ((int)vanaf);
-                    break;
-                case 2:
-                    //gebruiker naam
-                    if (desc == 1)
-                        res = bs.GetActiviteiten50FromSortUserZA((int)vanaf);
-                    else
-                        res = bs.GetActiviteiten50FromSortUserAZ((int)vanaf);
-                    break;
-                case 3:
-                    //poi
-                    if (desc == 1)
-                        res = bs.GetActiviteiten50FromSortPoiZA((int)vanaf);
-                    else
-                        res = bs.GetActiviteiten50FromSortPoiAZ((int)vanaf);
-                    break;
-                default:
-                    if (desc == 1)
-                        res = bs.GetActiviteiten50FromSortNameZA((int)vanaf);
-                    else
-                        res = bs.GetActiviteiten50FromSortNameAZ((int)vanaf);
+                        res = bs.GetActiviteiten50FromSortNameAZ((int)vanaf, search);
                     break;
 
             }
@@ -130,8 +80,12 @@ namespace Omgevingsboek.Controllers
             ViewBag.desc = desc;
             ViewBag.filter = filter;
 
-            return Json(JsonConvert.SerializeObject(res), JsonRequestBehavior.AllowGet);
+            if((int) mode == 1)
+                return Json(JsonConvert.SerializeObject(res), JsonRequestBehavior.AllowGet);
+            else
+            return View(res);
         }
+        
         [Authorize(Roles = "SuperAdministrator")]
         [HttpPost]
         public ActionResult HardDelete(List<int> ActiviteitenToDelete, int vanaf, int desc, int? filter)
@@ -143,7 +97,6 @@ namespace Omgevingsboek.Controllers
                 if (a == null) continue;
                 bs.DeleteActiviteit(a);
             }
-            //return RedirectToAction("Activities", "vanaf=" + vanaf + "&desc=" + desc + "&filter="+filter);
             return RedirectToAction("Activities", new { vanaf = vanaf, desc = desc, filter = filter });
         }
         [HttpPost]
@@ -159,13 +112,13 @@ namespace Omgevingsboek.Controllers
                 if (a == null) continue;
                 bs.DeleteActiviteit(a);
             }
-            //return RedirectToAction("Activities", "vanaf=" + vanaf + "&desc=" + desc + "&filter=" + filter);
             return RedirectToAction("Activities", new { vanaf = vanaf, desc = desc, filter = filter });
         }
         [Authorize(Roles = "Administrator,SuperAdministrator")]
         [HttpGet]
-        public ActionResult Gebruikers(int? vanaf, int? desc)
+        public ActionResult Gebruikers(int? vanaf, int? desc,string search, int? mode)
         {
+            if (search == null) search = "";
             if (TempData["Feedback"] != null)
             {
                 UitnodigingFeedbackPM fb = TempData["Feedback"] as UitnodigingFeedbackPM;
@@ -177,7 +130,8 @@ namespace Omgevingsboek.Controllers
                     ViewBag.Gebruikt = fb.Gebruikt;
                 }
             }
-
+            //mode == 1 -> json
+            //mode == 0/null -> view
 
             //desc == 1 -> descending
             //desc == 0 -> ascending
@@ -190,9 +144,9 @@ namespace Omgevingsboek.Controllers
 
 
             if (desc == 1)
-                res = bs.GetUserNext50SortZA((int)vanaf);
+                res = bs.GetUserNext30SortZA((int)vanaf,search);
             else
-                res = bs.GetUserNext50SortAZ((int)vanaf);
+                res = bs.GetUserNext30SortAZ((int)vanaf, search);
 
             foreach (ApplicationUser user in res)
             {
@@ -207,64 +161,19 @@ namespace Omgevingsboek.Controllers
             GebruikersPM gpm = new GebruikersPM();
             gpm.UserActivities = ua;
             gpm.Uitnodigingen = bs.GetUitnodigingenOpenByUser(User.Identity.Name);
-            return View(gpm);
-        }
-        [Authorize(Roles = "Administrator,SuperAdministrator")]
-        [HttpGet]
-        public ActionResult JGebruikers(int? vanaf, int? desc)
-        {
-            if (TempData["Feedback"] != null)
-            {
-                UitnodigingFeedbackPM fb = TempData["Feedback"] as UitnodigingFeedbackPM;
-                if (fb.Foutief == null && fb.Gebruikt == null) ViewBag.IsFout = false;
-                else
-                {
-                    ViewBag.IsFout = true;
-                    ViewBag.Fouten = fb.Foutief;
-                    ViewBag.Gebruikt = fb.Gebruikt;
-                }
-            }
 
-
-            //desc == 1 -> descending
-            //desc == 0 -> ascending
-
-            List<UserActivities> ua = new List<UserActivities>();
-            List<ApplicationUser> res = new List<ApplicationUser>();
-
-            if (!vanaf.HasValue) vanaf = 0;
-            if (!desc.HasValue) desc = 0;
-
-
-            if (desc == 1)
-                res = bs.GetUserNext50SortZA((int)vanaf);
+            if ((int)mode == 1)
+                return Json(JsonConvert.SerializeObject(gpm), JsonRequestBehavior.AllowGet);
             else
-                res = bs.GetUserNext50SortAZ((int)vanaf);
-
-            foreach (ApplicationUser user in res)
-            {
-                UserActivities u = new UserActivities();
-                u.User = user;
-                u.Activiteiten = bs.GetActivitiesByUsername(user.UserName);
-                ua.Add(u);
-            }
-
-            ViewBag.vanaf = vanaf;
-            ViewBag.desc = desc;
-            GebruikersPM gpm = new GebruikersPM();
-            gpm.UserActivities = ua;
-            gpm.Uitnodigingen = bs.GetUitnodigingenOpenByUser(User.Identity.Name);
-            
-            return Json(JsonConvert.SerializeObject(gpm), JsonRequestBehavior.AllowGet);
+                return View(gpm);
         }
 
         public ActionResult ZoekGebruiker(string q)
         {
-
             //TODO: optimaliseren
-            if (q == "GEENWAARDEMEEGEGEVEN") q = "";
+            if (q == null) q = "";
             List<UserActivities> ua = new List<UserActivities>();
-            List<ApplicationUser> geb = bs.GetUserSearch(q);
+            List<ApplicationUser> geb = bs.GetUserNext30SortAZ(0,q);
             foreach (ApplicationUser user in geb)
             {
                 UserActivities u = new UserActivities();
@@ -280,10 +189,15 @@ namespace Omgevingsboek.Controllers
 
         [Authorize(Roles = "Administrator,SuperAdministrator")]
         [HttpGet]
-        public ActionResult Boeken(int? vanaf, int? desc, int? filter)
+        public ActionResult Boeken(int? vanaf, int? desc, int? filter, string search, int? mode)
         {
+            //mode == 1 -> json
+            //mode == 0/null -> view
+
             //desc == 1 -> descending
             //desc == 0 -> ascending
+
+            if (search == null) search = "";
 
             List<Boek> res = new List<Boek>();
 
@@ -296,71 +210,34 @@ namespace Omgevingsboek.Controllers
                 case 1:
                     //boek naam
                     if (desc == 1)
-                        res = bs.GetBoeken50FromSortNameZA((int)vanaf);
+                        res = bs.GetBoeken50FromSortNameZA((int)vanaf, search);
                     else
-                        res = bs.GetBoeken50FromSortNameAZ((int)vanaf);
+                        res = bs.GetBoeken50FromSortNameAZ((int)vanaf, search);
                     break;
                 case 2:
                     //gebruiker naam
                     if (desc == 1)
-                        res = bs.GetBoeken50FromSortUserZA((int)vanaf);
+                        res = bs.GetBoeken50FromSortUserZA((int)vanaf, search);
                     else
-                        res = bs.GetBoeken50FromSortUserAZ((int)vanaf);
+                        res = bs.GetBoeken50FromSortUserAZ((int)vanaf, search);
                     break;
                 default:
                     if (desc == 1)
-                        res = bs.GetBoeken50FromSortNameAZ((int)vanaf);
+                        res = bs.GetBoeken50FromSortNameAZ((int)vanaf, search);
                     else
-                        res = bs.GetBoeken50FromSortNameZA((int)vanaf);
+                        res = bs.GetBoeken50FromSortNameZA((int)vanaf, search);
                     break;
             }
             ViewBag.vanaf = vanaf;
             ViewBag.desc = desc;
             ViewBag.filter = filter;
-            return View(res);
+
+            if ((int)mode == 1)
+                return Json(JsonConvert.SerializeObject(res), JsonRequestBehavior.AllowGet);
+            else
+                return View(res);
         }
-        [Authorize(Roles = "Administrator,SuperAdministrator")]
-        [HttpGet]
-        public ActionResult JBoeken(int? vanaf, int? desc, int? filter)
-        {
-            //desc == 1 -> descending
-            //desc == 0 -> ascending
-
-            List<Boek> res = new List<Boek>();
-
-            if (!vanaf.HasValue) vanaf = 0;
-            if (!desc.HasValue) desc = 0;
-            if (!filter.HasValue) filter = 0;
-
-            switch ((int)filter)
-            {
-                case 1:
-                    //boek naam
-                    if (desc == 1)
-                        res = bs.GetBoeken50FromSortNameZA((int)vanaf);
-                    else
-                        res = bs.GetBoeken50FromSortNameAZ((int)vanaf);
-                    break;
-                case 2:
-                    //gebruiker naam
-                    if (desc == 1)
-                        res = bs.GetBoeken50FromSortUserZA((int)vanaf);
-                    else
-                        res = bs.GetBoeken50FromSortUserAZ((int)vanaf);
-                    break;
-                default:
-                    if (desc == 1)
-                        res = bs.GetBoeken50FromSortNameAZ((int)vanaf);
-                    else
-                        res = bs.GetBoeken50FromSortNameZA((int)vanaf);
-                    break;
-            }
-            ViewBag.vanaf = vanaf;
-            ViewBag.desc = desc;
-            ViewBag.filter = filter;
-            return Json(JsonConvert.SerializeObject(res), JsonRequestBehavior.AllowGet);
-       
-        }
+        
 
         [Authorize(Roles = "SuperAdministrator")]
         [HttpPost]
@@ -373,9 +250,9 @@ namespace Omgevingsboek.Controllers
                 if (a == null) continue;
                 bs.DeleteBoek(a);
             }
-            //return RedirectToAction("Activities", "vanaf=" + vanaf + "&desc=" + desc + "&filter=" + filter);
             return RedirectToAction("Activities", new { vanaf = vanaf, desc = desc, filter = filter });
         }
+
         [HttpPost]
         [Authorize(Roles = "Administrator,SuperAdministrator")]
         public ActionResult DeleteBoeken(List<int> BoekenToDelete, int vanaf, int desc, int filter)
@@ -387,59 +264,38 @@ namespace Omgevingsboek.Controllers
                 if (a == null) continue;
                 bs.DeleteBoekSoft(a);
             }
-            //return RedirectToAction("Activities", "vanaf=" + vanaf + "&desc=" + desc + "&filter=" + filter);
             return RedirectToAction("Activities", new { vanaf = vanaf, desc = desc, filter = filter });
         }
 
         [Authorize(Roles = "Administrator,SuperAdministrator")]
         [HttpGet]
-        public ActionResult Pois(int? vanaf, int? desc)
+        public ActionResult Pois(int? vanaf, int? desc, string search, int? mode)
         {
+            //mode 1 = json
+            //mode 0/null = view
+
             //desc == 1 -> descending
             //desc == 0 -> ascending
-
+            if (search == null) search = "";
             List<Poi> res = new List<Poi>();
 
             if (!vanaf.HasValue) vanaf = 0;
             if (!desc.HasValue) desc = 0;
 
-
             if (desc == 1)
-                res = bs.GetPoi50FromSortNameZA((int)vanaf);
+                res = bs.GetPoi50FromSortNameZA((int)vanaf,search);
             else
-                res = bs.GetPoi50FromSortNameAZ((int)vanaf);
+                res = bs.GetPoi50FromSortNameAZ((int)vanaf, search);
 
             ViewBag.vanaf = vanaf;
             ViewBag.desc = desc;
-            return View(res);
-        }
-        [Authorize(Roles = "Administrator,SuperAdministrator")]
-        [HttpGet]
-        public ActionResult JPois(int? vanaf, int? desc)
-        {
-            //desc == 1 -> descending
-            //desc == 0 -> ascending
-
-            List<Poi> res = new List<Poi>();
-
-            if (!vanaf.HasValue) vanaf = 0;
-            if (!desc.HasValue) desc = 0;
-
-
-            if (desc == 1)
-                res = bs.GetPoi50FromSortNameZA((int)vanaf);
+            if((int) mode == 1)
+                return Json(JsonConvert.SerializeObject(res), JsonRequestBehavior.AllowGet);
             else
-                res = bs.GetPoi50FromSortNameAZ((int)vanaf);
-
-            ViewBag.vanaf = vanaf;
-            ViewBag.desc = desc;
-            return Json(JsonConvert.SerializeObject(res), JsonRequestBehavior.AllowGet);
-       
+                return View(res);
         }
 
-
         [Authorize(Roles = "Administrator,SuperAdministrator")]
-
         public ActionResult AddUsers(String Mails)
         {
             UitnodigingFeedbackPM fbPM = new UitnodigingFeedbackPM();
@@ -528,7 +384,6 @@ namespace Omgevingsboek.Controllers
                 if (a == null) continue;
                 bs.DeletePoi(a);
             }
-            //return RedirectToAction("Activities", "vanaf=" + vanaf + "&desc=" + desc + "&filter=" + filter);
             return RedirectToAction("Activities", new { vanaf = vanaf, desc = desc, filter = filter });
         }
         [HttpPost]
