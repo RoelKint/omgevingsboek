@@ -16,6 +16,13 @@
     }
     int desc = ViewBag.desc;
 }
+
+<script>
+    vanaf = @ViewBag.vanaf;
+    desc = @ViewBag.desc;
+    pagina = "Boeken";
+
+</script>
 <div class="col-xs-12 col-md-12 nav">
     <a href="../Admin">&lt;&lt; Terug naar overzicht</a>
 </div>
@@ -30,7 +37,7 @@
         <button onclick="location.href='../Admin/Boeken?vanaf=@meer&desc=@desc'"><span class="glyphicon glyphicon-chevron-right"></span> Volgende Pag.</button>
         <button><span class="glyphicon glyphicon-remove-circle"></span> Verwijderen</button>
         <!--<button><span class="glyphicon glyphicon-pencil"></span> Bewerken</button>-->
-        <input type="text" placeholder="Zoeken" />
+        <input type="text" placeholder="Zoeken" id="Zoeken" />
     </div>
 
     <form id="formA" method="post" action="DeleteBoeken">
@@ -45,42 +52,44 @@
                 <col class="col-lg-2 col-xs-2 col-md-2" />
             </colgroup>
 
-
-            <tr>
-                <th><span class="glyphicon glyphicon-th-list"></span></th>
-                <th>Naam</th>
-                <th>Eigenaar</th>
-                <th>Activiteiten</th>
-                <th>Opties</th>
-            </tr>
-            @foreach (var boe in Model)
-            {
+            <thead>
                 <tr>
-                    <td><input form="formA" name="BoekenToDelete" value="@boe.Id" type="checkbox" /></td>
-                    <td>@boe.Naam</td>
-                    <td>@boe.Eigenaar.Email</td>
-                    <td>
-                        @foreach (var act in boe.Activiteiten)
-                        {
-                            if (act.Equals(boe.Activiteiten.Last()))
-                            {
-                                <a href="#">@act.Naam</a>
-                            }
-                            else
-                            {
-                                <a href="#">@act.Naam</a>@(',')
-                            }
-                        }
-                    </td>
-                    <td>
-                        <div class="displayInlineButtons">
-                            <button><span class="glyphicon glyphicon-remove-circle"></span></button>
-                            <button><span class="glyphicon glyphicon-pencil"></span></button>
-                        </div>
-                    </td>
+                    <th><span class="glyphicon glyphicon-th-list"></span></th>
+                    <th>Naam</th>
+                    <th>Eigenaar</th>
+                    <th>Activiteiten</th>
+                    <th>Opties</th>
                 </tr>
-            }
-
+            </thead>
+            <tbody>
+                @foreach (var boe in Model)
+                {
+                    <tr>
+                        <td><input form="formA" name="BoekenToDelete" value="@boe.Id" type="checkbox" /></td>
+                        <td>@boe.Naam</td>
+                        <td>@boe.Eigenaar.Email</td>
+                        <td>
+                            @foreach (var act in boe.Activiteiten)
+                            {
+                                if (act.Equals(boe.Activiteiten.Last()))
+                                {
+                                    <a href="#">@act.Naam</a>
+                                }
+                                else
+                                {
+                                    <a href="#">@act.Naam</a>@(',')
+                                }
+                            }
+                        </td>
+                        <td>
+                            <div class="displayInlineButtons">
+                                <button><span class="glyphicon glyphicon-remove-circle"></span></button>
+                                <button><span class="glyphicon glyphicon-pencil"></span></button>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
         </table>
     </form>
     <div id="buttonsAdOnder">
@@ -89,3 +98,4 @@
         <button><span class="glyphicon glyphicon-remove-circle"></span> Verwijderen</button>
     </div>
 </div>
+<script src="~/Content/js/ZoekScript.js"></script>

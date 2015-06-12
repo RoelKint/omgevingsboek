@@ -1,12 +1,12 @@
 ﻿$().ready(function () {
 
-    $('#ZoekenGebruikers').keyup(function () {
+    $('#Zoeken').keyup(function () {
 
         delay(function () {
-            var value = $('#ZoekenGebruikers').val();
+            var value = $('#Zoeken').val();
             $.ajax({
                 type: "GET",
-                url: "Gebruikers?search=" + value + "&mode=1&desc="+desc,
+                url: pagina + "?search=" + value + "&mode=1&desc=" + desc,
                 success: function (data) {
                     $("#formA tbody tr").remove();
                     $.each($.parseJSON(data), function () {

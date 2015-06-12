@@ -41,44 +41,48 @@
                 <col class="col-lg-3 col-xs-2 col-md-2" />
                 <col class="col-lg-1 col-xs-1 col-md-1" />
             </colgroup>
-            <tr>
-                <th><span class="glyphicon glyphicon-th-list"></span></th>
-                <th>Naam</th>
-                <th>Mail</th>
-                <th>Adres</th>
-                <th>Telefoon Nr.</th>
-                <th>Tags</th>
-                <th>Opties</th>
-            </tr>
-            @foreach (var pooi in Model)
-            {
+            <thead>
                 <tr>
-                    <td><input form="formA" name="PoisToDelete" value="@pooi.ID" type="checkbox" /></td>
-                    <td>@pooi.Naam</td>
-                    <td>@pooi.Eigenaar.Email</td>
-                    <td> @pooi.Straat @pooi.Nummer , @pooi.Postcode @pooi.Gemeente</td>
-                    <td>@pooi.Telefoon</td>
-                    <td>
-                        @foreach (var tag in pooi.Tags)
-                        {
-                            if (tag.Equals(pooi.Tags.Last()))
-                            {
-                                <a href="#">@tag.Naam</a>
-                            }
-                            else
-                            {
-                                <a href="#">@tag.Naam</a>@(',')
-                            }
-                        }
-                    </td>
-                    <td>
-                        <div class="displayInlineButtons">
-                            <button><span class="glyphicon glyphicon-remove"></span></button>
-                            <button><span class="glyphicon glyphicon-pencil"></span></button>
-                        </div>
-                    </td>
+                    <th><span class="glyphicon glyphicon-th-list"></span></th>
+                    <th>Naam</th>
+                    <th>Mail</th>
+                    <th>Adres</th>
+                    <th>Telefoon Nr.</th>
+                    <th>Tags</th>
+                    <th>Opties</th>
                 </tr>
-            }
+            </thead>
+            <tbody>
+                @foreach (var pooi in Model)
+                {
+                    <tr>
+                        <td><input form="formA" name="PoisToDelete" value="@pooi.ID" type="checkbox" /></td>
+                        <td>@pooi.Naam</td>
+                        <td>@pooi.Eigenaar.Email</td>
+                        <td> @pooi.Straat @pooi.Nummer , @pooi.Postcode @pooi.Gemeente</td>
+                        <td>@pooi.Telefoon</td>
+                        <td>
+                            @foreach (var tag in pooi.Tags)
+                            {
+                                if (tag.Equals(pooi.Tags.Last()))
+                                {
+                                    <a href="#">@tag.Naam</a>
+                                }
+                                else
+                                {
+                                    <a href="#">@tag.Naam</a>@(',')
+                                }
+                            }
+                        </td>
+                        <td>
+                            <div class="displayInlineButtons">
+                                <button><span class="glyphicon glyphicon-remove"></span></button>
+                                <button><span class="glyphicon glyphicon-pencil"></span></button>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
 
         </table>
     </form>
@@ -88,3 +92,12 @@
         <button><span class="glyphicon glyphicon-remove-circle"></span> Verwijderen</button>
     </div>
 </div>
+<script>
+    vanaf = @ViewBag.vanaf;
+    desc = @ViewBag.desc;
+
+
+    pagina = "Pois";
+
+</script>
+<script src="~/Content/js/ZoekScript.js"></script>

@@ -5,7 +5,7 @@
     vanaf = @ViewBag.vanaf;
     desc = @ViewBag.desc;
     filter = @ViewBag.filter;
-    pagina = "Activities";
+    pagina = @Models.OmgevingsBoek_Models.values.Paginas.Pois;
 
 </script>
 
@@ -38,7 +38,7 @@
         <button onclick="location.href='../Admin/Activities?vanaf=@minder&desc=@desc'"><span class="glyphicon glyphicon-chevron-left"></span> Vorige Pag.</button>
         <button onclick="location.href='../Admin/Activities?vanaf=@meer&desc=@desc'"><span class="glyphicon glyphicon-chevron-right"></span> Volgende Pag.</button>
         <button form="formA" type="submit"><span class="glyphicon glyphicon-remove-circle"></span> Verwijderen</button>
-        <input form="formA" name="filter" type="text" placeholder="Zoeken" />
+        <input form="formA" name="filter" type="text" id="Zoeken" placeholder="Zoeken" />
     </div>
 
 
