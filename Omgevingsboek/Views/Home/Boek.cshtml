@@ -14,9 +14,9 @@
             <div class="row books" id="mijnBoeken">
                 <h3 class="rowheader">@Model.Naam</h3>
                 @*<ol class="breadcrumb list-inline">
-                    <li><a href="@Url.Action("Index","Home")"><span class="glyphicon glyphicon-home"></span></a></li>
-                    <li class="active">Boek: @Model.Naam</li>
-                </ol>*@
+                        <li><a href="@Url.Action("Index","Home")"><span class="glyphicon glyphicon-home"></span></a></li>
+                        <li class="active">Boek: @Model.Naam</li>
+                    </ol>*@
                 @foreach (Models.OmgevingsBoek_Models.Activiteit activiteit in Model.Activiteiten)
                 {
                     <div class="col-sm-6 col-md-3">
@@ -222,6 +222,48 @@
     }
 </div>
 
+<div class="col-xs-6 col-md-9 content" id="routeForm" style="
+  position: absolute;
+  height: 99%;
+  top:0;
+  overflow-y:auto !important; /*fuck jquery*/
+  bottom:0;
+  display: none;
+  background-color: white;
+    -webkit-transition: none;
+    -moz-transition: none;
+    -ms-transition: none;
+    -o-transition: none;
+">
+    @using (Html.BeginForm("AddRoute", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="row">
+            <div class="form-group col-md-11">
+                <input type="text" name="naam" class="form-control" />
+            </div>
+            <div class="form-group col-md-1">
+                <button class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label>Weg</label>
+            </div>
+            <div class="col-md-4">
+                <label>Geschatte tijdsduur: <span id="timeEstimate">4u</span></label>
+            </div>
+            <div class="col-md-4">
+                <label>Totale kostprijs per leerling: <span id="costEstimate">€10</span></label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-12">
+                <button class="btn btn-success form-control"><span class="glyphicon glyphicon-ok"></span></button>
+            </div>
+        </div>
+    }
+</div>
+
 <script>
 
     var ageSlider;
@@ -345,7 +387,6 @@
     }
 
     deferListener(setListItemListeners);
-
     initSliders();
 </script>
 
