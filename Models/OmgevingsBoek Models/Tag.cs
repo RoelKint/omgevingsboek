@@ -13,7 +13,6 @@ namespace Models.OmgevingsBoek_Models
         public string Naam { get; set; }
         public virtual List<Activiteit> Activiteiten { get; set; }
         public virtual List<Poi> Pois { get; set; }
-        public virtual ApplicationUser Eigenaar { get; set; }
         public string EigenaarId { get; set; }
         public bool IsDeleted { get; set; }
 
