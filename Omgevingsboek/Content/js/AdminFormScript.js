@@ -32,7 +32,7 @@ $().ready(function () {
 
         //kijken of de tabel geselecteerd is
         if (filter == row) {
-            
+            //TODO: ge zult het waarschijnlijk wel al gezien hebben maar ge moet exact op het icoontje duwen om dees te laten werken
             //kijken of asc of desc
             if (desc == 0) {
                 desc = 1;
@@ -63,7 +63,7 @@ $().ready(function () {
         }
 
         //DIT IS WAAR IK MIJN JSON GA HALEN. EN DIT GEEFT EEN ERROR TERUG
-        $.getJSON("../Admin/" + pagina + "?vanaf=" + vanaf + "&desc=" + desc + "&filter=" + row + "&mode=1", function (data) {
+        $.getJSON("../Admin/" + pagina + "?vanaf=" + vanaf + "&desc=" + desc + "&filter=" + row + "&mode=1" + "&search=" + $('#Zoeken').val(), function (data) {
 
            
             els = jQuery.parseJSON(data);

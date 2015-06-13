@@ -62,27 +62,33 @@ namespace BusinessLogic.Repositories
         }
         public List<Poi> get50FromSortNameAZ(int from, string search)
         {
-            return this.context.Poi.Include(p => p.Tags).Where(i => !i.IsDeleted).Where(p => p.Naam.Contains(search) || p.Email.Contains(search) || p.Straat.Contains(search) || p.Gemeente.Contains(search) || p.Telefoon.Contains(search)).OrderBy(i => i.Naam).Skip(from).Take(30).ToList();
+            context.Configuration.LazyLoadingEnabled = false;
+            return this.context.Poi.Include(p => p.Tags).Include(p => p.Eigenaar).Where(i => !i.IsDeleted).Where(p => p.Naam.Contains(search) || p.Eigenaar.UserName.Contains(search) || p.Straat.Contains(search) || p.Gemeente.Contains(search) || p.Telefoon.Contains(search)).OrderBy(i => i.Naam).Skip(from).Take(30).ToList();
         }
         public List<Poi> get50FromSortNameZA(int from, string search)
         {
-            return this.context.Poi.Include(p => p.Tags).Where(i => !i.IsDeleted).Where(p => p.Naam.Contains(search) || p.Email.Contains(search) || p.Straat.Contains(search) || p.Gemeente.Contains(search) || p.Telefoon.Contains(search)).OrderByDescending(i => i.Naam).Skip(from).Take(30).ToList();
+            context.Configuration.LazyLoadingEnabled = false;
+            return this.context.Poi.Include(p => p.Tags).Include(p => p.Eigenaar).Where(i => !i.IsDeleted).Where(p => p.Naam.Contains(search) || p.Eigenaar.UserName.Contains(search) || p.Straat.Contains(search) || p.Gemeente.Contains(search) || p.Telefoon.Contains(search)).OrderByDescending(i => i.Naam).Skip(from).Take(30).ToList();
         }
         public List<Poi> get50FromSortEmailAZ(int from, string search)
         {
-            return this.context.Poi.Include(p => p.Tags).Where(i => !i.IsDeleted).Where(p => p.Naam.Contains(search) || p.Email.Contains(search) || p.Straat.Contains(search) || p.Gemeente.Contains(search) || p.Telefoon.Contains(search)).OrderBy(i => i.Email).Skip(from).Take(30).ToList();
+            context.Configuration.LazyLoadingEnabled = false;
+            return this.context.Poi.Include(p => p.Tags).Include(p => p.Eigenaar).Where(i => !i.IsDeleted).Where(p => p.Naam.Contains(search) || p.Eigenaar.UserName.Contains(search) || p.Straat.Contains(search) || p.Gemeente.Contains(search) || p.Telefoon.Contains(search)).OrderBy(i => i.Email).Skip(from).Take(30).ToList();
         }
         public List<Poi> get50FromSortEmailZA(int from, string search)
         {
-            return this.context.Poi.Include(p => p.Tags).Where(i => !i.IsDeleted).Where(p => p.Naam.Contains(search) || p.Email.Contains(search) || p.Straat.Contains(search) || p.Gemeente.Contains(search) || p.Telefoon.Contains(search)).OrderByDescending(i => i.Email).Skip(from).Take(30).ToList();
+            context.Configuration.LazyLoadingEnabled = false;
+            return this.context.Poi.Include(p => p.Tags).Include(p => p.Eigenaar).Where(i => !i.IsDeleted).Where(p => p.Naam.Contains(search) || p.Eigenaar.UserName.Contains(search) || p.Straat.Contains(search) || p.Gemeente.Contains(search) || p.Telefoon.Contains(search)).OrderByDescending(i => i.Email).Skip(from).Take(30).ToList();
         }
         public List<Poi> get50FromSortAddressAZ(int from, string search)
         {
-            return this.context.Poi.Include(p => p.Tags).Where(i => !i.IsDeleted).Where(p => p.Naam.Contains(search) || p.Email.Contains(search) || p.Straat.Contains(search) || p.Gemeente.Contains(search) || p.Telefoon.Contains(search)).OrderBy(i => i.Straat).Skip(from).Take(30).ToList();
+            context.Configuration.LazyLoadingEnabled = false;
+            return this.context.Poi.Include(p => p.Tags).Include(p => p.Eigenaar).Where(i => !i.IsDeleted).Where(p => p.Naam.Contains(search) || p.Eigenaar.UserName.Contains(search) || p.Straat.Contains(search) || p.Gemeente.Contains(search) || p.Telefoon.Contains(search)).OrderBy(i => i.Straat).Skip(from).Take(30).ToList();
         }
         public List<Poi> get50FromSortAddressZA(int from, string search)
         {
-            return this.context.Poi.Include(p => p.Tags).Where(i => !i.IsDeleted).Where(p => p.Naam.Contains(search) || p.Email.Contains(search) || p.Straat.Contains(search) || p.Gemeente.Contains(search) || p.Telefoon.Contains(search)).OrderByDescending(i => i.Straat).Skip(from).Take(30).ToList();
+            context.Configuration.LazyLoadingEnabled = false;
+            return this.context.Poi.Include(p => p.Tags).Include(p => p.Eigenaar).Where(i => !i.IsDeleted).Where(p => p.Naam.Contains(search) || p.Eigenaar.UserName.Contains(search) || p.Straat.Contains(search) || p.Gemeente.Contains(search) || p.Telefoon.Contains(search)).OrderByDescending(i => i.Straat).Skip(from).Take(30).ToList();
         }
         public void Delete(Poi EntityToDelete)
         {

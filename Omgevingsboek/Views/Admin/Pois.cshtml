@@ -27,7 +27,7 @@
         <button onclick="location.href='../Admin/Pois?vanaf=@meer&desc=@desc'"><span class="glyphicon glyphicon-chevron-right"></span> Volgende Pag.</button>
         <button><span class="glyphicon glyphicon-remove-circle"></span> Verwijderen</button>
         <!--<button><span class="glyphicon glyphicon-pencil"></span> Bewerken</button>-->
-        <input type="text" placeholder="Zoeken" />
+        <input type="text" placeholder="Zoeken" id="Zoeken" />
     </div>
     <form id="formA" action="DeletePoi" method="post">
 
@@ -58,7 +58,7 @@
                     <tr>
                         <td><input form="formA" name="PoisToDelete" value="@pooi.ID" type="checkbox" /></td>
                         <td>@pooi.Naam</td>
-                        <td>@pooi.Eigenaar.Email</td>
+                        <td>@pooi.Eigenaar.UserName</td>
                         <td> @pooi.Straat @pooi.Nummer , @pooi.Postcode @pooi.Gemeente</td>
                         <td>@pooi.Telefoon</td>
                         <td>
@@ -94,7 +94,7 @@
 <script>
     vanaf = @ViewBag.vanaf;
     desc = @ViewBag.desc;
-
+    filter = @ViewBag.filter;
 
     pagina = "Pois";
 

@@ -322,9 +322,9 @@ namespace Omgevingsboek.Controllers
                     break;
                 default:
                     if (desc == 1)
-                        res = bs.GetBoeken50FromSortNameAZ((int)vanaf, search);
-                    else
                         res = bs.GetBoeken50FromSortNameZA((int)vanaf, search);
+                    else
+                        res = bs.GetBoeken50FromSortNameAZ((int)vanaf, search);
                     break;
             }
             ViewBag.vanaf = vanaf;
@@ -374,7 +374,7 @@ namespace Omgevingsboek.Controllers
 
         [Authorize(Roles = "Administrator,SuperAdministrator")]
         [HttpGet]
-        public ActionResult Pois(int? vanaf, int? desc, string search, int? mode)
+        public ActionResult Pois(int? vanaf, int? desc, string search, int? filter, int? mode)
         {
             //mode 1 = json
             //mode 0/null = view
@@ -383,18 +383,44 @@ namespace Omgevingsboek.Controllers
             //desc == 0 -> ascending
             if (search == null) search = "";
             List<Poi> res = new List<Poi>();
-
+            if (!filter.HasValue) filter = 0;
             if (!vanaf.HasValue) vanaf = 0;
             if (!desc.HasValue) desc = 0;
-
-            if (desc == 1)
-                res = bs.GetPoi50FromSortNameZA((int)vanaf,search);
-            else
-                res = bs.GetPoi50FromSortNameAZ((int)vanaf, search);
+        switch ((int)filter)
+            {
+            case 1:
+                //naam
+                if (desc == 1)
+                    res = bs.GetPoi50FromSortNameZA((int)vanaf,search);
+                else
+                    res = bs.GetPoi50FromSortNameAZ((int)vanaf, search);
+            break;
+            case 2:
+                //email
+                if (desc == 1)
+                    res = bs.getPoi50FromSortEmailZA((int)vanaf, search);
+                else
+                    res = bs.getPoi50FromSortEmailAZ((int)vanaf, search);
+            break;
+            case 3:
+                //address
+                if (desc == 1)
+                    res = bs.getPoi50FromSortAddressZA((int)vanaf, search);
+                else
+                    res = bs.getPoi50FromSortAddressAZ((int)vanaf, search);
+            break;
+            default:
+                if (desc == 1)
+                    res = bs.GetPoi50FromSortNameZA((int)vanaf, search);
+                else
+                    res = bs.GetPoi50FromSortNameAZ((int)vanaf, search);
+            break;
+            }
 
             ViewBag.vanaf = vanaf;
             ViewBag.desc = desc;
-            if (!mode.HasValue || (int)mode == 0)
+            ViewBag.filter = filter;
+           if (!mode.HasValue || (int)mode == 0)
                 return View(res);
             else
                 return Json(JsonConvert.SerializeObject(res), JsonRequestBehavior.AllowGet);
