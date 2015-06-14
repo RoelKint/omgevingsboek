@@ -1,4 +1,13 @@
 ﻿@model List<Models.OmgevingsBoek_Models.Poi>
+
+<script>
+    vanaf = @ViewBag.vanaf;
+    desc = @ViewBag.desc;
+    filter = @ViewBag.filter;
+    pagina = "Pois";
+
+</script>
+
 @{
     ViewBag.Title = "PoI's";
     int meer = ViewBag.vanaf + 30;
@@ -31,7 +40,7 @@
     </div>
     <form id="formA" action="DeletePoi" method="post">
 
-        <table class="table table-hover">
+        <table class="AdminTable table table-hover">
             <colgroup>
                 <col class="col-lg-1 col-xs-1 col-md-1" />
                 <col class="col-lg-2 col-xs-2 col-md-2" />
@@ -44,12 +53,12 @@
             <thead>
                 <tr>
                     <th><span class="glyphicon glyphicon-th-list"></span></th>
-                    <th>Naam</th>
-                    <th>Mail</th>
-                    <th>Adres</th>
-                    <th>Telefoon Nr.</th>
-                    <th>Tags</th>
-                    <th>Opties</th>
+                    <th><span>Naam</span></th>
+                    <th><span>Mail</span></th>
+                    <th><span>Adres</span></th>
+                    <th><span>Telefoon Nr.</span></th>
+                    <th><span>Tags</span></th>
+                    <th><span>Opties</span></th>
                 </tr>
             </thead>
             <tbody>
@@ -71,18 +80,19 @@
                                 else
                                 {
                                     <a href="#">@tag.Naam</a>@(',')
+
                                 }
                             }
-                        </td>
-                        <td>
-                            <div class="displayInlineButtons">
-                                <button><span class="glyphicon glyphicon-remove"></span></button>
-                            </div>
-                        </td>
-                    </tr>
+                                        <
+                                    </td>
+                                    <td>
+                                        <div class="displayInlineButtons">
+                                            <button><span class="glyphicon glyphicon-remove"></span></button>
+                                        </div>
+                                    </td>
+                                </tr>
                 }
             </tbody>
-
         </table>
     </form>
     <div id="buttonsAdOnder">

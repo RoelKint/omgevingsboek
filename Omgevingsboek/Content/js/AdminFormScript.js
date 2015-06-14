@@ -1,12 +1,16 @@
 ﻿var table;
 var TopRow;
 var els;
-
+console.log("hoi");
 
 $().ready(function () {
 
     table = $('.AdminTable');
+    console.log(table);
+
     TopRow = table.children('thead').children('tr').first();
+    console.log(TopRow.children('th').length);
+
     TopRow.children('th').each(function (i) {
         if (i == 0 || i == TopRow.children('th').length - 1) {
         } else {
@@ -27,6 +31,8 @@ $().ready(function () {
         var pressed = e.target;
         var par = e.currentTarget.parentElement;
         var row = $(par.children[0]).html();
+
+        console.log(par);
 
        
 
@@ -63,10 +69,11 @@ $().ready(function () {
         }
 
         //DIT IS WAAR IK MIJN JSON GA HALEN. EN DIT GEEFT EEN ERROR TERUG
-        $.getJSON("../Admin/" + pagina + "?vanaf=" + vanaf + "&desc=" + desc + "&filter=" + row + "&mode=1", function (data) {
-
-           
+        var jsonString = "../Admin/" + pagina + "?vanaf=" + vanaf + "&desc=" + desc + "&filter=" + row + "&mode=1";
+        console.log(jsonString);
+        $.getJSON(jsonString, function (data) {
             els = jQuery.parseJSON(data);
+            console.log(els);
             switchTable();
         });
     }
@@ -74,6 +81,7 @@ $().ready(function () {
 
     function switchTable() {
         var body = table.children('tbody');
+        console.log(body);
         body.children('tr').remove();
         var string = "";
         for (i = 0; i < els.length; i++) {

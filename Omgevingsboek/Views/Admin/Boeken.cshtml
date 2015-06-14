@@ -1,6 +1,12 @@
 ﻿@model List<Models.OmgevingsBoek_Models.Boek>
 
+<script>
+    vanaf = @ViewBag.vanaf;
+    desc = @ViewBag.desc;
+    filter = @ViewBag.filter;
+    pagina = "Boeken";
 
+</script>
 
 @{
     ViewBag.Title = "Boeken";
@@ -17,12 +23,7 @@
     int desc = ViewBag.desc;
 }
 
-<script>
-    vanaf = @ViewBag.vanaf;
-    desc = @ViewBag.desc;
-    pagina = "Boeken";
 
-</script>
 <div class="col-xs-12 col-md-12 nav">
     <a href="../Admin">&lt;&lt; Terug naar overzicht</a>
 </div>
@@ -41,7 +42,7 @@
     </div>
 
     <form id="formA" method="post" action="DeleteBoeken">
-        <table class="table table-hover">
+        <table class="AdminTable table table-hover">
             <colgroup>
                 <col class="col-lg-1 col-xs-1 col-md-1" />
                 <col class="col-lg-3 col-xs-3 col-md-3" />
@@ -52,10 +53,10 @@
             <thead>
                 <tr>
                     <th><span class="glyphicon glyphicon-th-list"></span></th>
-                    <th>Naam</th>
-                    <th>Eigenaar</th>
-                    <th>Activiteiten</th>
-                    <th>Opties</th>
+                    <th><span>Naam</span></th>
+                    <th><span>Eigenaar</span></th>
+                    <th><span>Activiteiten</span></th>
+                    <th><span>Opties</span></th>
                 </tr>
             </thead>
             <tbody>
@@ -75,15 +76,17 @@
                                 else
                                 {
                                     <a href="#">@act.Naam</a>@(',')
+
                                 }
                             }
-                        </td>
-                        <td>
-                            <div class="displayInlineButtons">
-                                <button><span class="glyphicon glyphicon-remove-circle"></span></button>
-                            </div>
-                        </td>
-                    </tr>
+                                        <
+                                    </td>
+                                    <td>
+                                        <div class="displayInlineButtons">
+                                            <button><span class="glyphicon glyphicon-remove-circle"></span></button>
+                                        </div>
+                                    </td>
+                                </tr>
                 }
             </tbody>
         </table>
