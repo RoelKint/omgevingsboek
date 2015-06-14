@@ -1,4 +1,14 @@
 ﻿@model Models.PresentationModels.GebruikersPM
+
+<script>
+    vanaf = @ViewBag.vanaf;
+    desc = @ViewBag.desc;
+    filter = @ViewBag.filter
+    search = "";
+    pagina = "Gebruikers";
+
+</script>
+
 @{
     ViewBag.Title = "Gebruikers";
     int meer = ViewBag.vanaf+30;
@@ -13,13 +23,6 @@
     }
     int desc = ViewBag.desc;
 }
-
-<script>
-    vanaf = @ViewBag.vanaf;
-    desc = @ViewBag.desc;
-    pagina = "Gebruikers";
-
-</script>
 
 <div class="col-xs-12 col-md-12 nav">
     <a href="../Admin">&lt;&lt; Terug naar overzicht</a>
@@ -42,14 +45,14 @@
 
 
 
-        <table class="table table-hover" id="tableGebruikers">
-                <colgroup>
-                    <col class="col-lg-1 col-xs-1 col-md-1" />
-                    <col class="col-lg-2 col-xs-2 col-md-2" />
-                    <col class="col-lg-2 col-xs-2 col-md-2" />
-                    <col class="col-lg-6 col-xs-7 col-md-4" />
-                    <col class="col-lg-2 col-xs-2 col-md-2" />
-                </colgroup>
+        <table class="AdminTable table table-hover" id="tableGebruikers">
+            <colgroup>
+                <col class="col-lg-1 col-xs-1 col-md-1" />
+                <col class="col-lg-2 col-xs-2 col-md-2" />
+                <col class="col-lg-2 col-xs-2 col-md-2" />
+                <col class="col-lg-6 col-xs-7 col-md-4" />
+                <col class="col-lg-2 col-xs-2 col-md-2" />
+            </colgroup>
             <thead>
                 <tr>
                     <th><span class="glyphicon glyphicon-th-list"></span></th>
@@ -98,7 +101,7 @@
     
     
     <form id="formB" method="post" action="Delete">
-        <table class="table table-hover">
+        <table class=" table table-hover">
             <colgroup>
                 <col class="col-lg-1 col-xs-1 col-md-1" />
                 <col class="col-lg-2 col-xs-2 col-md-2" />
@@ -143,4 +146,6 @@
 
 
 <script src="~/Content/js/ZoekScript.js"></script>
+<script type="text/javascript" src="~/Content/js/adminformscript.js"></script>
+
 @Html.Partial("_GebrPartial")

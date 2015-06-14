@@ -6,16 +6,23 @@ console.log("hoi");
 $().ready(function () {
 
     table = $('.AdminTable');
-    console.log(table);
 
     TopRow = table.children('thead').children('tr').first();
-    console.log(TopRow.children('th').length);
-
+    
     TopRow.children('th').each(function (i) {
         if (i == 0 || i == TopRow.children('th').length - 1) {
         } else {
             $(this).append('<span style="float:right" class="glyphicon glyphicon-menu-down"><span/>');
-            
+            if (pagina == "Boeken" && i == 3) {
+                //console.log($(this).children(".glyphicon"));
+                $(this).children(".glyphicon").remove();
+            }
+            if (pagina == "Pois" && i == 5 || i==4) {
+                $(this).children(".glyphicon").remove();
+            }
+            if (pagina == "Gebruikers" && i == 3) {
+                $(this).children(".glyphicon").remove();
+            }
             $(this).children('.glyphicon').click(function (e) {
                 getNewData(e);
             });
@@ -32,7 +39,6 @@ $().ready(function () {
         var par = e.currentTarget.parentElement;
         var row = $(par.children[0]).html();
 
-        console.log(par);
 
        
 
@@ -42,7 +48,6 @@ $().ready(function () {
             //kijken of asc of desc
             if (desc == 0) {
                 desc = 1;
-                console.log(e.target);
                 $(pressed).removeClass('glyphicon-menu-down');
                 $(pressed).addClass('glyphicon-menu-up');
             } else if (desc == 1) {
@@ -60,6 +65,7 @@ $().ready(function () {
                 desc = 1;
             }
         }
+        if (pagina == "Activities") {
         if (row == "Naam") {
             row = 1;
         } else if (row == "Eigenaar") {
@@ -67,9 +73,30 @@ $().ready(function () {
         } else if (row == "Poi") {
             row = 3;
         }
+        } else if (pagina == "Boeken") {
+            if (row == "Naam") {
+                row = 1;
+            } else if (row == "Eigenaar") {
+                row = 2;
+            } 
+        } else if (pagina == "Pois") {
+            if (row == "Naam") {
+                row = 1;
+            } else if (row == "Mail") {
+                row = 2;
+            } else if (row == "Adres") {
+                row = 3;
+            } 
+        } else if (pagina = "Gebruikers") {
+            if (row == "Naam") {
+                row = 1;
+            } else if (row == "Email") {
+                row = 2;
+            }
+        }
 
         //DIT IS WAAR IK MIJN JSON GA HALEN. EN DIT GEEFT EEN ERROR TERUG
-        var jsonString = "../Admin/" + pagina + "?vanaf=" + vanaf + "&desc=" + desc + "&filter=" + row + "&mode=1";
+        var jsonString = "../Admin/" + pagina + "?vanaf=" + vanaf + "&desc=" + desc + "&filter=" + row + "&search=" + search + "&mode=1";
         console.log(jsonString);
         $.getJSON(jsonString, function (data) {
             els = jQuery.parseJSON(data);
@@ -81,7 +108,6 @@ $().ready(function () {
 
     function switchTable() {
         var body = table.children('tbody');
-        console.log(body);
         body.children('tr').remove();
         var string = "";
         for (i = 0; i < els.length; i++) {
@@ -92,7 +118,7 @@ $().ready(function () {
                 string = "<tr><td><input form='formA' name='BoekenToDelete' value='" + els[i]["Id"] + "' type='checkbox' /></td><td>" + els[i]["Naam"] + "</td><td>" + els[i]["Eigenaar"]["UserName"] + "</td>" + "<td>";
                 
                 for(j = 0 ;j <els[i]["Activiteiten"].length ;j++) {
-                    string += els[i]["Activiteiten"][j];
+                    string +=  "<a href='#'>"+  els[i]["Activiteiten"][j]["Naam"] + "</a>"
                 }
                 string += "</td><td><div class='displayInlineButtons'><button><span class='glyphicon glyphicon-remove'></span></button></div></td></tr>"
 
@@ -100,13 +126,15 @@ $().ready(function () {
                 string = "<tr><td><input form='formA name='PoisToDelete' value='" + els[i]["Id"] + "'type='checkbox' /> </td><td>" + els[i]["Naam"] + "</td><td>" + els[i]["Eigenaar"]["UserName"] + "</td><td>" + els[i]["Straat"] + " " + els[i]["Nummer"] + " " + els[i]["PostCode"] + " " + els[i]["Gemeente"] + "</td><td>"+els[i]["Telefoon"]+"</td><td>";
 
                 for (j = 0 ; j < els[i]["Tags"].length ; j++) {
-                    string += els[i]["Tags"][j];
+                    string += '<span class="tag">' + els[i]["Tags"][j]["Naam"] + "</span>";
                 }
                 string += "</td><td><div class='displayInlineButtons'><button><span class='glyphicon glyphicon-remove'></span></button></div></td></tr>";
 
 
             } else if (pagina == "Gebruikers") {
-                string = "<tr><td><input form='formA name='GebruikersToDelete' value='" + els[i]["Id"] + "'type='checkbox' /> </td><td>" + els[i]["VoorNaam"] + els[i]["Naam"] + "</td><td>" + els[i]["UserName"] + "</td><td>" + els[i]["Straat"] + " " + els[i]["Nummer"] + " " + els[i]["PostCode"] + " " + els[i]["Gemeente"] + "</td><td>";
+                string = "<tr><td><input form='formA name='GebruikersToDelete' value='" + els[i]["User"]["Id"] + "'type='checkbox' /> </td><td>" + els[i]["User"]["VoorNaam"] + els[i]["User"]["Naam"] + "</td><td>" + els[i]["User"]["UserName"] + "</td><td>" +
+                    ""
+                    + "</td><td>";
 
             }
         body.append(string);

@@ -3,6 +3,7 @@
 <script>
     vanaf = @ViewBag.vanaf;
     desc = @ViewBag.desc;
+    search = "";
     filter = @ViewBag.filter;
     pagina = "Pois";
 
@@ -25,7 +26,7 @@
 <div class="col-xs-12 col-md-12 nav">
     <a href="../Admin">&lt;&lt; Terug naar overzicht</a>
 </div>
-<div class="adminList col-xs-6 col-md-9 content" id="content">
+<div class="adminList col-xs-12 col-md-12 content" id="content">
     <h2>Point of Interest's</h2>
     <div class="col-xs-6 col-md-9">
         <span style="font-weight:bold">@ViewBag.vanaf - @meer</span>
@@ -36,10 +37,9 @@
         <button onclick="location.href='../Admin/Pois?vanaf=@meer&desc=@desc'"><span class="glyphicon glyphicon-chevron-right"></span> Volgende Pag.</button>
         <button><span class="glyphicon glyphicon-remove-circle"></span> Verwijderen</button>
         <!--<button><span class="glyphicon glyphicon-pencil"></span> Bewerken</button>-->
-        <input type="text" placeholder="Zoeken" />
+        <input type="text" placeholder="Zoeken" id="Zoeken" />
     </div>
     <form id="formA" action="DeletePoi" method="post">
-
         <table class="AdminTable table table-hover">
             <colgroup>
                 <col class="col-lg-1 col-xs-1 col-md-1" />
@@ -65,9 +65,11 @@
                 @foreach (var pooi in Model)
                 {
                     <tr>
-                        <td><input form="formA" name="PoisToDelete" value="@pooi.ID" type="checkbox" /></td>
+                        <td>
+                            <input form="formA" name="PoisToDelete" value="@pooi.ID" type="checkbox" />
+                        </td>
                         <td>@pooi.Naam</td>
-                        <td>@pooi.Eigenaar.Email</td>
+                        <td>@pooi.Eigenaar.UserName</td>
                         <td> @pooi.Straat @pooi.Nummer , @pooi.Postcode @pooi.Gemeente</td>
                         <td>@pooi.Telefoon</td>
                         <td>
@@ -75,15 +77,15 @@
                             {
                                 if (tag.Equals(pooi.Tags.Last()))
                                 {
-                                    <a href="#">@tag.Naam</a>
+                                    <span class="tag">@tag.Naam</span>
                                 }
                                 else
                                 {
-                                    <a href="#">@tag.Naam</a>@(',')
+                                    <span class="tag">@tag.Naam</span>
 
                                 }
                             }
-                                        <
+                                        
                                     </td>
                                     <td>
                                         <div class="displayInlineButtons">
@@ -101,12 +103,5 @@
         <button><span class="glyphicon glyphicon-remove-circle"></span> Verwijderen</button>
     </div>
 </div>
-<script>
-    vanaf = @ViewBag.vanaf;
-    desc = @ViewBag.desc;
-
-
-    pagina = "Pois";
-
-</script>
 <script src="~/Content/js/ZoekScript.js"></script>
+<script type="text/javascript" src="~/Content/js/adminformscript.js"></script>
