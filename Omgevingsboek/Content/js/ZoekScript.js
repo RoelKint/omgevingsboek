@@ -7,7 +7,7 @@
             var value = $('#Zoeken').val();
             search = $('#Zoeken').val();
             var request = pagina + "?search=" + value + "&mode=1&desc=" + desc;
-            if (typeof filter !== "undefined") { request = request + "&filter=" + filter }
+            if (typeof row !== "undefined") { request = request + "&filter=" + row }
 
             $.ajax({
                 type: "GET",

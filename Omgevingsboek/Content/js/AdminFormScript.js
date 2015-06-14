@@ -27,9 +27,6 @@ $().ready(function () {
                 getNewData(e);
             });
         }
-
-
-
     });
 
 
@@ -37,10 +34,7 @@ $().ready(function () {
     function getNewData(e) {
         var pressed = e.target;
         var par = e.currentTarget.parentElement;
-        var row = $(par.children[0]).html();
-
-
-       
+        row = $(par.children[0]).html();
 
         //kijken of de tabel geselecteerd is
         if (filter == row) {
@@ -97,6 +91,7 @@ $().ready(function () {
 
         //DIT IS WAAR IK MIJN JSON GA HALEN. EN DIT GEEFT EEN ERROR TERUG
         var jsonString = "../Admin/" + pagina + "?vanaf=" + vanaf + "&desc=" + desc + "&filter=" + row + "&search=" + search + "&mode=1";
+        
         console.log(jsonString);
         $.getJSON(jsonString, function (data) {
             els = jQuery.parseJSON(data);
@@ -123,16 +118,16 @@ $().ready(function () {
                 string += "</td><td><div class='displayInlineButtons'><button><span class='glyphicon glyphicon-remove'></span></button></div></td></tr>"
 
             } else if (pagina == "Pois") {
-                string = "<tr><td><input form='formA name='PoisToDelete' value='" + els[i]["Id"] + "'type='checkbox' /> </td><td>" + els[i]["Naam"] + "</td><td>" + els[i]["Eigenaar"]["UserName"] + "</td><td>" + els[i]["Straat"] + " " + els[i]["Nummer"] + " " + els[i]["PostCode"] + " " + els[i]["Gemeente"] + "</td><td>"+els[i]["Telefoon"]+"</td><td>";
+                string = "<tr><td><input form='formA name='PoisToDelete' value='" + els[i]["Id"] + "'type='checkbox' /> </td><td>" + els[i]["Naam"] + "</td><td>" + els[i]["Eigenaar"]["UserName"] + "</td><td>" + els[i]["Straat"] + " " + els[i]["Nummer"] + " " + els[i]["Postcode"] + " " + els[i]["Gemeente"] + "</td><td>"+els[i]["Telefoon"]+"</td><td>";
 
                 for (j = 0 ; j < els[i]["Tags"].length ; j++) {
-                    string += '<span class="tag">' + els[i]["Tags"][j]["Naam"] + "</span>";
+                    string += '<span class="tag">' + els[i]["Tags"][j]["Tag"]["Naam"] + "</span>";
                 }
                 string += "</td><td><div class='displayInlineButtons'><button><span class='glyphicon glyphicon-remove'></span></button></div></td></tr>";
 
 
             } else if (pagina == "Gebruikers") {
-                string = "<tr><td><input form='formA name='GebruikersToDelete' value='" + els[i]["User"]["Id"] + "'type='checkbox' /> </td><td>" + els[i]["User"]["VoorNaam"] + els[i]["User"]["Naam"] + "</td><td>" + els[i]["User"]["UserName"] + "</td><td>" +
+                string = "<tr><td><input form='formA name='GebruikersToDelete' value='" + els[i]["User"]["Id"] + "'type='checkbox' /> </td><td>" + els[i]["User"]["Voornaam"] +" "+ els[i]["User"]["Naam"] + "</td><td>" + els[i]["User"]["UserName"] + "</td><td>" +
                     ""
                     + "</td><td>";
 
