@@ -71,7 +71,7 @@ function refreshTags() {
         tags = jQuery.parseJSON(data);
         console.log(tags); 
         for (i = 0; i < tags.length; i++) {
-            tagsTekst = tagsTekst + '<span>' + tags[i] + '</span>'
+            tagsTekst = tagsTekst + '<span>' + tags[i].Tag.Naam + '</span>'
         }
 
         var par = input.parent();

@@ -66,10 +66,10 @@
                     $.each(item.Tags, function () {
                         var a = $(this)[0];
                         if (a == item.Tags[item.Tags.length - 1]) {
-                            listelement = listelement + '<a href="#">' + a.Naam + '</a>';
+                            listelement = listelement + '<a href="#">' + a.Tag.Naam + '</a>';
                         }
                         else {
-                            listelement = listelement + '<a href="#">' + a.Naam + '</a>,';
+                            listelement = listelement + '<a href="#">' + a.Tag.Naam + '</a>,';
                         }
                     });
                 }

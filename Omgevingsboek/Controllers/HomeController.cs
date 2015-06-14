@@ -77,11 +77,12 @@ namespace Omgevingsboek.Controllers
             return View(activiteit);
         }
         [HttpPost]
-        public ActionResult AddTagToPoi(int PoiId, string tag)
+        public ActionResult AddTagToPoi(int? PoiId, string tag)
         {
-            if (bs.GetPoiById(PoiId) == null) return null;
+            if(!PoiId.HasValue) return null; 
+            if (bs.GetPoiById((int)PoiId) == null) return null;
             Models.OmgevingsBoek_Models.Tag t = bs.InsertTag(tag);
-            bs.AddTagToPoi(PoiId, t.ID);
+            bs.AddTagToPoi((int)PoiId, t.ID,User.Identity.Name);
             
             return null;
         }
@@ -90,21 +91,11 @@ namespace Omgevingsboek.Controllers
         {
             if (!PoiId.HasValue) return null;
             if (bs.GetPoiById((int)PoiId) == null) return null;
-            List<Models.OmgevingsBoek_Models.Tag> tags = bs.getTagsByPoi((int)PoiId);
-            List<SimpleTag> stl = new List<SimpleTag>();
-            List<String> tagList = new List<String>();
-            foreach (Models.OmgevingsBoek_Models.Tag tag in tags)
-            {
-                stl.Add(new SimpleTag()
-                {
-                    Id = tag.ID,
-                    Naam = tag.Naam
-                });
-
-                tagList.Add(tag.Naam);
-
-            }
-            return Json(JsonConvert.SerializeObject(tagList), JsonRequestBehavior.AllowGet);
+            List<Models.OmgevingsBoek_Models.PoiTags> tags = bs.getTagsByPoi((int)PoiId);
+            //List<SimpleTag> stl = new List<SimpleTag>();
+            //List<String> tagList = new List<String>();
+            
+            return Json(JsonConvert.SerializeObject(tags), JsonRequestBehavior.AllowGet);
         }
 
 
@@ -133,12 +124,15 @@ namespace Omgevingsboek.Controllers
             if (!ModelState.IsValid) return RedirectToAction("Index");
             
             String[] tags = TagsString.Split(',');
-            List<Models.OmgevingsBoek_Models.Tag> tagList = new List<Models.OmgevingsBoek_Models.Tag>();
+            List<Models.OmgevingsBoek_Models.PoiTags> tagList = new List<Models.OmgevingsBoek_Models.PoiTags>();
 
             foreach (string t in tags)
             {
                 if (t == "") continue;
-                tagList.Add(bs.InsertTag(t));
+                tagList.Add(new PoiTags(){
+                    EigenaarId = bs.GetUser(User.Identity.Name).Id,
+                    TagId = bs.InsertTag(t).ID
+                });
             }
             //TODO: geolocatie toevoegen en wanneer word uitgelezen checken of het klopt.
             Poi NieuwePoi = new Poi()

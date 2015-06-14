@@ -28,26 +28,34 @@ namespace BusinessLogic.Repositories
         public override IEnumerable<Poi> All()
         {
             context.Configuration.LazyLoadingEnabled = false;
-            return context.Poi.Include(p => p.Tags);
+            return context.Poi.Include(p => p.Tags.Select(t => t.Tag));
         }
         public override Poi GetByID(object id)
         {
-            return this.context.Poi.Select(p => p).Where(p => !p.IsDeleted).Include(p => p.Tags).Where(p => p.ID == (int)id).SingleOrDefault();
+            return this.context.Poi.Select(p => p).Where(p => !p.IsDeleted).Include(p => p.Tags.Select(t => t.Tag)).Where(p => p.ID == (int)id).SingleOrDefault();
         }
         public Poi Insert(Poi entity)
         {
-            List<Tag> tags = new List<Tag>();
-
-            foreach (Tag tag in entity.Tags)
-            {
-                tags.Add(context.Tags.Find(tag.ID));
-            }
-            entity.Tags = tags;
+            List<PoiTags> tagsPoi = entity.Tags;
+            entity.Tags = new List<PoiTags>();
 
             Poi poi = context.Poi.Add(entity);
             try
             {
                 context.SaveChanges();
+                poi.Tags = new List<PoiTags>();
+                foreach (PoiTags tag in tagsPoi)
+                {
+                    poi.Tags.Add(
+                    new PoiTags()
+                    {
+                        TagId = tag.TagId,
+                        PoiId = poi.ID,
+                        EigenaarId = poi.EigenaarId
+                    });
+                }
+                Update(poi);
+
             }
             catch (DbEntityValidationException ex)
             {
@@ -63,32 +71,32 @@ namespace BusinessLogic.Repositories
         public List<Poi> get50FromSortNameAZ(int from, string search)
         {
             context.Configuration.LazyLoadingEnabled = false;
-            return this.context.Poi.Include(p => p.Tags).Include(p => p.Eigenaar).Where(i => !i.IsDeleted).Where(p => p.Naam.Contains(search) || p.Eigenaar.UserName.Contains(search) || p.Straat.Contains(search) || p.Gemeente.Contains(search) || p.Telefoon.Contains(search)).OrderBy(i => i.Naam).Skip(from).Take(30).ToList();
+            return this.context.Poi.Include(p => p.Tags.Select(t => t.Tag)).Include(p => p.Eigenaar).Where(i => !i.IsDeleted).Where(p => p.Naam.Contains(search) || p.Eigenaar.UserName.Contains(search) || p.Straat.Contains(search) || p.Gemeente.Contains(search) || p.Telefoon.Contains(search)).OrderBy(i => i.Naam).Skip(from).Take(30).ToList();
         }
         public List<Poi> get50FromSortNameZA(int from, string search)
         {
             context.Configuration.LazyLoadingEnabled = false;
-            return this.context.Poi.Include(p => p.Tags).Include(p => p.Eigenaar).Where(i => !i.IsDeleted).Where(p => p.Naam.Contains(search) || p.Eigenaar.UserName.Contains(search) || p.Straat.Contains(search) || p.Gemeente.Contains(search) || p.Telefoon.Contains(search)).OrderByDescending(i => i.Naam).Skip(from).Take(30).ToList();
+            return this.context.Poi.Include(p => p.Tags.Select(t => t.Tag)).Include(p => p.Eigenaar).Where(i => !i.IsDeleted).Where(p => p.Naam.Contains(search) || p.Eigenaar.UserName.Contains(search) || p.Straat.Contains(search) || p.Gemeente.Contains(search) || p.Telefoon.Contains(search)).OrderByDescending(i => i.Naam).Skip(from).Take(30).ToList();
         }
         public List<Poi> get50FromSortEmailAZ(int from, string search)
         {
             context.Configuration.LazyLoadingEnabled = false;
-            return this.context.Poi.Include(p => p.Tags).Include(p => p.Eigenaar).Where(i => !i.IsDeleted).Where(p => p.Naam.Contains(search) || p.Eigenaar.UserName.Contains(search) || p.Straat.Contains(search) || p.Gemeente.Contains(search) || p.Telefoon.Contains(search)).OrderBy(i => i.Email).Skip(from).Take(30).ToList();
+            return this.context.Poi.Include(p => p.Tags.Select(t => t.Tag)).Include(p => p.Eigenaar).Where(i => !i.IsDeleted).Where(p => p.Naam.Contains(search) || p.Eigenaar.UserName.Contains(search) || p.Straat.Contains(search) || p.Gemeente.Contains(search) || p.Telefoon.Contains(search)).OrderBy(i => i.Email).Skip(from).Take(30).ToList();
         }
         public List<Poi> get50FromSortEmailZA(int from, string search)
         {
             context.Configuration.LazyLoadingEnabled = false;
-            return this.context.Poi.Include(p => p.Tags).Include(p => p.Eigenaar).Where(i => !i.IsDeleted).Where(p => p.Naam.Contains(search) || p.Eigenaar.UserName.Contains(search) || p.Straat.Contains(search) || p.Gemeente.Contains(search) || p.Telefoon.Contains(search)).OrderByDescending(i => i.Email).Skip(from).Take(30).ToList();
+            return this.context.Poi.Include(p => p.Tags.Select(t => t.Tag)).Include(p => p.Eigenaar).Where(i => !i.IsDeleted).Where(p => p.Naam.Contains(search) || p.Eigenaar.UserName.Contains(search) || p.Straat.Contains(search) || p.Gemeente.Contains(search) || p.Telefoon.Contains(search)).OrderByDescending(i => i.Email).Skip(from).Take(30).ToList();
         }
         public List<Poi> get50FromSortAddressAZ(int from, string search)
         {
             context.Configuration.LazyLoadingEnabled = false;
-            return this.context.Poi.Include(p => p.Tags).Include(p => p.Eigenaar).Where(i => !i.IsDeleted).Where(p => p.Naam.Contains(search) || p.Eigenaar.UserName.Contains(search) || p.Straat.Contains(search) || p.Gemeente.Contains(search) || p.Telefoon.Contains(search)).OrderBy(i => i.Straat).Skip(from).Take(30).ToList();
+            return this.context.Poi.Include(p => p.Tags.Select(t => t.Tag)).Include(p => p.Eigenaar).Where(i => !i.IsDeleted).Where(p => p.Naam.Contains(search) || p.Eigenaar.UserName.Contains(search) || p.Straat.Contains(search) || p.Gemeente.Contains(search) || p.Telefoon.Contains(search)).OrderBy(i => i.Straat).Skip(from).Take(30).ToList();
         }
         public List<Poi> get50FromSortAddressZA(int from, string search)
         {
             context.Configuration.LazyLoadingEnabled = false;
-            return this.context.Poi.Include(p => p.Tags).Include(p => p.Eigenaar).Where(i => !i.IsDeleted).Where(p => p.Naam.Contains(search) || p.Eigenaar.UserName.Contains(search) || p.Straat.Contains(search) || p.Gemeente.Contains(search) || p.Telefoon.Contains(search)).OrderByDescending(i => i.Straat).Skip(from).Take(30).ToList();
+            return this.context.Poi.Include(p => p.Tags.Select(t => t.Tag)).Include(p => p.Eigenaar).Where(i => !i.IsDeleted).Where(p => p.Naam.Contains(search) || p.Eigenaar.UserName.Contains(search) || p.Straat.Contains(search) || p.Gemeente.Contains(search) || p.Telefoon.Contains(search)).OrderByDescending(i => i.Straat).Skip(from).Take(30).ToList();
         }
         public void Delete(Poi EntityToDelete)
         {
@@ -101,11 +109,17 @@ namespace BusinessLogic.Repositories
             context.SaveChanges();
         }
 
-        public void AddTag(int PoiId, int TagId)
+        public void AddTag(int PoiId, int TagId,string UserName)
         {
             Poi poi = GetByID(PoiId);
-            if (poi.Tags == null) poi.Tags = new List<Tag>();
-            poi.Tags.Add(context.Tags.Where(t => t.ID == TagId).FirstOrDefault());
+            if (poi.Tags == null) poi.Tags = new List<PoiTags>();
+            PoiTags pt = context.PoiTags.Add(new PoiTags()
+            {
+                TagId = TagId,
+                PoiId = PoiId,
+                EigenaarId = context.Users.Where(u => u.UserName == UserName).FirstOrDefault().Id
+            });
+            poi.Tags.Add(pt);
             Update(poi);
             
             
@@ -117,9 +131,15 @@ namespace BusinessLogic.Repositories
             Update(poi);
             
         }
-        public List<Tag> GetTags(int PoiId)
+        public List<PoiTags> GetTags(int PoiId)
         {
-            return GetByID(PoiId).Tags;
+            context.Configuration.LazyLoadingEnabled = false;
+            return context.Poi.Include(p => p.Tags.Select(t => t.Eigenaar)).Include(p => p.Tags.Select(t => t.Tag)).Where(p => p.ID == PoiId).SingleOrDefault().Tags;
+        }
+        public void DeleteTag(int PoiTagId)
+        {
+            context.PoiTags.Remove(context.PoiTags.Where(t => t.Id == PoiTagId).FirstOrDefault());
+            context.SaveChanges();
         }
 
     }

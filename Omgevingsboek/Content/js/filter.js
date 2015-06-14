@@ -3,13 +3,13 @@
 json.forEach(function (poi) {
     //console.log(poi.poi.Tags);
     joinedtags = poi.poi["Tags"].map(function (tag) {
-        return tag.Naam;
+        return tag.Tag.Naam;
     });
     poi.poi["OrigTags"] = poi.poi["Tags"];
     poi.poi["Tags"] = joinedtags;
 });
 
-console.log(json);
+//console.log(json);
 
 $('#searchPoi').bind('input', function () {
     filter($(this).val());
@@ -133,7 +133,7 @@ function filter(query) {
 
         var context = {
             title: home.poi.Naam,
-            tags: home.poi.OrigTags.map(function(el){return "<span>" + el.Naam + "</span>"}).join(" "),
+            tags: home.poi.OrigTags.map(function(el){return "<span>" + el.Tag.Naam + "</span>"}).join(" "),
             image: home.poi.Afbeelding,
             distance: distance,
             city: home.poi.Gemeente,

@@ -3,7 +3,7 @@ namespace BusinessLogic.Services
 {
     public interface IBoekService
     {
-        void AddTagToPoi(int PoiId, int TagId);
+        void AddTagToPoi(int PoiId, int TagId, string UserName);
         Models.OmgevingsBoek_Models.Uitnodiging CreateUitnodiging(string UitgenodigdDoorUserName, string EmailUitgenodigde);
         void DeleteActiviteit(Models.OmgevingsBoek_Models.Activiteit entityToDelete);
         void DeleteActiviteitSoft(Models.OmgevingsBoek_Models.Activiteit entityToDelete);
@@ -11,6 +11,7 @@ namespace BusinessLogic.Services
         void DeleteBoekSoft(Models.OmgevingsBoek_Models.Boek boek);
         void DeletePoi(Models.OmgevingsBoek_Models.Poi poi);
         void DeletePoiSoft(Models.OmgevingsBoek_Models.Poi poi);
+        void DeleteTagFromPoi(int PoiTagsId);
         void DeleteUserHard(Models.MVC_Models.ApplicationUser user);
         void EditBoek(Models.OmgevingsBoek_Models.Boek boek);
         Models.OmgevingsBoek_Models.Activiteit GetActiviteitById(int id);
@@ -45,7 +46,7 @@ namespace BusinessLogic.Services
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Activiteit> GetSharedActivitiesByUsername(string Username);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Boek> GetSharedBoeken(string username);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Tag> GetTagList();
-        System.Collections.Generic.List<Models.OmgevingsBoek_Models.Tag> getTagsByPoi(int PoiId);
+        System.Collections.Generic.List<Models.OmgevingsBoek_Models.PoiTags> getTagsByPoi(int PoiId);
         Models.OmgevingsBoek_Models.Uitnodiging GetUitnodigingById(int id);
         Models.OmgevingsBoek_Models.Uitnodiging GetUitnodigingByKey(string key);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Uitnodiging> GetUitnodigingenAllByUser(string Username);
