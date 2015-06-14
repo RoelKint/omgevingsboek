@@ -138,7 +138,6 @@ namespace BusinessLogic.Repositories
         }
         public void DeleteTag(int PoiTagId)
         {
-            context.PoiTags.Remove(context.PoiTags.Where(t => t.Id == PoiTagId).FirstOrDefault());
             context.SaveChanges();
         }
 

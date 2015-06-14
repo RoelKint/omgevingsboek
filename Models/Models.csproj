@@ -129,6 +129,10 @@
     <Compile Include="Migrations\201506141708027_update-tags.Designer.cs">
       <DependentUpon>201506141708027_update-tags.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201506141959231_update45.cs" />
+    <Compile Include="Migrations\201506141959231_update45.Designer.cs">
+      <DependentUpon>201506141959231_update45.cs</DependentUpon>
+    </Compile>
     <Compile Include="OmgevingsBoek Models\Activiteit.cs" />
     <Compile Include="OmgevingsBoek Models\Benodigdheid.cs" />
     <Compile Include="OmgevingsBoek Models\Boek.cs" />
@@ -216,6 +220,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201506141708027_update-tags.resx">
       <DependentUpon>201506141708027_update-tags.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506141959231_update45.resx">
+      <DependentUpon>201506141959231_update45.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

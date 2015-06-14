@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLogic.Services
 {
-    public class BoekService : BusinessLogic.Services.IBoekService
+    public class BoekService : BusinessLogic.Services.IBoekService 
     {
         private ITagRepository repoTag = null;
         private IActiviteitRepository repoActiviteit = null;
@@ -18,6 +18,7 @@ namespace BusinessLogic.Services
         private IPoiRepository repoPoi = null;
         private IUitnodigingRepository repoUitnodiging = null;
         private IBenodigdheidRepository repoBenodigdheid = null;
+        private IGenericRepository<PoiTags> repoPoiTags = null;
 
         public BoekService(
             ITagRepository repoTag,
@@ -25,7 +26,8 @@ namespace BusinessLogic.Services
             IBoekRepository repoBoek,
             IPoiRepository repoPoi,
             IUitnodigingRepository repoUitnodiging,
-            IBenodigdheidRepository repoBenodigdheid
+            IBenodigdheidRepository repoBenodigdheid,
+            IGenericRepository<PoiTags> repoPoiTags = null
             )
         {
             this.repoActiviteit = repoActiviteit;
@@ -34,6 +36,7 @@ namespace BusinessLogic.Services
             this.repoPoi = repoPoi;
             this.repoUitnodiging = repoUitnodiging;
             this.repoBenodigdheid = repoBenodigdheid;
+            this.repoPoiTags = repoPoiTags;
         }
 
         #region Activiteiten
@@ -263,6 +266,25 @@ namespace BusinessLogic.Services
 
         #endregion
 
+
+
+        #region PoiTags
+
+        public PoiTags getPoiTag(int TagId,int PoiId, string UserId)
+        {
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                return context.PoiTags.Where(p => p.EigenaarId == UserId).Where(p => p.PoiId == PoiId).Where(p => p.TagId == TagId).FirstOrDefault();
+            }
+        }
+        public void DeletePoiTag(PoiTags poitag)
+        {
+            repoPoiTags.Delete(poitag);
+            repoPoiTags.SaveChanges();
+        }
+
+
+        #endregion
 
 
         #region Benodigdheden

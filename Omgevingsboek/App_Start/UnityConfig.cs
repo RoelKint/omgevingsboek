@@ -4,6 +4,7 @@ using Unity.Mvc5;
 using BusinessLogic.Repositories;
 using BusinessLogic.Services;
 using Omgevingsboek.Controllers;
+using Models.OmgevingsBoek_Models;
 
 namespace Omgevingsboek
 {
@@ -20,6 +21,7 @@ namespace Omgevingsboek
             container.RegisterType<IPoiRepository, PoiRepository>();
             container.RegisterType<IUitnodigingRepository, UitnodigingRepository>();
             container.RegisterType<IBenodigdheidRepository, BenodigdheidRepository>();
+            container.RegisterType<IGenericRepository<PoiTags>, GenericRepository<PoiTags>>();
 
             
 

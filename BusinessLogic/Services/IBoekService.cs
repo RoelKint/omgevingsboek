@@ -11,6 +11,7 @@ namespace BusinessLogic.Services
         void DeleteBoekSoft(Models.OmgevingsBoek_Models.Boek boek);
         void DeletePoi(Models.OmgevingsBoek_Models.Poi poi);
         void DeletePoiSoft(Models.OmgevingsBoek_Models.Poi poi);
+        void DeletePoiTag(Models.OmgevingsBoek_Models.PoiTags poitag);
         void DeleteTagFromPoi(int PoiTagsId);
         void DeleteUserHard(Models.MVC_Models.ApplicationUser user);
         void EditBoek(Models.OmgevingsBoek_Models.Boek boek);
@@ -42,6 +43,7 @@ namespace BusinessLogic.Services
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Poi> GetPoi50FromSortNameZA(int from, string search);
         Models.OmgevingsBoek_Models.Poi GetPoiById(int Id);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Poi> GetPoiList();
+        Models.OmgevingsBoek_Models.PoiTags getPoiTag(int TagId, int PoiId, string UserId);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Activiteit> GetSharedActivitiesByBookId(int BoekId, string Username);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Activiteit> GetSharedActivitiesByUsername(string Username);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Boek> GetSharedBoeken(string username);

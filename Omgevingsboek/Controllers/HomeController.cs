@@ -66,6 +66,19 @@ namespace Omgevingsboek.Controllers
         }
 
         [Authorize]
+        public String RemoveTag(int? TagId, int? PoiId)
+        {
+            if (!TagId.HasValue || !PoiId.HasValue) return "NOK";
+            ApplicationUser user = bs.GetUser(User.Identity.Name);
+            PoiTags tag = bs.getPoiTag((int)TagId, (int)PoiId, user.Id);
+            
+            if (tag == null) return "NOK";
+            bs.DeletePoiTag(tag);
+
+            return "OK";
+        }
+
+        [Authorize]
 
         public ActionResult Activiteit(int? Id)
         {

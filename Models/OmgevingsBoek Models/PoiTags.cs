@@ -9,7 +9,6 @@ namespace Models.OmgevingsBoek_Models
 {
     public class PoiTags
     {
-        public int Id { get; set; }
         public virtual Tag Tag { get; set; }
         public int TagId { get; set; }
         public virtual Poi Poi { get; set; }

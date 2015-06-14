@@ -29,6 +29,8 @@ $().ready(function () {
                 }
             });
 
+            
+
 
 
             $('.NewPoi').click(function () {
@@ -41,6 +43,31 @@ $().ready(function () {
                 });
                 $('.MorePoi').remove();
             });
+
+            $.each($(".tags div"), function () {
+                $(this).find(".removeclick").hide();
+                $(this).mouseover(function () {
+                    $(this).find(".removeclick").show();
+                });
+                $(this).mouseout(function () {
+                    $(this).find(".removeclick").hide();
+                });
+            });
+
+            $(".removeclick").click(true, function () {
+                var element = $(this)[0];
+                $.ajax({
+                    type: "GET",
+                    url: "RemoveTag" + "?TagId=" + $(this)[0].id + "&PoiId=" + $('#poiId').val(),
+                    success: function (data) {
+                        if (data == "OK") {
+                            $(element).parent().remove();
+                        }
+
+                    }
+                });
+            });
+
         });
         
         
