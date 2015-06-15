@@ -188,6 +188,8 @@ namespace Omgevingsboek.Controllers
         {
             String fotoId;
             PhotoInfo fotoInfo;
+            poi.Prijs = 0;
+
             if (!ModelState.IsValid) return RedirectToAction("Index");
             
             String[] tags = TagsString.Split(',');
@@ -215,7 +217,9 @@ namespace Omgevingsboek.Controllers
                 Prijs = poi.Prijs,
                 Straat = poi.Straat,
                 Telefoon = poi.Telefoon,
-                Tags = tagList
+                Tags = tagList,
+                Latitude = poi.Latitude,
+                Longitude = poi.Longitude
             };
 
             if (AfbeeldingFile != null)
@@ -272,6 +276,14 @@ namespace Omgevingsboek.Controllers
 
             }
             return PartialView("_PoiPartial",JsonConvert.SerializeObject(poipms));
+        }
+
+        [ChildActionOnly]
+        public ActionResult ActiviteitPartial()
+        {
+            List<Activiteit> activiteiten = bs.GetActivitiesByUsername(User.Identity.Name) ;
+
+            return PartialView("_ActiviteitPartial", JsonConvert.SerializeObject(activiteiten));
         }
 
         [Authorize]        
