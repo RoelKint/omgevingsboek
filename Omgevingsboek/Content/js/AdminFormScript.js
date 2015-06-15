@@ -1,6 +1,7 @@
 ﻿var table;
 var TopRow;
 var els;
+var currentPar;
 console.log("hoi");
 
 $().ready(function () {
@@ -50,13 +51,19 @@ $().ready(function () {
                 $(pressed).addClass('glyphicon-menu-down');
             }
         } else {
-
+            console.log('oi');
             filter = row;
             //kijken of asc of desc
             if ($(this).hasClass('glyphicon-menu-down')) {
+                $(pressed).removeClass('glyphicon-menu-up');
+                $(pressed).addClass('glyphicon-menu-down');
                 desc = 0;
+                console.log('hey');
             } else {
+                $(pressed).removeClass('glyphicon-menu-down');
+                $(pressed).addClass('glyphicon-menu-up');
                 desc = 1;
+                console.log('ney');
             }
         }
         if (pagina == "Activities") {
@@ -88,7 +95,7 @@ $().ready(function () {
                 row = 2;
             }
         }
-
+        currentPar = par
         //DIT IS WAAR IK MIJN JSON GA HALEN. EN DIT GEEFT EEN ERROR TERUG
         var jsonString = "../Admin/" + pagina + "?vanaf=" + vanaf + "&desc=" + desc + "&filter=" + row + "&search=" + search + "&mode=1";
         

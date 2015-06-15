@@ -39,45 +39,47 @@
         <button onclick="location.href='../Admin/Activities?vanaf=@meer&desc=@desc'"><span class="glyphicon glyphicon-chevron-right"></span> Volgende Pag.</button>
         <button form="formA" type="submit"><span class="glyphicon glyphicon-remove-circle"></span> Verwijderen</button>
         <input form="formA" name="filter" type="text" id="Zoeken" placeholder="Zoeken" />
+        <input form="formA" name="desc" type="hidden" value="0" />
+        <input form="formA" name="vanaf" type="hidden" value="@ViewBag.vanaf" />
     </div>
-    <form id="formA" method="post" action="Delete">
-            <table class="AdminTable table table-hover">
-                <colgroup>
-                    <col class="col-lg-1 col-xs-1 col-md-1" />
-                    <col class="col-lg-4 col-xs-4 col-md-3" />
-                    <col class="col-lg-3 col-xs-3 col-md-3" />
-                    <col class="col-lg-3 col-xs-3 col-md-3" />
-                    <col class="col-lg-1 col-xs-1 col-md-1" />
-                </colgroup>
-                <thead>
-                    <tr>
-                        <th><span class="glyphicon glyphicon-th-list"></span></th>
-                        <th><span>Naam</span></th>
-                        <th><span>Eigenaar</span></th>
-                        <th><span>Poi</span></th>
-                        <th><span>Opties</span></th>
-                    </tr>
-                </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
+    <form id="formA" method="post" action="DeleteActiviteit">
+        <table class="AdminTable table table-hover">
+            <colgroup>
+                <col class="col-lg-1 col-xs-1 col-md-1" />
+                <col class="col-lg-4 col-xs-4 col-md-3" />
+                <col class="col-lg-3 col-xs-3 col-md-3" />
+                <col class="col-lg-3 col-xs-3 col-md-3" />
+                <col class="col-lg-1 col-xs-1 col-md-1" />
+            </colgroup>
+            <thead>
                 <tr>
-                    <td>
-                        <input form="formA" id="DylanToch" name="ActiviteitenToDelete" value="@item.Id" type="checkbox" />
-                    </td>
-                    <td>@item.Naam</td>
-                    <td>@item.Eigenaar.UserName</td>
-                    <td>@item.Poi.Naam</td>
-                    <td>
-                        <div class="displayInlineButtons">
-                            <button><span class="glyphicon glyphicon-remove"></span></button>
-                        </div>
-                    </td>
+                    <th><span class="glyphicon glyphicon-th-list"></span></th>
+                    <th><span>Naam</span></th>
+                    <th><span>Eigenaar</span></th>
+                    <th><span>Poi</span></th>
+                    <th><span>Opties</span></th>
                 </tr>
-            }
-        </tbody>
-            </table>
-</form>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <input form="formA" id="DylanToch" name="ActiviteitenToDelete" value="@item.Id" type="checkbox" />
+                        </td>
+                        <td>@item.Naam</td>
+                        <td>@item.Eigenaar.UserName</td>
+                        <td>@item.Poi.Naam</td>
+                        <td>
+                            <div class="displayInlineButtons">
+                                <button><span class="glyphicon glyphicon-remove"></span></button>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </form>
     <div id="buttonsAdOnder">
         <button onclick="location.href='../Admin/Activities?vanaf=@minder&desc=@desc'"><span class="glyphicon glyphicon-chevron-left"></span> Vorige Pag.</button>
         <button onclick="location.href='../Admin/Activities?vanaf=@meer&desc=@desc'"><span class="glyphicon glyphicon-chevron-right"></span> Volgende Pag.</button>
