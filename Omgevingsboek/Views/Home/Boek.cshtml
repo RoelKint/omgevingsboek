@@ -41,6 +41,20 @@
         <div role="tabpanel" class="tab-pane" id="routes">
             <div class="row books" id="mijnBoeken">
                 <h3 class="rowheader">Routes</h3>
+
+
+                <div class="col-md-6 col-xs-12 col-lg-6">
+                    @*<input id="pac-input" class="controls" type="text" placeholder="Voer een locatie in" />*@
+                    <div id="map-canvas"></div>
+                </div>
+                <div class="col-md-6 col-xs-12">
+                    <select size="5" id="waypointsList">
+                        <option disabled>Klik op een POI om te starten</option>
+                    </select>
+                </div>
+
+
+                
             </div>
         </div>
     </div>
@@ -234,6 +248,7 @@
     -moz-transition: none;
     -ms-transition: none;
     -o-transition: none;
+    transition:none;
 ">
     @using (Html.BeginForm("AddRoute", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
@@ -343,27 +358,48 @@
         $("#list .row.poi").each(
          function (element) {
              var poi = this;
+             
+             
              $(this).children(".preview").click(
                function (element) {
                    tagSel = json.filter(function (el) { return el.poi.ID == $(poi).attr("data-id") })[0];
-                   $("#poi").val(tagSel.poi.ID);
-                   $("#poiName").val(tagSel.poi.Naam);
-                   console.log(tagSel.poi.MaxLeeftijd);
-                   console.log(tagSel.poi.MinLeeftijd);
+                   if ($('#activityForm').css("display") !== 'none') {
+                       console.log("activity form displayed");
 
-                   moveSliders($("#slider-boek-age"), tagSel.poi.MinLeeftijd, tagSel.poi.MaxLeeftijd);
-                   setSliderInputValues(
-                        $("#minAgeBoek"),
-                        $("#maxAgeBoek"),
-                        $("#minAgeHiddenBoek"),
-                        $("#maxAgeHiddenBoek"),
-                        tagSel.poi.MinLeeftijd,
-                        tagSel.poi.MaxLeeftijd
-                    );
+                       $("#poi").val(tagSel.poi.ID);
+                       $("#poiName").val(tagSel.poi.Naam);
+                       console.log(tagSel.poi.MaxLeeftijd);
+                       console.log(tagSel.poi.MinLeeftijd);
+                       moveSliders($("#slider-boek-age"), tagSel.poi.MinLeeftijd, tagSel.poi.MaxLeeftijd);
+                       setSliderInputValues(
+                            $("#minAgeBoek"),
+                            $("#maxAgeBoek"),
+                            $("#minAgeHiddenBoek"),
+                            $("#maxAgeHiddenBoek"),
+                            tagSel.poi.MinLeeftijd,
+                            tagSel.poi.MaxLeeftijd
+                        );
 
-                   $("#prijsLeerling").val(tagSel.poi.Prijs);
-               }
-             );
+                       $("#prijsLeerling").val(tagSel.poi.Prijs);
+                   }else if($('#routes').hasClass("active") == true){
+                       console.log("Route form displayed");
+                       console.log(tagSel.poi);
+
+
+                       var attr = $("#waypointsList option:first-child").attr('disabled');
+                       //check if list is empty or
+                       if (typeof attr !== typeof undefined && attr !== false) {
+                           // lijst leegmaken
+                           console.log("lijst leegmaken");
+                           $("#waypointsList").children().remove();
+                       }
+                       $("#waypointsList").append($('<option>',{
+                           value: /*hier moet de lat & lng inkomen voor de berekening van de route*/ 0,
+                           text: tagSel.poi.Naam
+                       })); 
+                   }
+               });
+             
          });
 
         $("#activityForm input:file").change(function () {
@@ -389,6 +425,8 @@
     deferListener(setListItemListeners);
     initSliders();
 </script>
+
+<script src="~/Content/js/GoogleMapsScript.js"></script>
 
 @*@Html.Partial("_PoiPartial", Model)*@
 @{ Html.RenderAction("PoiPartial", "Home"); }

@@ -257,6 +257,7 @@
     <Content Include="Content\js\CooleDingenPoi.js" />
     <Content Include="Content\js\filter.js" />
     <Content Include="Content\js\gebruikerpartialscript.js" />
+    <Content Include="Content\js\GoogleMapsScript.js" />
     <Content Include="Content\js\poipartialscript.js" />
     <Content Include="Content\js\validationFixes.js" />
     <Content Include="Content\js\ZoekScript.js" />
