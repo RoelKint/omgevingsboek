@@ -433,7 +433,16 @@ h3.rowheader {
 li.tags {
   margin: 0;
 }
-li.tags div {
+
+li.tags input {
+  padding: 1px 4px;
+  margin-right: 3px;
+  background-color: #86CFE8;
+  border-radius: 5px;
+  color: black;
+}
+
+li.tags>span {
   padding: 2px 4px;
   margin-right: 3px;
   margin-left: 3px;
@@ -442,15 +451,28 @@ li.tags div {
   color: white;
   box-shadow: 0 0 5px #86cfe8;
 }
-li.tags input {
-  padding: 1px 4px;
+li.tags div {
+    position: relative;
+  padding: 2px 4px;
   margin-right: 3px;
+  display: inline;
+  margin-left: 3px;
   background-color: #86CFE8;
   border-radius: 5px;
-  color: black;
+  color: white;
+  box-shadow: 0 0 5px #86cfe8;
 }
-li.tags span {
-  width: auto;
+li.tags.tagwrap{
+    position: relative;
+}
+li.tags div .removeclick{
+    position: absolute;
+    right: -5px;
+    cursor:pointer;
+    top: -4px;
+    z-index: 100;
+    color:red;
+    text-decoration:none;
 }
 #toevoegenBoek {
   cursor: pointer;

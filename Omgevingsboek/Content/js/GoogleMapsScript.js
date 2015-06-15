@@ -33,7 +33,7 @@ function initialize() {
         zoomControl: true,
         mapTypeControl: true,
         scaleControl: true,
-        streetViewControl: false,
+        streetViewControl: true,
         overviewMapControl: true
     };
     var location = new google.maps.LatLng(50, 3);

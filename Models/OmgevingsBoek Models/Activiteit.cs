@@ -27,7 +27,6 @@ namespace Models.OmgevingsBoek_Models
         [Required]
         public int MaxDuur { get; set; }
         public bool IsDeleted { get; set; }
-        [Required]
         public double Prijs { get; set; }
         public string AfbeeldingNaam { get; set; }
         public string DitactischeToelichting  { get; set; }
