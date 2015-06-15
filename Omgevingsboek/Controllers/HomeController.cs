@@ -46,8 +46,22 @@ namespace Omgevingsboek.Controllers
         public ActionResult Index()
         {
             HomeIndexPM hipm = new HomeIndexPM();
-            hipm.BoekenEigenaar = bs.GetBoekenByUser(User.Identity.Name);
-            hipm.BoekenGedeeld = bs.GetSharedBoeken(User.Identity.Name);
+            List<BoekOrder> boEigen = bs.GetBoekOrderLijst(User.Identity.Name, false);
+            List<BoekOrder> boGedeeld = bs.GetBoekOrderLijst(User.Identity.Name, true);
+
+            hipm.BoekenEigenaar = new List<Models.OmgevingsBoek_Models.Boek>();
+            hipm.BoekenGedeeld = new List<Models.OmgevingsBoek_Models.Boek>();
+
+
+            foreach (BoekOrder b in boEigen)
+            {
+                hipm.BoekenEigenaar.Add(bs.GetBoekByID(b.BoekId));
+            }
+
+            foreach (BoekOrder b in boGedeeld)
+            {
+                hipm.BoekenGedeeld.Add(bs.GetBoekByID(b.BoekId));
+            }
 
             ViewBag.UserImageUrl = "";
 
@@ -78,8 +92,46 @@ namespace Omgevingsboek.Controllers
             return "OK";
         }
 
-        [Authorize]
+        public void SaveBoekenSort(string volgorde, bool? IsGedeeldLijst)
+        {
+            if (!IsGedeeldLijst.HasValue) return;
+            List<BoekOrder> resList = new List<BoekOrder>();
 
+            if(volgorde == null || volgorde == "") return;
+            ApplicationUser user = bs.GetUser(User.Identity.Name);
+            volgorde = volgorde.Replace(",toevoegenBoek", "");
+            string[] splitted = volgorde.Split(',');
+            List<int> ids = new List<int>();
+            foreach (string str in splitted)
+            {
+                bool check;
+                int res;
+                check = int.TryParse(str, out res);
+                if (!check) return;
+                if (!bs.IsBoekAccessibleByUser(res, User.Identity.Name)) return;
+                if (ids.Contains(res)) return;
+                ids.Add(res);
+
+            }
+            if (bs.GetBoekOrderLijst(User.Identity.Name, (bool)IsGedeeldLijst).Count() != ids.Count()) return;
+            int count = 0;
+            foreach (int id in ids)
+            {
+                resList.Add(new BoekOrder()
+                {
+                    BoekId = id,
+                    EigenaarId = user.Id,
+                    Index = count,
+                    IsSharedLijst = (bool)IsGedeeldLijst
+                });
+                count++;
+            }
+            bs.UpdateLijst(resList);
+            
+        }
+
+
+        [Authorize]
         public ActionResult Activiteit(int? Id)
         {
             if (!Id.HasValue) return RedirectToAction("Index");

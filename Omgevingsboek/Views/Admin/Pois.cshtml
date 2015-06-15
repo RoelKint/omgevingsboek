@@ -29,19 +29,18 @@
 <div class="adminList col-xs-12 col-md-12 content" id="content">
     <h2>Point of Interest's</h2>
     <div class="col-xs-6 col-md-9">
-        <span style="font-weight:bold">@ViewBag.vanaf - @meer</span>
+        <span style="font-weight:bold" class="voorbVanaf">@ViewBag.vanaf - @meer</span>
     </div>
-    <div id="buttonsAdBoven">
-        <span style="font-weight:bold">@ViewBag.vanaf - @meer</span>
-        <button onclick="location.href='../Admin/Pois?vanaf=@minder&desc=@desc'"><span class="glyphicon glyphicon-chevron-left"></span> Vorige Pag.</button>
-        <button onclick="location.href='../Admin/Pois?vanaf=@meer&desc=@desc'"><span class="glyphicon glyphicon-chevron-right"></span> Volgende Pag.</button>
-        <button><span class="glyphicon glyphicon-remove-circle"></span> Verwijderen</button>
-        <!--<button><span class="glyphicon glyphicon-pencil"></span> Bewerken</button>-->
-        <input type="text" placeholder="Zoeken" id="Zoeken" />
+    <div class="col-xs-12 col-md-12" id="buttonsAdBoven">
+        <button class="SelVor"><span class="glyphicon glyphicon-chevron-left"></span> Vorige Pag.</button>
+        <button class="SelVol"><span class="glyphicon glyphicon-chevron-right"></span> Volgende Pag.</button>
+        <button form="formA" type="submit"><span class="glyphicon glyphicon-remove-circle"></span> Verwijderen</button>
+        <input name="filter" type="text" id="Zoeken" placeholder="Zoeken" />
         <input form="formA" name="desc" type="hidden" value="0" />
+        <input form="formA" name="filter" type="hidden" />
         <input form="formA" name="vanaf" type="hidden" value="@ViewBag.vanaf" />
     </div>
-    <form id="formA" action="DeletePoi" method="post">
+    <form id="formA" action="DeletePoi">
         <table class="AdminTable table table-hover">
             <colgroup>
                 <col class="col-lg-1 col-xs-1 col-md-1" />
@@ -100,9 +99,9 @@
         </table>
     </form>
     <div id="buttonsAdOnder">
-        <button onclick="location.href='../Admin/Pois?vanaf=@minder&desc=@desc'"><span class="glyphicon glyphicon-chevron-left"></span> Vorige Pag.</button>
-        <button onclick="location.href='../Admin/Pois?vanaf=@meer&desc=@desc'"><span class="glyphicon glyphicon-chevron-right"></span> Volgende Pag.</button>
-        <button><span class="glyphicon glyphicon-remove-circle"></span> Verwijderen</button>
+        <button class="SelVor"><span class="glyphicon glyphicon-chevron-left"></span> Vorige Pag.</button>
+        <button class="SelVol"><span class="glyphicon glyphicon-chevron-right"></span> Volgende Pag.</button>
+        <input form="formA" name="filter" type="text" id="Zoeken" placeholder="Zoeken" />
     </div>
 </div>
 <script src="~/Content/js/ZoekScript.js"></script>
