@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLogic.Services
 {
-    public class BoekService : BusinessLogic.Services.IBoekService
+    public class BoekService : BusinessLogic.Services.IBoekService 
     {
         private ITagRepository repoTag = null;
         private IActiviteitRepository repoActiviteit = null;
@@ -119,6 +119,10 @@ namespace BusinessLogic.Services
         public Activiteit InsertActiviteit(Activiteit activiteit)
         {
             return repoActiviteit.Insert(activiteit);
+        }
+        public void AddFotoToActiviteit(int ActiviteitId, string Foto)
+        {
+            repoActiviteit.AddFotoToActiviteit(ActiviteitId, Foto);
         }
 
         #endregion

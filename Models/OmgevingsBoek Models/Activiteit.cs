@@ -38,7 +38,7 @@ namespace Models.OmgevingsBoek_Models
         public virtual List<Benodigdheid> Benodigdheden { get; set; }
         public virtual List<Route> Routes { get; set; }
         public virtual List<Video> Videos { get; set; }
-        public virtual List<Fotoboek> Fotoboeken { get; set; }
+        public virtual List<Foto> Fotos { get; set; }
         public virtual List<Boek> Boeken { get; set; }
         
     }

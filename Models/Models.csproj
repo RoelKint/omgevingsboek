@@ -145,11 +145,14 @@
     <Compile Include="Migrations\201506151722283_update-tussentabellen.Designer.cs">
       <DependentUpon>201506151722283_update-tussentabellen.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201506151954017_activiteitfotoupdate.cs" />
+    <Compile Include="Migrations\201506151954017_activiteitfotoupdate.Designer.cs">
+      <DependentUpon>201506151954017_activiteitfotoupdate.cs</DependentUpon>
+    </Compile>
     <Compile Include="OmgevingsBoek Models\Activiteit.cs" />
     <Compile Include="OmgevingsBoek Models\Benodigdheid.cs" />
     <Compile Include="OmgevingsBoek Models\Boek.cs" />
     <Compile Include="OmgevingsBoek Models\BoekOrder.cs" />
-    <Compile Include="OmgevingsBoek Models\Fotoboek.cs" />
     <Compile Include="Migrations\201505270750315_init.cs" />
     <Compile Include="Migrations\201505270750315_init.Designer.cs">
       <DependentUpon>201505270750315_init.cs</DependentUpon>
@@ -162,6 +165,7 @@
     <Compile Include="MVC Models\AccountViewModels.cs" />
     <Compile Include="MVC Models\IdentityModels.cs" />
     <Compile Include="MVC Models\ManageViewModels.cs" />
+    <Compile Include="OmgevingsBoek Models\Foto.cs" />
     <Compile Include="OmgevingsBoek Models\Poi.cs" />
     <Compile Include="OmgevingsBoek Models\PoiTags.cs" />
     <Compile Include="OmgevingsBoek Models\RouteListItem.cs" />
@@ -245,6 +249,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201506151722283_update-tussentabellen.resx">
       <DependentUpon>201506151722283_update-tussentabellen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506151954017_activiteitfotoupdate.resx">
+      <DependentUpon>201506151954017_activiteitfotoupdate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

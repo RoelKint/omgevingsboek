@@ -3,6 +3,7 @@ namespace BusinessLogic.Services
 {
     public interface IBoekService
     {
+        void AddFotoToActiviteit(int ActiviteitId, string Foto);
         void AddTagToPoi(int PoiId, int TagId, string UserName);
         Models.OmgevingsBoek_Models.Uitnodiging CreateUitnodiging(string UitgenodigdDoorUserName, string EmailUitgenodigde);
         void DeleteActiviteit(Models.OmgevingsBoek_Models.Activiteit entityToDelete);

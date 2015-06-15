@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -188,7 +189,7 @@ namespace Omgevingsboek.Controllers
         {
             String fotoId;
             PhotoInfo fotoInfo;
-            poi.Prijs = 0;
+            ModelState.Remove("Prijs");
 
             if (!ModelState.IsValid) return RedirectToAction("Index");
             
@@ -328,11 +329,15 @@ namespace Omgevingsboek.Controllers
             }
             return Json(JsonConvert.SerializeObject(res), JsonRequestBehavior.AllowGet);
         }
-        public ActionResult AddActivity(Activiteit activiteit, string TagsString, string BenodigdhedenString, HttpPostedFileBase AfbeeldingFile, string Prijs, int? BoekId)
+        public ActionResult AddActivity(Activiteit activiteit, string TagsString, string BenodigdhedenString, HttpPostedFileBase AfbeeldingFile, string Prijs, int? BoekId,List<HttpPostedFileBase> images,string videos)
         {
+            //TODO: de activiteit afbeelding mocht wel blijven.
+            //TODO: lijst van de geselecteerde afbeeldingen?
+
             String fotoId;
-            
             PhotoInfo fotoInfo;
+
+            ModelState.Remove("Prijs");
 
             if (!BoekId.HasValue) return RedirectToAction("Index");
             if (bs.GetBoekByID((int)BoekId) == null) return RedirectToAction("index");
@@ -397,13 +402,46 @@ namespace Omgevingsboek.Controllers
                 }
             }
 
+            
+            
+
             Activiteit p = bs.InsertActiviteit(NieuweActiviteit);
             if (p.Id > 0)
             {
                 //Feedback???
             }
 
+            if (images != null)
+            {
+                try
+                {
+                    foreach (HttpPostedFileBase image in images)
+                    {
+
+                        flickr.UploadPictureAsync(image.InputStream, activiteit.Naam, activiteit.Naam, "", "", false, false, false, ContentType.Photo, SafetyLevel.Safe, HiddenFromSearch.Hidden, (res) =>
+                        {
+                            Console.Write(res.Result);
+                            PhotoInfo info = flickr.PhotosGetInfo(res.Result);
+                            bs.AddFotoToActiviteit(p.Id, info.LargeUrl);
+                        });
+
+
+
+                    }
+                }
+                catch (Exception ex)
+                {
+                    //return RedirectToAction("Index");
+                }
+            }
+
+
             return RedirectToAction("Boek", new { id = (int)BoekId });
         }
+
+        Action<FlickrResult<string>> s = (res) =>
+        {
+            Console.WriteLine(res.Result);
+        };
     }
 }

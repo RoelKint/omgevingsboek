@@ -43,12 +43,13 @@ namespace Models.MVC_Models
         public DbSet<Benodigdheid> Benodigdheden { get; set; }
         public DbSet<Route> Routes { get; set; }
         public DbSet<Boek> Boeken { get; set; }
-        public DbSet<Fotoboek> Fotoboeken { get; set; }
         public DbSet<Poi> Poi { get; set; }
         public DbSet<Video> Videos { get; set; }
         public DbSet<Uitnodiging> Uitnodigingen { get; set; }
         public DbSet<PoiTags> PoiTags { get; set; }
         public DbSet<BoekOrder> BoekOrder { get; set; }
+        public DbSet<Foto> Fotos { get; set; }
+
 
 
 
@@ -125,15 +126,7 @@ namespace Models.MVC_Models
                       cs.MapRightKey("Activiteit_Id");
                       cs.ToTable("BoekActiviteiten");
                   });
-            modelBuilder.Entity<Fotoboek>()
-                 .HasMany<Activiteit>(s => s.Activiteiten)
-                 .WithMany(c => c.Fotoboeken)
-                 .Map(cs =>
-                 {
-                     cs.MapLeftKey("Fotoboek_ID");
-                     cs.MapRightKey("Activiteit_Id");
-                     cs.ToTable("FotoboekActiviteiten");
-                 });
+           
             modelBuilder.Entity<Tag>()
                  .HasMany<Activiteit>(s => s.Activiteiten)
                  .WithMany(c => c.Tags)
