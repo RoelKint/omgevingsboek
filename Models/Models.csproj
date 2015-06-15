@@ -137,6 +137,14 @@
     <Compile Include="Migrations\201506150955309_update-boeken.Designer.cs">
       <DependentUpon>201506150955309_update-boeken.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201506151703305_update-table-names.cs" />
+    <Compile Include="Migrations\201506151703305_update-table-names.Designer.cs">
+      <DependentUpon>201506151703305_update-table-names.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506151722283_update-tussentabellen.cs" />
+    <Compile Include="Migrations\201506151722283_update-tussentabellen.Designer.cs">
+      <DependentUpon>201506151722283_update-tussentabellen.cs</DependentUpon>
+    </Compile>
     <Compile Include="OmgevingsBoek Models\Activiteit.cs" />
     <Compile Include="OmgevingsBoek Models\Benodigdheid.cs" />
     <Compile Include="OmgevingsBoek Models\Boek.cs" />
@@ -231,6 +239,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201506150955309_update-boeken.resx">
       <DependentUpon>201506150955309_update-boeken.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506151703305_update-table-names.resx">
+      <DependentUpon>201506151703305_update-table-names.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506151722283_update-tussentabellen.resx">
+      <DependentUpon>201506151722283_update-tussentabellen.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
