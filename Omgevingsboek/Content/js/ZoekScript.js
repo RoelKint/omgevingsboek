@@ -34,7 +34,7 @@
                             listelement = listelement + '<a href="#">' + a.Naam + '</a>';
                         }
                         else {
-                            listelement = listelement + '<a href="#">' + a.Naam + '</a>,';
+                            listelement = listelement + '<a href="#">' + a.Naam + '</a>, ';
                         }
                     });
                 }
@@ -49,7 +49,7 @@
                             listelement = listelement + '<a href="#">' + a.Naam + '</a>';
                         }
                         else {
-                            listelement = listelement + '<a href="#">' + a.Naam + '</a>,';
+                            listelement = listelement + '<a href="#">' + a.Naam + '</a>, ';
                         }
                     });
                 }
@@ -65,12 +65,9 @@
                 if (item.Tags !== undefined) {
                     $.each(item.Tags, function () {
                         var a = $(this)[0];
-                        if (a == item.Tags[item.Tags.length - 1]) {
-                            listelement = listelement + '<a href="#">' + a.Tag.Naam + '</a>';
-                        }
-                        else {
-                            listelement = listelement + '<a href="#">' + a.Tag.Naam + '</a>,';
-                        }
+                        
+                            listelement = listelement + '<span class="tag">' + a.Tag.Naam + '</span>';
+                        
                     });
                 }
                 listelement = listelement + '</td><td><div class="displayInlineButtons"><button><span class="glyphicon glyphicon-remove"></span></button></div></td></tr>';

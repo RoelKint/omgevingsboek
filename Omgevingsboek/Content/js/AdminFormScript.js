@@ -33,9 +33,29 @@ $().ready(function () {
     $('.delList').click(function () {
         
         var formData = new FormData();
+        
+        var lijst = $('[name=listId]');
+        console.log(lijst);
+        var array = [];
+        lijst.each(function (iets) {
+            if ($(lijst[iets]).is(":checked")) {
+                console.log($(lijst[iets]));
 
-        var lijst = document.getElementsByName('listId');
-        formData.append("ActiviteitenToDelete", lijst);
+            }
+            })
+        
+      // for (var i = 0; i < lijst.children.length; i++) {
+      //     console.log(lijst.children.length);
+      //     if (lijst.children[i].attr('checked', true)) {
+      //         console.log(lijst.children.eq(i));
+      //    }
+      //     //array.push(lijst.children[i]);
+        
+        
+        //console.log($(lijst.children));
+        
+        console.log(array);
+        formData.append("ActiviteitenToDelete", array);
         formData.append("vanaf", vanaf);
         formData.append("desc", desc);
         formData.append("filter", filter);

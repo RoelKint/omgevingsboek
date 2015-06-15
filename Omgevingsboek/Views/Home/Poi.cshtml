@@ -1,8 +1,13 @@
 ﻿@model Models.PresentationModels.PoiPM
 @{
     ViewBag.Title = "Poi";
+    
 }
 
+<script>
+    gebruikerId = "@ViewBag.gebruikerId";
+
+</script>
 
 <div class="col-xs-12 col-md-12 content" id="content">
 
@@ -43,7 +48,7 @@
                 
                 @foreach (var item in Model.poi.Tags)
                 {
-                    <div>
+                    <div id="@item.EigenaarId">
                         @*<a href="haaa"  class="glyphicon glyphicon-remove-circle removeclick" ></a>*@
                         <span class="glyphicon glyphicon-remove-circle removeclick" id="@item.Tag.ID"></span>
                         <span>@item.Tag.Naam</span>
