@@ -435,6 +435,18 @@ li.tags div {
   color: black;
   box-shadow: 0 0 5px #86cfe8;
 }
+li.tags.tagwrap{
+    position: relative;
+}
+li.tags div .removeclick{
+    position: absolute;
+    right: -5px;
+    cursor:pointer;
+    top: -4px;
+    z-index: 100;
+    color:#5cb85c;
+    text-decoration:none;
+}
 li.tags input {
   padding: 1px 4px;
   margin-right: 3px;
