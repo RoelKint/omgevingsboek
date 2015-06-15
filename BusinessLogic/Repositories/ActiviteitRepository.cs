@@ -26,7 +26,7 @@ namespace BusinessLogic.Repositories
 
         public override IEnumerable<Activiteit> All()
         {
-            return this.context.Activiteiten.Include(a => a.Boeken).Include(a => a.Benodigdheden).Include(a => a.DeelLijst).Include(a => a.Eigenaar).Include(a => a.Fotoboeken).Include(a => a.Poi).Include(a => a.Routes).Include(a => a.Tags).Include(a => a.Videos);
+            return this.context.Activiteiten.Include(a => a.Boeken).Include(a => a.Benodigdheden).Include(a => a.DeelLijst).Include(a => a.Eigenaar).Include(a => a.Poi).Include(a => a.Routes).Include(a => a.Tags).Include(a => a.Videos);
         }
 
         public List<Activiteit> getActiviteitenPerPoi(int id)
@@ -38,7 +38,7 @@ namespace BusinessLogic.Repositories
 
         public override Activiteit GetByID(object id)
         {
-            return this.context.Activiteiten.Where(a => a.Id == (int)id).Where(i => !i.IsDeleted).Include(a => a.DeelLijst).Include(a => a.Eigenaar).Include(a => a.Fotoboeken).Include(a => a.Benodigdheden).Include(a => a.Videos).Include(a => a.Tags).SingleOrDefault();
+            return this.context.Activiteiten.Where(a => a.Id == (int)id).Where(i => !i.IsDeleted).Include(a => a.DeelLijst).Include(a => a.Eigenaar).Include(a => a.Benodigdheden).Include(a => a.Videos).Include(a => a.Tags).SingleOrDefault();
         }
         public List<Activiteit> getActivitiesByUsername(string Username)
         {
@@ -56,7 +56,7 @@ namespace BusinessLogic.Repositories
                             .Include(a => a.Benodigdheden)
                             .Include(a => a.DeelLijst)
                             .Include(a => a.Eigenaar)
-                            .Include(a => a.Fotoboeken)
+                            
                             .Include(a => a.Poi)
                             .Include(a => a.Routes)
                             .Include(a => a.Tags)
@@ -75,7 +75,7 @@ namespace BusinessLogic.Repositories
                             .Include(a => a.Benodigdheden)
                             .Include(a => a.DeelLijst)
                             .Include(a => a.Eigenaar)
-                            .Include(a => a.Fotoboeken)
+                            
                             .Include(a => a.Poi)
                             .Include(a => a.Routes)
                             .Include(a => a.Tags)
@@ -180,7 +180,16 @@ namespace BusinessLogic.Repositories
             context.SaveChanges();
             return entity;
         }
-
+        public void AddFotoToActiviteit(int ActiviteitId,string Foto)
+        {
+            Foto foto = context.Fotos.Add(new Foto() { FotoUrl = Foto });
+            context.SaveChanges();
+            Activiteit a = context.Activiteiten.Where(i => i.Id == ActiviteitId).FirstOrDefault();
+            if (a.Fotos == null)
+                a.Fotos = new List<Models.OmgevingsBoek_Models.Foto>();
+            a.Fotos.Add(foto);
+            context.SaveChanges();
+        }
 
     }
 }

@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace Models.OmgevingsBoek_Models
 {
-    public class Fotoboek
+    public class Foto
     {
-        public int ID { get; set; }
-        public string Naam { get; set; }
-        public virtual List<Activiteit> Activiteiten { get; set; }
-
+        public int Id { get; set; }
+        public string FotoUrl { get; set; }
     }
 }

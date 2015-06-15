@@ -7,20 +7,20 @@
 <div class="col-xs-6 col-md-9 content" id="content">
     <ul class="nav nav-tabs" role="tablist">
         <li role="presentation" class="active"><a href="#activiteiten" aria-controls="activiteiten" role="tab" data-toggle="tab">Activiteiten</a></li>
-        <li role="presentation"><a href="#routes" aria-controls="routes" role="tab" data-toggle="tab">Routes</a></li>
+        <li onclick="resizeMap();" role="presentation"><a href="#routes" aria-controls="routes" role="tab" data-toggle="tab">Routes</a></li>
     </ul>
     <div class="tab-content">
         <div role="tabpanel" class="tab-pane fade in active" id="activiteiten">
             <div class="row books" id="mijnBoeken">
                 <h3 class="rowheader">@Model.Naam</h3>
                 @*<ol class="breadcrumb list-inline">
-                        <li><a href="@Url.Action("Index","Home")"><span class="glyphicon glyphicon-home"></span></a></li>
-                        <li class="active">Boek: @Model.Naam</li>
+                    <li><a href="@Url.Action("Index","Home")"><span class="glyphicon glyphicon-home"></span></a></li>
+                    <li class="active">Boek: @Model.Naam</li>
                     </ol>*@
                 @foreach (Models.OmgevingsBoek_Models.Activiteit activiteit in Model.Activiteiten)
                 {
                     <div class="col-sm-6 col-md-3">
-                        <a href="#">
+                        <a href="/Activiteiten/Details/@activiteit.Id">
                             <img class="img-responsive" src="@activiteit.AfbeeldingNaam" />
                             <span class="caption">@activiteit.Naam</span>
                         </a>
@@ -47,14 +47,31 @@
                     @*<input id="pac-input" class="controls" type="text" placeholder="Voer een locatie in" />*@
                     <div id="map-canvas"></div>
                 </div>
-                <div class="col-md-6 col-xs-12">
+                <div class="col-md-6 col-xs-12 col-lg-6">
                     <select size="5" id="waypointsList">
                         <option disabled>Klik op een POI om te starten</option>
                     </select>
                 </div>
+                <div class="col-md-6 col-xs-12 col-lg-6"></div>
+                <div class="col-md-6 col-xs-12 col-lg-6">
+                    <button class="btn btn-default btn-primary">
+                        Route berekenen
+                    </button>
+                    <button class="btn btn-default" id="moveWaypointUp">
+                        <span class="glyphicon glyphicon-arrow-up"></span>Naar boven
+                    </button>
+                    <button class="btn btn-default" id="moveWaypointDown">
+                        <span class="glyphicon glyphicon-arrow-down"></span>Naar beneden
+                    </button>
+                    <button onclick="removeWaypointFromList()" class="btn btn-danger">
+                        <span class="glyphicon glyphicon-remove"></span>Verwijder punt
+                    </button>
+                    <button class="btn btn-danger">
+                        <span class="glyphicon glyphicon-remove"></span>Verwijder route
+                    </button>
+                </div>
 
 
-                
             </div>
         </div>
     </div>
@@ -76,7 +93,7 @@
     @using (Html.BeginForm("AddActivity", "Home", FormMethod.Post, new { enctype = "multipart/form-data", data_toggle = "validator" }))
     {
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-5">
                 <div class="form-group">
                     <label for="naam">Naam:</label><span class="help-block with-errors"></span>
                     <input type="text" class="form-control" id="name" name="Naam" placeholder="Naam van activiteit" required>
@@ -87,18 +104,11 @@
                     <input type="text" class="form-control hidden-input" id="poi" name="PoiId" required>
                 </div>
             </div>
-            <div class="form-group col-md-5">
+            <div class="form-group col-md-6">
                 <label for="amount">Tags:</label>
                 <div class="input-group">
                     <span class="input-group-addon tag"><span class="glyphicon glyphicon-tags"></span></span>
                     <input name="TagsString" class="form-control tags" id="poiTags" value="" />
-                </div>
-            </div>
-            <div class="form-group col-md-2 upload">
-                <label for="inputFile">Upload afbeelding</label>
-                <div class="fileUpload btn btn-default form-control">
-                    <span>Upload Foto</span>
-                    <input type="file" class="upload" name="AfbeeldingFile" id="exampleInputFile" accept="image/x-png, image/gif, image/jpeg">
                 </div>
             </div>
             <div class="col-md-1">
@@ -149,7 +159,7 @@
                                 <label for="amount">Prijs per leerling:</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">&euro;</span>
-                                    <input class="form-control" pattern="[0-9]+([,][0-9]+)?" type="number" id="prijsLeerling" step="0,1" name="Prijs">
+                                    <input class="form-control" pattern="[0-9]+([,][0-9]+)?" fuckyouasp type="text" id="prijsLeerling" name="Prijs">
                                 </div>
                             </div>
                         </div>
@@ -174,56 +184,71 @@
                         </div>
                     </div>
                     <div role="tabpanel" class="tab-pane fade" id="media">
+                        <h3>Video</h3>
                         <div class="upload_video">
-                            <span id="signinButton" class="pre-sign-in">
-                                <!-- IMPORTANT: Replace the value of the <code>data-clientid</code>
-                                attribute in the following tag with your project's client ID. -->
-                                <span class="g-signin"
-                                      data-callback="signinCallback"
-                                      data-clientid="373280989230-i785digcek4jpfhtg802a4el59jsfv1t.apps.googleusercontent.com"
-                                      data-cookiepolicy="single_host_origin"
-                                      data-scope="https://www.googleapis.com/auth/youtube.upload https://www.googleapis.com/auth/youtube">
-                                </span>
-                            </span>
-
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <span id="signinButton" class="pre-sign-in">
+                                        <!-- IMPORTANT: Replace the value of the <code>data-clientid</code>
+                                        attribute in the following tag with your project's client ID. -->
+                                        <span class="g-signin"
+                                              data-callback="signinCallback"
+                                              data-clientid="373280989230-i785digcek4jpfhtg802a4el59jsfv1t.apps.googleusercontent.com"
+                                              data-cookiepolicy="single_host_origin"
+                                              data-scope="https://www.googleapis.com/auth/youtube.upload https://www.googleapis.com/auth/youtube">
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>
                             <div class="post-sign-in">
-                                <div>
-                                    <img id="channel-thumbnail">
-                                    <span id="channel-name"></span>
-                                </div>
-
-                                <div>
-                                    <label for="title">Benaming:</label>
-                                    <input id="title" type="text" value="Default Title">
-                                </div>
-                                <div>
-                                    <label for="description">Beschrijving:</label>
-                                    <textarea id="description"></textarea>
-                                </div>
-                                <div>
-                                    <select hidden id="privacy-status">
-                                        <option>public</option>
-                                        <option selected>unlisted</option>
-                                        <option>private</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <input input type="file" id="file" class="button" accept="video/*">
-                                    <button id="button">Video uploaden</button>
-                                    <div class="during-upload">
-                                        <p><span id="percent-transferred"></span>% done (<span id="bytes-transferred"></span>/<span id="total-bytes"></span> bytes)</p>
-                                        <progress id="upload-progress" max="1" value="0"></progress>
+                                <div class="row">
+                                    <div class="form-group col-md-3" id="profile-show">
+                                        <span id="channel-name"></span>
                                     </div>
-                                    <div class="post-upload">
-                                        <input disabled name="video" id="video-id" />
-                                        <p>De video is geupload. (<a id="video-url" href="#"></a>)</p>
-                                        <ul hidden id="post-upload-status"></ul>
-                                        <div id="player"></div>
+                                    <div class="form-group col-md-3">
+                                        <label for="title">Benaming:</label>
+                                        <input id="title" class="form-control" type="text" placeholder="Titel van video">
                                     </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="description">Beschrijving:</label>
+                                        <textarea class="form-control" id="description"></textarea>
+                                        <div>
+                                            <select hidden id="privacy-status">
+                                                <option>public</option>
+                                                <option selected>unlisted</option>
+                                                <option>private</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="file">Uploaden:</label>
+                                        <input input type="file" id="file" class="button form-control" accept="video/*">
+                                        <button class="btn btn-default form-control" id="button">Video uploaden</button>
+                                        <div class="during-upload">
+                                            <p><span id="percent-transferred"></span>% done (<span id="bytes-transferred"></span>/<span id="total-bytes"></span> bytes)</p>
+                                            <progress id="upload-progress" max="1" value="0"></progress>
+                                        </div>
+                                        <div class="post-upload">
+                                            <input class="form-control" disabled name="video" id="video-id" />
+                                            <p>De video is geupload. (<a id="video-url" href="#"></a>)</p>
+                                            <ul hidden id="post-upload-status"></ul>
+                                            <div id="player"></div>
+                                        </div>
+                                    </div>
+                                    <script src="//apis.google.com/js/client:plusone.js"></script>
+                                    <script src="~/Scripts/cors_upload.js"></script>
+                                    <script src="~/Scripts/upload_video.js"></script>
                                 </div>
-                                <script src="//apis.google.com/js/client:plusone.js"></script>
-                                <script src="~/Scripts/cors_upload.js"></script>
-                                <script src="~/Scripts/upload_video.js"></script>
+                            </div>
+                        </div>
+                        <h3>Afbeeldingen</h3>
+                        <div class="row">
+                            <div class="form-group col-md-12 upload">
+                                <label for="images">Kies afbeeldingen: (tip: je kan meerdere afbeeldingen tegelijk selecteren)</label>
+                                <div class="fileUpload btn btn-default form-control">
+                                    <span>Upload Foto</span>
+                                    <input type="file" multiple class="upload" name="images" id="images" accept="image/x-png, image/gif, image/jpeg">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -284,6 +309,13 @@
 </div>
 
 <script>
+
+    function resizeMap() {
+        setTimeout(resizeMapActual, 500);
+    }
+    function resizeMapActual() {
+        google.maps.event.trigger(map, 'resize');
+    }
 
     var ageSlider;
     var timeSlider;
@@ -362,8 +394,8 @@
         $("#list .row.poi").each(
          function (element) {
              var poi = this;
-             
-             
+
+
              $(this).children(".preview").click(
                function (element) {
                    tagSel = json.filter(function (el) { return el.poi.ID == $(poi).attr("data-id") })[0];
@@ -385,7 +417,7 @@
                         );
 
                        $("#prijsLeerling").val(tagSel.poi.Prijs);
-                   }else if($('#routes').hasClass("active") == true){
+                   } else if ($('#routes').hasClass("active") == true) {
                        console.log("Route form displayed");
                        console.log(tagSel.poi);
 
@@ -397,13 +429,23 @@
                            console.log("lijst leegmaken");
                            $("#waypointsList").children().remove();
                        }
-                       $("#waypointsList").append($('<option>',{
+                       $("#waypointsList").append($('<option>', {
                            value: /*hier moet de lat & lng inkomen voor de berekening van de route*/ 0,
                            text: tagSel.poi.Naam
-                       })); 
+                       }));
+
+                       marker = new google.maps.Marker({
+                           position: /*TODO: Use actual location here*/new google.maps.LatLng(50, 3.01),
+                           map: map
+                       });
+                       map.setCenter(new google.maps.LatLng(50, 3.01));
+                       map.setZoom(9);
+                       markerArray.push(marker);
+
+
                    }
                });
-             
+
          });
 
         $("#activityForm input:file").change(function () {

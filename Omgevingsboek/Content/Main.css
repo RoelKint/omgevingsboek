@@ -4,13 +4,18 @@
 .nav .breadcrumb {
   margin: 0 7px;
 }
-/*::-webkit-scrollbar{
-    width:1em;
-    height:1em;
-}*/
-/*.navbar-default {
-    height: 7%;
-}*/
+div#profile-show {
+  background-size: cover;
+  height: 8em;
+  padding-top: 2.5em;
+  padding-left: 1.9em;
+  border-radius: 5px;
+}
+div#profile-show > span {
+  color: white;
+  font-size: 2em;
+  font-weight: bold;
+}
 body,
 html {
   height: 100%;
@@ -23,7 +28,8 @@ html {
   content: " ";
 }
 .form-group input.form-control,
-.form-group .input-group {
+.form-group .input-group,
+.form-group textarea {
   clear: both;
 }
 .has-error .help-block {
@@ -117,8 +123,8 @@ a {
   position: absolute;
   text-align: center;
   width: 100%;
-  text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.99);
-  top: 0px;
+  text-shadow: 3px 3px 2px #000000;
+  top: 0;
   padding-top: 1.5em;
 }
 .books > div:hover span.buttons {
@@ -427,13 +433,34 @@ h3.rowheader {
 li.tags {
   margin: 0;
 }
-li.tags div {
+
+
+li.tags input {
+  padding: 1px 4px;
+  margin-right: 3px;
+  background-color: #86CFE8;
+  border-radius: 5px;
+  color: black;
+}
+
+li.tags>span {
   padding: 2px 4px;
   margin-right: 3px;
   margin-left: 3px;
-  background-color: #F5F5F5;
+  background-color: #86CFE8;
   border-radius: 5px;
-  color: black;
+  color: white;
+  box-shadow: 0 0 5px #86cfe8;
+}
+li.tags div {
+    position: relative;
+  padding: 2px 4px;
+  margin-right: 3px;
+  display: inline;
+  margin-left: 3px;
+  background-color: #86CFE8;
+  border-radius: 5px;
+  color: white;
   box-shadow: 0 0 5px #86cfe8;
 }
 li.tags.tagwrap{
@@ -445,16 +472,11 @@ li.tags div .removeclick{
     cursor:pointer;
     top: -4px;
     z-index: 100;
-    color:#5cb85c;
+    color:red;
     text-decoration:none;
 }
-li.tags input {
-  padding: 1px 4px;
-  margin-right: 3px;
-  background-color: #F5F5F5;
-  border-radius: 5px;
-  color: black;
-}
+
+
 #toevoegenBoek {
   cursor: pointer;
 }
@@ -521,7 +543,6 @@ span.tag {
 .upload_video textarea,
 .upload_video progress {
   font-size: 0.75em;
-  width: 15em;
   margin-bottom: 1em;
   padding: 0.5em;
   font-family: "Open Sans", sans-serif;
@@ -530,16 +551,37 @@ span.tag {
   height: 7em;
 }
 #map-canvas {
-  height: 300px;
+  height: 400px;
   width: 100%;
   float: left;
 }
 #waypointsList {
   width: 100%;
-  min-height: 300px;
+  min-height: 400px;
 }
 #waypointsList option {
   padding: 10px;
+}
+#waypointsList option:first-child {
+  background-color: green;
+  color: white;
+}
+#waypointsList option:first-child:before {
+  content: 'Bestemming: ';
+}
+#waypointsList option:last-child {
+  background-color: red;
+  color: white;
+}
+#waypointsList option:last-child:before {
+  content: 'Eindadres: ';
+}
+#waypointsList option:only-child {
+  background-color: white;
+  color: black;
+}
+#waypointsList option:only-child:before {
+  content: "";
 }
 #pac-input {
   background-color: #fff;
