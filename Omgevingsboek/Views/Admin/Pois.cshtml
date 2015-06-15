@@ -1,4 +1,14 @@
 ﻿@model List<Models.OmgevingsBoek_Models.Poi>
+
+<script>
+    vanaf = @ViewBag.vanaf;
+    desc = @ViewBag.desc;
+    search = "";
+    filter = @ViewBag.filter;
+    pagina = "Pois";
+
+</script>
+
 @{
     ViewBag.Title = "PoI's";
     int meer = ViewBag.vanaf + 30;
@@ -16,7 +26,7 @@
 <div class="col-xs-12 col-md-12 nav">
     <a href="../Admin">&lt;&lt; Terug naar overzicht</a>
 </div>
-<div class="adminList col-xs-6 col-md-9 content" id="content">
+<div class="adminList col-xs-12 col-md-12 content" id="content">
     <h2>Point of Interest's</h2>
     <div class="col-xs-6 col-md-9">
         <span style="font-weight:bold">@ViewBag.vanaf - @meer</span>
@@ -27,11 +37,12 @@
         <button onclick="location.href='../Admin/Pois?vanaf=@meer&desc=@desc'"><span class="glyphicon glyphicon-chevron-right"></span> Volgende Pag.</button>
         <button><span class="glyphicon glyphicon-remove-circle"></span> Verwijderen</button>
         <!--<button><span class="glyphicon glyphicon-pencil"></span> Bewerken</button>-->
-        <input type="text" placeholder="Zoeken" />
+        <input type="text" placeholder="Zoeken" id="Zoeken" />
+        <input form="formA" name="desc" type="hidden" value="0" />
+        <input form="formA" name="vanaf" type="hidden" value="@ViewBag.vanaf" />
     </div>
     <form id="formA" action="DeletePoi" method="post">
-
-        <table class="table table-hover">
+        <table class="AdminTable table table-hover">
             <colgroup>
                 <col class="col-lg-1 col-xs-1 col-md-1" />
                 <col class="col-lg-2 col-xs-2 col-md-2" />
@@ -41,45 +52,51 @@
                 <col class="col-lg-3 col-xs-2 col-md-2" />
                 <col class="col-lg-1 col-xs-1 col-md-1" />
             </colgroup>
-            <tr>
-                <th><span class="glyphicon glyphicon-th-list"></span></th>
-                <th>Naam</th>
-                <th>Mail</th>
-                <th>Adres</th>
-                <th>Telefoon Nr.</th>
-                <th>Tags</th>
-                <th>Opties</th>
-            </tr>
-            @foreach (var pooi in Model)
-            {
+            <thead>
                 <tr>
-                    <td><input form="formA" name="PoisToDelete" value="@pooi.ID" type="checkbox" /></td>
-                    <td>@pooi.Naam</td>
-                    <td>@pooi.Eigenaar.Email</td>
-                    <td> @pooi.Straat @pooi.Nummer , @pooi.Postcode @pooi.Gemeente</td>
-                    <td>@pooi.Telefoon</td>
-                    <td>
-                        @foreach (var tag in pooi.Tags)
-                        {
-                            if (tag.Equals(pooi.Tags.Last()))
-                            {
-                                <a href="#">@tag.Naam</a>
-                            }
-                            else
-                            {
-                                <a href="#">@tag.Naam</a>@(',')
-                            }
-                        }
-                    </td>
-                    <td>
-                        <div class="displayInlineButtons">
-                            <button><span class="glyphicon glyphicon-remove"></span></button>
-                            <button><span class="glyphicon glyphicon-pencil"></span></button>
-                        </div>
-                    </td>
+                    <th><span class="glyphicon glyphicon-th-list"></span></th>
+                    <th><span>Naam</span></th>
+                    <th><span>Mail</span></th>
+                    <th><span>Adres</span></th>
+                    <th><span>Telefoon Nr.</span></th>
+                    <th><span>Tags</span></th>
+                    <th><span>Opties</span></th>
                 </tr>
-            }
+            </thead>
+            <tbody>
+                @foreach (var pooi in Model)
+                {
+                    <tr>
+                        <td>
+                            <input form="formA" name="PoisToDelete" value="@pooi.ID" type="checkbox" />
+                        </td>
+                        <td>@pooi.Naam</td>
+                        <td>@pooi.Eigenaar.UserName</td>
+                        <td> @pooi.Straat @pooi.Nummer , @pooi.Postcode @pooi.Gemeente</td>
+                        <td>@pooi.Telefoon</td>
+                        <td>
+                            @foreach (var tag in pooi.Tags)
+                            {
+                                if (tag.Equals(pooi.Tags.Last()))
+                                {
+                                    <span class="tag">@tag.Tag.Naam</span>
+                                }
+                                else
+                                {
+                                    <span class="tag">@tag.Tag.Naam</span>
 
+                                }
+                            }
+
+                        </td>
+                        <td>
+                            <div class="displayInlineButtons">
+                                <button><span class="glyphicon glyphicon-remove"></span></button>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
         </table>
     </form>
     <div id="buttonsAdOnder">
@@ -88,3 +105,5 @@
         <button><span class="glyphicon glyphicon-remove-circle"></span> Verwijderen</button>
     </div>
 </div>
+<script src="~/Content/js/ZoekScript.js"></script>
+<script type="text/javascript" src="~/Content/js/adminformscript.js"></script>

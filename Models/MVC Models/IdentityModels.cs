@@ -47,6 +47,7 @@ namespace Models.MVC_Models
         public DbSet<Poi> Poi { get; set; }
         public DbSet<Video> Videos { get; set; }
         public DbSet<Uitnodiging> Uitnodigingen { get; set; }
+        public DbSet<PoiTags> PoiTags { get; set; }
 
 
 
@@ -90,6 +91,20 @@ namespace Models.MVC_Models
                        cs.MapRightKey("AspNetUser_Id");
                        cs.ToTable("AspNetUserBoek");
                    });
+
+
+            modelBuilder.Entity<PoiTags>()
+              .HasKey(cp => new { cp.PoiId, cp.TagId });
+
+            modelBuilder.Entity<Poi>()
+                        .HasMany(c => c.Tags)
+                        .WithRequired()
+                        .HasForeignKey(cp => cp.PoiId);
+
+            modelBuilder.Entity<Tag>()
+                        .HasMany(p => p.Pois)
+                        .WithRequired()
+                        .HasForeignKey(cp => cp.TagId);  
              
         }
     }

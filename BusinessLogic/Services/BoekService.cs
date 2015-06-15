@@ -5,11 +5,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Data.Entity;
 using System.Threading.Tasks;
 
 namespace BusinessLogic.Services
 {
-    public class BoekService : BusinessLogic.Services.IBoekService
+    public class BoekService : BusinessLogic.Services.IBoekService 
     {
         private ITagRepository repoTag = null;
         private IActiviteitRepository repoActiviteit = null;
@@ -17,6 +18,7 @@ namespace BusinessLogic.Services
         private IPoiRepository repoPoi = null;
         private IUitnodigingRepository repoUitnodiging = null;
         private IBenodigdheidRepository repoBenodigdheid = null;
+        private IGenericRepository<PoiTags> repoPoiTags = null;
 
         public BoekService(
             ITagRepository repoTag,
@@ -24,7 +26,8 @@ namespace BusinessLogic.Services
             IBoekRepository repoBoek,
             IPoiRepository repoPoi,
             IUitnodigingRepository repoUitnodiging,
-            IBenodigdheidRepository repoBenodigdheid
+            IBenodigdheidRepository repoBenodigdheid,
+            IGenericRepository<PoiTags> repoPoiTags = null
             )
         {
             this.repoActiviteit = repoActiviteit;
@@ -33,6 +36,7 @@ namespace BusinessLogic.Services
             this.repoPoi = repoPoi;
             this.repoUitnodiging = repoUitnodiging;
             this.repoBenodigdheid = repoBenodigdheid;
+            this.repoPoiTags = repoPoiTags;
         }
 
         #region Activiteiten
@@ -67,29 +71,29 @@ namespace BusinessLogic.Services
             return repoActiviteit.getActiviteitenPerPoi(id);
         }
 
-        public List<Activiteit> GetActiviteiten50FromSortNameAZ(int from)
+        public List<Activiteit> GetActiviteiten50FromSortNameAZ(int from, string search)
         {
-            return repoActiviteit.get50FromSortNameAZ(from);
+            return repoActiviteit.get50FromSortNameAZ(from,search);
         }
-        public List<Activiteit> GetActiviteiten50FromSortNameZA(int from)
+        public List<Activiteit> GetActiviteiten50FromSortNameZA(int from, string search)
         {
-            return repoActiviteit.get50FromSortNameZA(from);
+            return repoActiviteit.get50FromSortNameZA(from, search);
         }
-        public List<Activiteit> GetActiviteiten50FromSortUserAZ(int from)
+        public List<Activiteit> GetActiviteiten50FromSortUserAZ(int from, string search)
         {
-            return repoActiviteit.get50FromSortUserAZ(from);
+            return repoActiviteit.get50FromSortUserAZ(from, search);
         }
-        public List<Activiteit> GetActiviteiten50FromSortUserZA(int from)
+        public List<Activiteit> GetActiviteiten50FromSortUserZA(int from, string search)
         {
-            return repoActiviteit.get50FromSortUserZA(from);
+            return repoActiviteit.get50FromSortUserZA(from, search);
         }
-        public List<Activiteit> GetActiviteiten50FromSortPoiAZ(int from)
+        public List<Activiteit> GetActiviteiten50FromSortPoiAZ(int from, string search)
         {
-            return repoActiviteit.get50FromSortPoiAZ(from);
+            return repoActiviteit.get50FromSortPoiAZ(from, search);
         }
-        public List<Activiteit> GetActiviteiten50FromSortPoiZA(int from)
+        public List<Activiteit> GetActiviteiten50FromSortPoiZA(int from, string search)
         {
-            return repoActiviteit.get50FromSortPoiZA(from);
+            return repoActiviteit.get50FromSortPoiZA(from, search);
         }
 
         public List<Activiteit> getActiviteitenUserByUser50from(int from, String Owner, String Visitor)
@@ -153,21 +157,21 @@ namespace BusinessLogic.Services
             return repoBoek.getSharedBoeken(username);
         }
 
-        public List<Boek> GetBoeken50FromSortNameAZ(int from)
+        public List<Boek> GetBoeken50FromSortNameAZ(int from, string search)
         {
-            return repoBoek.get50FromSortNameAZ(from);
+            return repoBoek.get50FromSortNameAZ(from, search);
         }
-        public List<Boek> GetBoeken50FromSortNameZA(int from)
+        public List<Boek> GetBoeken50FromSortNameZA(int from, string search)
         {
-            return repoBoek.get50FromSortNameZA(from);
+            return repoBoek.get50FromSortNameZA(from, search);
         }
-        public List<Boek> GetBoeken50FromSortUserAZ(int from)
+        public List<Boek> GetBoeken50FromSortUserAZ(int from, string search)
         {
-            return repoBoek.get50FromSortUserAZ(from);
+            return repoBoek.get50FromSortUserAZ(from, search);
         }
-        public List<Boek> GetBoeken50FromSortUserZA(int from)
+        public List<Boek> GetBoeken50FromSortUserZA(int from, string search)
         {
-            return repoBoek.get50FromSortUserZA(from);
+            return repoBoek.get50FromSortUserZA(from, search);
         }
         public List<Boek> getBoekUserByUser50from(int from, String Owner, String Visitor)
         {
@@ -181,13 +185,32 @@ namespace BusinessLogic.Services
 
         #region Poi
 
-        public List<Poi> GetPoi50FromSortNameAZ(int from)
+        public List<Poi> GetPoi50FromSortNameAZ(int from, string search)
         {
-            return repoPoi.get50FromSortNameAZ(from);
+            return repoPoi.get50FromSortNameAZ(from,search);
         }
-        public List<Poi> GetPoi50FromSortNameZA(int from)
+        public List<Poi> GetPoi50FromSortNameZA(int from,string search)
         {
-            return repoPoi.get50FromSortNameZA(from);
+            return repoPoi.get50FromSortNameZA(from, search);
+        }
+        public List<Poi> getPoi50FromSortEmailAZ(int from, string search)
+        {
+            return repoPoi.get50FromSortEmailAZ(from, search);
+        }
+        public List<Poi> getPoi50FromSortEmailZA(int from, string search)
+        {
+            return repoPoi.get50FromSortEmailZA(from, search);
+
+        }
+        public List<Poi> getPoi50FromSortAddressAZ(int from, string search)
+        {
+            return repoPoi.get50FromSortAddressAZ(from, search);
+
+        }
+        public List<Poi> getPoi50FromSortAddressZA(int from, string search)
+        {
+            return repoPoi.get50FromSortAddressZA(from, search);
+
         }
         
         public List<Poi> GetPoiList()
@@ -211,13 +234,17 @@ namespace BusinessLogic.Services
         {
             return repoPoi.GetByID(Id);
         }
-        public void AddTagToPoi(int PoiId, int TagId)
+        public void AddTagToPoi(int PoiId, int TagId,string UserName)
         {
-            repoPoi.AddTag(PoiId, TagId);
+            repoPoi.AddTag(PoiId, TagId,UserName);
         }
-        public List<Tag> getTagsByPoi(int PoiId)
+        public List<PoiTags> getTagsByPoi(int PoiId)
         {
             return repoPoi.GetTags(PoiId);
+        }
+        public void DeleteTagFromPoi(int PoiTagsId)
+        {
+            repoPoi.DeleteTag(PoiTagsId);
         }
 
         #endregion
@@ -234,9 +261,30 @@ namespace BusinessLogic.Services
         {
             return repoTag.Insert(tag);
         }
+        
+        
 
         #endregion
 
+
+
+        #region PoiTags
+
+        public PoiTags getPoiTag(int TagId,int PoiId, string UserId)
+        {
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                return context.PoiTags.Where(p => p.EigenaarId == UserId).Where(p => p.PoiId == PoiId).Where(p => p.TagId == TagId).FirstOrDefault();
+            }
+        }
+        public void DeletePoiTag(PoiTags poitag)
+        {
+            repoPoiTags.Delete(poitag);
+            repoPoiTags.SaveChanges();
+        }
+
+
+        #endregion
 
 
         #region Benodigdheden
@@ -271,27 +319,20 @@ namespace BusinessLogic.Services
             }
         }
 
-        public List<ApplicationUser> GetUserNext50SortAZ(int from)
+        public List<ApplicationUser> GetUserNext30SortAZ(int from,string search)
         {
             using (ApplicationDbContext context = new ApplicationDbContext())
             {
-                return context.Users.OrderBy(i => i.UserName).Skip(from).Take(30).ToList();
+                context.Configuration.LazyLoadingEnabled = false;
+                return context.Users.OrderBy(i => i.UserName).Include(a => a.Activiteiten).Include(a => a.Boeken).Include(a => a.Routes).Where(u => u.UserName.Contains(search) || u.Voornaam.Contains(search) || u.Naam.Contains(search)).Skip(from).Take(30).ToList();
             }
         }
-
-        public List<ApplicationUser> GetUserSearch(string query)
+        public List<ApplicationUser> GetUserNext30SortZA(int from,string search)
         {
             using (ApplicationDbContext context = new ApplicationDbContext())
             {
-                return context.Users.OrderBy(i => i.UserName).Take(50).Where(u => u.UserName.Contains(query) || u.Voornaam.Contains(query) || u.Naam.Contains(query)).ToList();
-            }
-        }
-
-        public List<ApplicationUser> GetUserNext50SortZA(int from)
-        {
-            using (ApplicationDbContext context = new ApplicationDbContext())
-            {
-                return context.Users.OrderByDescending(i => i.UserName).Skip(from).Take(30).ToList();
+                context.Configuration.LazyLoadingEnabled = false;
+                return context.Users.OrderByDescending(i => i.UserName).Include(a => a.Activiteiten).Include(a => a.Boeken).Include(a => a.Routes).Where(u => u.UserName.Contains(search) || u.Voornaam.Contains(search) || u.Naam.Contains(search)).Skip(from).Take(30).ToList();
             }
         }
         // TODO: soft delete 
@@ -360,9 +401,6 @@ namespace BusinessLogic.Services
         }
 
         #endregion
-
-
-
 
 
 

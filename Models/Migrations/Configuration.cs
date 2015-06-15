@@ -19,7 +19,8 @@ namespace Models.Migrations
 
         protected override void Seed(Models.MVC_Models.ApplicationDbContext context)
         {
-
+            if (System.Diagnostics.Debugger.IsAttached == false)
+                System.Diagnostics.Debugger.Launch();
             #region ROLES
 
             string roleSuperAdmin = "SuperAdministrator";
@@ -420,14 +421,8 @@ namespace Models.Migrations
                     Telefoon = "+32 50 44 87 43",
                     Postcode = 8000,
                     MinLeeftijd = 9,
-                    MaxLeeftijd = 12,
-                    Tags = new List<Tag>()
-                    {
-                        tags[0],
-                        tags[1],
-                        tags[2],
-                        tags[3]
-                    }
+                    MaxLeeftijd = 12
+                    
                 };
                 Poi poi2 = new Poi()
                 {
@@ -442,15 +437,34 @@ namespace Models.Migrations
                     Telefoon = "+32 50 44 87 43",
                     MinLeeftijd = 11,
                     MaxLeeftijd = 11,
-                    Tags = new List<Tag>(){
-                        tags[4]
-
-                    }
+                    
                     
                 };
                 context.Poi.Add(poi1);
                 context.Poi.Add(poi2);
                 context.SaveChanges();
+
+                poi1.Tags = new List<PoiTags>()
+                    {
+                        new PoiTags(){
+                            TagId = tags[0].ID,
+                            PoiId = poi1.ID,
+                            EigenaarId = context.Users.First().Id
+                        },
+                        new PoiTags(){
+                            TagId = tags[1].ID,
+                            PoiId = poi1.ID,
+                            EigenaarId = context.Users.First().Id
+                        }
+                    };
+                poi2.Tags = new List<PoiTags>()
+                    {
+                        new PoiTags(){
+                            TagId = tags[4].ID,
+                            PoiId = poi1.ID,
+                            EigenaarId = context.Users.First().Id
+                        }
+                    };
 
 
                 Activiteit activiteit2 = new Activiteit()

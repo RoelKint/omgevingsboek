@@ -1,4 +1,14 @@
 ﻿@model Models.PresentationModels.GebruikersPM
+
+<script>
+    vanaf = @ViewBag.vanaf;
+    desc = @ViewBag.desc;
+    filter = @ViewBag.filter
+    search = "";
+    pagina = "Gebruikers";
+
+</script>
+
 @{
     ViewBag.Title = "Gebruikers";
     int meer = ViewBag.vanaf+30;
@@ -14,8 +24,6 @@
     int desc = ViewBag.desc;
 }
 
-
-
 <div class="col-xs-12 col-md-12 nav">
     <a href="../Admin">&lt;&lt; Terug naar overzicht</a>
 </div>
@@ -30,62 +38,72 @@
         <button onclick="location.href='../Admin/Gebruikers?vanaf=@meer&desc=@desc'"><span class="glyphicon glyphicon-chevron-right"></span> Volgende Pag.</button>
         <button><span class="glyphicon glyphicon-remove-circle"></span> Verwijderen</button>
         <!-- <button><span class="glyphicon glyphicon-pencil"></span> Bewerken</button>-->
-        <input type="text" placeholder="Zoeken" id="ZoekenGebruikers" />
+        <input type="text" placeholder="Zoeken" id="Zoeken" />
+        <input form="formA" name="desc" type="hidden" value="0" />
+        <input form="formA" name="vanaf" type="hidden" value="@ViewBag.vanaf" />
     </div>
 
     <form id="formA" method="post" action="Delete">
-        <input hidden name="vanaf" value="@ViewBag.vanaf" />
-        <input hidden name="desc" value="@ViewBag.desc" />
-        <table class="table table-hover">
+
+
+
+        <table class="AdminTable table table-hover" id="tableGebruikers">
             <colgroup>
                 <col class="col-lg-1 col-xs-1 col-md-1" />
                 <col class="col-lg-2 col-xs-2 col-md-2" />
-                <col class="col-lg-7 col-xs-7 col-md-7" />
+                <col class="col-lg-2 col-xs-2 col-md-2" />
+                <col class="col-lg-6 col-xs-7 col-md-4" />
                 <col class="col-lg-2 col-xs-2 col-md-2" />
             </colgroup>
-
-            <tr>
-                <th><span class="glyphicon glyphicon-th-list"></span></th>
-                <th>Naam</th>
-                <th>Activiteiten</th>
-                <th>Opties</th>
-
-            </tr>
-
-            @foreach (Models.PresentationModels.UserActivities item in Model.UserActivities)
-            {
+            <thead>
                 <tr>
-                    <td><input type="checkbox" name="checkbox" value="@item.User.Naam"></td>
-                    <td>@item.User.Naam @item.User.Voornaam</td>
-                    <td>
-                        @foreach (var itempje in item.Activiteiten)
-                        {
-                            if (itempje.Equals(item.Activiteiten.Last()))
-                            {
-                                <a href="#">@itempje.Naam</a>
-                            }
-                            else
-                            {
-                                <a href="#">@itempje.Naam</a>@(',')
-                            }
-                        }
-                    </td>
-                    <td>
-                        <div class="displayInlineButtons">
-                            <button><span class="glyphicon glyphicon-remove"></span></button>
-                            <button><span class="glyphicon glyphicon-pencil"></span></button>
-                        </div>
-                    </td>
+                    <th><span class="glyphicon glyphicon-th-list"></span></th>
+                    <th>Naam</th>
+                    <th>Email</th>
+                    <th>Activiteiten</th>
+                    <th>Opties</th>
+
+
                 </tr>
-            }
+            </thead>
+            <tbody>
+                @foreach (Models.PresentationModels.UserActivities item in Model.UserActivities)
+                {
+                    <tr>
+                        <td><input type="checkbox" name="checkbox" value="@item.User.Id"></td>
+                        <td>@item.User.Naam @item.User.Voornaam</td>
+                        <td>@item.User.UserName</td>
+                        <td>
+                            @foreach (var itempje in item.Activiteiten)
+                            {
+                                if (itempje.Equals(item.Activiteiten.Last()))
+                                {
+                                    <a href="#">@itempje.Naam</a>
+                                }
+                                else
+                                {
+                                    <a href="#">@itempje.Naam</a>@(',')
+                                }
+                            }
+                        </td>
+                        <td>
+                            <div class="displayInlineButtons">
+                                <button><span class="glyphicon glyphicon-remove"></span></button>
+                                <button><span class="glyphicon glyphicon-pencil"></span></button>
+                            </div>
+                        </td>
+                    </tr>
+
+                }
+            </tbody>
         </table>
     </form>
 
     <h2>Uitnodigingen</h2>
     
     
-    <form id="formA" method="post" action="Delete">
-        <table class="table table-hover">
+    <form id="formB" method="post" action="Delete">
+        <table class=" table table-hover">
             <colgroup>
                 <col class="col-lg-1 col-xs-1 col-md-1" />
                 <col class="col-lg-2 col-xs-2 col-md-2" />
@@ -130,4 +148,6 @@
 
 
 <script src="~/Content/js/ZoekScript.js"></script>
+<script type="text/javascript" src="~/Content/js/adminformscript.js"></script>
+
 @Html.Partial("_GebrPartial")

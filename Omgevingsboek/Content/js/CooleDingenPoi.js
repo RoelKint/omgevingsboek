@@ -28,6 +28,46 @@ $().ready(function () {
                     
                 }
             });
+
+            
+
+
+
+            $('.NewPoi').click(function () {
+                var lijst = $('.poilist');
+                lijst.children('div').each(function () {
+                    //this.css("position", "relative");
+                    $(this).css("position", "relative");
+                    $(this).css("visibility", "visible");
+                    $(this).children('a').css("position", "relative");
+                });
+                $('.MorePoi').remove();
+            });
+
+            $.each($(".tags div"), function () {
+                $(this).find(".removeclick").hide();
+                $(this).mouseover(function () {
+                    $(this).find(".removeclick").show();
+                });
+                $(this).mouseout(function () {
+                    $(this).find(".removeclick").hide();
+                });
+            });
+
+            $(".removeclick").click(true, function () {
+                var element = $(this)[0];
+                $.ajax({
+                    type: "GET",
+                    url: "RemoveTag" + "?TagId=" + $(this)[0].id + "&PoiId=" + $('#poiId').val(),
+                    success: function (data) {
+                        if (data == "OK") {
+                            $(element).parent().remove();
+                        }
+
+                    }
+                });
+            });
+
         });
         
         
@@ -58,7 +98,7 @@ function refreshTags() {
         tags = jQuery.parseJSON(data);
         console.log(tags); 
         for (i = 0; i < tags.length; i++) {
-            tagsTekst = tagsTekst + '<span>' + tags[i] + '</span>'
+            tagsTekst = tagsTekst + '<span>' + tags[i].Tag.Naam + '</span>'
         }
 
         var par = input.parent();
@@ -70,4 +110,5 @@ function refreshTags() {
         $('.addTag').click(false, function () { allesRondInput() });
     });
     
-    }
+}
+

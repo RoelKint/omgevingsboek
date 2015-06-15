@@ -9,47 +9,55 @@
     <div class="col-xs-12 col-md-12">
         <h2>@Model.poi.Naam</h2>
         @*<ol class="breadcrumb list-inline">
-            <li><a href="@Url.Action("Index","Home")"><span class="glyphicon glyphicon-home"></span></a></li>
-            <li class="active">POI: @Model.poi.Naam</li>
-        </ol>*@
+                <li><a href="@Url.Action("Index","Home")"><span class="glyphicon glyphicon-home"></span></a></li>
+                <li class="active">POI: @Model.poi.Naam</li>
+            </ol>*@
         <input type="text" id="poiId" style="visibility:hidden" value="@Model.poi.ID" />
-        </div>
+    </div>
     <div class="col-xs-12 col-sm-5 col-md-4">
         <div class="ImageCrop img-responsive  img-rounded" style="background:url('@Model.poi.Afbeelding'); background-position: center center;">
         </div>
     </div>
     <div class="col-xs-12 col-sm-7 col-md-8">
         <ul style="list-style-type:none; float:left;">
-    <li><b>Gegevens</b></li>
-    <li>
-        gsm/tel: @if (Model.poi.Telefoon == null)
+            <li><b>Gegevens</b></li>
+            <li>
+                gsm/tel: @if (Model.poi.Telefoon == null)
                 { @("Niet opgegeven") }
                 else
                 { @Model.poi.Telefoon}
-    </li>
-    <li>
-        email: @if (Model.poi.Email == null)
+            </li>
+            <li>
+                email: @if (Model.poi.Email == null)
                 { @("Niet opgegeven") }
                 else
                 { @Model.poi.Email}
-    </li>
-    <li>Adres:  @Model.poi.Straat @Model.poi.Nummer, @Model.poi.Postcode @Model.poi.Gemeente</li>
-    @if (Model.poi.MinLeeftijd != null)
+            </li>
+            <li>Adres:  @Model.poi.Straat @Model.poi.Nummer, @Model.poi.Postcode @Model.poi.Gemeente</li>
+            @if (Model.poi.MinLeeftijd != null)
             {
-        <li>doelgroep: @Model.poi.MinLeeftijd tot @Model.poi.MaxLeeftijd</li>}
+                <li>doelgroep: @Model.poi.MinLeeftijd tot @Model.poi.MaxLeeftijd</li>}
 
-    <li><b>Tags</b></li>
-    <li class="tags">
-        @foreach (var item in Model.poi.Tags)
-        { <span>@item.Naam</span>
-
-        }<span class="addTag glyphicons glyphicons-plus">&#x002b</span></li>
-    </ul>
+            <li><b>Tags</b></li>
+            <li class="tags">
+                
+                @foreach (var item in Model.poi.Tags)
+                {
+                    <div>
+                        @*<a href="haaa"  class="glyphicon glyphicon-remove-circle removeclick" ></a>*@
+                        <span class="glyphicon glyphicon-remove-circle removeclick" id="@item.Tag.ID"></span>
+                        <span>@item.Tag.Naam</span>
+                    </div>
+                }
+                
+                <span class="addTag glyphicons glyphicons-plus">&#x002b</span>
+            </li>
+        </ul>
 
     </div>
     <div class="col-xs-12 col-md-12">
         <h2>Activiteiten</h2>
-        <div class="row books" id="mijnActiviteiten">
+        <div class="row books poilist" id="mijnActiviteiten">
             @if (Model.Activiteiten.Count > 4)
             {
                 List<Models.OmgevingsBoek_Models.Activiteit> lijstje = Model.Activiteiten.Take(4).ToList();
@@ -57,22 +65,54 @@
                 {
                     if (item.Equals(lijstje.Last()))
                     {
-                        <div class="col-sm-6 col-md-3 NewItems" data-reactid=".0.1:0">
-                            <a href="Boeken?vanaf=0" style="@if(@item.AfbeeldingNaam != null) { @("background:url(@activ.AfbeeldingNaam)");
-                                                    }" data-reactid=" .0.1:0.0">
-                                <span class="caption" data-reactid=".0.1:0.0.0">More</span>
-                            </a>
+                        <div class="MorePoi col-sm-6 col-md-3 NewItems" data-reactid=".0.1:0">
+                            @if (item.AfbeeldingNaam == null)
+                            {
+                                <a class="NewPoi">
+                                    <span class="caption">more</span>
+                                </a>
+                            }
+                            else
+                            {
+                                <a class="NewPoi" style="background:url(@item.AfbeeldingNaam)">
+                                    <span class="caption">more</span>
+                                </a>
+                            }
                         </div>
                     }
                     else
                     {
-                        <div class="MoreItems col-sm-6 col-md-3" data-reactid=".0.1:0">
-                            <a href="Boeken?vanaf=0" style="@if(@item.AfbeeldingNaam != null) { @("background:url(@activ.AfbeeldingNaam)");
-                                                    }" data-reactid=".0.1:0.0">
-                                <span class="caption" data-reactid=".0.1:0.0.0">@item.Naam</span>
-                            </a>
+                        <div class="MoreItems col-sm-6 col-md-3">
+                            @if (item.AfbeeldingNaam == null)
+                            {
+                                <a href="Boeken?vanaf=0">
+                                    <span class="caption">@item.Naam</span>
+                                </a>
+                            }
+                            else
+                            {
+                                <a href="Boeken?vanaf=0" style="background:url(@item.AfbeeldingNaam)">
+                                    <span class="caption" >@item.Naam</span>
+                                </a>
+                            }
                         </div>
                     }
+                }
+                List<Models.OmgevingsBoek_Models.Activiteit> lijstjes = Model.Activiteiten.Skip(3).ToList();
+                foreach (var item in lijstjes)
+                {
+                    <div class="MoreItems col-sm-6 col-md-3">
+                        @if (item.AfbeeldingNaam == null)
+                        {
+                            <a href="Boeken?vanaf=0" style="position:absolute;">
+                                <span class="caption">@item.Naam</span>
+                            </a>
+                        } else {
+                            <a href="Boeken?vanaf=0" style="position:absolute; background:url(@item.AfbeeldingNaam)">
+                                <span class="caption" >@item.Naam</span>
+                            </a>
+                        }
+                    </div>
                 }
             }
             else
@@ -80,21 +120,29 @@
                 foreach (var activ in Model.Activiteiten)
                 {
 
-                    <div class="col-sm-6 col-md-3" data-reactid=".0.1:0">
-                        <a href="Activities?vanaf=0" style="@if(@activ.AfbeeldingNaam != null) { @("background:url(@activ.AfbeeldingNaam)");
-                                                    }" data-reactid=".0.1:0.0">
-                            <span class="caption" data-reactid=".0.1:0.0.0">@activ.Naam</span>
-                        </a>
-                        
+                    <div class="col-sm-6 col-md-3">
+                        @if (activ.AfbeeldingNaam == null)
+                        {
+                            <a href="Boeken?vanaf=0" style="position:absolute;">
+                                <span class="caption">@activ.Naam</span>
+                            </a>
+                        }
+                        else
+                        {
+                            <a href="Boeken?vanaf=0" style="position:absolute;background:url(@activ.AfbeeldingNaam)">
+                                <span class="caption" >@activ.Naam</span>
+                            </a>
+                        }
+
                     </div>
                 }
             }
 
-            </div>
-
-
-
         </div>
+
+
+
     </div>
+</div>
 
 <script src="~/Content/js/CooleDingenPoi.js"></script>

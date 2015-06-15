@@ -3,13 +3,13 @@
 json.forEach(function (poi) {
     //console.log(poi.poi.Tags);
     joinedtags = poi.poi["Tags"].map(function (tag) {
-        return tag.Naam;
+        return tag.Tag.Naam;
     });
     poi.poi["OrigTags"] = poi.poi["Tags"];
     poi.poi["Tags"] = joinedtags;
 });
 
-console.log(json);
+//console.log(json);
 
 $('#searchPoi').bind('input', function () {
     filter($(this).val());
@@ -76,14 +76,9 @@ function filter(query) {
                 if (el.poi[prop] == null) { matched = false; }
                 if (typeof el.poi[prop] == "object") {
                     return el.poi[prop].some(function (propEl) {
-                        //console.log("Checking " + propEl);
                         var fuse = new Fuse([propEl], options);
                         var res = fuse.search(val)
                         if (res[0] != null) {
-                            console.log(propEl);
-                            console.log(val);
-                            console.log("<<" + el.poi["Naam"] + ">>");
-                            console.log("\n");
                             return true;
                         } else {
                             return false;
@@ -104,7 +99,6 @@ function filter(query) {
     console.log(filtered);
     //Zoek op texts die geen property matchers zijn
     if (query.replace(matcher, "").replace(" ", "").trim() != "") {
-        console.log(query.replace(matcher, "").replace(" ", ""));
         filtered = filtered.filter(function (el) {
             var fuse = new Fuse([el.poi.Naam], options);
             var res = fuse.search(query.replace(matcher, "").replace(" ", "").trim());
@@ -139,7 +133,7 @@ function filter(query) {
 
         var context = {
             title: home.poi.Naam,
-            tags: home.poi.OrigTags.map(function(el){return "<span>" + el.Naam + "</span>"}).join(" "),
+            tags: home.poi.OrigTags.map(function(el){return "<span>" + el.Tag.Naam + "</span>"}).join(" "),
             image: home.poi.Afbeelding,
             distance: distance,
             city: home.poi.Gemeente,
@@ -163,8 +157,6 @@ function filter(query) {
     })
 
     listLoaded = true;
-
-    //$("#searchPoi").trigger("input");
 }
 
 filter("");

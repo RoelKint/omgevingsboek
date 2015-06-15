@@ -90,29 +90,31 @@
     });
 
     $('.NewAct').click(function () {
-        console.log("aoi");
-        $('actlist')
-    });
-    $('.NewBoek').click(function () {
-        console.log($('.booklist'));
-        var lijst = $('.booklist');
-        console.log(lijst);
-        var i = 0;
+        var lijst = $('.actlist');
         lijst.children('div').each(function () {
-            i += 1;
-            var j = (i % 4);
-            console.log(j);
             //this.css("position", "relative");
-            console.log($(this).children('a').offset());
 
             $(this).css("position", "relative");
-            console.log($(this).children('a').position());
             $(this).css("visibility", "visible");
             $(this).children('a').css("position", "relative");
-            $('.NewItems').remove();
-            console.log($(this).css("position", "relative"));
-
+            
         });
+        $('.MoreAct').remove();
+        myscroll = $('#midA');
+        console.log(myscroll);
+        myscroll.scrollTop(myscroll.get(0).scrollHeight);
+        console.log("jaja");
+
+    });
+    $('.NewBoek').click(function () {
+        var lijst = $('.booklist');
+        lijst.children('div').each(function () {
+            //this.css("position", "relative");
+            $(this).css("position", "relative");
+            $(this).css("visibility", "visible");
+            $(this).children('a').css("position", "relative");
+        });
+        $('.MoreBoek').remove();
     });
     function sleep(milisec) {
         var e = new Date().getTime() + (milisec * 10);

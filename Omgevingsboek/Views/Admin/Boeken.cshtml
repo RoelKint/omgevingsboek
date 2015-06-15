@@ -1,5 +1,14 @@
 ﻿@model List<Models.OmgevingsBoek_Models.Boek>
 
+<script>
+    vanaf = @ViewBag.vanaf;
+    desc = @ViewBag.desc;
+    search = "";
+    filter = @ViewBag.filter;
+    pagina = "Boeken";
+
+</script>
+
 @{
     ViewBag.Title = "Boeken";
     int meer = ViewBag.vanaf + 30;
@@ -14,10 +23,12 @@
     }
     int desc = ViewBag.desc;
 }
+
+
 <div class="col-xs-12 col-md-12 nav">
     <a href="../Admin">&lt;&lt; Terug naar overzicht</a>
 </div>
-<div class="adminList col-xs-6 col-md-9 content" id="content">
+<div class="adminList col-xs-12 col-md-12 content" id="content">
     <h2>Boeken</h2>
     <div class="col-xs-6 col-md-9">
         <span style="font-weight:bold">@ViewBag.vanaf - @meer</span>
@@ -28,13 +39,13 @@
         <button onclick="location.href='../Admin/Boeken?vanaf=@meer&desc=@desc'"><span class="glyphicon glyphicon-chevron-right"></span> Volgende Pag.</button>
         <button><span class="glyphicon glyphicon-remove-circle"></span> Verwijderen</button>
         <!--<button><span class="glyphicon glyphicon-pencil"></span> Bewerken</button>-->
-        <input type="text" placeholder="Zoeken" />
+        <input type="text" placeholder="Zoeken" id="Zoeken" />
+        <input form="formA" name="desc" type="hidden" value="0" />
+        <input form="formA" name="vanaf" type="hidden" value="@ViewBag.vanaf" />
     </div>
 
     <form id="formA" method="post" action="DeleteBoeken">
-        <input hidden name="vanaf" value="@ViewBag.vanaf" />
-        <input hidden name="desc" value="@ViewBag.desc" />
-        <table class="table table-hover">
+        <table class="AdminTable table table-hover">
             <colgroup>
                 <col class="col-lg-1 col-xs-1 col-md-1" />
                 <col class="col-lg-3 col-xs-3 col-md-3" />
@@ -42,43 +53,48 @@
                 <col class="col-lg-3 col-xs-3 col-md-3" />
                 <col class="col-lg-2 col-xs-2 col-md-2" />
             </colgroup>
-
-
-            <tr>
-                <th><span class="glyphicon glyphicon-th-list"></span></th>
-                <th>Naam</th>
-                <th>Eigenaar</th>
-                <th>Activiteiten</th>
-                <th>Opties</th>
-            </tr>
-            @foreach (var boe in Model)
-            {
+            <thead>
                 <tr>
-                    <td><input form="formA" name="BoekenToDelete" value="@boe.Id" type="checkbox" /></td>
-                    <td>@boe.Naam</td>
-                    <td>@boe.Eigenaar.Email</td>
-                    <td>
-                        @foreach (var act in boe.Activiteiten)
-                        {
-                            if (act.Equals(boe.Activiteiten.Last()))
-                            {
-                                <a href="#">@act.Naam</a>
-                            }
-                            else
-                            {
-                                <a href="#">@act.Naam</a>@(',')
-                            }
-                        }
-                    </td>
-                    <td>
-                        <div class="displayInlineButtons">
-                            <button><span class="glyphicon glyphicon-remove-circle"></span></button>
-                            <button><span class="glyphicon glyphicon-pencil"></span></button>
-                        </div>
-                    </td>
+                    <th><span class="glyphicon glyphicon-th-list"></span></th>
+                    <th><span>Naam</span></th>
+                    <th><span>Eigenaar</span></th>
+                    <th><span>Activiteiten</span></th>
+                    <th><span>Opties</span></th>
                 </tr>
-            }
+            </thead>
+            <tbody>
+                @foreach (var boe in Model)
+                {
+                    <tr>
+                        <td><input form="formA" name="BoekenToDelete" value="@boe.Id" type="checkbox" /></td>
+                        <td>@boe.Naam</td>
+                        <td>@boe.Eigenaar.Email</td>
+                        <td>
+                            @foreach (var act in boe.Activiteiten)
+                            {
+                                if (act.Equals(boe.Activiteiten.Last()))
+                                {
+                                    <a href="#">@act.Naam</a>
+                                }
+                                else
+                                {
+                                    <a href="#">@act.Naam</a>@(',')
 
+
+                                }
+                            }
+
+                                        <
+
+                                    </td>
+                                    <td>
+                                        <div class="displayInlineButtons">
+                                            <button><span class="glyphicon glyphicon-remove-circle"></span></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                }
+            </tbody>
         </table>
     </form>
     <div id="buttonsAdOnder">
@@ -87,3 +103,5 @@
         <button><span class="glyphicon glyphicon-remove-circle"></span> Verwijderen</button>
     </div>
 </div>
+<script src="~/Content/js/ZoekScript.js"></script>
+<script type="text/javascript" src="~/Content/js/adminformscript.js"></script>

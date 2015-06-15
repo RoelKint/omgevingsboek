@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Models.MVC_Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,7 +12,7 @@ namespace Models.OmgevingsBoek_Models
         public int ID { get; set; }
         public string Naam { get; set; }
         public virtual List<Activiteit> Activiteiten { get; set; }
-        public virtual List<Poi> Pois { get; set; }
+        public virtual List<PoiTags> Pois { get; set; }
         public bool IsDeleted { get; set; }
 
     }

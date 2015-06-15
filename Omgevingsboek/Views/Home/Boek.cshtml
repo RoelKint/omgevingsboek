@@ -5,30 +5,43 @@
 }
 
 <div class="col-xs-6 col-md-9 content" id="content">
-    <div class="row books" id="mijnBoeken"> 
-        <h3 class="rowheader">@Model.Naam</h3>
-        @*<ol class="breadcrumb list-inline">
-            <li><a href="@Url.Action("Index","Home")"><span class="glyphicon glyphicon-home"></span></a></li>
-            <li class="active">Boek: @Model.Naam</li>
-        </ol>*@
-        @foreach (Models.OmgevingsBoek_Models.Activiteit activiteit in Model.Activiteiten)
-        {
-            <div class="col-sm-6 col-md-3">
-                <a href="#">
-                    <img class="img-responsive" src="@activiteit.AfbeeldingNaam" />
-                    <span class="caption">@activiteit.Naam</span>
-                </a>
-                <span class="buttons">
-                    <a href="/home/Activiteit?id=@activiteit.Id&action=share" class="expand btn btn-default" type="button"><span class="glyphicon glyphicon-share"></span></a>
-                    <a href="/home/Activiteit?id=@activiteit.Id&action=public" class="expand btn btn-default" type="button"><span class="glyphicon glyphicon-eye-close"></span></a>
-                    <a href="/home/Activiteit?id=@activiteit.Id&action=settings" class="expand btn btn-default" type="button"><span class="glyphicon glyphicon-cog"></span></a>
-                </span>
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#activiteiten" aria-controls="activiteiten" role="tab" data-toggle="tab">Activiteiten</a></li>
+        <li role="presentation"><a href="#routes" aria-controls="routes" role="tab" data-toggle="tab">Routes</a></li>
+    </ul>
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane fade in active" id="activiteiten">
+            <div class="row books" id="mijnBoeken">
+                <h3 class="rowheader">@Model.Naam</h3>
+                @*<ol class="breadcrumb list-inline">
+                        <li><a href="@Url.Action("Index","Home")"><span class="glyphicon glyphicon-home"></span></a></li>
+                        <li class="active">Boek: @Model.Naam</li>
+                    </ol>*@
+                @foreach (Models.OmgevingsBoek_Models.Activiteit activiteit in Model.Activiteiten)
+                {
+                    <div class="col-sm-6 col-md-3">
+                        <a href="#">
+                            <img class="img-responsive" src="@activiteit.AfbeeldingNaam" />
+                            <span class="caption">@activiteit.Naam</span>
+                        </a>
+                        <span class="buttons">
+                            <a href="/home/Activiteit?id=@activiteit.Id&action=share" class="expand btn btn-default" type="button"><span class="glyphicon glyphicon-share"></span></a>
+                            <a href="/home/Activiteit?id=@activiteit.Id&action=public" class="expand btn btn-default" type="button"><span class="glyphicon glyphicon-eye-close"></span></a>
+                            <a href="/home/Activiteit?id=@activiteit.Id&action=settings" class="expand btn btn-default" type="button"><span class="glyphicon glyphicon-cog"></span></a>
+                        </span>
+                    </div>
+                }
+                <div class="col-sm-6 col-md-3">
+                    <a href="#" class="toggleActivityForm">
+                        <span class="caption"><span class="glyphicon glyphicon-plus"></span> Activiteit toevoegen</span>
+                    </a>
+                </div>
             </div>
-        }
-        <div class="col-sm-6 col-md-3">
-            <a href="#" class="toggleActivityForm">
-                <span class="caption"><span class="glyphicon glyphicon-plus"></span> Activiteit toevoegen</span>
-            </a>
+        </div>
+        <div role="tabpanel" class="tab-pane" id="routes">
+            <div class="row books" id="mijnBoeken">
+                <h3 class="rowheader">Routes</h3>
+            </div>
         </div>
     </div>
 </div>
@@ -77,6 +90,7 @@
             </div>
 
         </div>
+
         <div class="row">
             <div role="tabpanel" class="col-md-12">
                 <!-- Nav tabs -->
@@ -85,7 +99,7 @@
                     <li role="presentation"><a href="#media" aria-controls="media" role="tab" data-toggle="tab">Media</a></li>
                 </ul>
                 <!-- Tab panes -->
-                @Html.Hidden("BoekId",Model.Id)
+                @Html.Hidden("BoekId", Model.Id)
                 <div class="tab-content">
                     <div role="tabpanel" class="tab-pane fade in active" id="basis">
                         <div class="row">
@@ -142,16 +156,109 @@
                         </div>
                     </div>
                     <div role="tabpanel" class="tab-pane fade" id="media">
-                        <img src="http://cdn.yourepeat.com/media/gif/000/910/431/a34fc2a47ddc1137b324afa006daac9d.gif" />
-                             amai mijn gedacht!</div>
+                        <div class="upload_video">
+                            <span id="signinButton" class="pre-sign-in">
+                                <!-- IMPORTANT: Replace the value of the <code>data-clientid</code>
+                                attribute in the following tag with your project's client ID. -->
+                                <span class="g-signin"
+                                      data-callback="signinCallback"
+                                      data-clientid="373280989230-i785digcek4jpfhtg802a4el59jsfv1t.apps.googleusercontent.com"
+                                      data-cookiepolicy="single_host_origin"
+                                      data-scope="https://www.googleapis.com/auth/youtube.upload https://www.googleapis.com/auth/youtube">
+                                </span>
+                            </span>
+
+                            <div class="post-sign-in">
+                                <div>
+                                    <img id="channel-thumbnail">
+                                    <span id="channel-name"></span>
+                                </div>
+
+                                <div>
+                                    <label for="title">Benaming:</label>
+                                    <input id="title" type="text" value="Default Title">
+                                </div>
+                                <div>
+                                    <label for="description">Beschrijving:</label>
+                                    <textarea id="description"></textarea>
+                                </div>
+                                <div>
+                                    <select hidden id="privacy-status">
+                                        <option>public</option>
+                                        <option selected>unlisted</option>
+                                        <option>private</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <input input type="file" id="file" class="button" accept="video/*">
+                                    <button id="button">Video uploaden</button>
+                                    <div class="during-upload">
+                                        <p><span id="percent-transferred"></span>% done (<span id="bytes-transferred"></span>/<span id="total-bytes"></span> bytes)</p>
+                                        <progress id="upload-progress" max="1" value="0"></progress>
+                                    </div>
+                                    <div class="post-upload">
+                                        <input disabled name="video" id="video-id" />
+                                        <p>De video is geupload. (<a id="video-url" href="#"></a>)</p>
+                                        <ul hidden id="post-upload-status"></ul>
+                                        <div id="player"></div>
+                                    </div>
+                                </div>
+                                <script src="//apis.google.com/js/client:plusone.js"></script>
+                                <script src="~/Scripts/cors_upload.js"></script>
+                                <script src="~/Scripts/upload_video.js"></script>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <button type="submit" class="btn btn-success form-control" data-loading-text='<i class="fa fa-spinner fa-pulse"></i>' >
+                            <span class="glyphicon glyphicon-ok" />
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<div class="col-xs-6 col-md-9 content" id="routeForm" style="
+  position: absolute;
+  height: 99%;
+  top:0;
+  overflow-y:auto !important; /*fuck jquery*/
+  bottom:0;
+  display: none;
+  background-color: white;
+    -webkit-transition: none;
+    -moz-transition: none;
+    -ms-transition: none;
+    -o-transition: none;
+">
+    @using (Html.BeginForm("AddRoute", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="row">
+            <div class="form-group col-md-11">
+                <input type="text" name="naam" class="form-control" />
+            </div>
+            <div class="form-group col-md-1">
+                <button class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <label>Weg</label>
+            </div>
+            <div class="col-md-4">
+                <label>Geschatte tijdsduur: <span id="timeEstimate">4u</span></label>
+            </div>
+            <div class="col-md-4">
+                <label>Totale kostprijs per leerling: <span id="costEstimate">€10</span></label>
             </div>
         </div>
         <div class="row">
             <div class="form-group col-md-12">
-                <button type="submit" class="btn btn-success form-control" data-loading-text='<i class="fa fa-spinner fa-pulse"></i>'>
-                    <span class="glyphicon glyphicon-ok" />
-            </button>
+                <button class="btn btn-success form-control"><span class="glyphicon glyphicon-ok"></span></button>
             </div>
         </div>
     }
@@ -270,20 +377,18 @@
     function deferListener(method) {
         console.log("lel");
         if (typeof listLoaded !== 'undefined' && listLoaded == true) {
+            method();
+            listLoaded = false;
+            $('#searchPoi').bind('input', function () {
                 method();
-                listLoaded = false;
-                $('#searchPoi').bind('input', function () {
-                    method();
-                });
+            });
         } else
-            setTimeout(function () { deferListener(method)}, 50);
+            setTimeout(function () { deferListener(method) }, 50);
     }
 
     deferListener(setListItemListeners);
-
     initSliders();
 </script>
 
 @*@Html.Partial("_PoiPartial", Model)*@
-
 @{ Html.RenderAction("PoiPartial", "Home"); }
