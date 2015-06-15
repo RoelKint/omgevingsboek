@@ -263,7 +263,7 @@ function removeWaypointFromList() {
         removeMarker(list.selectedIndex);
         list.remove(list.selectedIndex);
     }
-    calculateRoute();
+    //calculateRoute();
 }
 
 function removeMarker(index) {
@@ -276,16 +276,16 @@ $(document).ready(function () {
         var $op = $('#waypointsList option:selected'),
             $this = $(this);
         if ($op.length) {
-            if ($this.val() == '↑') {
+            if ($this.attr("id") == "moveWaypointUp") {
                 var oldindex = $("#waypointsList")[0].selectedIndex;
                 markerArray.move(oldindex, oldindex - 1);
                 $op.first().prev().before($op);
-                calculateRoute();
+                //calculateRoute();
             } else {
                 var oldindex = $("#waypointsList")[0].selectedIndex;
                 markerArray.move(oldindex, oldindex + 1);
                 $op.last().next().after($op);
-                calculateRoute();
+                //calculateRoute();
             }
         }
     });
@@ -331,4 +331,9 @@ function selectTravelMode() {
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
-google.maps.event.trigger(map, 'resize');
+
+google.maps.event.addListenerOnce(map, 'tilesloaded', function () {
+    google.maps.event.addListenerOnce(map, 'tilesloaded', function () {
+        google.maps.event.trigger(map, 'resize');
+    });
+});

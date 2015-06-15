@@ -7,7 +7,7 @@
 <div class="col-xs-6 col-md-9 content" id="content">
     <ul class="nav nav-tabs" role="tablist">
         <li role="presentation" class="active"><a href="#activiteiten" aria-controls="activiteiten" role="tab" data-toggle="tab">Activiteiten</a></li>
-        <li role="presentation"><a href="#routes" aria-controls="routes" role="tab" data-toggle="tab">Routes</a></li>
+        <li onclick="resizeMap();" role="presentation"><a href="#routes" aria-controls="routes" role="tab" data-toggle="tab">Routes</a></li>
     </ul>
     <div class="tab-content">
         <div role="tabpanel" class="tab-pane fade in active" id="activiteiten">
@@ -47,15 +47,32 @@
                     @*<input id="pac-input" class="controls" type="text" placeholder="Voer een locatie in" />*@
                     <div id="map-canvas"></div>
                 </div>
-                <div class="col-md-6 col-xs-12">
+                <div class="col-md-6 col-xs-12 col-lg-6">
                     <select size="5" id="waypointsList">
                         <option disabled>Klik op een POI om te starten</option>
                     </select>
                 </div>
+                <div class="col-md-6 col-xs-12 col-lg-6"></div>
+                <div class="col-md-6 col-xs-12 col-lg-6">
+                    <button class="btn btn-default btn-primary">
+                        Route berekenen
+                    </button>
+                    <button class="btn btn-default" id="moveWaypointUp">
+                        <span class="glyphicon glyphicon-arrow-up"></span>Naar boven
+                    </button>
+                    <button class="btn btn-default" id="moveWaypointDown">
+                        <span class="glyphicon glyphicon-arrow-down"></span>Naar beneden
+                    </button>
+                    <button onclick="removeWaypointFromList()" class="btn btn-danger">
+                        <span class="glyphicon glyphicon-remove"></span>Verwijder punt
+                    </button>
+                    <button class="btn btn-danger">
+                        <span class="glyphicon glyphicon-remove"></span>Verwijder route
+                    </button>
+                </div>
 
 
-                
-            </div>
+                </div>
         </div>
     </div>
 </div>
@@ -285,6 +302,13 @@
 
 <script>
 
+    function resizeMap() {
+        setTimeout(resizeMapActual, 500);
+    }
+    function resizeMapActual() {
+        google.maps.event.trigger(map, 'resize');
+    }
+
     var ageSlider;
     var timeSlider;
 
@@ -400,7 +424,10 @@
                        $("#waypointsList").append($('<option>',{
                            value: /*hier moet de lat & lng inkomen voor de berekening van de route*/ 0,
                            text: tagSel.poi.Naam
-                       })); 
+                       }));
+
+
+                       
                    }
                });
              
