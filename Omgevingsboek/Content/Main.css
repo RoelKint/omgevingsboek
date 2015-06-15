@@ -4,13 +4,13 @@
 .nav .breadcrumb {
   margin: 0 7px;
 }
-/*::-webkit-scrollbar{
-    width:1em;
-    height:1em;
-}*/
-/*.navbar-default {
-    height: 7%;
-}*/
+div#profile-show {
+  background-size: cover;
+  height: 8em;
+  padding-top: 2em;
+  padding-left: 1.9em;
+  border-radius: 5px;
+}
 body,
 html {
   height: 100%;
@@ -23,7 +23,8 @@ html {
   content: " ";
 }
 .form-group input.form-control,
-.form-group .input-group {
+.form-group .input-group,
+.form-group textarea {
   clear: both;
 }
 .has-error .help-block {
@@ -435,18 +436,6 @@ li.tags div {
   color: black;
   box-shadow: 0 0 5px #86cfe8;
 }
-li.tags.tagwrap{
-    position: relative;
-}
-li.tags div .removeclick{
-    position: absolute;
-    right: -5px;
-    cursor:pointer;
-    top: -4px;
-    z-index: 100;
-    color:#5cb85c;
-    text-decoration:none;
-}
 li.tags input {
   padding: 1px 4px;
   margin-right: 3px;
@@ -515,15 +504,6 @@ span.tag {
 }
 .upload_video label {
   display: block;
-}
-.upload_video input[type="text"],
-.upload_video textarea,
-.upload_video progress {
-  font-size: 0.75em;
-  width: 15em;
-  margin-bottom: 1em;
-  padding: 0.5em;
-  font-family: "Open Sans", sans-serif;
 }
 .upload_video textarea {
   height: 7em;

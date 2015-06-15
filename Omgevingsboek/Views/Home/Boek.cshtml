@@ -14,8 +14,8 @@
             <div class="row books" id="mijnBoeken">
                 <h3 class="rowheader">@Model.Naam</h3>
                 @*<ol class="breadcrumb list-inline">
-                        <li><a href="@Url.Action("Index","Home")"><span class="glyphicon glyphicon-home"></span></a></li>
-                        <li class="active">Boek: @Model.Naam</li>
+                    <li><a href="@Url.Action("Index","Home")"><span class="glyphicon glyphicon-home"></span></a></li>
+                    <li class="active">Boek: @Model.Naam</li>
                     </ol>*@
                 @foreach (Models.OmgevingsBoek_Models.Activiteit activiteit in Model.Activiteiten)
                 {
@@ -161,55 +161,59 @@
                     </div>
                     <div role="tabpanel" class="tab-pane fade" id="media">
                         <div class="upload_video">
-                            <span id="signinButton" class="pre-sign-in">
-                                <!-- IMPORTANT: Replace the value of the <code>data-clientid</code>
-                                attribute in the following tag with your project's client ID. -->
-                                <span class="g-signin"
-                                      data-callback="signinCallback"
-                                      data-clientid="373280989230-i785digcek4jpfhtg802a4el59jsfv1t.apps.googleusercontent.com"
-                                      data-cookiepolicy="single_host_origin"
-                                      data-scope="https://www.googleapis.com/auth/youtube.upload https://www.googleapis.com/auth/youtube">
-                                </span>
-                            </span>
-
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <span id="signinButton" class="pre-sign-in">
+                                        <!-- IMPORTANT: Replace the value of the <code>data-clientid</code>
+                                        attribute in the following tag with your project's client ID. -->
+                                        <span class="g-signin"
+                                              data-callback="signinCallback"
+                                              data-clientid="373280989230-i785digcek4jpfhtg802a4el59jsfv1t.apps.googleusercontent.com"
+                                              data-cookiepolicy="single_host_origin"
+                                              data-scope="https://www.googleapis.com/auth/youtube.upload https://www.googleapis.com/auth/youtube">
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>
                             <div class="post-sign-in">
-                                <div>
-                                    <img id="channel-thumbnail">
-                                    <span id="channel-name"></span>
-                                </div>
-
-                                <div>
-                                    <label for="title">Benaming:</label>
-                                    <input id="title" type="text" value="Default Title">
-                                </div>
-                                <div>
-                                    <label for="description">Beschrijving:</label>
-                                    <textarea id="description"></textarea>
-                                </div>
-                                <div>
-                                    <select hidden id="privacy-status">
-                                        <option>public</option>
-                                        <option selected>unlisted</option>
-                                        <option>private</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <input input type="file" id="file" class="button" accept="video/*">
-                                    <button id="button">Video uploaden</button>
-                                    <div class="during-upload">
-                                        <p><span id="percent-transferred"></span>% done (<span id="bytes-transferred"></span>/<span id="total-bytes"></span> bytes)</p>
-                                        <progress id="upload-progress" max="1" value="0"></progress>
+                                <div class="row">
+                                    <div class="form-group col-md-3" id="profile-show">
+                                        <span id="channel-name"></span>
                                     </div>
-                                    <div class="post-upload">
-                                        <input disabled name="video" id="video-id" />
-                                        <p>De video is geupload. (<a id="video-url" href="#"></a>)</p>
-                                        <ul hidden id="post-upload-status"></ul>
-                                        <div id="player"></div>
+                                    <div class="form-group col-md-3">
+                                            <label for="title">Benaming:</label>
+                                            <input id="title" class="form-control" type="text" value="Default Title">
                                     </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="description">Beschrijving:</label>
+                                        <textarea class="form-control" id="description"></textarea>
+                                        <div>
+                                            <select hidden id="privacy-status">
+                                                <option>public</option>
+                                                <option selected>unlisted</option>
+                                                <option>private</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="file">Uploaden:</label>
+                                        <input input type="file" id="file" class="button form-control" accept="video/*">
+                                        <button class="btn btn-default form-control" id="button">Video uploaden</button>
+                                        <div class="during-upload">
+                                            <p><span id="percent-transferred"></span>% done (<span id="bytes-transferred"></span>/<span id="total-bytes"></span> bytes)</p>
+                                            <progress id="upload-progress" max="1" value="0"></progress>
+                                        </div>
+                                        <div class="post-upload">
+                                            <input class="form-control" disabled name="video" id="video-id" />
+                                            <p>De video is geupload. (<a id="video-url" href="#"></a>)</p>
+                                            <ul hidden id="post-upload-status"></ul>
+                                            <div id="player"></div>
+                                        </div>
+                                    </div>
+                                    <script src="//apis.google.com/js/client:plusone.js"></script>
+                                    <script src="~/Scripts/cors_upload.js"></script>
+                                    <script src="~/Scripts/upload_video.js"></script>
                                 </div>
-                                <script src="//apis.google.com/js/client:plusone.js"></script>
-                                <script src="~/Scripts/cors_upload.js"></script>
-                                <script src="~/Scripts/upload_video.js"></script>
                             </div>
                         </div>
                     </div>

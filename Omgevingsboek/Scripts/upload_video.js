@@ -77,7 +77,9 @@ UploadVideo.prototype.ready = function (accessToken) {
                 console.log(response.error.message);
             } else {
                 $('#channel-name').text(response.items[0].snippet.title);
-                $('#channel-thumbnail').attr('src', response.items[0].snippet.thumbnails.default.url);
+                console.log(response.items[0]);
+                $('#profile-show').attr("style", "background-image: url('" + response.items[0].snippet.thumbnails.high.url + "');");
+                //$('#channel-thumbnail').attr('src', response.items[0].snippet.thumbnails.default.url);
 
                 $('.pre-sign-in').hide();
                 $('.post-sign-in').show();
