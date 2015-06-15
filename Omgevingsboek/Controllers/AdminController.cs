@@ -107,7 +107,7 @@ namespace Omgevingsboek.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Administrator,SuperAdministrator")]
-        public ActionResult DeleteActiviteit(List<int> ActiviteitenToDelete, int vanaf, int desc, int? filter)
+        public String DeleteActiviteit(List<int> ActiviteitenToDelete, int vanaf, int desc, int? filter)
         {
             if (!User.IsInRole("SuperAdministrator") && !User.IsInRole("Administrator")) return RedirectToAction("Activities");
             
@@ -118,7 +118,7 @@ namespace Omgevingsboek.Controllers
                 if (a == null) continue;
                 bs.DeleteActiviteit(a);
             }
-            return RedirectToAction("Activities", new { vanaf = vanaf, desc = desc, filter = filter });
+            return "ok";
         }
 
         #endregion

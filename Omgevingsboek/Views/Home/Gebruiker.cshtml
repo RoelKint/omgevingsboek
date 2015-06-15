@@ -13,11 +13,20 @@
         {
             <div class="profileImage" style="height:100px;">
 
-
+                @if (Model.User.Afbeelding == null)
+                {
+                    <div style="float:left; background:url(~/Content/img/profileDefault.png));background-position: center center;
+                         background-repeat:no-repeat;
+                         background-size:200px; margin-right:20px" class="profilePic bewProf">
+                    </div>
+                }
+                else
+                {
                 <div style="float:left; background:url(@Model.User.Afbeelding);background-position: center center;
                      background-repeat:no-repeat;
                      background-size:200px; margin-right:20px" class="profilePic bewProf">
                 </div>
+                }
                 <div id="vlakEnIcoon"><form enctype="multipart/form-data"><input type="file" class="upload" name="AfbeeldingFile" id="exampleInputFile" accept="image/x-png, image/gif, image/jpeg"></form><span class="glyphicon glyphicon-pencil"></span>  </div>
             </div>
         }

@@ -2,10 +2,10 @@
 var TopRow;
 var els;
 var currentPar;
+var currentRow;
 console.log("hoi");
-
 $().ready(function () {
-
+    resetVanaf();
     table = $('.AdminTable');
 
     TopRow = table.children('thead').children('tr').first();
@@ -30,7 +30,20 @@ $().ready(function () {
         }
     });
 
+    $('.delList').click(function () {
+        
+        var formData = new FormData();
 
+        var lijst = document.getElementsByName('listId');
+        formData.append("ActiviteitenToDelete", lijst);
+        formData.append("vanaf", vanaf);
+        formData.append("desc", desc);
+        formData.append("filter", filter);
+        jsonListUp(formData);
+
+
+        
+    });
 
     function getNewData(e) {
         var pressed = e.target;
@@ -54,7 +67,7 @@ $().ready(function () {
             console.log('oi');
             filter = row;
             //kijken of asc of desc
-            if ($(this).hasClass('glyphicon-menu-down')) {
+            if ($(this).hasClass('glyphicon-menu-up')) {
                 $(pressed).removeClass('glyphicon-menu-up');
                 $(pressed).addClass('glyphicon-menu-down');
                 desc = 0;
@@ -95,11 +108,36 @@ $().ready(function () {
                 row = 2;
             }
         }
+        currentRow = row;
         currentPar = par
         //DIT IS WAAR IK MIJN JSON GA HALEN. EN DIT GEEFT EEN ERROR TERUG
-        var jsonString = "../Admin/" + pagina + "?vanaf=" + vanaf + "&desc=" + desc + "&filter=" + row + "&search=" + search + "&mode=1";
+        var jsonString = "../Admin/" + pagina + "?vanaf=" + vanaf + "&desc=" + desc + "&filter=" + currentRow + "&search=" + search + "&mode=1";
+        jsonItUp(jsonString);
         
-        console.log(jsonString);
+        
+        
+    }
+    function jsonListUp(formData) {
+        $.ajax({
+            type: "POST",
+            url: "../Admin/DeleteActiviteit",
+            data: formData,
+            dataType: 'json',//change to your own, else read my note above on enabling the JsonValueProviderFactory in MVC
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                //BTW, data is one of the worst names you can make for a variable
+                //handleSuccessFunctionHERE(data);
+                console.log(':t');
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                //do your own thing
+                console.log("fail");
+            }
+        });
+    }
+    function jsonItUp(jsonString) {
+        //console.log(jsonString);
         $.getJSON(jsonString, function (data) {
             els = jQuery.parseJSON(data);
             console.log(els);
@@ -107,8 +145,7 @@ $().ready(function () {
         });
     }
 
-
-    function switchTable() {
+function switchTable() {
         var body = table.children('tbody');
         body.children('tr').remove();
         var string = "";
@@ -134,12 +171,46 @@ $().ready(function () {
 
 
             } else if (pagina == "Gebruikers") {
-                string = "<tr><td><input form='formA name='GebruikersToDelete' value='" + els[i]["User"]["Id"] + "'type='checkbox' /> </td><td>" + els[i]["User"]["Voornaam"] +" "+ els[i]["User"]["Naam"] + "</td><td>" + els[i]["User"]["UserName"] + "</td><td>" +
-                    ""
-                    + "</td><td>";
+                string = "<tr><td><input form='formA name='GebruikersToDelete' value='" + els[i]["User"]["Id"] + "'type='checkbox' /> </td><td>" + els[i]["User"]["Voornaam"] + " " + els[i]["User"]["Naam"] + "</td><td>" + els[i]["User"]["UserName"] + "</td><td>";
+                for (j = 0 ; j < els[i]["Activiteiten"].length ; j++) {
+                        string += "<a href='#'>" + els[i]["Activiteiten"][j]["Naam"] + "</a>";
+                    }
+                string += "</td><td><div class='displayInlineButtons'><button><span class='glyphicon glyphicon-remove'></span></button></div></td></tr>";
 
             }
-        body.append(string);
+            body.append(string);
+            
         }
+        resetVanaf();
     }
+function resetVanaf() {
+    if (vanaf == 0) {
+        $('.SelVor').attr('disabled', 'disabled');
+        $('.SelVor').css('opacity', 0.5);
+        $('.SelVor').off();
+        $('.SelVol').off();
+        $('.SelVol').click(function () {
+            vanaf += 30;
+            var jsonString = "../Admin/" + pagina + "?vanaf=" + vanaf + "&desc=" + desc + "&filter=" + currentRow + "&search=" + search + "&mode=1";
+            jsonItUp(jsonString);
+        });
+    } else {
+        $('.SelVor').removeAttr('disabled');
+        $('.SelVor').css('opacity', 1);
+        $('.SelVor').off();
+            $('.SelVor').click(function () {
+                vanaf -= 30;
+                var jsonString = "../Admin/" + pagina + "?vanaf=" + vanaf + "&desc=" + desc + "&filter=" + currentRow + "&search=" + search + "&mode=1";
+                jsonItUp(jsonString);
+            });
+            $('.SelVol').off();
+            $('.SelVol').click(function () {
+                
+                var jsonString = "../Admin/" + pagina + "?vanaf=" + vanaf + "&desc=" + desc + "&filter=" + filter + "&search=" + search + "&mode=1";
+                jsonItUp(jsonString);
+                
+            });
+    }
+    $('.voorbVanaf').html("" + vanaf + " - " + (vanaf + 30));
+}
 });
