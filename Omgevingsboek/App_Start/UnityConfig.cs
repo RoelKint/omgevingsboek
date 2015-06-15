@@ -22,6 +22,7 @@ namespace Omgevingsboek
             container.RegisterType<IUitnodigingRepository, UitnodigingRepository>();
             container.RegisterType<IBenodigdheidRepository, BenodigdheidRepository>();
             container.RegisterType<IGenericRepository<PoiTags>, GenericRepository<PoiTags>>();
+            container.RegisterType<IBoekOrderRepository, BoekOrderRepository>();
 
             
 

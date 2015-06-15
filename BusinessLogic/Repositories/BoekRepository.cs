@@ -30,6 +30,7 @@ namespace BusinessLogic.Repositories
             {
                 ApplicationUser user = context.Users.Where(u => u.UserName == Username).FirstOrDefault();
                 Boek b = context.Boeken.Where(a => a.Id == BoekId).FirstOrDefault();
+                if (b == null) return false;
                 return b.DeelLijst.Contains(user);
 
             }
@@ -61,6 +62,15 @@ namespace BusinessLogic.Repositories
             res.DeelLijst = new List<ApplicationUser>();
             res.DeelLijst.Add(context.Users.Where(u => u.Id == entity.EigenaarId).FirstOrDefault());
             res = base.Insert(entity);
+            
+            int previndex = context.BoekOrder.Where(i => i.EigenaarId == entity.EigenaarId).Where(i => i.IsSharedLijst == false).Max(i => i.Index);
+            context.BoekOrder.Add(new BoekOrder()
+            {
+                BoekId = res.Id,
+                EigenaarId = entity.EigenaarId,
+                Index = (previndex + 1),
+                IsSharedLijst = false
+            });
             
             try
             {

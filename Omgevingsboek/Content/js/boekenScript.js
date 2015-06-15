@@ -13,8 +13,13 @@
                 $this.data('pos', $this.index());
             });
         },
-        change: function (event, ui) {
-            console.log(ui.item.index());
+        
+        stop: function (event, ui) {
+            var order = $('.grid').sortable('toArray').toString();
+            $.ajax({
+                type: "GET",
+                url: "/Home/SaveBoekenSort?IsGedeeldLijst=false&volgorde=" + order
+            });
         }
     });
     $(".grid2").sortable({
@@ -28,8 +33,12 @@
                 $this.data('pos', $this.index());
             });
         },
-        change: function (event, ui) {
-            console.log(ui.item.index());
+        stop: function (event, ui) {
+            var order = $('.grid2').sortable('toArray').toString();
+            $.ajax({
+                type: "GET",
+                url: "/Home/SaveBoekenSort?IsGedeeldLijst=true&volgorde=" + order
+            });
         }
     });
 

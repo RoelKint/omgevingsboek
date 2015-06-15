@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLogic.Services
 {
-    public class BoekService : BusinessLogic.Services.IBoekService 
+    public class BoekService : BusinessLogic.Services.IBoekService
     {
         private ITagRepository repoTag = null;
         private IActiviteitRepository repoActiviteit = null;
@@ -19,6 +19,7 @@ namespace BusinessLogic.Services
         private IUitnodigingRepository repoUitnodiging = null;
         private IBenodigdheidRepository repoBenodigdheid = null;
         private IGenericRepository<PoiTags> repoPoiTags = null;
+        private IBoekOrderRepository repoBoekOrder = null;
 
         public BoekService(
             ITagRepository repoTag,
@@ -27,7 +28,8 @@ namespace BusinessLogic.Services
             IPoiRepository repoPoi,
             IUitnodigingRepository repoUitnodiging,
             IBenodigdheidRepository repoBenodigdheid,
-            IGenericRepository<PoiTags> repoPoiTags = null
+            IGenericRepository<PoiTags> repoPoiTags,
+            IBoekOrderRepository repoBoekOrder
             )
         {
             this.repoActiviteit = repoActiviteit;
@@ -37,6 +39,7 @@ namespace BusinessLogic.Services
             this.repoUitnodiging = repoUitnodiging;
             this.repoBenodigdheid = repoBenodigdheid;
             this.repoPoiTags = repoPoiTags;
+            this.repoBoekOrder = repoBoekOrder;
         }
 
         #region Activiteiten
@@ -180,6 +183,41 @@ namespace BusinessLogic.Services
 
 
         #endregion
+
+
+
+
+        #region BoekOrder
+
+
+
+        public List<BoekOrder> GetBoekOrderLijst(string Username, bool GedeeldeBoeken)
+        {
+            return repoBoekOrder.GetBoekOrderLijst(Username, GedeeldeBoeken);
+
+        }
+        public BoekOrder GetBoekOrder(string Username, int BoekId)
+        {
+            return repoBoekOrder.GetBoekOrder(Username, BoekId);
+        }
+        public List<BoekOrder> UpdateLijst(List<BoekOrder> lijst)
+        {
+            return repoBoekOrder.UpdateLijst(lijst);
+        }
+        public void Update(BoekOrder entityToUpdate)
+        {
+            repoBoekOrder.Update(entityToUpdate);
+        }
+
+        public BoekOrder Insert(BoekOrder entity)
+        {
+            return repoBoekOrder.Insert(entity);
+        }
+
+
+
+        #endregion
+
 
 
 
@@ -336,14 +374,22 @@ namespace BusinessLogic.Services
             }
         }
         // TODO: soft delete 
+        public void DeleteUserSoft(ApplicationUser user)
+        {
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                context.Users.Where(i => i.Id == user.Id).FirstOrDefault().Deleted = true;
+                context.SaveChanges();
+            }
+        }
         public void DeleteUserHard(ApplicationUser user)
         {
             using (ApplicationDbContext context = new ApplicationDbContext())
             {
                 context.Users.Remove(user);
+                context.SaveChanges();
             }
         }
-
         public ApplicationUser UpdateUserAfbeelding(ApplicationUser user)
         {
             using (ApplicationDbContext context = new ApplicationDbContext())
