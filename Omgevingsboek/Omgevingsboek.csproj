@@ -227,6 +227,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Config\FlickrApiManager.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ActiviteitenController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BoekenController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
@@ -430,6 +431,8 @@
     </Content>
     <Content Include="Views\Home\Activiteit.cshtml" />
     <Content Include="Views\Shared\ActiviteitPartial.cshtml" />
+    <Content Include="Views\Activiteiten\Details.cshtml" />
+    <Content Include="Views\Activiteiten\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

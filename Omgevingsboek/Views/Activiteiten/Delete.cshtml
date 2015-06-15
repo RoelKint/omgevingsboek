@@ -1,0 +1,120 @@
+﻿@model Models.OmgevingsBoek_Models.Activiteit
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Activiteit</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.EigenaarId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EigenaarId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Naam)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Naam)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PoiId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PoiId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MinLeeftijd)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MinLeeftijd)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MaxLeeftijd)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaxLeeftijd)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MinDuur)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MinDuur)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MaxDuur)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaxDuur)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsDeleted)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsDeleted)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Prijs)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Prijs)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AfbeeldingNaam)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AfbeeldingNaam)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DitactischeToelichting)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DitactischeToelichting)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Uitleg)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Uitleg)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

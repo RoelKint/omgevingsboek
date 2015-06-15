@@ -20,7 +20,7 @@
                 @foreach (Models.OmgevingsBoek_Models.Activiteit activiteit in Model.Activiteiten)
                 {
                     <div class="col-sm-6 col-md-3">
-                        <a href="#">
+                        <a href="/Activiteiten/Details/@activiteit.Id">
                             <img class="img-responsive" src="@activiteit.AfbeeldingNaam" />
                             <span class="caption">@activiteit.Naam</span>
                         </a>
