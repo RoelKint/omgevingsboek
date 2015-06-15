@@ -21,19 +21,20 @@ namespace Omgevingsboek.Controllers
             if (flickr == null) flickr = FlickrApiManager.GetInstance();
         }
 
+        #region DETAILS
         // GET: Activiteiten/Details/5
         public ActionResult Details(int id)
         {
             return View(bs.GetActiviteitById(id));
         }
+        #endregion
 
-        // GET: Activiteiten/Edit/5
+        #region EDIT
         public ActionResult Edit(int id)
         {
             return View(new NotImplementedException());
         }
 
-        // POST: Activiteiten/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -47,14 +48,14 @@ namespace Omgevingsboek.Controllers
                 return View(new NotImplementedException());
             }
         }
+        #endregion
 
-        // GET: Activiteiten/Delete/5
+        #region DELETE
         public ActionResult Delete(int id)
         {
             return View(bs.GetActiviteitById(id));
         }
 
-        // POST: Activiteiten/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
@@ -69,5 +70,6 @@ namespace Omgevingsboek.Controllers
                 return View();
             }
         }
+        #endregion
     }
 }
