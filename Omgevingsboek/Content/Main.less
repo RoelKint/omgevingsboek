@@ -22,6 +22,32 @@ body, html {
     overflow-y: hidden;
 }
 
+.form-group label {
+    float:left;
+
+    &:after {
+        content:" ";
+    }
+}
+
+.form-group input.form-control, .form-group .input-group {
+    clear: both;
+}
+
+.has-error .help-block {
+    margin: 0;
+    margin-left:5px;
+    display:inline-block;
+    float:left;
+}
+
+form input.hidden-input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    padding: 0;
+}
+
 footer {
     position: fixed;
     bottom: 0;
@@ -331,6 +357,7 @@ h3.rowheader {
 
 .pac-container {
     z-index: 9999;
+    font-family: Roboto;
 }
 
 .row.poi {
@@ -480,6 +507,7 @@ input.upload {
         }
 }
 
+
 .ImageCrop {
     width: 300px;
     height: 200px;
@@ -612,3 +640,43 @@ span.tag {
         height: 7em;
     }
 }
+
+#map-canvas{
+    height:300px;
+    width:100%;
+    float:left;
+}
+
+#waypointsList{
+    width:100%;
+    min-height:300px;
+}
+
+#waypointsList option{
+    padding:10px;
+}
+
+#pac-input {
+        background-color: #fff;
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+        margin-left: 12px;
+        padding: 0 11px 0 13px;
+        text-overflow: ellipsis;
+        width: 200px;
+      }
+      #pac-input:focus {
+        border-color: #4d90fe;
+      }
+
+      .controls {
+        margin-top: 7px;
+        border: 1px solid transparent;
+        border-radius: 2px 0 0 2px;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        height: 32px;
+        outline: none;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      }

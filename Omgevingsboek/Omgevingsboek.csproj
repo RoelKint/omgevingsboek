@@ -257,6 +257,7 @@
     <Content Include="Content\js\CooleDingenPoi.js" />
     <Content Include="Content\js\filter.js" />
     <Content Include="Content\js\gebruikerpartialscript.js" />
+    <Content Include="Content\js\GoogleMapsScript.js" />
     <Content Include="Content\js\poipartialscript.js" />
     <Content Include="Content\js\validationFixes.js" />
     <Content Include="Content\js\ZoekScript.js" />
@@ -364,6 +365,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\upload_video.js" />
+    <Content Include="Scripts\validator.min.js" />
     <Content Include="Scripts\View\Components\react-fuzzy-search.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
