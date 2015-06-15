@@ -430,6 +430,7 @@ li.tags.tagwrap{
 li.tags div .removeclick{
     position: absolute;
     right: -5px;
+    cursor:pointer;
     top: -4px;
     z-index: 100;
     color:#5cb85c;

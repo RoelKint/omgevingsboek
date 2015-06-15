@@ -94,7 +94,9 @@ namespace Omgevingsboek.Controllers
         {
             if(!PoiId.HasValue) return null; 
             if (bs.GetPoiById((int)PoiId) == null) return null;
+           
             Models.OmgevingsBoek_Models.Tag t = bs.InsertTag(tag);
+            if (bs.getPoiTag(t.ID, (int)PoiId, bs.GetUser(User.Identity.Name).Id) != null) return null;
             bs.AddTagToPoi((int)PoiId, t.ID,User.Identity.Name);
             
             return null;
@@ -125,7 +127,7 @@ namespace Omgevingsboek.Controllers
                 poi = poi
             };
             pm.Activiteiten = bs.getActiviteitenByPoiByUser50from(0, User.Identity.Name, poi.ID);
-
+            ViewBag.gebruikerId = bs.GetUser(User.Identity.Name).Id;
             return View(pm);
         }
         [Authorize]

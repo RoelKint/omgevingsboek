@@ -68,7 +68,7 @@
                     <tr>
                         <td><input form="formA" name="BoekenToDelete" value="@boe.Id" type="checkbox" /></td>
                         <td>@boe.Naam</td>
-                        <td>@boe.Eigenaar.Email</td>
+                        <td>@boe.Eigenaar.UserName</td>
                         <td>
                             @foreach (var act in boe.Activiteiten)
                             {
@@ -80,11 +80,8 @@
                                 {
                                     <a href="#">@act.Naam</a>@(',')
 
-
                                 }
                             }
-
-                                        <
 
                                     </td>
                                     <td>

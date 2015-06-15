@@ -11,6 +11,7 @@ $().ready(function () {
 
         if (e.keyCode == 27 || e.keyCode == 35) { refreshTags(); }   // escape key maps to keycode `27` en de andere is break (die knop naast home)
     });
+    if (typeof gebruikerId === undefined) gebruikerId = "";
     $('.addTag').click(false, function () { allesRondInput() });
                 
             $('.row').bind('click', function () {
@@ -44,34 +45,39 @@ $().ready(function () {
                 $('.MorePoi').remove();
             });
 
-            $.each($(".tags div"), function () {
-                $(this).find(".removeclick").hide();
-                $(this).mouseover(function () {
-                    $(this).find(".removeclick").show();
-                });
-                $(this).mouseout(function () {
-                    $(this).find(".removeclick").hide();
-                });
-            });
+            VerbergCloses();
 
-            $(".removeclick").click(true, function () {
-                var element = $(this)[0];
-                $.ajax({
-                    type: "GET",
-                    url: "RemoveTag" + "?TagId=" + $(this)[0].id + "&PoiId=" + $('#poiId').val(),
-                    success: function (data) {
-                        if (data == "OK") {
-                            $(element).parent().remove();
-                        }
-
-                    }
-                });
-            });
+            
 
         });
         
         
-    
+function VerbergCloses() {
+    $.each($(".tags div"), function () {
+        $(this).find(".removeclick").hide();
+        $(this).mouseover(function () {
+            if (gebruikerId == $(this)[0].id)
+            $(this).find(".removeclick").show();
+        });
+        $(this).mouseout(function () {
+            $(this).find(".removeclick").hide();
+        });
+    });
+    $(".removeclick").click(true, function () {
+        var element = $(this)[0];
+        $.ajax({
+            type: "GET",
+            url: "RemoveTag" + "?TagId=" + $(this)[0].id + "&PoiId=" + $('#poiId').val(),
+            success: function (data) {
+                if (data == "OK") {
+                    $(element).parent().remove();
+                }
+
+            }
+        });
+    });
+}
+
 function allesRondInput() {
     parent = $('.addTag').parent();
     console.log(parent);
@@ -98,7 +104,8 @@ function refreshTags() {
         tags = jQuery.parseJSON(data);
         console.log(tags); 
         for (i = 0; i < tags.length; i++) {
-            tagsTekst = tagsTekst + '<span>' + tags[i].Tag.Naam + '</span>'
+            tagsTekst = tagsTekst + '<div id=' + tags[i].EigenaarId + '><span class="glyphicon glyphicon-remove-circle removeclick" id=' + tags[i].Tag.ID + '></span><span>' + tags[i].Tag.Naam + '</span></div>'
+            
         }
 
         var par = input.parent();
@@ -107,6 +114,7 @@ function refreshTags() {
         console.log(tagsTekst + "<<<-----");
         par.html(tagsTekst + plusje);
         ja = 0;
+        VerbergCloses()
         $('.addTag').click(false, function () { allesRondInput() });
     });
     
