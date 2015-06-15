@@ -123,8 +123,8 @@ a {
   position: absolute;
   text-align: center;
   width: 100%;
-  text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.99);
-  top: 0px;
+  text-shadow: 3px 3px 2px #000000;
+  top: 0;
   padding-top: 1.5em;
 }
 .books > div:hover span.buttons {
@@ -433,7 +433,15 @@ h3.rowheader {
 li.tags {
   margin: 0;
 }
-
+li.tags div {
+  padding: 2px 4px;
+  margin-right: 3px;
+  margin-left: 3px;
+  background-color: #86CFE8;
+  border-radius: 5px;
+  color: white;
+  box-shadow: 0 0 5px #86cfe8;
+}
 li.tags input {
   padding: 1px 4px;
   margin-right: 3px;
@@ -441,38 +449,8 @@ li.tags input {
   border-radius: 5px;
   color: black;
 }
-
-li.tags>span {
-  padding: 2px 4px;
-  margin-right: 3px;
-  margin-left: 3px;
-  background-color: #86CFE8;
-  border-radius: 5px;
-  color: white;
-  box-shadow: 0 0 5px #86cfe8;
-}
-li.tags div {
-    position: relative;
-  padding: 2px 4px;
-  margin-right: 3px;
-  display: inline;
-  margin-left: 3px;
-  background-color: #86CFE8;
-  border-radius: 5px;
-  color: white;
-  box-shadow: 0 0 5px #86cfe8;
-}
-li.tags.tagwrap{
-    position: relative;
-}
-li.tags div .removeclick{
-    position: absolute;
-    right: -5px;
-    cursor:pointer;
-    top: -4px;
-    z-index: 100;
-    color:red;
-    text-decoration:none;
+li.tags span {
+  width: auto;
 }
 #toevoegenBoek {
   cursor: pointer;
