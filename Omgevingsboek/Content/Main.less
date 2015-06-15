@@ -540,23 +540,23 @@ li.tags {
                 padding: 2px 4px;
                 margin-right: 3px;
         margin-left: 3px;
-        background-color: #F5F5F5;
+        background-color: #86CFE8;
                 border-radius: 5px;
-                color: black;
+                color:white;
                 box-shadow: 0 0 5px rgba(134, 207, 232, 1);
             }
 
             input {
                 padding: 1px 4px;
                 margin-right: 3px;
-        background-color: #F5F5F5;
+        background-color: #86CFE8;
                 border-radius: 5px;
                 color: black;
             }
 }
 
 li.tags span{
-
+    width:auto;
 }
 
 #toevoegenBoek {
@@ -648,18 +648,39 @@ span.tag {
 }
 
 #map-canvas{
-    height:300px;
+    height:400px;
     width:100%;
     float:left;
 }
 
 #waypointsList{
     width:100%;
-    min-height:300px;
-}
-
-#waypointsList option{
-    padding:10px;
+    min-height:400px;
+    option{
+        padding:10px;
+        &:first-child{
+            background-color:green;
+            color:white;
+            &:before{
+                content:'Bestemming: ';
+            }
+        }
+        &:last-child{
+            background-color:red;
+            color:white;
+            &:before{
+                content:'Eindadres: ';
+            }
+        }
+        &:only-child{
+            background-color:white;
+            color:black;
+            &:before{
+                content:"";
+            }
+            
+        }
+    }
 }
 
 #pac-input {

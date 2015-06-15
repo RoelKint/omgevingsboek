@@ -437,17 +437,20 @@ li.tags div {
   padding: 2px 4px;
   margin-right: 3px;
   margin-left: 3px;
-  background-color: #F5F5F5;
+  background-color: #86CFE8;
   border-radius: 5px;
-  color: black;
+  color: white;
   box-shadow: 0 0 5px #86cfe8;
 }
 li.tags input {
   padding: 1px 4px;
   margin-right: 3px;
-  background-color: #F5F5F5;
+  background-color: #86CFE8;
   border-radius: 5px;
   color: black;
+}
+li.tags span {
+  width: auto;
 }
 #toevoegenBoek {
   cursor: pointer;
@@ -523,16 +526,37 @@ span.tag {
   height: 7em;
 }
 #map-canvas {
-  height: 300px;
+  height: 400px;
   width: 100%;
   float: left;
 }
 #waypointsList {
   width: 100%;
-  min-height: 300px;
+  min-height: 400px;
 }
 #waypointsList option {
   padding: 10px;
+}
+#waypointsList option:first-child {
+  background-color: green;
+  color: white;
+}
+#waypointsList option:first-child:before {
+  content: 'Bestemming: ';
+}
+#waypointsList option:last-child {
+  background-color: red;
+  color: white;
+}
+#waypointsList option:last-child:before {
+  content: 'Eindadres: ';
+}
+#waypointsList option:only-child {
+  background-color: white;
+  color: black;
+}
+#waypointsList option:only-child:before {
+  content: "";
 }
 #pac-input {
   background-color: #fff;
