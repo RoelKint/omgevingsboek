@@ -79,10 +79,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ActiviteitRepository.cs" />
     <Compile Include="Repositories\BenodigdheidRepository.cs" />
+    <Compile Include="Repositories\BoekOrderRepository.cs" />
     <Compile Include="Repositories\BoekRepository.cs" />
     <Compile Include="Repositories\GenericRepository.cs" />
     <Compile Include="Repositories\IActiviteitRepository.cs" />
     <Compile Include="Repositories\IBenodigdheidRepository.cs" />
+    <Compile Include="Repositories\IBoekOrderRepository.cs" />
     <Compile Include="Repositories\IBoekRepository.cs" />
     <Compile Include="Repositories\IGenericRepository.cs" />
     <Compile Include="Repositories\IPoiRepository.cs" />

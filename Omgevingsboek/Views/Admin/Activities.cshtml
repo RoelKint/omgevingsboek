@@ -31,18 +31,15 @@
 <div class="adminList col-xs-12 col-md-12 content" id="content">
     <h2 class="tittel">Activiteiten</h2>
     <div class="col-xs-6 col-md-9">
-        <span style="font-weight:bold">@ViewBag.vanaf - @meer</span>
+        <span style="font-weight:bold" class="voorbVanaf">@ViewBag.vanaf - @meer</span>
     </div>
     <div class="col-xs-12 col-md-12" id="buttonsAdBoven">
-        
-        <button onclick="location.href='../Admin/Activities?vanaf=@minder&desc=@desc'"><span class="glyphicon glyphicon-chevron-left"></span> Vorige Pag.</button>
-        <button onclick="location.href='../Admin/Activities?vanaf=@meer&desc=@desc'"><span class="glyphicon glyphicon-chevron-right"></span> Volgende Pag.</button>
-        <button form="formA" type="submit"><span class="glyphicon glyphicon-remove-circle"></span> Verwijderen</button>
-        <input form="formA" name="filter" type="text" id="Zoeken" placeholder="Zoeken" />
-        <input form="formA" name="desc" type="hidden" value="0" />
-        <input form="formA" name="vanaf" type="hidden" value="@ViewBag.vanaf" />
+        <button class="SelVor"><span class="glyphicon glyphicon-chevron-left"></span> Vorige Pag.</button>
+        <button class="SelVol"><span class="glyphicon glyphicon-chevron-right"></span> Volgende Pag.</button>
+        <button class="delList" type="submit"><span class="glyphicon glyphicon-remove-circle"></span> Verwijderen</button>
+        <input name="filter" type="text" id="Zoeken" placeholder="Zoeken" />
     </div>
-    <form id="formA" method="post" action="DeleteActiviteit">
+    <form id="formA" action="DeleteActiviteit">
         <table class="AdminTable table table-hover">
             <colgroup>
                 <col class="col-lg-1 col-xs-1 col-md-1" />
@@ -65,14 +62,14 @@
                 {
                     <tr>
                         <td>
-                            <input form="formA" id="DylanToch" name="ActiviteitenToDelete" value="@item.Id" type="checkbox" />
+                            <input form="formA" name="listId" value="@item.Id" type="checkbox" />
                         </td>
                         <td>@item.Naam</td>
                         <td>@item.Eigenaar.UserName</td>
                         <td>@item.Poi.Naam</td>
                         <td>
                             <div class="displayInlineButtons">
-                                <button><span class="glyphicon glyphicon-remove"></span></button>
+                                <button class="delEen"><span class="glyphicon glyphicon-remove"></span></button>
                             </div>
                         </td>
                     </tr>
@@ -81,9 +78,9 @@
         </table>
     </form>
     <div id="buttonsAdOnder">
-        <button onclick="location.href='../Admin/Activities?vanaf=@minder&desc=@desc'"><span class="glyphicon glyphicon-chevron-left"></span> Vorige Pag.</button>
-        <button onclick="location.href='../Admin/Activities?vanaf=@meer&desc=@desc'"><span class="glyphicon glyphicon-chevron-right"></span> Volgende Pag.</button>
-        <button><span class="glyphicon glyphicon-remove-circle"></span> Verwijderen</button>
+        <button class="SelVor"><span class="glyphicon glyphicon-chevron-left"></span> Vorige Pag.</button>
+        <button class="SelVol"><span class="glyphicon glyphicon-chevron-right"></span> Volgende Pag.</button>
+        <input form="formA" name="filter" type="text" id="Zoeken" placeholder="Zoeken" />
     </div>
 </div>
 
