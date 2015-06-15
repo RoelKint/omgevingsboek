@@ -278,6 +278,14 @@ namespace Omgevingsboek.Controllers
             return PartialView("_PoiPartial",JsonConvert.SerializeObject(poipms));
         }
 
+        [ChildActionOnly]
+        public ActionResult ActiviteitPartial()
+        {
+            List<Activiteit> activiteiten = bs.GetActivitiesByUsername(User.Identity.Name) ;
+
+            return PartialView("_ActiviteitPartial", JsonConvert.SerializeObject(activiteiten));
+        }
+
         [Authorize]        
         [HttpPost]
         public void UpdateAfbeelding(HttpPostedFileBase Afbeelding)
