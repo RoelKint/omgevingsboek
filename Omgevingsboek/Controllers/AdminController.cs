@@ -237,6 +237,35 @@ namespace Omgevingsboek.Controllers
             TempData["Feedback"] = fbPM;
             return RedirectToAction("Gebruikers");
         }
+        [Authorize(Roles = "SuperAdministrator")]
+        public ActionResult DeleteUsersHard(List<string> UsersToDelete, int vanaf, int desc, int? filter)
+        {
+            if (!User.IsInRole("SuperAdministrator")) return RedirectToAction("Users");
+
+            //TODO: ervoor zorgen dat lege gebruiker ook kan verwijderd worden.
+            foreach (string UserId in UsersToDelete)
+            {
+                ApplicationUser u = bs.GetUserById(UserId);
+                if (u == null) continue;
+                bs.DeleteUserHard(u);
+            }
+            return RedirectToAction("Activities", new { vanaf = vanaf, desc = desc, filter = filter });
+        }
+        [Authorize(Roles = "Administrator,SuperAdministrator")]
+        
+        public ActionResult DeleteUsersSoft(List<string> UsersToDelete, int vanaf, int desc, int? filter)
+        {
+            if (!User.IsInRole("SuperAdministrator") && !User.IsInRole("Administrator")) return RedirectToAction("Users");
+
+            //TODO: ervoor zorgen dat lege gebruiker ook kan verwijderd worden.
+            foreach (string UserId in UsersToDelete)
+            {
+                ApplicationUser u = bs.GetUserById(UserId);
+                if (u == null) continue;
+                bs.DeleteUserSoft(u);
+            }
+            return RedirectToAction("Activities", new { vanaf = vanaf, desc = desc, filter = filter });
+        }
 
         [Authorize(Roles = "Administrator,SuperAdministrator")]
         public ActionResult HerzendUitnodiging(int? Id)

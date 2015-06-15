@@ -48,6 +48,7 @@ namespace Models.MVC_Models
         public DbSet<Video> Videos { get; set; }
         public DbSet<Uitnodiging> Uitnodigingen { get; set; }
         public DbSet<PoiTags> PoiTags { get; set; }
+        public DbSet<BoekOrder> BoekOrder { get; set; }
 
 
 

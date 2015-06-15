@@ -13,7 +13,7 @@
             </ol>*@
         @foreach (Models.OmgevingsBoek_Models.Boek boek in Model.BoekenEigenaar)
         {
-            <div class="col-sm-6 col-md-3">
+            <div class="col-sm-6 col-md-3" id="@boek.Id">
                 <a href="/home/Boek?id=@boek.Id">
                     <img class="img-responsive" src="@boek.Afbeelding" />
                     <span class="caption">@boek.Naam</span>
@@ -43,7 +43,7 @@
         
         @foreach (Models.OmgevingsBoek_Models.Boek boek in Model.BoekenGedeeld)
         {
-            <div class="col-sm-6 col-md-3">
+            <div class="col-sm-6 col-md-3" id="@boek.Id">
                 <a href="/home/Boek?id=@boek.Id">
                     <img src="@boek.Afbeelding" />
                     <span class="caption">@boek.Naam</span>

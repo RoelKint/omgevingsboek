@@ -14,6 +14,7 @@ namespace BusinessLogic.Services
         void DeletePoiTag(Models.OmgevingsBoek_Models.PoiTags poitag);
         void DeleteTagFromPoi(int PoiTagsId);
         void DeleteUserHard(Models.MVC_Models.ApplicationUser user);
+        void DeleteUserSoft(Models.MVC_Models.ApplicationUser user);
         void EditBoek(Models.OmgevingsBoek_Models.Boek boek);
         Models.OmgevingsBoek_Models.Activiteit GetActiviteitById(int id);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Activiteit> GetActiviteiten50FromSortNameAZ(int from, string search);
@@ -34,6 +35,8 @@ namespace BusinessLogic.Services
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Boek> GetBoeken50FromSortUserAZ(int from, string search);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Boek> GetBoeken50FromSortUserZA(int from, string search);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Boek> GetBoekenByUser(string username);
+        Models.OmgevingsBoek_Models.BoekOrder GetBoekOrder(string Username, int BoekId);
+        System.Collections.Generic.List<Models.OmgevingsBoek_Models.BoekOrder> GetBoekOrderLijst(string Username, bool GedeeldeBoeken);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Boek> getBoekUserByUser50from(int from, string Owner, string Visitor);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Poi> getPoi50FromSortAddressAZ(int from, string search);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Poi> getPoi50FromSortAddressZA(int from, string search);
@@ -58,6 +61,7 @@ namespace BusinessLogic.Services
         System.Collections.Generic.List<Models.MVC_Models.ApplicationUser> GetUserNext30SortAZ(int from, string search);
         System.Collections.Generic.List<Models.MVC_Models.ApplicationUser> GetUserNext30SortZA(int from, string search);
         bool HeeftEmailAlEenUitnodiging(string Email);
+        Models.OmgevingsBoek_Models.BoekOrder Insert(Models.OmgevingsBoek_Models.BoekOrder entity);
         Models.OmgevingsBoek_Models.Activiteit InsertActiviteit(Models.OmgevingsBoek_Models.Activiteit activiteit);
         Models.OmgevingsBoek_Models.Benodigdheid InsertBenodigdheid(string benodigdheid);
         Models.OmgevingsBoek_Models.Boek InsertBoek(Models.OmgevingsBoek_Models.Boek boek);
@@ -67,6 +71,8 @@ namespace BusinessLogic.Services
         bool IsBoekAccessibleByUser(int BoekId, string Username);
         bool IsValidKey(string Key);
         bool SetUitnodigingGebruikt(int UitnodigingId, string GebruiktDoorUserName);
+        void Update(Models.OmgevingsBoek_Models.BoekOrder entityToUpdate);
+        System.Collections.Generic.List<Models.OmgevingsBoek_Models.BoekOrder> UpdateLijst(System.Collections.Generic.List<Models.OmgevingsBoek_Models.BoekOrder> lijst);
         Models.MVC_Models.ApplicationUser UpdateUserAfbeelding(Models.MVC_Models.ApplicationUser user);
     }
 }

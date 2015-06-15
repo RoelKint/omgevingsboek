@@ -133,9 +133,14 @@
     <Compile Include="Migrations\201506141959231_update45.Designer.cs">
       <DependentUpon>201506141959231_update45.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201506150955309_update-boeken.cs" />
+    <Compile Include="Migrations\201506150955309_update-boeken.Designer.cs">
+      <DependentUpon>201506150955309_update-boeken.cs</DependentUpon>
+    </Compile>
     <Compile Include="OmgevingsBoek Models\Activiteit.cs" />
     <Compile Include="OmgevingsBoek Models\Benodigdheid.cs" />
     <Compile Include="OmgevingsBoek Models\Boek.cs" />
+    <Compile Include="OmgevingsBoek Models\BoekOrder.cs" />
     <Compile Include="OmgevingsBoek Models\Fotoboek.cs" />
     <Compile Include="Migrations\201505270750315_init.cs" />
     <Compile Include="Migrations\201505270750315_init.Designer.cs">
@@ -223,6 +228,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201506141959231_update45.resx">
       <DependentUpon>201506141959231_update45.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506150955309_update-boeken.resx">
+      <DependentUpon>201506150955309_update-boeken.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
