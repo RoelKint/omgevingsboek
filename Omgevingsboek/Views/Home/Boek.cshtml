@@ -72,7 +72,7 @@
                 </div>
 
 
-                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -93,7 +93,7 @@
     @using (Html.BeginForm("AddActivity", "Home", FormMethod.Post, new { enctype = "multipart/form-data", data_toggle = "validator" }))
     {
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-5">
                 <div class="form-group">
                     <label for="naam">Naam:</label><span class="help-block with-errors"></span>
                     <input type="text" class="form-control" id="name" name="Naam" placeholder="Naam van activiteit" required>
@@ -104,18 +104,11 @@
                     <input type="text" class="form-control hidden-input" id="poi" name="PoiId" required>
                 </div>
             </div>
-            <div class="form-group col-md-5">
+            <div class="form-group col-md-6">
                 <label for="amount">Tags:</label>
                 <div class="input-group">
                     <span class="input-group-addon tag"><span class="glyphicon glyphicon-tags"></span></span>
                     <input name="TagsString" class="form-control tags" id="poiTags" value="" />
-                </div>
-            </div>
-            <div class="form-group col-md-2 upload">
-                <label for="inputFile">Upload afbeelding</label>
-                <div class="fileUpload btn btn-default form-control">
-                    <span>Upload Foto</span>
-                    <input type="file" class="upload" name="AfbeeldingFile" id="exampleInputFile" accept="image/x-png, image/gif, image/jpeg">
                 </div>
             </div>
             <div class="col-md-1">
@@ -166,7 +159,7 @@
                                 <label for="amount">Prijs per leerling:</label>
                                 <div class="input-group">
                                     <span class="input-group-addon">&euro;</span>
-                                    <input class="form-control" pattern="[0-9]+([,][0-9]+)?" type="number" step="any" id="prijsLeerling" name="Prijs">
+                                    <input class="form-control" pattern="[0-9]+([,][0-9]+)?" fuckyouasp type="text" id="prijsLeerling" name="Prijs">
                                 </div>
                             </div>
                         </div>
@@ -191,6 +184,7 @@
                         </div>
                     </div>
                     <div role="tabpanel" class="tab-pane fade" id="media">
+                        <h3>Video</h3>
                         <div class="upload_video">
                             <div class="row">
                                 <div class="form-group col-md-12">
@@ -212,8 +206,8 @@
                                         <span id="channel-name"></span>
                                     </div>
                                     <div class="form-group col-md-3">
-                                            <label for="title">Benaming:</label>
-                                            <input id="title" class="form-control" type="text" placeholder="Titel van video">
+                                        <label for="title">Benaming:</label>
+                                        <input id="title" class="form-control" type="text" placeholder="Titel van video">
                                     </div>
                                     <div class="form-group col-md-3">
                                         <label for="description">Beschrijving:</label>
@@ -244,6 +238,16 @@
                                     <script src="//apis.google.com/js/client:plusone.js"></script>
                                     <script src="~/Scripts/cors_upload.js"></script>
                                     <script src="~/Scripts/upload_video.js"></script>
+                                </div>
+                            </div>
+                        </div>
+                        <h3>Afbeeldingen</h3>
+                        <div class="row">
+                            <div class="form-group col-md-12 upload">
+                                <label for="images">Kies afbeeldingen: (tip: je kan meerdere afbeeldingen tegelijk selecteren)</label>
+                                <div class="fileUpload btn btn-default form-control">
+                                    <span>Upload Foto</span>
+                                    <input type="file" multiple class="upload" name="images" id="images" accept="image/x-png, image/gif, image/jpeg">
                                 </div>
                             </div>
                         </div>
@@ -390,8 +394,8 @@
         $("#list .row.poi").each(
          function (element) {
              var poi = this;
-             
-             
+
+
              $(this).children(".preview").click(
                function (element) {
                    tagSel = json.filter(function (el) { return el.poi.ID == $(poi).attr("data-id") })[0];
@@ -413,7 +417,7 @@
                         );
 
                        $("#prijsLeerling").val(tagSel.poi.Prijs);
-                   }else if($('#routes').hasClass("active") == true){
+                   } else if ($('#routes').hasClass("active") == true) {
                        console.log("Route form displayed");
                        console.log(tagSel.poi);
 
@@ -425,16 +429,16 @@
                            console.log("lijst leegmaken");
                            $("#waypointsList").children().remove();
                        }
-                       $("#waypointsList").append($('<option>',{
+                       $("#waypointsList").append($('<option>', {
                            value: /*hier moet de lat & lng inkomen voor de berekening van de route*/ 0,
                            text: tagSel.poi.Naam
                        }));
 
 
-                       
+
                    }
                });
-             
+
          });
 
         $("#activityForm input:file").change(function () {
