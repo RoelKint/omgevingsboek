@@ -1,7 +1,8 @@
 ﻿function defer(method) {
     if (window.jQuery) {
-        if (jQuery.ui)
+        if (jQuery.ui) {
             method();
+        }  
     } else
         setTimeout(function () { defer(method) }, 50);
 }
@@ -82,12 +83,25 @@ $().ready(function () {
     $("#minAgeHiddenPoi").val("5");
     $("#maxAgeHiddenPoi").val("10");
 
+    //$('#locationPicker').popover({
+    //    html: true,
+    //    content: function () {
+    //        return $('#location_picker_wrapper').html();
+    //    }
+    //});
+
     $('#locationPicker').popover({
         html: true,
         content: function () {
             return $('#location_picker_wrapper').html();
         }
-    });
+    }).click(function (e) {
+       e.preventDefault();
+       $(this).focus();
+   });
+
+
+
     $('#locationPicker').on('shown.bs.popover', function () {
         // set what happens when user clicks on the button
         console.log("shown.bs.popover");

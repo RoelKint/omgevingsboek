@@ -12,9 +12,9 @@
             console.log("op activiteiten geklikt");
             $("#activiteitSidebar").hide(0);
             $("#poipartial").show(0);
-            
+
         }
-    })
+    });
 
     function resizeMap() {
         setTimeout(resizeMapActual, 500);

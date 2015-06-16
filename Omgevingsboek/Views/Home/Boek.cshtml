@@ -53,9 +53,16 @@
                         <option disabled>Klik op een POI om te starten</option>
                     </select>
                 </div>
-                <div class="col-md-6 col-xs-12 col-lg-6"></div>
                 <div class="col-md-6 col-xs-12 col-lg-6">
-                    <button class="btn btn-default btn-primary">
+                    <div id="directions-panel">
+
+                    </div>
+
+
+
+                </div>
+                <div class="col-md-6 col-xs-12 col-lg-6">
+                    <button class="btn btn-default btn-primary" onclick="calculateRoute();">
                         Route berekenen
                     </button>
                     <button class="btn btn-default" id="moveWaypointUp">
