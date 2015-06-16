@@ -84,7 +84,14 @@ namespace BusinessLogic.Repositories
         }
         public override void Delete(Boek entityToDelete)
         {
+
+            foreach (BoekOrder bo in context.BoekOrder.Where(b => b.BoekId == entityToDelete.Id).ToList())
+            {
+                context.BoekOrder.Remove(bo);
+
+            }
             base.Delete(entityToDelete);
+            
             context.SaveChanges();
 
         }
@@ -118,6 +125,11 @@ namespace BusinessLogic.Repositories
 
         public void DeleteSoft(Boek entityToDelete)
         {
+            foreach (BoekOrder bo in context.BoekOrder.Where(b => b.BoekId == entityToDelete.Id).ToList())
+            {
+                context.BoekOrder.Remove(bo);
+
+            }
             entityToDelete.IsDeleted = true;
             Update(entityToDelete);
             context.SaveChanges();
