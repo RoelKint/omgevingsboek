@@ -39,8 +39,9 @@ $().ready(function () {
         var array = [];
         lijst.each(function (iets) {
             if ($(lijst[iets]).is(":checked")) {
-                console.log($(lijst[iets]));
+                var value = parseInt($(lijst[iets]).attr("value"));
 
+                formData.append("ActiviteitenToDelete", value);
             }
             })
         
@@ -49,13 +50,11 @@ $().ready(function () {
       //     if (lijst.children[i].attr('checked', true)) {
       //         console.log(lijst.children.eq(i));
       //    }
-      //     //array.push(lijst.children[i]);
+      //     //
         
         
         //console.log($(lijst.children));
         
-        console.log(array);
-        formData.append("ActiviteitenToDelete", array);
         formData.append("vanaf", vanaf);
         formData.append("desc", desc);
         formData.append("filter", filter);
@@ -142,17 +141,21 @@ $().ready(function () {
             type: "POST",
             url: "../Admin/DeleteActiviteit",
             data: formData,
-            dataType: 'json',//change to your own, else read my note above on enabling the JsonValueProviderFactory in MVC
+            dataType: 'text',//change to your own, else read my note above on enabling the JsonValueProviderFactory in MVC
             contentType: false,
             processData: false,
             success: function (data) {
+                console.log(data);
                 //BTW, data is one of the worst names you can make for a variable
                 //handleSuccessFunctionHERE(data);
-                console.log(':t');
+                var jsonString = "../Admin/" + pagina + "?vanaf=" + vanaf + "&desc=" + desc + "&filter=" + currentRow + "&search=" + search + "&mode=1";
+
+                jsonItUp(jsonString);
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 //do your own thing
                 console.log("fail");
+                console.log(errorThrown);
             }
         });
     }
@@ -171,7 +174,7 @@ function switchTable() {
         var string = "";
         for (i = 0; i < els.length; i++) {
             if (pagina == "Activities") {
-                string = "<tr><td><input form='formA' id='DylanToch' name='ActiviteitenToDelete' value='" + els[i]["Id"] + "' type='checkbox' /></td>" + "<td>" + els[i]["Naam"] + "</td><td>" + els[i]["Eigenaar"]["UserName"] + "</td>" + "<td>" + els[i]["Poi"]["Naam"] + "</td>" + "<td><div class='displayInlineButtons'><button><span class='glyphicon glyphicon-remove'></span></button></div></td></tr>";
+                string = "<tr><td><input form='formA' id='DylanToch' name='name=listId' value='" + els[i]["Id"] + "' type='checkbox' /></td>" + "<td>" + els[i]["Naam"] + "</td><td>" + els[i]["Eigenaar"]["UserName"] + "</td>" + "<td>" + els[i]["Poi"]["Naam"] + "</td>" + "<td><div class='displayInlineButtons'><button><span class='glyphicon glyphicon-remove'></span></button></div></td></tr>";
             } else if (pagina == "Boeken") {
 
                 string = "<tr><td><input form='formA' name='BoekenToDelete' value='" + els[i]["Id"] + "' type='checkbox' /></td><td>" + els[i]["Naam"] + "</td><td>" + els[i]["Eigenaar"]["UserName"] + "</td>" + "<td>";

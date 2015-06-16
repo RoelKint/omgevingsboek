@@ -1,12 +1,14 @@
 ﻿using Models.MVC_Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Models.OmgevingsBoek_Models
 {
+    [Table("BoekOrder")]
     public class BoekOrder
     {
         public int Id { get; set; }

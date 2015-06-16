@@ -2,12 +2,14 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Models.OmgevingsBoek_Models
 {
+    [Table("Activiteiten")]
     public class Activiteit
     {
         public int Id { get; set; }
@@ -36,7 +38,7 @@ namespace Models.OmgevingsBoek_Models
         public virtual List<Benodigdheid> Benodigdheden { get; set; }
         public virtual List<Route> Routes { get; set; }
         public virtual List<Video> Videos { get; set; }
-        public virtual List<Fotoboek> Fotoboeken { get; set; }
+        public virtual List<Foto> Fotos { get; set; }
         public virtual List<Boek> Boeken { get; set; }
         
     }
