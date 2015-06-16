@@ -98,7 +98,7 @@ $().ready(function () {
     }).click(function (e) {
        e.preventDefault();
        $(this).focus();
-   });
+    });
 
 
 

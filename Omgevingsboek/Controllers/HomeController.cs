@@ -221,6 +221,72 @@ namespace Omgevingsboek.Controllers
             return Json(JsonConvert.SerializeObject(a), JsonRequestBehavior.AllowGet);
 
         }
+        [Authorize]
+        public ActionResult ShareList(int? Id, string type)
+        {
+            List<ShareListPM> res = new List<ShareListPM>();
+
+            if (!Id.HasValue) return null;
+            if (type == null || type == "") return null;
+            if(type.ToLower() == "activiteit"){
+                Activiteit a = bs.GetActiviteitById((int) Id);
+                if(a == null) return null;
+                if (a.Eigenaar.UserName != User.Identity.Name) return null;
+                foreach (ApplicationUser user in bs.GetUsers())
+                {
+                    ShareListPM r = new ShareListPM(){
+                        Username = user.UserName,
+                        Naam = user.Voornaam + " "+ user.Naam
+                    };
+                    if (bs.IsBoekAccessibleByUser(a.Id, user.UserName)) r.IsGedeeld = true;
+                    else r.IsGedeeld = false;
+                    res.Add(r);
+                }
+
+            }else if(type.ToLower() == "boek"){
+                Boek b = bs.GetBoekByID((int) Id);
+                if (b == null) return null;
+                if (b.Eigenaar.UserName != User.Identity.Name) return null;
+                foreach (ApplicationUser user in bs.GetUsers())
+                {
+                    ShareListPM r = new ShareListPM()
+                    {
+                        Username = user.UserName,
+                        Naam = user.Voornaam + " " + user.Naam
+                    };
+                    if (bs.IsBoekAccessibleByUser(b.Id,user.UserName)) r.IsGedeeld = true;
+                    else r.IsGedeeld = false;
+                    res.Add(r);
+                }
+
+            }else return null;
+
+            return Json(JsonConvert.SerializeObject(res), JsonRequestBehavior.AllowGet);
+        }
+        [Authorize]
+        public void EditShare(string Username, int Id, string Type, bool IsGedeeld)
+        {
+            if (!ModelState.IsValid) return;
+            ApplicationUser user = bs.GetUser(Username);
+            if (user == null) return;
+            if (Type.ToLower() == "activiteit")
+            {
+                Activiteit a = bs.GetActiviteitById((int)Id);
+                if (a == null) return;
+                if (a.Eigenaar.UserName != User.Identity.Name) return;
+                bs.addUserToActiviteitShareList(a.Id, user.UserName);
+
+            }
+            else if (Type.ToLower() == "boek")
+            {
+                Boek b = bs.GetBoekByID((int)Id);
+                if (b == null) return;
+                if (b.Eigenaar.UserName != User.Identity.Name) return;
+                bs.addUserToBoekShareList(b.Id, user.UserName);
+            }
+            else return;
+
+        }
         
         [Authorize]
         public ActionResult AddPoi(Poi poi, HttpPostedFileBase AfbeeldingFile, string TagsString)

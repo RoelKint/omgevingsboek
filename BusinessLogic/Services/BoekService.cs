@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLogic.Services
 {
-    public class BoekService : BusinessLogic.Services.IBoekService
+    public class BoekService : BusinessLogic.Services.IBoekService 
     {
         private ITagRepository repoTag = null;
         private IActiviteitRepository repoActiviteit = null;
@@ -129,6 +129,10 @@ namespace BusinessLogic.Services
         {
             repoActiviteit.UpdateActiviteitFoto(ActiviteitId, foto);
         }
+        public void addUserToActiviteitShareList(int Id, string Username)
+        {
+            repoActiviteit.addUserToShareList(Id, Username);
+        }
 
         #endregion
 
@@ -193,6 +197,10 @@ namespace BusinessLogic.Services
         public void UpdateBoekFoto(int BoekId, string afbeelding)
         {
             repoBoek.UpdateFoto(BoekId, afbeelding);
+        }
+        public void addUserToBoekShareList(int Id, string Username)
+        {
+            repoBoek.addUserToShareList(Id, Username);
         }
 
         #endregion
@@ -359,6 +367,15 @@ namespace BusinessLogic.Services
 
 
         #region Users
+
+        public List<ApplicationUser> GetUsers()
+        {
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                return context.Users.ToList();
+            }
+            
+        }
 
         public ApplicationUser GetUser(String Username)
         {

@@ -28,7 +28,7 @@
                         <span class="buttons">
                             <a href="/home/Activiteit?id=@activiteit.Id&action=share" class="expand btn btn-default" type="button"><span class="glyphicon glyphicon-share"></span></a>
                             <a href="/home/Activiteit?id=@activiteit.Id&action=public" class="expand btn btn-default" type="button"><span class="glyphicon glyphicon-eye-close"></span></a>
-                            <a href="/home/Activiteit?id=@activiteit.Id&action=settings" class="expand btn btn-default" type="button"><span class="glyphicon glyphicon-cog"></span></a>
+                            <a href="#" class="toggleActivityEdit expand btn btn-default" type="button"><span class="glyphicon glyphicon-cog"></span></a>
                         </span>
                     </div>
                 }
@@ -167,7 +167,6 @@
                                     <span class="input-group-addon" id="maxTimeBook"></span>
                                     <input type="hidden" name="MaxDuur" id="maxTimeHiddenBook" />
                                     <input type="hidden" name="MinDuur" id="minTimeHiddenBook" />
-
                                 </div>
                             </div>
                             <div class="form-group col-md-4">
@@ -325,194 +324,13 @@
 
 <script>
 
-    
-
-    var ageSlider;
-    var timeSlider;
-
-    $(".toggleActivityForm").click(function (e) {
-        e.preventDefault();
-        $("#activityForm").slideToggle(400, function () {
-        });
-    });
-
-    function initSliders() {
-        setSliderInputValues(
-            $("#minTimeBook"),
-            $("#maxTimeBook"),
-            $("#minTimeHiddenBook"),
-            $("#maxTimeHiddenBook"),
-            0,
-            24
-        );
-
-        setSliderInputValues(
-            $("#minAgeBoek"),
-            $("#maxAgeBoek"),
-            $("#minAgeHiddenBoek"),
-            $("#maxAgeHiddenBoek"),
-            0,
-            18
-        );
-
-        ageSlider = setSliderValues(
-            $("#slider-boek-age"),
-            $("#minAgeBoek"),
-            $("#maxAgeBoek"),
-            $("#minAgeHiddenBoek"),
-            $("#maxAgeHiddenBoek"),
-            0,
-            18
-        );
-
-        timeSlider = setSliderValues(
-            $("#slider-boek-time"),
-            $("#minTimeBook"),
-            $("#maxTimeBook"),
-            $("#minTimeHiddenBook"),
-            $("#maxTimeHiddenBook"),
-            0,
-            24
-        );
-    }
-
-    function setSliderValues(sliderEl, minShow, maxShow, minHidden, maxHidden, minVal, maxVal) {
-        return sliderEl.slider({
-            range: true,
-            min: minVal,
-            max: maxVal,
-            values: [minVal, maxVal],
-            slide: function (event, ui) {
-                setSliderInputValues(minShow, maxShow, minHidden, maxHidden, ui.values[0], ui.values[1]);
-                console.log("slider changed");
-            }
-        });
-    }
-
-    function moveSliders(sliderEl, minVal, maxVal) {
-        sliderEl.slider("values", [minVal, maxVal]);
-    }
-
-    function setSliderInputValues(minShow, maxShow, minHidden, maxHidden, minVal, maxVal) {
-        minShow.text(minVal);
-        maxShow.text(maxVal);
-        minHidden.val(minVal);
-        maxHidden.val(maxVal);
-    }
-
-    function setListItemListeners() {
-        $("#list .row.poi").each(
-         function (element) {
-             var poi = this;
 
 
-             $(this).children(".preview").click(
-               function (element) {
-                   tagSel = json.filter(function (el) { return el.poi.ID == $(poi).attr("data-id") })[0];
-                   if ($('#activityForm').css("display") !== 'none') {
-                       console.log("activity form displayed");
-
-                       $("#poi").val(tagSel.poi.ID);
-                       $("#poiName").val(tagSel.poi.Naam);
-                       console.log(tagSel.poi.MaxLeeftijd);
-                       console.log(tagSel.poi.MinLeeftijd);
-                       moveSliders($("#slider-boek-age"), tagSel.poi.MinLeeftijd, tagSel.poi.MaxLeeftijd);
-                       setSliderInputValues(
-                            $("#minAgeBoek"),
-                            $("#maxAgeBoek"),
-                            $("#minAgeHiddenBoek"),
-                            $("#maxAgeHiddenBoek"),
-                            tagSel.poi.MinLeeftijd,
-                            tagSel.poi.MaxLeeftijd
-                        );
-
-                       $("#prijsLeerling").val(tagSel.poi.Prijs);
-                   }
-               });
-
-         });
-
-        $("#activityForm input:file").change(function () {
-            var fileName = $(this).val();
-            console.log(fileName);
-            $("#activityForm .fileUpload").toggleClass("upload-ok");
-            //$(".filename").html(fileName);
-        });
-    }
-
-    function setListItemListenersActivity() {
-        //hier moeten de clicklisteners gezet worden
-        console.log("foo");
-        console.log("item listeners activity");
-        $("#listActivity .row.activity").each(function (element) {
-            var act = this;
-
-            $(this).children('.preview').click(
-                function (element) {
-                    console.log(json2.filter(function (el) { return el.act.Id == $(act).attr("data-id") }));
-                    tagSel = json2.filter(function (el) { return el.act.Id == $(act).attr("data-id") })[0];
-                    console.log(tagSel.act.Poi.Latitude);
-                    console.log(tagSel.act.Poi.Longitude);
-                    
-                    console.log("dit is een test");
-                    marker = new google.maps.Marker({
-                        position: /*TODO: Use actual location here*/new google.maps.LatLng(tagSel.act.Poi.Latitude, tagSel.act.Poi.Longitude),
-                        map: map
-                    });
-                    var attr = $("#waypointsList option:first-child").attr('disabled');
-                    //check if list is empty or
-                    if (typeof attr !== typeof undefined && attr !== false) {
-                        // lijst leegmaken
-                        console.log("lijst leegmaken");
-                        $("#waypointsList").children().remove();
-                    }
-                    $("#waypointsList").append($('<option>', {
-                        value: tagSel.act.Id,
-                        text: tagSel.act.Naam
-                    }));
-                    map.setCenter(new google.maps.LatLng(tagSel.act.Poi.Latitude, tagSel.act.Poi.Longitude));
-                    map.setZoom(9);
-                    markerArray.push(marker);
-                }
-            );
-        });
-    }
-    
-
-    function deferListener(method) {
-        console.log("poi");
-        if (typeof listLoaded !== 'undefined' && listLoaded == true) {
-            method();
-            listLoaded = false;
-            $('#searchPoi').bind('input', function () {
-                method();
-            });
-        } else
-            setTimeout(function () { deferListener(method) }, 50);
-    }
-
-    function deferListener2(method) {
-        console.log("activity");
-        if (typeof listLoadedActivity !== 'undefined' && listLoadedActivity == true) {
-            method();
-            listLoadedActivity = false;
-            $("#searchActivity").bind('input', function () {
-                method();
-            });
-        } else {
-            setTimeout(function () {
-                deferListener2(method)
-            }, 50);
-        }
-    }
-
-    deferListener(setListItemListeners);
-    deferListener2(setListItemListenersActivity);
-    initSliders();
 </script>
 
 <script src="~/Content/js/GoogleMapsScript.js"></script>
-
+<script src="~/Content/js/ActiviteitInBoek/Add.js"></script>
+<script src="~/Content/js/ActiviteitInBoek/Edit.js"></script>
 @*@Html.Partial("_PoiPartial", Model)*@
 @{ Html.RenderAction("ActiviteitPartial", "Home"); }
 @{ Html.RenderAction("PoiPartial", "Home"); }

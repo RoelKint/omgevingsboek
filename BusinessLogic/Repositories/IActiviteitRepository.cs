@@ -4,6 +4,7 @@ namespace BusinessLogic.Repositories
     public interface IActiviteitRepository
     {
         void AddFotoToActiviteit(int ActiviteitId, string Foto);
+        void addUserToShareList(int Id, string Username);
         System.Collections.Generic.IEnumerable<Models.OmgevingsBoek_Models.Activiteit> All();
         void Delete(Models.OmgevingsBoek_Models.Activiteit id);
         void DeleteSoft(Models.OmgevingsBoek_Models.Activiteit entityToDelete);

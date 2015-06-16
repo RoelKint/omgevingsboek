@@ -3,6 +3,7 @@ namespace BusinessLogic.Repositories
 {
     public interface IBoekRepository
     {
+        void addUserToShareList(int Id, string Username);
         void Delete(Models.OmgevingsBoek_Models.Boek entityToDelete);
         void DeleteSoft(Models.OmgevingsBoek_Models.Boek entityToDelete);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Boek> get50FromSortNameAZ(int from, string search);
