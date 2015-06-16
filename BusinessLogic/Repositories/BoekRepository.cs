@@ -62,8 +62,13 @@ namespace BusinessLogic.Repositories
             res.DeelLijst = new List<ApplicationUser>();
             res.DeelLijst.Add(context.Users.Where(u => u.Id == entity.EigenaarId).FirstOrDefault());
             res = base.Insert(entity);
-            
-            int previndex = context.BoekOrder.Where(i => i.EigenaarId == entity.EigenaarId).Where(i => i.IsSharedLijst == false).Max(i => i.Index);
+
+            int previndex;
+            List<BoekOrder> l = context.BoekOrder.Where(i => i.EigenaarId == entity.EigenaarId).Where(i => i.IsSharedLijst == false).ToList();
+            if (l.Count != 0)
+                previndex = context.BoekOrder.Where(i => i.EigenaarId == entity.EigenaarId).Where(i => i.IsSharedLijst == false).Max(i => i.Index);
+            else
+                previndex = -1;
             context.BoekOrder.Add(new BoekOrder()
             {
                 BoekId = res.Id,
@@ -151,6 +156,21 @@ namespace BusinessLogic.Repositories
             Boek b = GetByID(Id);
             ApplicationUser user = context.Users.Where(u => u.UserName == Username).FirstOrDefault();
             b.DeelLijst.Add(user);
+
+            int previndex;
+            List<BoekOrder> l = context.BoekOrder.Where(i => i.EigenaarId == user.Id).Where(i => i.IsSharedLijst == true).ToList();
+            if (l.Count != 0 )
+                previndex = context.BoekOrder.Where(i => i.EigenaarId == user.Id).Where(i => i.IsSharedLijst == true).Max(i => i.Index);
+            else
+                previndex = -1;
+            context.BoekOrder.Add(new BoekOrder()
+            {
+                BoekId = b.Id,
+                EigenaarId = user.Id,
+                Index = (previndex + 1),
+                IsSharedLijst = true
+            });
+            
             Update(b);
         }
 

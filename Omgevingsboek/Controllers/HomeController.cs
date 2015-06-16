@@ -263,7 +263,6 @@ namespace Omgevingsboek.Controllers
 
             return Json(JsonConvert.SerializeObject(res), JsonRequestBehavior.AllowGet);
         }
-        [HttpPost]
         [Authorize]
         public void EditShare(string Username, int Id, string Type, bool IsGedeeld)
         {
