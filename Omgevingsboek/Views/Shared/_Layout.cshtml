@@ -43,8 +43,11 @@
                         float: left;
                         display: inline-block;
                     ">
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">Library</a></li>
+                        <li><a href="#">@ViewBag.stap1</a></li>
+                        @if (ViewBag.stap2 != null)
+                        {
+                            <li><a href="#">@ViewBag.stap2</a></li>
+                        }
                         <li class="active">
                             <span class="glyphicon glyphicon-search"></span>
                             <input type="text" class="form-control" style="
