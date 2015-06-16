@@ -7,12 +7,15 @@
 }
 
 $().ready(function () {
-
     $(".sidebar input:file").change(function () {
         var fileName = $(this).val();
         console.log(fileName);
         $(".sidebar .fileUpload").toggleClass("upload-ok");
         //$(".filename").html(fileName);
+    });
+
+    $('#addPoi').submit(function (event) {
+            $($('#addPoi button.submit')[0]).button("loading");
     });
 
     Array.prototype.getUnique = function () {

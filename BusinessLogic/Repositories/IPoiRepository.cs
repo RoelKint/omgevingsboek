@@ -18,5 +18,6 @@ namespace BusinessLogic.Repositories
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.PoiTags> GetTags(int PoiId);
         Models.OmgevingsBoek_Models.Poi Insert(Models.OmgevingsBoek_Models.Poi entity);
         void Update(Models.OmgevingsBoek_Models.Poi entityToUpdate);
+        void UpdateFoto(int PoiId, string foto);
     }
 }

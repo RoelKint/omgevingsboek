@@ -16,5 +16,6 @@ namespace BusinessLogic.Repositories
         Models.OmgevingsBoek_Models.Boek Insert(Models.OmgevingsBoek_Models.Boek entity);
         bool IsBoekAccessibleByUser(int BoekId, string Username);
         void Update(Models.OmgevingsBoek_Models.Boek entityToUpdate);
+        void UpdateFoto(int BoekId, string foto);
     }
 }

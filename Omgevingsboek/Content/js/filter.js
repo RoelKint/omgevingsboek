@@ -150,7 +150,7 @@ function filter(query) {
     });
 
     $(".poiTags span").click(function (tag) {
-        document.getElementById("searchPoi").value = document.getElementById("searchPoi").value + " Tags:" + $(this)[0].innerText;
+        document.getElementById("searchPoi").value = document.getElementById("searchPoi").value + " Tags:" + $(this)[0].textContent;
         filter($("#searchPoi").val());
         listLoaded = true;
         $("#searchPoi").trigger("input");

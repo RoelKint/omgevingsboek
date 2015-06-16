@@ -38,7 +38,7 @@ namespace BusinessLogic.Repositories
 
         public override Activiteit GetByID(object id)
         {
-            return this.context.Activiteiten.Where(a => a.Id == (int)id).Where(i => !i.IsDeleted).Include(a => a.DeelLijst).Include(a => a.Eigenaar).Include(a => a.Benodigdheden).Include(a => a.Videos).Include(a => a.Tags).SingleOrDefault();
+            return this.context.Activiteiten.Where(a => a.Id == (int)id).Where(i => !i.IsDeleted).Include(a => a.DeelLijst).Include(a => a.Eigenaar).Include(a => a.Benodigdheden).Include(a => a.Videos).Include(a => a.Fotos).Include(a => a.Tags).SingleOrDefault();
         }
         public List<Activiteit> getActivitiesByUsername(string Username)
         {
@@ -189,6 +189,12 @@ namespace BusinessLogic.Repositories
                 a.Fotos = new List<Models.OmgevingsBoek_Models.Foto>();
             a.Fotos.Add(foto);
             context.SaveChanges();
+        }
+        public void UpdateActiviteitFoto(int ActiviteitId, string foto)
+        {
+            Activiteit a = GetByID(ActiviteitId);
+            a.AfbeeldingNaam = foto;
+            Update(a);
         }
 
     }

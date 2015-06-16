@@ -65,34 +65,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (Models.PresentationModels.UserActivities item in Model.UserActivities)
-                {
-                    <tr>
-                        <td><input type="checkbox" name="checkbox" value="@item.User.Id"></td>
-                        <td>@item.User.Naam @item.User.Voornaam</td>
-                        <td>@item.User.UserName</td>
-                        <td>
-                            @foreach (var itempje in item.Activiteiten)
-                            {
-                                if (itempje.Equals(item.Activiteiten.Last()))
-                                {
-                                    <a href="#">@itempje.Naam</a>
-                                }
-                                else
-                                {
-                                    <a href="#">@itempje.Naam</a>@(',')
-                                }
-                            }
-                        </td>
-                        <td>
-                            <div class="displayInlineButtons">
-                                <button><span class="glyphicon glyphicon-remove"></span></button>
-                                <button><span class="glyphicon glyphicon-pencil"></span></button>
-                            </div>
-                        </td>
-                    </tr>
-
-                }
+              
             </tbody>
         </table>
     </form>

@@ -84,7 +84,14 @@ namespace BusinessLogic.Repositories
         }
         public override void Delete(Boek entityToDelete)
         {
+
+            foreach (BoekOrder bo in context.BoekOrder.Where(b => b.BoekId == entityToDelete.Id).ToList())
+            {
+                context.BoekOrder.Remove(bo);
+
+            }
             base.Delete(entityToDelete);
+            
             context.SaveChanges();
 
         }
@@ -118,6 +125,11 @@ namespace BusinessLogic.Repositories
 
         public void DeleteSoft(Boek entityToDelete)
         {
+            foreach (BoekOrder bo in context.BoekOrder.Where(b => b.BoekId == entityToDelete.Id).ToList())
+            {
+                context.BoekOrder.Remove(bo);
+
+            }
             entityToDelete.IsDeleted = true;
             Update(entityToDelete);
             context.SaveChanges();
@@ -128,7 +140,12 @@ namespace BusinessLogic.Repositories
         {
             return this.context.Boeken.Where(i => !i.IsDeleted).Where(i => i.Eigenaar.UserName == Owner).Where(i => i.DeelLijst.Contains(context.Users.Select(u => u).Where(u => u.UserName == Visitor).FirstOrDefault())).OrderBy(i => i.Naam).Skip(from).Take(50).ToList();
         }
-
+        public void UpdateFoto(int BoekId, string foto)
+        {
+            Boek b = GetByID(BoekId);
+            b.Afbeelding = foto;
+            Update(b);
+        }
 
     }
 }
