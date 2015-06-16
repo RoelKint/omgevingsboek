@@ -43,10 +43,17 @@
                         float: left;
                         display: inline-block;
                     ">
-                        <li><a href="#">@ViewBag.stap1</a></li>
+                        @if (ViewBag.stap1 != null)
+                        {
+                            <li><a href="@ViewBag.url1">@ViewBag.stap1</a></li>
+                        }
                         @if (ViewBag.stap2 != null)
                         {
-                            <li><a href="#">@ViewBag.stap2</a></li>
+                            <li><a href="@ViewBag.url2">@ViewBag.stap2</a></li>
+                        }
+                        @if (ViewBag.stap3 != null)
+                        {
+                            <li><a href="@ViewBag.url3">@ViewBag.stap3</a></li>
                         }
                         <li class="active">
                             <span class="glyphicon glyphicon-search"></span>
@@ -63,8 +70,7 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-cog"></span></a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Instellingen</a></li>
-                                <li><a href="">Helpdesk</a></li>
+                                <li><a href="@Url.Action("Helpdesk","Home")">Helpdesk</a></li>
                                 <li><a href="@Url.Action("Contact","Home")">Contact</a></li>
                                 <!--alleen voor beheerders maken-->
                                 @if (User.IsInRole("Administrator") || User.IsInRole("SuperAdministrator"))

@@ -171,6 +171,7 @@
     <Compile Include="OmgevingsBoek Models\RouteListItem.cs" />
     <Compile Include="OmgevingsBoek Models\Uitnodiging.cs" />
     <Compile Include="OmgevingsBoek Models\values.cs" />
+    <Compile Include="PresentationModels\ActiviteitPM.cs" />
     <Compile Include="PresentationModels\FotoId.cs" />
     <Compile Include="PresentationModels\GebruikersPM.cs" />
     <Compile Include="PresentationModels\HomeIndexPM.cs" />

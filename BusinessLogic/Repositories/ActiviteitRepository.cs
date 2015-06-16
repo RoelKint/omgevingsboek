@@ -45,7 +45,7 @@ namespace BusinessLogic.Repositories
             using (ApplicationDbContext context = new ApplicationDbContext())
             {
                 context.Configuration.LazyLoadingEnabled = false;
-                return (from a in context.Activiteiten where !a.IsDeleted where a.Eigenaar.UserName == Username select a).ToList();
+                return (from a in context.Activiteiten.Include(a => a.Poi) where !a.IsDeleted where a.Eigenaar.UserName == Username select a).ToList();
             }
         }
         public List<Activiteit> getSharedActivitiesByUsername(string Username)
@@ -183,7 +183,6 @@ namespace BusinessLogic.Repositories
         public void AddFotoToActiviteit(int ActiviteitId,string Foto)
         {
             Foto foto = context.Fotos.Add(new Foto() { FotoUrl = Foto });
-            context.SaveChanges();
             Activiteit a = context.Activiteiten.Where(i => i.Id == ActiviteitId).FirstOrDefault();
             if (a.Fotos == null)
                 a.Fotos = new List<Models.OmgevingsBoek_Models.Foto>();
@@ -195,6 +194,7 @@ namespace BusinessLogic.Repositories
             Activiteit a = GetByID(ActiviteitId);
             a.AfbeeldingNaam = foto;
             Update(a);
+            context.SaveChanges();
         }
 
     }

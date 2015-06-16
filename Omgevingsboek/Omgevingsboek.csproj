@@ -253,11 +253,13 @@
     <Content Include="Content\img\favicon.ico" />
     <Content Include="Content\img\paper_fibers.png" />
     <Content Include="Content\jquery.tagsinput.min.css" />
+    <Content Include="Content\js\activiteitpartialscript.js" />
     <Content Include="Content\js\AdminFormScript.js" />
     <Content Include="Content\js\boekenScript.js" />
     <Content Include="Content\js\CooleDingenGebruiker.js" />
     <Content Include="Content\js\CooleDingenPoi.js" />
     <Content Include="Content\js\filter.js" />
+    <Content Include="Content\js\filteractivity.js" />
     <Content Include="Content\js\gebruikerpartialscript.js" />
     <Content Include="Content\js\GoogleMapsScript.js" />
     <Content Include="Content\js\MainElementFilter.js" />
@@ -384,7 +386,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
@@ -433,6 +434,7 @@
     <Content Include="Views\Shared\_ActiviteitPartial.cshtml" />
     <Content Include="Views\Activiteiten\Details.cshtml" />
     <Content Include="Views\Activiteiten\Delete.cshtml" />
+    <Content Include="Views\Home\HelpDesk.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

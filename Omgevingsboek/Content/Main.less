@@ -266,6 +266,17 @@ div.stackright {
             overflow-x: hidden;
             height: 93%;
         }
+       
+    }
+
+    > .activity{
+        height:100%;
+
+        #listActivity{
+           overflow-y:scroll;
+           overflow-x:hidden;
+           height:93%;
+       }
     }
 
     .form-horizontal {
@@ -435,6 +446,75 @@ h3.rowheader {
     }
 }
 
+
+.row.activity{
+    width: 100%;
+    padding-top: 7px;
+    margin: 0;
+    padding-bottom: 5px;
+    border-top: 1px solid rgba(211, 211, 211, 0.5);
+
+    h3 a {
+        color: #3FB9E3;
+
+        &:hover {
+            text-decoration: none;
+            color: #92E1FC;
+        }
+    }
+
+    .info {
+        padding-left: 0;
+
+        h3 {
+            margin: 0;
+        }
+
+        .tag {
+            background-color: #86CFE8;
+            color: white;
+            font-weight: bold;
+            width: 100%;
+            border-color: #FFFFFF;
+            box-shadow: 0 0 2px rgba(255,255, 255, 0.75);
+        }
+
+        p.poiTags {
+            margin: 0;
+
+            span {
+                padding: 0px 4px;
+                margin-right: 3px;
+                background-color: #216075;
+                border-radius: 5px;
+                border: solid 1px rgba(211, 211, 211, 0.5);
+                text-transform: capitalize;
+                color: white;
+                cursor: pointer;
+            }
+        }
+    }
+
+    .preview {
+        padding: 0;
+        margin: 0px 5%;
+        width: 23.333333333%;
+        min-height: 8em;
+        background-size: cover;
+        box-sizing: border-box;
+        overflow: hidden;
+        border-radius: 5px;
+
+        img {
+            max-width: 95%;
+        }
+    }
+
+    &:last-child {
+        border-bottom: 1px solid rgba(211, 211, 211, 0.5);
+    }
+}
+
 .profilePic {
     position: absolute;
     width: 100px;
@@ -537,22 +617,49 @@ li.tags {
      margin: 0;
 
             div {
+                position: relative;
                 padding: 2px 4px;
                 margin-right: 3px;
-        margin-left: 3px;
-        background-color: #86CFE8;
+                display: inline;
+                margin-left: 3px;
+                background-color: #86CFE8;
                 border-radius: 5px;
-                color:white;
-                box-shadow: 0 0 5px rgba(134, 207, 232, 1);
+                color: white;
+                box-shadow: 0 0 5px #86cfe8;
             }
 
             input {
                 padding: 1px 4px;
                 margin-right: 3px;
-        background-color: #86CFE8;
+                background-color: #86CFE8;
                 border-radius: 5px;
                 color: black;
             }
+            .tagwrap{
+                position: relative;
+            }
+}
+
+
+li.tags>span {
+  padding: 2px 4px;
+  margin-right: 3px;
+  margin-left: 3px;
+  background-color: #86CFE8;
+  border-radius: 5px;
+  color: white;
+  box-shadow: 0 0 5px #86cfe8;
+}
+
+
+li.tags div .removeclick{
+    position: absolute;
+    right: -5px;
+    cursor:pointer;
+    top: -4px;
+    z-index: 100;
+    color:#216075;
+    text-decoration:none;
 }
 
 li.tags span{
