@@ -5,8 +5,8 @@ namespace BusinessLogic.Services
     {
         void AddFotoToActiviteit(int ActiviteitId, string Foto);
         void AddTagToPoi(int PoiId, int TagId, string UserName);
-        void addUserToActiviteitShareList(int Id, string Username);
-        void addUserToBoekShareList(int Id, string Username);
+        void addUserToActiviteitShareList(int Id, string Username, bool IsGedeeld);
+        void addUserToBoekShareList(int Id, string Username, bool IsGedeeld);
         Models.OmgevingsBoek_Models.Uitnodiging CreateUitnodiging(string UitgenodigdDoorUserName, string EmailUitgenodigde);
         void DeleteActiviteit(Models.OmgevingsBoek_Models.Activiteit entityToDelete);
         void DeleteActiviteitSoft(Models.OmgevingsBoek_Models.Activiteit entityToDelete);

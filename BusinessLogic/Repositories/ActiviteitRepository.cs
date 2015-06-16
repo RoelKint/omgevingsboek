@@ -52,17 +52,11 @@ namespace BusinessLogic.Repositories
         {
             using (ApplicationDbContext context = new ApplicationDbContext())
             {
-                return (from a in context.Activiteiten.Include(a => a.Boeken)
-                            .Include(a => a.Benodigdheden)
-                            .Include(a => a.DeelLijst)
+                context.Configuration.LazyLoadingEnabled = false;
+                return (from a in context.Activiteiten
                             .Include(a => a.Eigenaar)
-                            
                             .Include(a => a.Poi)
-                            .Include(a => a.Routes)
-                            .Include(a => a.Tags)
-                            .Include(a => a.Videos) 
                         where a.DeelLijst.Contains(context.Users.Select(i=>i).Where(i=>i.UserName == Username).FirstOrDefault())
-                        where a.Eigenaar != context.Users.Select(u => u).Where(u => u.UserName == Username).FirstOrDefault()
                         where !a.IsDeleted
                         select a).ToList();
             }
@@ -180,14 +174,14 @@ namespace BusinessLogic.Repositories
             context.SaveChanges();
             return entity;
         }
-        public void AddFotoToActiviteit(int ActiviteitId,string Foto)
+        public async void AddFotoToActiviteit(int ActiviteitId,string Foto)
         {
             Foto foto = context.Fotos.Add(new Foto() { FotoUrl = Foto });
             Activiteit a = context.Activiteiten.Where(i => i.Id == ActiviteitId).FirstOrDefault();
             if (a.Fotos == null)
                 a.Fotos = new List<Models.OmgevingsBoek_Models.Foto>();
             a.Fotos.Add(foto);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
         }
         public void UpdateActiviteitFoto(int ActiviteitId, string foto)
         {
@@ -196,49 +190,57 @@ namespace BusinessLogic.Repositories
             Update(a);
             context.SaveChanges();
         }
-        public void addUserToShareList(int Id, string Username)
+        public void addUserToShareList(int Id, string Username, bool IsGedeeld)
         {
             Activiteit a = GetByID(Id);
             ApplicationUser user = context.Users.Where(u => u.UserName == Username).FirstOrDefault();
-            Boek deelboek;
-            if (context.Boeken.Where(b => b.Naam == "Gedeelde Activiteiten").Where(b => b.DeelLijst.Any(x => x.UserName == user.UserName)).Where(b => b.EigenaarId == "").FirstOrDefault() == null)
+            if (IsGedeeld)
             {
-                List<ApplicationUser> deellijst = new List<ApplicationUser>();
-                deellijst.Add(user);
-
-                deelboek = context.Boeken.Add(new Boek()
+                Boek deelboek;
+                if (context.Boeken.Where(b => b.Naam == "Gedeelde Activiteiten").Where(b => b.DeelLijst.Any(x => x.UserName == user.UserName)).Where(b => b.EigenaarId == "").FirstOrDefault() == null)
                 {
-                    Naam = "Gedeelde Activiteiten",
-                    DeelLijst = deellijst,
-                    Afbeelding = ""
-                });
+                    List<ApplicationUser> deellijst = new List<ApplicationUser>();
+                    deellijst.Add(user);
 
-                int previndex;
-                List<BoekOrder> l = context.BoekOrder.Where(i => i.EigenaarId == user.Id).Where(i => i.IsSharedLijst == true).ToList();
-                if (l.Count != 0)
-                    previndex = context.BoekOrder.Where(i => i.EigenaarId == user.Id).Where(i => i.IsSharedLijst == true).Max(i => i.Index);
+                    deelboek = context.Boeken.Add(new Boek()
+                    {
+                        Naam = "Gedeelde Activiteiten",
+                        DeelLijst = deellijst,
+                        Afbeelding = ""
+                    });
+
+                    int previndex;
+                    List<BoekOrder> l = context.BoekOrder.Where(i => i.EigenaarId == user.Id).Where(i => i.IsSharedLijst == true).ToList();
+                    if (l.Count != 0)
+                        previndex = context.BoekOrder.Where(i => i.EigenaarId == user.Id).Where(i => i.IsSharedLijst == true).Max(i => i.Index);
+                    else
+                        previndex = -1;
+                    context.BoekOrder.Add(new BoekOrder()
+                    {
+                        BoekId = deelboek.Id,
+                        EigenaarId = user.Id,
+                        Index = -1,
+                        IsSharedLijst = true
+                    });
+
+                }
                 else
-                    previndex = -1;
-                context.BoekOrder.Add(new BoekOrder()
                 {
-                    BoekId = deelboek.Id,
-                    EigenaarId = user.Id,
-                    Index = -1,
-                    IsSharedLijst = true
-                });
+                    deelboek = context.Boeken.Where(b => b.Naam == "Gedeelde Activiteiten").Where(b => b.DeelLijst.Any(x => x.UserName == user.UserName)).Where(b => b.EigenaarId == "").FirstOrDefault();
+                }
+                if (deelboek.Activiteiten == null) deelboek.Activiteiten = new List<Activiteit>();
+                deelboek.Activiteiten.Add(a);
 
+                a.DeelLijst.Add(user);
+                Update(a);
+                context.SaveChanges();
             }
             else
             {
-                deelboek = context.Boeken.Where(b => b.Naam == "Gedeelde Activiteiten").Where(b => b.DeelLijst.Any(x => x.UserName == user.UserName)).Where(b => b.EigenaarId == "").FirstOrDefault();
+                a.DeelLijst.Remove(user);
+                Update(a);
+                context.SaveChanges();
             }
-            if (deelboek.Activiteiten == null) deelboek.Activiteiten = new List<Activiteit>();
-            deelboek.Activiteiten.Add(a);
-            
-            a.DeelLijst.Add(user);
-            Update(a);
-            context.SaveChanges();
-            //TODO: oplossen waar dit terrecht komt
         }
         public void UpdateActiviteit(Activiteit activiteit)
         {

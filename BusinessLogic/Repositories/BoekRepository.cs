@@ -151,27 +151,37 @@ namespace BusinessLogic.Repositories
             b.Afbeelding = foto;
             Update(b);
         }
-        public void addUserToShareList(int Id, string Username)
+        public void addUserToShareList(int Id, string Username, bool IsGedeeld)
         {
             Boek b = GetByID(Id);
             ApplicationUser user = context.Users.Where(u => u.UserName == Username).FirstOrDefault();
-            b.DeelLijst.Add(user);
 
-            int previndex;
-            List<BoekOrder> l = context.BoekOrder.Where(i => i.EigenaarId == user.Id).Where(i => i.IsSharedLijst == true).ToList();
-            if (l.Count != 0 )
-                previndex = context.BoekOrder.Where(i => i.EigenaarId == user.Id).Where(i => i.IsSharedLijst == true).Max(i => i.Index);
-            else
-                previndex = -1;
-            context.BoekOrder.Add(new BoekOrder()
+            if (IsGedeeld)
             {
-                BoekId = b.Id,
-                EigenaarId = user.Id,
-                Index = (previndex + 1),
-                IsSharedLijst = true
-            });
-            
-            Update(b);
+                b.DeelLijst.Add(user);
+
+                int previndex;
+                List<BoekOrder> l = context.BoekOrder.Where(i => i.EigenaarId == user.Id).Where(i => i.IsSharedLijst == true).ToList();
+                if (l.Count != 0)
+                    previndex = context.BoekOrder.Where(i => i.EigenaarId == user.Id).Where(i => i.IsSharedLijst == true).Max(i => i.Index);
+                else
+                    previndex = -1;
+                context.BoekOrder.Add(new BoekOrder()
+                {
+                    BoekId = b.Id,
+                    EigenaarId = user.Id,
+                    Index = (previndex + 1),
+                    IsSharedLijst = true
+                });
+
+                Update(b);
+            }
+            else
+            {
+                context.BoekOrder.Remove(context.BoekOrder.Where(b => b.BoekId == b.BoekId).Where(b => b.EigenaarId == user.Id).FirstOrDefault());
+                b.DeelLijst.Remove(context.Users.Find(user));
+                Update(b);
+            }
         }
 
     }

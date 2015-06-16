@@ -129,9 +129,9 @@ namespace BusinessLogic.Services
         {
             repoActiviteit.UpdateActiviteitFoto(ActiviteitId, foto);
         }
-        public void addUserToActiviteitShareList(int Id, string Username)
+        public void addUserToActiviteitShareList(int Id, string Username, bool IsGedeeld)
         {
-            repoActiviteit.addUserToShareList(Id, Username);
+            repoActiviteit.addUserToShareList(Id, Username, bool IsGedeeld);
         }
         public void UpdateActiviteit(Activiteit activiteit)
         {
@@ -202,9 +202,9 @@ namespace BusinessLogic.Services
         {
             repoBoek.UpdateFoto(BoekId, afbeelding);
         }
-        public void addUserToBoekShareList(int Id, string Username)
+        public void addUserToBoekShareList(int Id, string Username, bool IsGedeeld)
         {
-            repoBoek.addUserToShareList(Id, Username);
+            repoBoek.addUserToShareList(Id, Username, bool IsGedeeld);
         }
 
         #endregion

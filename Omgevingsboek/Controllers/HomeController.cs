@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Net;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -263,6 +264,7 @@ namespace Omgevingsboek.Controllers
 
             return Json(JsonConvert.SerializeObject(res), JsonRequestBehavior.AllowGet);
         }
+        [HttpPost]
         [Authorize]
         public void EditShare(string Username, int Id, string Type, bool IsGedeeld)
         {
@@ -274,7 +276,7 @@ namespace Omgevingsboek.Controllers
                 Activiteit a = bs.GetActiviteitById((int)Id);
                 if (a == null) return;
                 if (a.Eigenaar.UserName != User.Identity.Name) return;
-                bs.addUserToActiviteitShareList(a.Id, user.UserName);
+                bs.addUserToActiviteitShareList(a.Id, user.UserName,IsGedeeld);
 
             }
             else if (Type.ToLower() == "boek")
@@ -282,7 +284,7 @@ namespace Omgevingsboek.Controllers
                 Boek b = bs.GetBoekByID((int)Id);
                 if (b == null) return;
                 if (b.Eigenaar.UserName != User.Identity.Name) return;
-                bs.addUserToBoekShareList(b.Id, user.UserName);
+                bs.addUserToBoekShareList(b.Id, user.UserName, IsGedeeld);
             }
             else return;
 
@@ -336,7 +338,6 @@ namespace Omgevingsboek.Controllers
                     try
                     {
                         //TODO: GROTE AFBEELDING FOUT HIER
-                        //CONTROLLER MAKEN VOOR ROEL
                         flickr.UploadPictureAsync(AfbeeldingFile.InputStream, poi.Naam, poi.Naam, "", "", false, false, false, ContentType.Photo, SafetyLevel.Safe, HiddenFromSearch.Hidden,(res)=>{
                             if (!res.HasError)
                             {
@@ -404,7 +405,7 @@ namespace Omgevingsboek.Controllers
         public ActionResult ActiviteitPartial()
         {
             List<ActiviteitPM> activiteitenpms = new List<ActiviteitPM>();
-            List<Activiteit> activiteiten = bs.GetActivitiesByUsername(User.Identity.Name);
+            List<Activiteit> activiteiten = bs.GetSharedActivitiesByUsername(User.Identity.Name);
 
             foreach (Activiteit act in activiteiten)
             {
@@ -519,7 +520,7 @@ namespace Omgevingsboek.Controllers
                 {
                     if (AfbeeldingFile != null)
                     {
-                        if(AfbeeldingFile.ContentLength > 15000000) return RedirectToAction("Boek", new { id = (int)BoekId });
+                        if(AfbeeldingFile.ContentLength > 10000000) return RedirectToAction("Boek", new { id = (int)BoekId });
                         try
                         {
                             flickr.UploadPictureAsync(AfbeeldingFile.InputStream, activiteit.Naam, activiteit.Naam, "", "", false, false, false, ContentType.Photo, SafetyLevel.Safe, HiddenFromSearch.Hidden, (res) =>
@@ -545,8 +546,8 @@ namespace Omgevingsboek.Controllers
                         {
                             foreach (HttpPostedFileBase image in images)
                             {
-                                if(image.ContentLength > 15000000) return RedirectToAction("Boek", new { id = (int)BoekId });
-
+                                if (image.ContentLength > 10000000) continue;
+                                //nog fouten met meerdere afbeeldingen
                                 flickr.UploadPictureAsync(image.InputStream, activiteit.Naam, activiteit.Naam, "", "", false, false, false, ContentType.Photo, SafetyLevel.Safe, HiddenFromSearch.Hidden, (res) =>
                                 {
                                     if (!res.HasError)
@@ -602,7 +603,7 @@ namespace Omgevingsboek.Controllers
 
                 if (AfbeeldingFile != null)
                 {
-                    if(AfbeeldingFile.ContentLength > 15000000) return RedirectToAction("Boek", new { id = (int)BoekId });
+                    if(AfbeeldingFile.ContentLength > 10000000) return RedirectToAction("Boek", new { id = (int)BoekId });
                     try
                     {
                         flickr.UploadPictureAsync(AfbeeldingFile.InputStream, activiteit.Naam, activiteit.Naam, "", "", false, false, false, ContentType.Photo, SafetyLevel.Safe, HiddenFromSearch.Hidden, (res) =>
@@ -628,8 +629,8 @@ namespace Omgevingsboek.Controllers
                     {
                         foreach (HttpPostedFileBase image in images)
                         {
-                            if(image.ContentLength > 15000000) return RedirectToAction("Boek", new { id = (int)BoekId });
-
+                            if(image.ContentLength > 10000000) return RedirectToAction("Boek", new { id = (int)BoekId });
+                            //TODO: Dit hier fixen
                             flickr.UploadPictureAsync(image.InputStream, activiteit.Naam, activiteit.Naam, "", "", false, false, false, ContentType.Photo, SafetyLevel.Safe, HiddenFromSearch.Hidden, (res) =>
                             {
                                 if (!res.HasError)
@@ -637,7 +638,9 @@ namespace Omgevingsboek.Controllers
                                     PhotoInfo info = flickr.PhotosGetInfo(res.Result);
                                     bs.AddFotoToActiviteit(NieuweActiviteit.Id, info.LargeUrl);
                                 }
+                                
                             });
+                            Thread.Sleep(5);
                         }
                     }
                     catch (Exception ex)
@@ -650,6 +653,7 @@ namespace Omgevingsboek.Controllers
             return RedirectToAction("Boek", new { id = (int)BoekId });
 
         }
+        
 
     }
 }
