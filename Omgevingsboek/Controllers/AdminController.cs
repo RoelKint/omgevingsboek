@@ -27,7 +27,12 @@ namespace Omgevingsboek.Controllers
         [Authorize(Roles = "Administrator,SuperAdministrator")]
         public ActionResult Index()
         {
+            Session["stap1"] = "admin";
+            Session["stap2"] = "";
+            ViewBag.stap1 = Session["stap1"];
+
             return View();
+
         }
 
 
@@ -37,6 +42,9 @@ namespace Omgevingsboek.Controllers
         [Authorize(Roles = "Administrator,SuperAdministrator")]
         public ActionResult Activities(int? vanaf, int? desc, int? filter, string search, int? mode)
         {
+            Session["stap2"] = "activities";
+            ViewBag.stap1 = Session["stap1"];
+            ViewBag.stap2 = Session["stap2"];
             //mode == 1 -> json
             //mode == 0/null -> view
 
@@ -130,6 +138,9 @@ namespace Omgevingsboek.Controllers
         [HttpGet]
         public ActionResult Gebruikers(int? vanaf, int? desc,string search, int? mode)
         {
+            Session["stap2"] = "gebruikers";
+            ViewBag.stap1 = Session["stap1"];
+            ViewBag.stap2 = Session["stap2"];
             if (search == null) search = "";
             if (TempData["Feedback"] != null)
             {
@@ -319,6 +330,9 @@ namespace Omgevingsboek.Controllers
         [HttpGet]
         public ActionResult Boeken(int? vanaf, int? desc, int? filter, string search, int? mode)
         {
+            Session["stap2"] = "boeken";
+            ViewBag.stap1 = Session["stap1"];
+            ViewBag.stap2 = Session["stap2"];
             //mode == 1 -> json
             //mode == 0/null -> view
 
@@ -406,6 +420,9 @@ namespace Omgevingsboek.Controllers
         [HttpGet]
         public ActionResult Pois(int? vanaf, int? desc, string search, int? filter, int? mode)
         {
+            Session["stap2"] = "pois";
+            ViewBag.stap1 = Session["stap1"];
+            ViewBag.stap2 = Session["stap2"];
             //mode 1 = json
             //mode 0/null = view
 
