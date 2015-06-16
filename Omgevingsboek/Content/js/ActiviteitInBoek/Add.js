@@ -171,7 +171,41 @@ $().ready(function () {
 
     function setListItemListenersActivity() {
         //hier moeten de clicklisteners gezet worden
+        //hier moeten de clicklisteners gezet worden
         console.log("foo");
+        console.log("item listeners activity");
+        $("#listActivity .row.activity").each(function (element) {
+            var act = this;
+
+            $(this).children('.preview').click(
+                function (element) {
+                    console.log(json2.filter(function (el) { return el.act.Id == $(act).attr("data-id") }));
+                    tagSel = json2.filter(function (el) { return el.act.Id == $(act).attr("data-id") })[0];
+                    console.log(tagSel.act.Poi.Latitude);
+                    console.log(tagSel.act.Poi.Longitude);
+
+                    console.log("dit is een test");
+                    marker = new google.maps.Marker({
+                        position: /*TODO: Use actual location here*/new google.maps.LatLng(tagSel.act.Poi.Latitude, tagSel.act.Poi.Longitude),
+                        map: map
+                    });
+                    var attr = $("#waypointsList option:first-child").attr('disabled');
+                    //check if list is empty or
+                    if (typeof attr !== typeof undefined && attr !== false) {
+                        // lijst leegmaken
+                        console.log("lijst leegmaken");
+                        $("#waypointsList").children().remove();
+                    }
+                    $("#waypointsList").append($('<option>', {
+                        value: tagSel.act.Id,
+                        text: tagSel.act.Naam
+                    }));
+                    map.setCenter(new google.maps.LatLng(tagSel.act.Poi.Latitude, tagSel.act.Poi.Longitude));
+                    map.setZoom(9);
+                    markerArray.push(marker);
+                }
+            );
+        });
     }
 
 
