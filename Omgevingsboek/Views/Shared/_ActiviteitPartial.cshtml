@@ -32,6 +32,26 @@
 
 <script id="activity-template" type="text/x-handlebars-template">
     <div class="row activty" data-id="{{id}}" data-title="{{title}}">
-
+        <div class="col-md-4 col-sm-4 col-xs-4 preview" style="background-image:url('{{image}}');">
+        </div>
+        <div class="col-md-8 col-sm-8 col-xs-8  info">
+            <h3><a href="../Home/poi?id={{id}}">{{title}}</a></h3>
+            <p class="poiTags">{{{tags}}}</p>
+            <p class="location">{{distance}}km {{city}}</p>
+            <button data-toggle="popover"
+                    data-html="true"
+                    data-content="{{{activities}}}"
+                    type="button"
+                    data-placement="bottom"
+                    class="tag btn btn-default">
+                {{numActivities}} Activiteiten
+            </button>
+        </div>
     </div>
 </script>
+
+<script src="~/Scripts/handlebars.js"></script>
+<script src="~/Scripts/jquery.tagsinput.min.js"></script>
+<script src="~/Content/js/poipartialscript.js"></script>
+<script src="~/Scripts/fuse.js"></script>
+<script src="~/Content/js/filter.js"></script>
