@@ -43,7 +43,7 @@
         
         @foreach (Models.OmgevingsBoek_Models.Boek boek in Model.BoekenGedeeld)
         {
-            <div class="col-sm-6 col-md-3" id="@boek.Id">
+            <div class="col-sm-6 col-md-3 element" id="@boek.Id">
                 <a href="/home/Boek?id=@boek.Id">
                     <img src="@boek.Afbeelding" />
                     <span class="caption">@boek.Naam</span>
@@ -60,3 +60,4 @@
 
 @{ Html.RenderAction("PoiPartial", "Home"); }
 <script src="~/Content/js/boekenScript.js"></script>
+<script src="~/Content/js/MainElementFilter.js"></script>
