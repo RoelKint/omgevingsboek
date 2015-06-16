@@ -34,13 +34,9 @@
     <div class="col-xs-12 col-md-12" id="buttonsAdBoven">
         <button class="SelVor"><span class="glyphicon glyphicon-chevron-left"></span> Vorige Pag.</button>
         <button class="SelVol"><span class="glyphicon glyphicon-chevron-right"></span> Volgende Pag.</button>
-        <button form="formA" type="submit"><span class="glyphicon glyphicon-remove-circle"></span> Verwijderen</button>
+        <button class="delList" type="submit"><span class="glyphicon glyphicon-remove-circle"></span> Verwijderen</button>
         <input name="filter" type="text" id="Zoeken" placeholder="Zoeken" />
-        <input form="formA" name="desc" type="hidden" value="0" />
-        <input form="formA" name="filter" type="hidden" />
-        <input form="formA" name="vanaf" type="hidden" value="@ViewBag.vanaf" />
     </div>
-    <form id="formA" action="DeletePoi">
         <table class="AdminTable table table-hover">
             <colgroup>
                 <col class="col-lg-1 col-xs-1 col-md-1" />
@@ -63,45 +59,13 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var pooi in Model)
-                {
-                    <tr>
-                        <td>
-                            <input form="formA" name="PoisToDelete" value="@pooi.ID" type="checkbox" />
-                        </td>
-                        <td>@pooi.Naam</td>
-                        <td>@pooi.Eigenaar.UserName</td>
-                        <td> @pooi.Straat @pooi.Nummer , @pooi.Postcode @pooi.Gemeente</td>
-                        <td>@pooi.Telefoon</td>
-                        <td>
-                            @foreach (var tag in pooi.Tags)
-                            {
-                                if (tag.Equals(pooi.Tags.Last()))
-                                {
-                                    <span class="tag">@tag.Tag.Naam</span>
-                                }
-                                else
-                                {
-                                    <span class="tag">@tag.Tag.Naam</span>
-
-                                }
-                            }
-
-                        </td>
-                        <td>
-                            <div class="displayInlineButtons">
-                                <button><span class="glyphicon glyphicon-remove"></span></button>
-                            </div>
-                        </td>
-                    </tr>
-                }
+               
             </tbody>
         </table>
-    </form>
     <div id="buttonsAdOnder">
         <button class="SelVor"><span class="glyphicon glyphicon-chevron-left"></span> Vorige Pag.</button>
         <button class="SelVol"><span class="glyphicon glyphicon-chevron-right"></span> Volgende Pag.</button>
-        <input form="formA" name="filter" type="text" id="Zoeken" placeholder="Zoeken" />
+        <input name="filter" type="text" id="Zoeken" placeholder="Zoeken" />
     </div>
 </div>
 <script src="~/Content/js/ZoekScript.js"></script>

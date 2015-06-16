@@ -39,7 +39,6 @@
         <button class="delList" type="submit"><span class="glyphicon glyphicon-remove-circle"></span> Verwijderen</button>
         <input name="filter" type="text" id="Zoeken" placeholder="Zoeken" />
     </div>
-    <form id="formA" action="DeleteActiviteit">
         <table class="AdminTable table table-hover">
             <colgroup>
                 <col class="col-lg-1 col-xs-1 col-md-1" />
@@ -58,26 +57,10 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
-                            <input form="formA" name="listId" value="@item.Id" type="checkbox" />
-                        </td>
-                        <td>@item.Naam</td>
-                        <td>@item.Eigenaar.UserName</td>
-                        <td>@item.Poi.Naam</td>
-                        <td>
-                            <div class="displayInlineButtons">
-                                <button class="delEen"><span class="glyphicon glyphicon-remove"></span></button>
-                            </div>
-                        </td>
-                    </tr>
-                }
+               
             </tbody>
         </table>
-    </form>
-    <div id="buttonsAdOnder">
+    <div class="col-xs-12 col-md-12" id="buttonsAdOnder">
         <button class="SelVor"><span class="glyphicon glyphicon-chevron-left"></span> Vorige Pag.</button>
         <button class="SelVol"><span class="glyphicon glyphicon-chevron-right"></span> Volgende Pag.</button>
         <input form="formA" name="filter" type="text" id="Zoeken" placeholder="Zoeken" />
