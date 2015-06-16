@@ -56,12 +56,16 @@ namespace Omgevingsboek.Controllers
 
             foreach (BoekOrder b in boEigen)
             {
-                hipm.BoekenEigenaar.Add(bs.GetBoekByID(b.BoekId));
+                Boek boek = bs.GetBoekByID(b.BoekId);
+                if(boek != null)
+                    hipm.BoekenEigenaar.Add(boek);
             }
 
             foreach (BoekOrder b in boGedeeld)
             {
-                hipm.BoekenGedeeld.Add(bs.GetBoekByID(b.BoekId));
+                Boek boek = bs.GetBoekByID(b.BoekId);
+                if (boek != null)
+                    hipm.BoekenGedeeld.Add(boek);
             }
 
             ViewBag.UserImageUrl = "";
