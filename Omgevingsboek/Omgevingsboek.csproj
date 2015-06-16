@@ -266,6 +266,7 @@
     <Content Include="Content\js\GoogleMapsScript.js" />
     <Content Include="Content\js\MainElementFilter.js" />
     <Content Include="Content\js\poipartialscript.js" />
+    <Content Include="Content\js\shareItem.js" />
     <Content Include="Content\js\validationFixes.js" />
     <Content Include="Content\js\ZoekScript.js" />
     <Content Include="Content\Main.css">

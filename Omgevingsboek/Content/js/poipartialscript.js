@@ -82,7 +82,7 @@ $().ready(function () {
     $("#minAgeHiddenPoi").val("5");
     $("#maxAgeHiddenPoi").val("10");
 
-    $('#locationPicker').popover({
+    $("[data-toggle=popover]").popover({
         html: true,
         content: function () {
             return $('#location_picker_wrapper').html();

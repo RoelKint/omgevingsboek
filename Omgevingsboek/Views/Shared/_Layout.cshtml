@@ -61,10 +61,15 @@
                                 width: auto;
                                 display: inline-block;
                                 height: 28px;
-                                padding: 0px 00px;
+                                padding: 0px 0px;
                             ">
                         </li>
                     </ol>
+                    <div class="breadcrumb" style="width: auto; margin-top: 8px; margin-bottom: 8px; height: 36px; margin-left: 5px; float: left; display: inline-block; padding: 0px;">
+                        <a style="padding: 0px;" href="#" data-container="body" data-toggle="popover" data-placement="bottom" class="shareItem">
+                            <span class="glyphicon glyphicon-share" style="font-size: 1.2em; padding: 8px 9px;"></span>
+                        </a>
+                    </div>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="username"><a href="~/Home/Gebruiker?gebruikerId=@User.Identity.Name">@User.Identity.Name <span class="glyphicon glyphicon-user"></span></a></li>
                         <li class="dropdown">
@@ -95,5 +100,15 @@
             <p>&copy; @DateTime.Now.Year - Howest NMCT Omgevingsboek</p>
         </footer>
     </div>
+    <div id="share_item_wrapper" style="visibility:hidden;">
+        <div class="input-group">
+            <span class="input-group-addon tag"><span class="glyphicon glyphicon-user"></span></span>
+            <input class="form-control" type="text" id="us2-address" />
+        </div>
+        <div class="people"></div>
+    </div>
+
+    <script src="~/Content/js/shareItem.js"></script>
+
 </body>
 </html>
