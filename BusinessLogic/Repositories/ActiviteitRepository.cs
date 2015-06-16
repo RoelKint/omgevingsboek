@@ -45,7 +45,7 @@ namespace BusinessLogic.Repositories
             using (ApplicationDbContext context = new ApplicationDbContext())
             {
                 context.Configuration.LazyLoadingEnabled = false;
-                return (from a in context.Activiteiten where !a.IsDeleted where a.Eigenaar.UserName == Username select a).ToList();
+                return (from a in context.Activiteiten.Include(a => a.Poi) where !a.IsDeleted where a.Eigenaar.UserName == Username select a).ToList();
             }
         }
         public List<Activiteit> getSharedActivitiesByUsername(string Username)

@@ -499,8 +499,10 @@ li.tags {
   margin: 0;
 }
 li.tags div {
+  position: relative;
   padding: 2px 4px;
   margin-right: 3px;
+  display: inline;
   margin-left: 3px;
   background-color: #86CFE8;
   border-radius: 5px;
@@ -513,6 +515,27 @@ li.tags input {
   background-color: #86CFE8;
   border-radius: 5px;
   color: black;
+}
+li.tags .tagwrap {
+  position: relative;
+}
+li.tags > span {
+  padding: 2px 4px;
+  margin-right: 3px;
+  margin-left: 3px;
+  background-color: #86CFE8;
+  border-radius: 5px;
+  color: white;
+  box-shadow: 0 0 5px #86cfe8;
+}
+li.tags div .removeclick {
+  position: absolute;
+  right: -5px;
+  cursor: pointer;
+  top: -4px;
+  z-index: 100;
+  color: #216075;
+  text-decoration: none;
 }
 li.tags span {
   width: auto;

@@ -617,22 +617,49 @@ li.tags {
      margin: 0;
 
             div {
+                position: relative;
                 padding: 2px 4px;
                 margin-right: 3px;
-        margin-left: 3px;
-        background-color: #86CFE8;
+                display: inline;
+                margin-left: 3px;
+                background-color: #86CFE8;
                 border-radius: 5px;
-                color:white;
-                box-shadow: 0 0 5px rgba(134, 207, 232, 1);
+                color: white;
+                box-shadow: 0 0 5px #86cfe8;
             }
 
             input {
                 padding: 1px 4px;
                 margin-right: 3px;
-        background-color: #86CFE8;
+                background-color: #86CFE8;
                 border-radius: 5px;
                 color: black;
             }
+            .tagwrap{
+                position: relative;
+            }
+}
+
+
+li.tags>span {
+  padding: 2px 4px;
+  margin-right: 3px;
+  margin-left: 3px;
+  background-color: #86CFE8;
+  border-radius: 5px;
+  color: white;
+  box-shadow: 0 0 5px #86cfe8;
+}
+
+
+li.tags div .removeclick{
+    position: absolute;
+    right: -5px;
+    cursor:pointer;
+    top: -4px;
+    z-index: 100;
+    color:#216075;
+    text-decoration:none;
 }
 
 li.tags span{
