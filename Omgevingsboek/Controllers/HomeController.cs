@@ -30,19 +30,19 @@ namespace Omgevingsboek.Controllers
         }
 
         [Authorize]
-        public ActionResult Gebruiker(String gebruikerId,int? vanafActiviteit, int? vanafBoek )
+        public ActionResult Gebruiker(String gebruikerId, int? vanafActiviteit, int? vanafBoek)
         {
             if (!vanafActiviteit.HasValue) vanafActiviteit = 0;
             if (!vanafBoek.HasValue) vanafBoek = 0;
 
             UserActivities ua = new UserActivities();
             ApplicationUser user = bs.GetUser(gebruikerId);
-            ua.Activiteiten = bs.getActiviteitenUserByUser50from((int) vanafActiviteit, user.UserName, User.Identity.Name);
-            ua.Boeken = bs.getBoekUserByUser50from((int) vanafBoek, user.UserName, User.Identity.Name);
+            ua.Activiteiten = bs.getActiviteitenUserByUser50from((int)vanafActiviteit, user.UserName, User.Identity.Name);
+            ua.Boeken = bs.getBoekUserByUser50from((int)vanafBoek, user.UserName, User.Identity.Name);
             ua.User = user;
             return View(ua);
         }
-        
+
         [Authorize]
         public ActionResult Index()
         {
@@ -75,7 +75,7 @@ namespace Omgevingsboek.Controllers
             if (!Id.HasValue) return RedirectToAction("Index");
             Boek boek = bs.GetBoekByID((int)Id);
             if (boek == null) return RedirectToAction("Index");
-            if (!bs.IsBoekAccessibleByUser((int) Id,User.Identity.Name)) return RedirectToAction("Index");
+            if (!bs.IsBoekAccessibleByUser((int)Id, User.Identity.Name)) return RedirectToAction("Index");
 
             return View(boek);
         }
@@ -86,7 +86,7 @@ namespace Omgevingsboek.Controllers
             if (!TagId.HasValue || !PoiId.HasValue) return "NOK";
             ApplicationUser user = bs.GetUser(User.Identity.Name);
             PoiTags tag = bs.getPoiTag((int)TagId, (int)PoiId, user.Id);
-            
+
             if (tag == null) return "NOK";
             bs.DeletePoiTag(tag);
 
@@ -98,7 +98,7 @@ namespace Omgevingsboek.Controllers
             if (!IsGedeeldLijst.HasValue) return;
             List<BoekOrder> resList = new List<BoekOrder>();
 
-            if(volgorde == null || volgorde == "") return;
+            if (volgorde == null || volgorde == "") return;
             ApplicationUser user = bs.GetUser(User.Identity.Name);
             volgorde = volgorde.Replace(",toevoegenBoek", "");
             string[] splitted = volgorde.Split(',');
@@ -128,7 +128,7 @@ namespace Omgevingsboek.Controllers
                 count++;
             }
             bs.UpdateLijst(resList);
-            
+
         }
 
 
@@ -139,19 +139,19 @@ namespace Omgevingsboek.Controllers
             Activiteit activiteit = bs.GetActiviteitById((int)Id);
             if (activiteit == null) return RedirectToAction("Index");
             if (!bs.IsActivityAccessibleByUser((int)Id, User.Identity.Name)) return RedirectToAction("Index");
-            
+
             return View(activiteit);
         }
         [HttpPost]
         public ActionResult AddTagToPoi(int? PoiId, string tag)
         {
-            if(!PoiId.HasValue) return null; 
+            if (!PoiId.HasValue) return null;
             if (bs.GetPoiById((int)PoiId) == null) return null;
-           
+
             Models.OmgevingsBoek_Models.Tag t = bs.InsertTag(tag);
             if (bs.getPoiTag(t.ID, (int)PoiId, bs.GetUser(User.Identity.Name).Id) != null) return null;
-            bs.AddTagToPoi((int)PoiId, t.ID,User.Identity.Name);
-            
+            bs.AddTagToPoi((int)PoiId, t.ID, User.Identity.Name);
+
             return null;
         }
 
@@ -162,7 +162,7 @@ namespace Omgevingsboek.Controllers
             List<Models.OmgevingsBoek_Models.PoiTags> tags = bs.getTagsByPoi((int)PoiId);
             //List<SimpleTag> stl = new List<SimpleTag>();
             //List<String> tagList = new List<String>();
-            
+
             return Json(JsonConvert.SerializeObject(tags), JsonRequestBehavior.AllowGet);
         }
 
@@ -174,7 +174,7 @@ namespace Omgevingsboek.Controllers
             Poi poi = bs.GetPoiById((int)Id);
             if (poi == null) return RedirectToAction("Index");
             List<Poi> pois = bs.GetPoiList();
-            
+
             PoiPM pm = new PoiPM()
             {
                 poi = poi
@@ -184,22 +184,23 @@ namespace Omgevingsboek.Controllers
             return View(pm);
         }
         [Authorize]
-        
-        public ActionResult AddPoi(Poi poi, HttpPostedFileBase AfbeeldingFile,string TagsString)
+
+        public ActionResult AddPoi(Poi poi, HttpPostedFileBase AfbeeldingFile, string TagsString)
         {
             String fotoId;
             PhotoInfo fotoInfo;
             ModelState.Remove("Prijs");
 
             if (!ModelState.IsValid) return RedirectToAction("Index");
-            
+
             String[] tags = TagsString.Split(',');
             List<Models.OmgevingsBoek_Models.PoiTags> tagList = new List<Models.OmgevingsBoek_Models.PoiTags>();
 
             foreach (string t in tags)
             {
                 if (t == "") continue;
-                tagList.Add(new PoiTags(){
+                tagList.Add(new PoiTags()
+                {
                     EigenaarId = bs.GetUser(User.Identity.Name).Id,
                     TagId = bs.InsertTag(t).ID
                 });
@@ -261,33 +262,45 @@ namespace Omgevingsboek.Controllers
             return View();
         }
 
-        
+
 
         [ChildActionOnly]
         public ActionResult PoiPartial()
         {
             List<PoiPM> poipms = new List<PoiPM>();
             List<Poi> pois = bs.GetPoiList();
-            foreach(Poi poi in pois){
-                PoiPM pm = new PoiPM(){
+            foreach (Poi poi in pois)
+            {
+                PoiPM pm = new PoiPM()
+                {
                     poi = poi
                 };
                 pm.Activiteiten = bs.getActiviteitenByPoiByUser50from(0, User.Identity.Name, poi.ID);
                 poipms.Add(pm);
 
             }
-            return PartialView("_PoiPartial",JsonConvert.SerializeObject(poipms));
+            return PartialView("_PoiPartial", JsonConvert.SerializeObject(poipms));
         }
 
         [ChildActionOnly]
         public ActionResult ActiviteitPartial()
         {
-            List<Activiteit> activiteiten = bs.GetActivitiesByUsername(User.Identity.Name) ;
+            List<ActiviteitPM> activiteitenpms = new List<ActiviteitPM>();
+            List<Activiteit> activiteiten = bs.GetActivitiesByUsername(User.Identity.Name);
 
-            return PartialView("_ActiviteitPartial", JsonConvert.SerializeObject(activiteiten));
+            foreach (Activiteit act in activiteiten)
+            {
+                ActiviteitPM pm = new ActiviteitPM();
+
+                pm.act = act;
+
+                activiteitenpms.Add(pm);
+            }
+
+            return PartialView("_ActiviteitPartial", JsonConvert.SerializeObject(activiteitenpms));
         }
 
-        [Authorize]        
+        [Authorize]
         [HttpPost]
         public void UpdateAfbeelding(HttpPostedFileBase Afbeelding)
         {
@@ -329,7 +342,7 @@ namespace Omgevingsboek.Controllers
             }
             return Json(JsonConvert.SerializeObject(res), JsonRequestBehavior.AllowGet);
         }
-        public ActionResult AddActivity(Activiteit activiteit, string TagsString, string BenodigdhedenString, HttpPostedFileBase AfbeeldingFile, string Prijs, int? BoekId,List<HttpPostedFileBase> images,string videos)
+        public ActionResult AddActivity(Activiteit activiteit, string TagsString, string BenodigdhedenString, HttpPostedFileBase AfbeeldingFile, string Prijs, int? BoekId, List<HttpPostedFileBase> images, string videos)
         {
             //TODO: de activiteit afbeelding mocht wel blijven.
             //TODO: lijst van de geselecteerde afbeeldingen?
@@ -377,9 +390,9 @@ namespace Omgevingsboek.Controllers
                 MaxDuur = activiteit.MaxDuur,
                 PoiId = activiteit.PoiId,
                 Uitleg = activiteit.Uitleg,
-                
-                
-                
+
+
+
                 Benodigdheden = benodigdhedenList,
                 Tags = tagList
             };
@@ -402,8 +415,8 @@ namespace Omgevingsboek.Controllers
                 }
             }
 
-            
-            
+
+
 
             Activiteit p = bs.InsertActiviteit(NieuweActiviteit);
             if (p.Id > 0)

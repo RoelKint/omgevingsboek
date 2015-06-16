@@ -212,6 +212,14 @@ div.stackright button {
   overflow-x: hidden;
   height: 93%;
 }
+.sidebar > .activity {
+  height: 100%;
+}
+.sidebar > .activity #listActivity {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 93%;
+}
 .sidebar .form-horizontal {
   margin-left: 0px;
   margin-right: 0px;
@@ -345,6 +353,63 @@ h3.rowheader {
 .row.poi:last-child {
   border-bottom: 1px solid rgba(211, 211, 211, 0.5);
 }
+.row.activity {
+  width: 100%;
+  padding-top: 7px;
+  margin: 0;
+  padding-bottom: 5px;
+  border-top: 1px solid rgba(211, 211, 211, 0.5);
+}
+.row.activity h3 a {
+  color: #3FB9E3;
+}
+.row.activity h3 a:hover {
+  text-decoration: none;
+  color: #92E1FC;
+}
+.row.activity .info {
+  padding-left: 0;
+}
+.row.activity .info h3 {
+  margin: 0;
+}
+.row.activity .info .tag {
+  background-color: #86CFE8;
+  color: white;
+  font-weight: bold;
+  width: 100%;
+  border-color: #FFFFFF;
+  box-shadow: 0 0 2px rgba(255, 255, 255, 0.75);
+}
+.row.activity .info p.poiTags {
+  margin: 0;
+}
+.row.activity .info p.poiTags span {
+  padding: 0px 4px;
+  margin-right: 3px;
+  background-color: #216075;
+  border-radius: 5px;
+  border: solid 1px rgba(211, 211, 211, 0.5);
+  text-transform: capitalize;
+  color: white;
+  cursor: pointer;
+}
+.row.activity .preview {
+  padding: 0;
+  margin: 0px 5%;
+  width: 23.333333333%;
+  min-height: 8em;
+  background-size: cover;
+  box-sizing: border-box;
+  overflow: hidden;
+  border-radius: 5px;
+}
+.row.activity .preview img {
+  max-width: 95%;
+}
+.row.activity:last-child {
+  border-bottom: 1px solid rgba(211, 211, 211, 0.5);
+}
 .profilePic {
   position: absolute;
   width: 100px;
@@ -433,8 +498,15 @@ h3.rowheader {
 li.tags {
   margin: 0;
 }
-
-
+li.tags div {
+  padding: 2px 4px;
+  margin-right: 3px;
+  margin-left: 3px;
+  background-color: #86CFE8;
+  border-radius: 5px;
+  color: white;
+  box-shadow: 0 0 5px #86cfe8;
+}
 li.tags input {
   padding: 1px 4px;
   margin-right: 3px;
@@ -442,41 +514,9 @@ li.tags input {
   border-radius: 5px;
   color: black;
 }
-
-li.tags>span {
-  padding: 2px 4px;
-  margin-right: 3px;
-  margin-left: 3px;
-  background-color: #86CFE8;
-  border-radius: 5px;
-  color: white;
-  box-shadow: 0 0 5px #86cfe8;
+li.tags span {
+  width: auto;
 }
-li.tags div {
-    position: relative;
-  padding: 2px 4px;
-  margin-right: 3px;
-  display: inline;
-  margin-left: 3px;
-  background-color: #86CFE8;
-  border-radius: 5px;
-  color: white;
-  box-shadow: 0 0 5px #86cfe8;
-}
-li.tags.tagwrap{
-    position: relative;
-}
-li.tags div .removeclick{
-    position: absolute;
-    right: -5px;
-    cursor:pointer;
-    top: -4px;
-    z-index: 100;
-    color:red;
-    text-decoration:none;
-}
-
-
 #toevoegenBoek {
   cursor: pointer;
 }

@@ -456,8 +456,14 @@
         });
     }
 
+    function setListItemListenersActivity() {
+        //hier moeten de clicklisteners gezet worden
+        console.log("foo");
+    }
+    
+
     function deferListener(method) {
-        console.log("lel");
+        console.log("poi");
         if (typeof listLoaded !== 'undefined' && listLoaded == true) {
             method();
             listLoaded = false;
@@ -468,7 +474,23 @@
             setTimeout(function () { deferListener(method) }, 50);
     }
 
+    function deferListener2(method) {
+        console.log("activity");
+        if (typeof listLoadedActivity !== 'undefined' && listLoadedActivity == true) {
+            method();
+            listLoadedActivity = false;
+            $("#searchActivity").bind('input', function () {
+                method();
+            });
+        } else {
+            setTimeout(function () {
+                deferListener2(method)
+            }, 50);
+        }
+    }
+
     deferListener(setListItemListeners);
+    deferListener2(setListItemListenersActivity);
     initSliders();
 </script>
 
@@ -476,3 +498,4 @@
 
 @*@Html.Partial("_PoiPartial", Model)*@
 @{ Html.RenderAction("ActiviteitPartial", "Home"); }
+@{ Html.RenderAction("PoiPartial", "Home"); }
