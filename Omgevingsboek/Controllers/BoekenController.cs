@@ -70,25 +70,31 @@ namespace Omgevingsboek.Controllers
                 
             };
 
-            if (AfbeeldingFile != null)
-            {
-                try
-                {
-                    fotoId = flickr.UploadPicture(AfbeeldingFile.InputStream, boek.Naam, boek.Naam, "", "", false, false, false, ContentType.Photo, SafetyLevel.Safe, HiddenFromSearch.Hidden);
-                    flickr.PhotosetsAddPhoto(ConfigurationManager.AppSettings.Get("FlickrBoekCoverId"), fotoId);
-                    fotoInfo = flickr.PhotosGetInfo(fotoId);
-                    NieuwBoek.Afbeelding = fotoInfo.MediumUrl;
-
-                }
-                catch (Exception ex)
-                {
-                    return RedirectToAction("Index","Home");
-                }
-            }
+            
             NieuwBoek = bs.InsertBoek(NieuwBoek);
             if (NieuwBoek.Id > 0)
             {
-                //feedback?
+                if (AfbeeldingFile != null)
+                {
+                    try
+                    {
+                        flickr.UploadPictureAsync(AfbeeldingFile.InputStream, boek.Naam, boek.Naam, "", "", false, false, false, ContentType.Photo, SafetyLevel.Safe, HiddenFromSearch.Hidden, (res) =>
+                        {
+                            if (!res.HasError)
+                            {
+                                flickr.PhotosetsAddPhoto(ConfigurationManager.AppSettings.Get("FlickrBoekCoverId"), res.Result);
+                                fotoInfo = flickr.PhotosGetInfo(res.Result);
+                                bs.UpdateBoekFoto(NieuwBoek.Id, fotoInfo.MediumUrl);
+                            }
+                        });
+                        
+
+                    }
+                    catch (Exception ex)
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
             }
 
             return RedirectToAction("Index","Home");

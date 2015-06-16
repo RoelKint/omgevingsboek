@@ -232,23 +232,26 @@ namespace Omgevingsboek.Controllers
             Poi p = bs.InsertPoi(NieuwePoi);
             if (p.ID > 0)
             {
-            if (AfbeeldingFile != null)
-            {
-                try
+                if (AfbeeldingFile != null)
                 {
+                    try
+                    {
                         flickr.UploadPictureAsync(AfbeeldingFile.InputStream, poi.Naam, poi.Naam, "", "", false, false, false, ContentType.Photo, SafetyLevel.Safe, HiddenFromSearch.Hidden,(res)=>{
+                            if (!res.HasError)
+                            {
                             flickr.PhotosetsAddPhoto(ConfigurationManager.AppSettings.Get("FlickrPoiAlbumId"), res.Result);
                             fotoInfo = flickr.PhotosGetInfo(res.Result);
-                            bs.UpdatePoiFoto(p.ID,fotoInfo.MediumUrl);
+                                bs.UpdatePoiFoto(p.ID, fotoInfo.MediumUrl);
+                            }
                         });
+                        
 
-
+                    }
+                    catch (Exception ex)
+                    {
+                        return RedirectToAction("Index");
+                    }
                 }
-                catch (Exception ex)
-                {
-                    return RedirectToAction("Index");
-                }
-            }
             }
 
             return RedirectToAction("Index");
@@ -408,43 +411,48 @@ namespace Omgevingsboek.Controllers
             Activiteit p = bs.InsertActiviteit(NieuweActiviteit);
             if (p.Id > 0)
             {
-            if (AfbeeldingFile != null)
-            {
-                try
+                if (AfbeeldingFile != null)
                 {
+                    try
+                    {
                         flickr.UploadPictureAsync(AfbeeldingFile.InputStream, activiteit.Naam, activiteit.Naam, "", "", false, false, false, ContentType.Photo, SafetyLevel.Safe, HiddenFromSearch.Hidden, (res) =>
                         {
+                            if (!res.HasError) {
                             flickr.PhotosetsAddPhoto(ConfigurationManager.AppSettings.Get("FlickrActiviteitenAlbumId"), res.Result);
                             fotoInfo = flickr.PhotosGetInfo( res.Result);
                             bs.UpdateActiviteitFoto(p.Id,fotoInfo.MediumUrl);
+                            }
                         });
 
 
-                }
-                catch (Exception ex)
-                {
-                    //return RedirectToAction("Index");
-                }
-            }
-            if (images != null)
-            {
-                try
-                {
-                    foreach (HttpPostedFileBase image in images)
+                    }
+                    catch (Exception ex)
                     {
-
-                        flickr.UploadPictureAsync(image.InputStream, activiteit.Naam, activiteit.Naam, "", "", false, false, false, ContentType.Photo, SafetyLevel.Safe, HiddenFromSearch.Hidden, (res) =>
-                        {
-                            PhotoInfo info = flickr.PhotosGetInfo(res.Result);
-                            bs.AddFotoToActiviteit(p.Id, info.LargeUrl);
-                        });
+                        //return RedirectToAction("Index");
                     }
                 }
-                catch (Exception ex)
+                if (images != null)
                 {
-                    //return RedirectToAction("Index");
+                    try
+                    {
+                        foreach (HttpPostedFileBase image in images)
+                        {
+
+                            flickr.UploadPictureAsync(image.InputStream, activiteit.Naam, activiteit.Naam, "", "", false, false, false, ContentType.Photo, SafetyLevel.Safe, HiddenFromSearch.Hidden, (res) =>
+                            {
+                                if (!res.HasError)
+                                {
+                                PhotoInfo info = flickr.PhotosGetInfo(res.Result);
+                                bs.AddFotoToActiviteit(p.Id, info.LargeUrl);
+                                }
+                            });
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        //return RedirectToAction("Index");
+                    }
                 }
-            }
             }
 
             return RedirectToAction("Boek", new { id = (int)BoekId });
