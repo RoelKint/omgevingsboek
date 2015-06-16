@@ -221,6 +221,46 @@ namespace Omgevingsboek.Controllers
             return Json(JsonConvert.SerializeObject(a), JsonRequestBehavior.AllowGet);
 
         }
+
+        public ActionResult ShareList(int? Id, string type)
+        {
+            List<ShareListPM> res = new List<ShareListPM>();
+
+            if (!Id.HasValue) return null;
+            if (type == null || type == "") return null;
+            if(type.ToLower() == "activiteit"){
+                Activiteit a = bs.GetActiviteitById((int) Id);
+                if(a == null) return null;
+                foreach (ApplicationUser user in bs.GetUsers())
+                {
+                    ShareListPM r = new ShareListPM(){
+                        Username = user.UserName,
+                        Naam = user.Voornaam + " "+ user.Naam
+                    };
+                    if (bs.IsBoekAccessibleByUser(a.Id, user.UserName)) r.IsGedeeld = true;
+                    else r.IsGedeeld = false;
+                    res.Add(r);
+                }
+
+            }else if(type.ToLower() == "boek"){
+                Boek b = bs.GetBoekByID((int) Id);
+                if(b == null) return null;
+                foreach (ApplicationUser user in bs.GetUsers())
+                {
+                    ShareListPM r = new ShareListPM()
+                    {
+                        Username = user.UserName,
+                        Naam = user.Voornaam + " " + user.Naam
+                    };
+                    if (bs.IsBoekAccessibleByUser(b.Id,user.UserName)) r.IsGedeeld = true;
+                    else r.IsGedeeld = false;
+                    res.Add(r);
+                }
+
+            }else return null;
+
+            return Json(JsonConvert.SerializeObject(res), JsonRequestBehavior.AllowGet);
+        }
         
         [Authorize]
         public ActionResult AddPoi(Poi poi, HttpPostedFileBase AfbeeldingFile, string TagsString)

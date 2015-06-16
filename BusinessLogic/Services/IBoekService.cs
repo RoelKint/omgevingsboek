@@ -61,6 +61,7 @@ namespace BusinessLogic.Services
         Models.MVC_Models.ApplicationUser GetUserById(string UserId);
         System.Collections.Generic.List<Models.MVC_Models.ApplicationUser> GetUserNext30SortAZ(int from, string search);
         System.Collections.Generic.List<Models.MVC_Models.ApplicationUser> GetUserNext30SortZA(int from, string search);
+        System.Collections.Generic.List<Models.MVC_Models.ApplicationUser> GetUsers();
         bool HeeftEmailAlEenUitnodiging(string Email);
         Models.OmgevingsBoek_Models.BoekOrder Insert(Models.OmgevingsBoek_Models.BoekOrder entity);
         Models.OmgevingsBoek_Models.Activiteit InsertActiviteit(Models.OmgevingsBoek_Models.Activiteit activiteit);

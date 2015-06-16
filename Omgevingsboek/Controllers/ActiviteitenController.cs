@@ -23,6 +23,7 @@ namespace Omgevingsboek.Controllers
 
         #region DETAILS
         // GET: Activiteiten/Details/5
+        [Authorize]
         public ActionResult Details(int? id)
         {
             if (!id.HasValue) return RedirectToAction("Index", "Home");
