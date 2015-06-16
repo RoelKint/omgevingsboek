@@ -133,6 +133,10 @@ namespace BusinessLogic.Services
         {
             repoActiviteit.addUserToShareList(Id, Username);
         }
+        public void UpdateActiviteit(Activiteit activiteit)
+        {
+            repoActiviteit.UpdateActiviteit(activiteit);
+        }
 
         #endregion
 

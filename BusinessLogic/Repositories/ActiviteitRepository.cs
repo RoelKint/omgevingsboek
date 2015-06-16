@@ -202,6 +202,39 @@ namespace BusinessLogic.Repositories
             ApplicationUser user = context.Users.Where(u => u.UserName == Username).FirstOrDefault();
             a.DeelLijst.Add(user);
             Update(a);
+            context.SaveChanges();
+            //TODO: oplossen waar dit terrecht komt
+        }
+        public void UpdateActiviteit(Activiteit activiteit)
+        {
+            Activiteit origineleActiviteit = GetByID(activiteit.Id);
+            origineleActiviteit.AfbeeldingNaam = activiteit.AfbeeldingNaam;
+            origineleActiviteit.DitactischeToelichting = activiteit.DitactischeToelichting;
+            origineleActiviteit.MaxDuur = activiteit.MaxDuur;
+            origineleActiviteit.MaxLeeftijd = activiteit.MaxLeeftijd;
+            origineleActiviteit.MinDuur = activiteit.MinDuur;
+            origineleActiviteit.MinLeeftijd = activiteit.MinLeeftijd;
+            origineleActiviteit.Naam = activiteit.Naam;
+            origineleActiviteit.PoiId = activiteit.PoiId;
+            origineleActiviteit.Prijs = activiteit.Prijs;
+            origineleActiviteit.Uitleg = activiteit.Uitleg;
+            origineleActiviteit.Benodigdheden =new List<Benodigdheid>();
+            foreach(Benodigdheid b in activiteit.Benodigdheden){
+                origineleActiviteit.Benodigdheden.Add(context.Benodigdheden.Find(b));
+            }
+            origineleActiviteit.Fotos = new List<Foto>();
+            foreach (Foto f in activiteit.Fotos)
+            {
+                origineleActiviteit.Fotos.Add(context.Fotos.Find(f));
+            }
+            origineleActiviteit.Tags = new List<Tag>();
+            foreach (Tag t in activiteit.Tags)
+            {
+                origineleActiviteit.Tags.Add(context.Tags.Find(t));
+            }
+            Update(origineleActiviteit);
+            context.SaveChanges();
+
         }
     }
 }
