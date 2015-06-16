@@ -32,6 +32,8 @@ namespace Omgevingsboek.Controllers
         [Authorize]
         public ActionResult Gebruiker(String gebruikerId, int? vanafActiviteit, int? vanafBoek)
         {
+            
+
             if (!vanafActiviteit.HasValue) vanafActiviteit = 0;
             if (!vanafBoek.HasValue) vanafBoek = 0;
 
@@ -40,12 +42,21 @@ namespace Omgevingsboek.Controllers
             ua.Activiteiten = bs.getActiviteitenUserByUser50from((int)vanafActiviteit, user.UserName, User.Identity.Name);
             ua.Boeken = bs.getBoekUserByUser50from((int)vanafBoek, user.UserName, User.Identity.Name);
             ua.User = user;
+
+
+            Session["stap2"] = user.Naam;
+            Session["url2"] = "../home/helpdesk";
+            ViewBag.stap1 = Session["stap1"];
+            ViewBag.stap2 = Session["stap2"];
             return View(ua);
         }
         
         [Authorize]
         public ActionResult Index()
         {
+            Session["stap1"] = "home";
+            Session.Remove("stap2");
+            Session.Remove("stap3"); 
             HomeIndexPM hipm = new HomeIndexPM();
             List<BoekOrder> boEigen = bs.GetBoekOrderLijst(User.Identity.Name, false);
             List<BoekOrder> boGedeeld = bs.GetBoekOrderLijst(User.Identity.Name, true);
@@ -69,16 +80,23 @@ namespace Omgevingsboek.Controllers
             }
 
             ViewBag.UserImageUrl = "";
-
+            ViewBag.stap1 = Session["stap1"];
             return View(hipm);
         }
         [Authorize]
         public ActionResult Boek(int? Id)
         {
+            
             //activities zitten er in
             if (!Id.HasValue) return RedirectToAction("Index");
             Boek boek = bs.GetBoekByID((int)Id);
             if (boek == null) return RedirectToAction("Index");
+            if (!bs.IsBoekAccessibleByUser((int) Id,User.Identity.Name)) return RedirectToAction("Index");
+            Session.Remove("stap3"); 
+            Session["stap1"] = "boeken";
+            Session["stap2"] = boek.Naam;
+            if (Session["stap1"] != null){ViewBag.stap1 = Session["stap1"];}
+            ViewBag.stap2 = Session["stap2"];
             if (!bs.IsBoekAccessibleByUser((int)Id, User.Identity.Name)) return RedirectToAction("Index");
 
             return View(boek);
@@ -144,6 +162,10 @@ namespace Omgevingsboek.Controllers
             if (activiteit == null) return RedirectToAction("Index");
             if (!bs.IsActivityAccessibleByUser((int)Id, User.Identity.Name)) return RedirectToAction("Index");
             
+            Session["stap3"] = activiteit.Naam;
+            if (Session["stap1"] != null) { ViewBag.stap1 = Session["stap1"]; }
+            if (Session["stap2"] != null) { ViewBag.stap2 = Session["stap2"]; }
+            ViewBag.stap3 = Session["stap3"];
             return View(activiteit);
         }
         [HttpPost]
@@ -158,7 +180,6 @@ namespace Omgevingsboek.Controllers
             
             return null;
         }
-
         public ActionResult GetTagsByPoi(int? PoiId)
         {
             if (!PoiId.HasValue) return null;
@@ -169,8 +190,6 @@ namespace Omgevingsboek.Controllers
             
             return Json(JsonConvert.SerializeObject(tags), JsonRequestBehavior.AllowGet);
         }
-
-
         [Authorize]
         public ActionResult Poi(int? Id)
         {
@@ -185,8 +204,15 @@ namespace Omgevingsboek.Controllers
             };
             pm.Activiteiten = bs.getActiviteitenByPoiByUser50from(0, User.Identity.Name, poi.ID);
             ViewBag.gebruikerId = bs.GetUser(User.Identity.Name).Id;
+
+            Session["stap3"] = pm.poi.Naam;
+            if (Session["stap1"] != null) { ViewBag.stap1 = Session["stap1"]; }
+            if (Session["stap2"] != null) { ViewBag.stap2 = Session["stap2"]; }
+            ViewBag.stap3 = Session["stap3"];
             return View(pm);
         }
+
+        
         [Authorize]
         
         public ActionResult AddPoi(Poi poi, HttpPostedFileBase AfbeeldingFile, string TagsString)
@@ -257,20 +283,29 @@ namespace Omgevingsboek.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-            return View();
-        }
-
         public ActionResult Contact()
         {
             ViewBag.Message = "Neem hier contact met ons op";
 
+            Session.Remove("stap2"); 
+            Session["stap3"] = "contact";
+            if (Session["stap1"] != null) { ViewBag.stap1 = Session["stap1"]; }
+            if (Session["stap2"] != null) { ViewBag.stap2 = Session["stap2"]; }
+            ViewBag.stap3 = Session["stap3"];
             return View();
         }
 
+        [Authorize]
+        public ActionResult HelpDesk()
+        {
         
+            Session.Remove("stap3");
+            Session["stap2"] = "helpdesk";
+            Session["url2"] ="../home/helpdesk";
+            if (Session["stap1"] != null) { ViewBag.stap1 = Session["stap1"]; }
+            ViewBag.stap3 = Session["stap2"];
+            return View();
+        }
 
         [ChildActionOnly]
         public ActionResult PoiPartial()
