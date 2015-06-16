@@ -107,8 +107,8 @@ function filter(query) {
             //tags: home.poi.OrigTags.map(function (el) { return "<span>" + el.Tag.Naam + "</span>" }).join(" "),
             image: home.act.AfbeeldingNaam,
             //distance: distance,
-            //city: home.poi.Gemeente,
-            id: home.act.ID,
+            city: home.act.Poi.Gemeente,
+            id: home.act.Id,
             //activities: home.Activiteiten.map(function (act) { return "<p class='activity'>" + "<a href='/Home/Activiteit/" + act.Id + "'>" + act.Naam + "</a></p>" }).join(""),
             //numActivities: home.Activiteiten.length,
         };

@@ -194,7 +194,7 @@ namespace Omgevingsboek.Controllers
                 return jsonResult;
             }
         }
-
+        [Authorize(Roles = "Administrator,SuperAdministrator")]
         public ActionResult ZoekGebruiker(string q)
         {
             //TODO: optimaliseren
@@ -263,7 +263,6 @@ namespace Omgevingsboek.Controllers
             return RedirectToAction("Activities", new { vanaf = vanaf, desc = desc, filter = filter });
         }
         [Authorize(Roles = "Administrator,SuperAdministrator")]
-        
         public ActionResult DeleteUsersSoft(List<string> UsersToDelete, int vanaf, int desc, int? filter)
         {
             if (!User.IsInRole("SuperAdministrator") && !User.IsInRole("Administrator")) return RedirectToAction("Users");
@@ -291,7 +290,7 @@ namespace Omgevingsboek.Controllers
             return View();
         }
 
-
+        [NonAction]
         public void UitnodigingSturen(string MailTo, string MailFrom, string Key)
         {
             SmtpClient smtpClient = new SmtpClient("smtp.sendgrid.net", 587);

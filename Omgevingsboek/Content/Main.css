@@ -346,6 +346,7 @@ h3.rowheader {
   box-sizing: border-box;
   overflow: hidden;
   border-radius: 5px;
+  background-color: #216075;
 }
 .row.poi .preview img {
   max-width: 95%;
@@ -403,6 +404,7 @@ h3.rowheader {
   box-sizing: border-box;
   overflow: hidden;
   border-radius: 5px;
+  background-color: #216075;
 }
 .row.activity .preview img {
   max-width: 95%;

@@ -14,7 +14,7 @@ $('#searchMainElements').bind('input', function () {
     $(".books").each(function (el) {
         console.log(loadedChildrens[el].length);
         filterElements(
-            query,
+            query.toLowerCase(),
             this,
             loadedChildrens[el],
             nonElementChildrens[el]
