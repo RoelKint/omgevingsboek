@@ -196,6 +196,12 @@ namespace BusinessLogic.Repositories
             Update(a);
             context.SaveChanges();
         }
-
+        public void addUserToShareList(int Id, string Username)
+        {
+            Activiteit a = GetByID(Id);
+            ApplicationUser user = context.Users.Where(u => u.UserName == Username).FirstOrDefault();
+            a.DeelLijst.Add(user);
+            Update(a);
+        }
     }
 }
