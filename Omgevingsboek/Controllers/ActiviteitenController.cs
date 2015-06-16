@@ -23,9 +23,10 @@ namespace Omgevingsboek.Controllers
 
         #region DETAILS
         // GET: Activiteiten/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(int? id)
         {
-            return View(bs.GetActiviteitById(id));
+            if (!id.HasValue) return RedirectToAction("Index", "Home");
+            return View(bs.GetActiviteitById((int)id));
         }
         #endregion
 

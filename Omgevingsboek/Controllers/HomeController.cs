@@ -30,7 +30,7 @@ namespace Omgevingsboek.Controllers
         }
 
         [Authorize]
-        public ActionResult Gebruiker(String gebruikerId,int? vanafActiviteit, int? vanafBoek )
+        public ActionResult Gebruiker(String gebruikerId, int? vanafActiviteit, int? vanafBoek)
         {
             
 
@@ -39,8 +39,8 @@ namespace Omgevingsboek.Controllers
 
             UserActivities ua = new UserActivities();
             ApplicationUser user = bs.GetUser(gebruikerId);
-            ua.Activiteiten = bs.getActiviteitenUserByUser50from((int) vanafActiviteit, user.UserName, User.Identity.Name);
-            ua.Boeken = bs.getBoekUserByUser50from((int) vanafBoek, user.UserName, User.Identity.Name);
+            ua.Activiteiten = bs.getActiviteitenUserByUser50from((int)vanafActiviteit, user.UserName, User.Identity.Name);
+            ua.Boeken = bs.getBoekUserByUser50from((int)vanafBoek, user.UserName, User.Identity.Name);
             ua.User = user;
 
 
@@ -97,6 +97,8 @@ namespace Omgevingsboek.Controllers
             Session["stap2"] = boek.Naam;
             if (Session["stap1"] != null){ViewBag.stap1 = Session["stap1"];}
             ViewBag.stap2 = Session["stap2"];
+            if (!bs.IsBoekAccessibleByUser((int)Id, User.Identity.Name)) return RedirectToAction("Index");
+
             return View(boek);
         }
 
@@ -118,7 +120,7 @@ namespace Omgevingsboek.Controllers
             if (!IsGedeeldLijst.HasValue) return;
             List<BoekOrder> resList = new List<BoekOrder>();
 
-            if(volgorde == null || volgorde == "") return;
+            if (volgorde == null || volgorde == "") return;
             ApplicationUser user = bs.GetUser(User.Identity.Name);
             volgorde = volgorde.Replace(",toevoegenBoek", "");
             string[] splitted = volgorde.Split(',');
@@ -159,7 +161,7 @@ namespace Omgevingsboek.Controllers
             Activiteit activiteit = bs.GetActiviteitById((int)Id);
             if (activiteit == null) return RedirectToAction("Index");
             if (!bs.IsActivityAccessibleByUser((int)Id, User.Identity.Name)) return RedirectToAction("Index");
-
+            
             Session["stap3"] = activiteit.Naam;
             if (Session["stap1"] != null) { ViewBag.stap1 = Session["stap1"]; }
             if (Session["stap2"] != null) { ViewBag.stap2 = Session["stap2"]; }
@@ -169,12 +171,12 @@ namespace Omgevingsboek.Controllers
         [HttpPost]
         public ActionResult AddTagToPoi(int? PoiId, string tag)
         {
-            if(!PoiId.HasValue) return null; 
+            if (!PoiId.HasValue) return null;
             if (bs.GetPoiById((int)PoiId) == null) return null;
            
             Models.OmgevingsBoek_Models.Tag t = bs.InsertTag(tag);
             if (bs.getPoiTag(t.ID, (int)PoiId, bs.GetUser(User.Identity.Name).Id) != null) return null;
-            bs.AddTagToPoi((int)PoiId, t.ID,User.Identity.Name);
+            bs.AddTagToPoi((int)PoiId, t.ID, User.Identity.Name);
             
             return null;
         }
@@ -212,7 +214,8 @@ namespace Omgevingsboek.Controllers
 
         
         [Authorize]
-        public ActionResult AddPoi(Poi poi, HttpPostedFileBase AfbeeldingFile,string TagsString)
+        
+        public ActionResult AddPoi(Poi poi, HttpPostedFileBase AfbeeldingFile, string TagsString)
         {
             PhotoInfo fotoInfo;
             ModelState.Remove("Prijs");
@@ -225,7 +228,8 @@ namespace Omgevingsboek.Controllers
             foreach (string t in tags)
             {
                 if (t == "") continue;
-                tagList.Add(new PoiTags(){
+                tagList.Add(new PoiTags()
+                {
                     EigenaarId = bs.GetUser(User.Identity.Name).Id,
                     TagId = bs.InsertTag(t).ID
                 });
@@ -259,9 +263,12 @@ namespace Omgevingsboek.Controllers
                     try
                     {
                         flickr.UploadPictureAsync(AfbeeldingFile.InputStream, poi.Naam, poi.Naam, "", "", false, false, false, ContentType.Photo, SafetyLevel.Safe, HiddenFromSearch.Hidden,(res)=>{
+                            if (!res.HasError)
+                            {
                             flickr.PhotosetsAddPhoto(ConfigurationManager.AppSettings.Get("FlickrPoiAlbumId"), res.Result);
                             fotoInfo = flickr.PhotosGetInfo(res.Result);
-                            bs.UpdatePoiFoto(p.ID,fotoInfo.MediumUrl);
+                                bs.UpdatePoiFoto(p.ID, fotoInfo.MediumUrl);
+                            }
                         });
                         
 
@@ -291,7 +298,7 @@ namespace Omgevingsboek.Controllers
         [Authorize]
         public ActionResult HelpDesk()
         {
-
+        
             Session.Remove("stap3");
             Session["stap2"] = "helpdesk";
             Session["url2"] ="../home/helpdesk";
@@ -305,23 +312,35 @@ namespace Omgevingsboek.Controllers
         {
             List<PoiPM> poipms = new List<PoiPM>();
             List<Poi> pois = bs.GetPoiList();
-            foreach(Poi poi in pois){
-                PoiPM pm = new PoiPM(){
+            foreach (Poi poi in pois)
+            {
+                PoiPM pm = new PoiPM()
+                {
                     poi = poi
                 };
                 pm.Activiteiten = bs.getActiviteitenByPoiByUser50from(0, User.Identity.Name, poi.ID);
                 poipms.Add(pm);
 
             }
-            return PartialView("_PoiPartial",JsonConvert.SerializeObject(poipms));
+            return PartialView("_PoiPartial", JsonConvert.SerializeObject(poipms));
         }
 
         [ChildActionOnly]
         public ActionResult ActiviteitPartial()
         {
-            List<Activiteit> activiteiten = bs.GetActivitiesByUsername(User.Identity.Name) ;
+            List<ActiviteitPM> activiteitenpms = new List<ActiviteitPM>();
+            List<Activiteit> activiteiten = bs.GetActivitiesByUsername(User.Identity.Name);
 
-            return PartialView("_ActiviteitPartial", JsonConvert.SerializeObject(activiteiten));
+            foreach (Activiteit act in activiteiten)
+            {
+                ActiviteitPM pm = new ActiviteitPM();
+
+                pm.act = act;
+
+                activiteitenpms.Add(pm);
+            }
+
+            return PartialView("_ActiviteitPartial", JsonConvert.SerializeObject(activiteitenpms));
         }
 
         [Authorize]        
@@ -366,7 +385,7 @@ namespace Omgevingsboek.Controllers
             }
             return Json(JsonConvert.SerializeObject(res), JsonRequestBehavior.AllowGet);
         }
-        public ActionResult AddActivity(Activiteit activiteit, string TagsString, string BenodigdhedenString, HttpPostedFileBase AfbeeldingFile, string Prijs, int? BoekId,List<HttpPostedFileBase> images,string videos)
+        public ActionResult AddActivity(Activiteit activiteit, string TagsString, string BenodigdhedenString, HttpPostedFileBase AfbeeldingFile, string Prijs, int? BoekId, List<HttpPostedFileBase> images, string videos)
         {
             //TODO: de activiteit afbeelding mocht wel blijven.
             //TODO: lijst van de geselecteerde afbeeldingen?
@@ -433,9 +452,11 @@ namespace Omgevingsboek.Controllers
                     {
                         flickr.UploadPictureAsync(AfbeeldingFile.InputStream, activiteit.Naam, activiteit.Naam, "", "", false, false, false, ContentType.Photo, SafetyLevel.Safe, HiddenFromSearch.Hidden, (res) =>
                         {
+                            if (!res.HasError) {
                             flickr.PhotosetsAddPhoto(ConfigurationManager.AppSettings.Get("FlickrActiviteitenAlbumId"), res.Result);
                             fotoInfo = flickr.PhotosGetInfo( res.Result);
                             bs.UpdateActiviteitFoto(p.Id,fotoInfo.MediumUrl);
+                            }
                         });
 
 
@@ -454,8 +475,11 @@ namespace Omgevingsboek.Controllers
 
                             flickr.UploadPictureAsync(image.InputStream, activiteit.Naam, activiteit.Naam, "", "", false, false, false, ContentType.Photo, SafetyLevel.Safe, HiddenFromSearch.Hidden, (res) =>
                             {
+                                if (!res.HasError)
+                                {
                                 PhotoInfo info = flickr.PhotosGetInfo(res.Result);
                                 bs.AddFotoToActiviteit(p.Id, info.LargeUrl);
+                                }
                             });
                         }
                     }
