@@ -1,6 +1,8 @@
 ﻿loadedChildrens = [];
 nonElementChildrens = [];
 
+console.log("Num of lists: " + $(".books").length);
+
 $(".books").each(function (el) {
     loadedChildrens.push($(this).children("div.element"));
     nonElementChildrens.push($(this).children(":not(div.element)"));
@@ -8,7 +10,9 @@ $(".books").each(function (el) {
 
 $('#searchMainElements').bind('input', function () {
     var query = $(this).val();
+    console.log(this);
     $(".books").each(function (el) {
+        console.log(loadedChildrens[el].length);
         filterElements(
             query,
             this,
