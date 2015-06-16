@@ -236,9 +236,12 @@ namespace Omgevingsboek.Controllers
                     try
                     {
                         flickr.UploadPictureAsync(AfbeeldingFile.InputStream, poi.Naam, poi.Naam, "", "", false, false, false, ContentType.Photo, SafetyLevel.Safe, HiddenFromSearch.Hidden,(res)=>{
-                            flickr.PhotosetsAddPhoto(ConfigurationManager.AppSettings.Get("FlickrPoiAlbumId"), res.Result);
-                            fotoInfo = flickr.PhotosGetInfo(res.Result);
-                            bs.UpdatePoiFoto(p.ID,fotoInfo.MediumUrl);
+                            if (!res.HasError)
+                            {
+                                flickr.PhotosetsAddPhoto(ConfigurationManager.AppSettings.Get("FlickrPoiAlbumId"), res.Result);
+                                fotoInfo = flickr.PhotosGetInfo(res.Result);
+                                bs.UpdatePoiFoto(p.ID, fotoInfo.MediumUrl);
+                            }
                         });
                         
 
@@ -401,9 +404,11 @@ namespace Omgevingsboek.Controllers
                     {
                         flickr.UploadPictureAsync(AfbeeldingFile.InputStream, activiteit.Naam, activiteit.Naam, "", "", false, false, false, ContentType.Photo, SafetyLevel.Safe, HiddenFromSearch.Hidden, (res) =>
                         {
-                            flickr.PhotosetsAddPhoto(ConfigurationManager.AppSettings.Get("FlickrActiviteitenAlbumId"), res.Result);
-                            fotoInfo = flickr.PhotosGetInfo( res.Result);
-                            bs.UpdateActiviteitFoto(p.Id,fotoInfo.MediumUrl);
+                            if (!res.HasError) {
+                                flickr.PhotosetsAddPhoto(ConfigurationManager.AppSettings.Get("FlickrActiviteitenAlbumId"), res.Result);
+                                fotoInfo = flickr.PhotosGetInfo( res.Result);
+                                bs.UpdateActiviteitFoto(p.Id,fotoInfo.MediumUrl);
+                            }
                         });
 
 
@@ -422,8 +427,11 @@ namespace Omgevingsboek.Controllers
 
                             flickr.UploadPictureAsync(image.InputStream, activiteit.Naam, activiteit.Naam, "", "", false, false, false, ContentType.Photo, SafetyLevel.Safe, HiddenFromSearch.Hidden, (res) =>
                             {
-                                PhotoInfo info = flickr.PhotosGetInfo(res.Result);
-                                bs.AddFotoToActiviteit(p.Id, info.LargeUrl);
+                                if (!res.HasError)
+                                {
+                                    PhotoInfo info = flickr.PhotosGetInfo(res.Result);
+                                    bs.AddFotoToActiviteit(p.Id, info.LargeUrl);
+                                }
                             });
                         }
                     }

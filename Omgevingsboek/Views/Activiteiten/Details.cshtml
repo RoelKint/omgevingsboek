@@ -89,6 +89,10 @@
         </dd>
 
     </dl>
+    @foreach (Models.OmgevingsBoek_Models.Foto afb in Model.Fotos)
+    {
+        <img src="@afb.FotoUrl"/>
+    }
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
