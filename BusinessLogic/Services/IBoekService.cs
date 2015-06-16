@@ -73,7 +73,10 @@ namespace BusinessLogic.Services
         bool IsValidKey(string Key);
         bool SetUitnodigingGebruikt(int UitnodigingId, string GebruiktDoorUserName);
         void Update(Models.OmgevingsBoek_Models.BoekOrder entityToUpdate);
+        void UpdateActiviteitFoto(int ActiviteitId, string foto);
+        void UpdateBoekFoto(int BoekId, string afbeelding);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.BoekOrder> UpdateLijst(System.Collections.Generic.List<Models.OmgevingsBoek_Models.BoekOrder> lijst);
+        void UpdatePoiFoto(int PoiId, string Afbeelding);
         Models.MVC_Models.ApplicationUser UpdateUserAfbeelding(Models.MVC_Models.ApplicationUser user);
     }
 }

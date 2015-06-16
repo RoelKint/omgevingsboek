@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLogic.Services
 {
-    public class BoekService : BusinessLogic.Services.IBoekService 
+    public class BoekService : BusinessLogic.Services.IBoekService
     {
         private ITagRepository repoTag = null;
         private IActiviteitRepository repoActiviteit = null;
@@ -125,6 +125,11 @@ namespace BusinessLogic.Services
             repoActiviteit.AddFotoToActiviteit(ActiviteitId, Foto);
         }
 
+        public void UpdateActiviteitFoto(int ActiviteitId, string foto)
+        {
+            repoActiviteit.UpdateActiviteitFoto(ActiviteitId, foto);
+        }
+
         #endregion
 
 
@@ -185,6 +190,10 @@ namespace BusinessLogic.Services
             return repoBoek.getUserBoekByUser50from(from, Owner, Visitor);
         }
 
+        public void UpdateBoekFoto(int BoekId, string afbeelding)
+        {
+            repoBoek.UpdateFoto(BoekId, afbeelding);
+        }
 
         #endregion
 
@@ -287,6 +296,11 @@ namespace BusinessLogic.Services
         public void DeleteTagFromPoi(int PoiTagsId)
         {
             repoPoi.DeleteTag(PoiTagsId);
+        }
+
+        public void UpdatePoiFoto(int PoiId, string Afbeelding)
+        {
+            repoPoi.UpdateFoto(PoiId, Afbeelding);
         }
 
         #endregion

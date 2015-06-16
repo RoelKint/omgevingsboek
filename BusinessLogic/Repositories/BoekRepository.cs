@@ -140,7 +140,12 @@ namespace BusinessLogic.Repositories
         {
             return this.context.Boeken.Where(i => !i.IsDeleted).Where(i => i.Eigenaar.UserName == Owner).Where(i => i.DeelLijst.Contains(context.Users.Select(u => u).Where(u => u.UserName == Visitor).FirstOrDefault())).OrderBy(i => i.Naam).Skip(from).Take(50).ToList();
         }
-
+        public void UpdateFoto(int BoekId, string foto)
+        {
+            Boek b = GetByID(BoekId);
+            b.Afbeelding = foto;
+            Update(b);
+        }
 
     }
 }

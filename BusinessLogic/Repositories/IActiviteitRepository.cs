@@ -22,5 +22,6 @@ namespace BusinessLogic.Repositories
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Activiteit> getUserActiviteitenByUser50from(int from, string Owner, string Visitor);
         Models.OmgevingsBoek_Models.Activiteit Insert(Models.OmgevingsBoek_Models.Activiteit entity);
         bool IsActivityAccessibleByUser(int activiteitId, string Username);
+        void UpdateActiviteitFoto(int ActiviteitId, string foto);
     }
 }
