@@ -28,7 +28,7 @@ namespace BusinessLogic.Repositories
         public override IEnumerable<Poi> All()
         {
             context.Configuration.LazyLoadingEnabled = false;
-            return context.Poi.Include(p => p.Tags.Select(t => t.Tag));
+            return context.Poi.Include(p => p.Tags.Select(t => t.Tag)).Where(p => p.IsDeleted == false);
         }
         public override Poi GetByID(object id)
         {
@@ -140,7 +140,12 @@ namespace BusinessLogic.Repositories
         {
             context.SaveChanges();
         }
-
+        public void UpdateFoto(int PoiId, string foto)
+        {
+            Poi p = GetByID(PoiId);
+            p.Afbeelding = foto;
+            Update(p);
+        }
         
     }
 }
