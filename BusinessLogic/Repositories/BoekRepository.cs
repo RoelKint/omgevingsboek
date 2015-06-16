@@ -178,7 +178,7 @@ namespace BusinessLogic.Repositories
             }
             else
             {
-                context.BoekOrder.Remove(context.BoekOrder.Where(b => b.BoekId == b.BoekId).Where(b => b.EigenaarId == user.Id).FirstOrDefault());
+                context.BoekOrder.Remove(context.BoekOrder.Where(x => x.BoekId == b.Id).Where(x => x.EigenaarId == user.Id).FirstOrDefault());
                 b.DeelLijst.Remove(context.Users.Find(user));
                 Update(b);
             }

@@ -131,7 +131,7 @@ namespace BusinessLogic.Services
         }
         public void addUserToActiviteitShareList(int Id, string Username, bool IsGedeeld)
         {
-            repoActiviteit.addUserToShareList(Id, Username, bool IsGedeeld);
+            repoActiviteit.addUserToShareList(Id, Username, IsGedeeld);
         }
         public void UpdateActiviteit(Activiteit activiteit)
         {
@@ -204,7 +204,7 @@ namespace BusinessLogic.Services
         }
         public void addUserToBoekShareList(int Id, string Username, bool IsGedeeld)
         {
-            repoBoek.addUserToShareList(Id, Username, bool IsGedeeld);
+            repoBoek.addUserToShareList(Id, Username, IsGedeeld);
         }
 
         #endregion
