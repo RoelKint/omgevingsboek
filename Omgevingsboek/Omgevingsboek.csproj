@@ -253,6 +253,8 @@
     <Content Include="Content\img\favicon.ico" />
     <Content Include="Content\img\paper_fibers.png" />
     <Content Include="Content\jquery.tagsinput.min.css" />
+    <Content Include="Content\js\ActiviteitInBoek\Add.js" />
+    <Content Include="Content\js\ActiviteitInBoek\Edit.js" />
     <Content Include="Content\js\activiteitpartialscript.js" />
     <Content Include="Content\js\AdminFormScript.js" />
     <Content Include="Content\js\boekenScript.js" />

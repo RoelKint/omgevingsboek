@@ -626,7 +626,7 @@ span.tag {
   padding: 10px;
 }
 #waypointsList option:first-child {
-  background-color: green;
+  background-color: #216075;
   color: white;
 }
 #waypointsList option:first-child:before {
