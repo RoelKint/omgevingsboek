@@ -197,7 +197,7 @@ namespace Omgevingsboek.Controllers
         [Authorize(Roles = "Administrator,SuperAdministrator")]
         public ActionResult ZoekGebruiker(string q)
         {
-            //TODO: optimaliseren
+            
             if (q == null) q = "";
             List<UserActivities> ua = new List<UserActivities>();
             List<ApplicationUser> geb = bs.GetUserNext30SortAZ(0,q);

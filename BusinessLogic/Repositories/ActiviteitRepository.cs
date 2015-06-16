@@ -200,6 +200,41 @@ namespace BusinessLogic.Repositories
         {
             Activiteit a = GetByID(Id);
             ApplicationUser user = context.Users.Where(u => u.UserName == Username).FirstOrDefault();
+            Boek deelboek;
+            if (context.Boeken.Where(b => b.Naam == "Gedeelde Activiteiten").Where(b => b.DeelLijst.Any(x => x.UserName == user.UserName)).Where(b => b.EigenaarId == "").FirstOrDefault() == null)
+            {
+                List<ApplicationUser> deellijst = new List<ApplicationUser>();
+                deellijst.Add(user);
+
+                deelboek = context.Boeken.Add(new Boek()
+                {
+                    Naam = "Gedeelde Activiteiten",
+                    DeelLijst = deellijst,
+                    Afbeelding = ""
+                });
+
+                int previndex;
+                List<BoekOrder> l = context.BoekOrder.Where(i => i.EigenaarId == user.Id).Where(i => i.IsSharedLijst == true).ToList();
+                if (l.Count != 0)
+                    previndex = context.BoekOrder.Where(i => i.EigenaarId == user.Id).Where(i => i.IsSharedLijst == true).Max(i => i.Index);
+                else
+                    previndex = -1;
+                context.BoekOrder.Add(new BoekOrder()
+                {
+                    BoekId = deelboek.Id,
+                    EigenaarId = user.Id,
+                    Index = -1,
+                    IsSharedLijst = true
+                });
+
+            }
+            else
+            {
+                deelboek = context.Boeken.Where(b => b.Naam == "Gedeelde Activiteiten").Where(b => b.DeelLijst.Any(x => x.UserName == user.UserName)).Where(b => b.EigenaarId == "").FirstOrDefault();
+            }
+            if (deelboek.Activiteiten == null) deelboek.Activiteiten = new List<Activiteit>();
+            deelboek.Activiteiten.Add(a);
+            
             a.DeelLijst.Add(user);
             Update(a);
             context.SaveChanges();

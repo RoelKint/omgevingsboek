@@ -401,7 +401,7 @@ namespace BusinessLogic.Services
             using (ApplicationDbContext context = new ApplicationDbContext())
             {
                 context.Configuration.LazyLoadingEnabled = false;
-                return context.Users.OrderBy(i => i.UserName).Include(a => a.Activiteiten).Include(a => a.Boeken).Include(a => a.Routes).Where(u => u.UserName.Contains(search) || u.Voornaam.Contains(search) || u.Naam.Contains(search)).Skip(from).Take(30).ToList();
+                return context.Users.OrderBy(i => i.UserName).Where(u => u.UserName.Contains(search) || u.Voornaam.Contains(search) || u.Naam.Contains(search)).Skip(from).Take(30).ToList();
             }
         }
         public List<ApplicationUser> GetUserNext30SortZA(int from,string search)
@@ -409,7 +409,7 @@ namespace BusinessLogic.Services
             using (ApplicationDbContext context = new ApplicationDbContext())
             {
                 context.Configuration.LazyLoadingEnabled = false;
-                return context.Users.OrderByDescending(i => i.UserName).Include(a => a.Activiteiten).Include(a => a.Boeken).Include(a => a.Routes).Where(u => u.UserName.Contains(search) || u.Voornaam.Contains(search) || u.Naam.Contains(search)).Skip(from).Take(30).ToList();
+                return context.Users.OrderByDescending(i => i.UserName).Where(u => u.UserName.Contains(search) || u.Voornaam.Contains(search) || u.Naam.Contains(search)).Skip(from).Take(30).ToList();
             }
         }
         // TODO: soft delete 
