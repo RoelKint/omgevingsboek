@@ -212,9 +212,17 @@ namespace Omgevingsboek.Controllers
             return View(pm);
         }
 
+        [Authorize]
+        public ActionResult GetActiviteit(int? Id){
+            if(!Id.HasValue) return RedirectToAction("Index");
+
+            Activiteit a = bs.GetActiviteitById((int) Id);
+            if (a.Eigenaar.UserName != User.Identity.Name) return RedirectToAction("Index");
+            return Json(JsonConvert.SerializeObject(a), JsonRequestBehavior.AllowGet);
+
+        }
         
         [Authorize]
-        
         public ActionResult AddPoi(Poi poi, HttpPostedFileBase AfbeeldingFile, string TagsString)
         {
             PhotoInfo fotoInfo;
@@ -234,7 +242,6 @@ namespace Omgevingsboek.Controllers
                     TagId = bs.InsertTag(t).ID
                 });
             }
-            //TODO: geolocatie toevoegen en wanneer word uitgelezen checken of het klopt.
             Poi NieuwePoi = new Poi()
             {
                 Naam = poi.Naam,
@@ -262,6 +269,8 @@ namespace Omgevingsboek.Controllers
                 {
                     try
                     {
+                        //TODO: GROTE AFBEELDING FOUT HIER
+                        //CONTROLLER MAKEN VOOR ROEL
                         flickr.UploadPictureAsync(AfbeeldingFile.InputStream, poi.Naam, poi.Naam, "", "", false, false, false, ContentType.Photo, SafetyLevel.Safe, HiddenFromSearch.Hidden,(res)=>{
                             if (!res.HasError)
                             {
