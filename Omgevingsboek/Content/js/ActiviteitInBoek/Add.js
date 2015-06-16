@@ -16,27 +16,36 @@ $().ready(function () {
         });
     });
     function emptyActivityFields() {
+        $('#name').val('');
+        $('[name=DitactischeToelichting]').val('');
+        $('[name=Uitleg]').val("");
+        $('[name=Prijs]').val(0);
         console.log("hey");
     }
     function fillActivtyFields(e) {
         console.log("ho");
-        $('#name').val("lolletjes");
-        $('.fileUpload').children('span').text('Upload nieuwe foto')
-        $('.fileUpload').css('background-color', '#216075');
-        $('[name=Prijs]').val(12);
-        $('[name=DitactischeToelichting]').val("hallowkie wowkie");
-        $('[name=Uitleg]').val("De uitleg van de eeuw.");
-
-        initSliders();
-        getvalues();
+        getvalues(1);
     }
-    function getvalues() {
-       var jsonString = "../Home/" + pagina + "?vanaf=" + vanaf + "&desc=" + desc + "&filter=" + currentRow + "&search=" + search + "&mode=1";
+    function getvalues(Id) {
+        var jsonString = "../Home/" + 'GetActiviteit' + "?Id=" + Id;
 
         $.getJSON(jsonString, function (data) {
             els = jQuery.parseJSON(data);
             console.log(els);
-            switchTable();
+            console.log(els['Naam']);
+            $('#name').val(els['Naam']);
+            
+            if (els['Prijs'] != null) 
+                $('[name=Prijs]').val(els['Prijs']);
+            if (els['AfbeeldingNaam'] != null) {
+                $('.fileUpload').children('span').html('Upload nieuwe </br> foto')
+                $('.fileUpload').css('background-color', '#216075');
+                $('[name=DitactischeToelichting]').val(els['DitactischeToelichting']);
+                $('[name=Uitleg]').val(els['Uitleg']);
+            }
+
+
+        });
     };
     function initSliders() {
         setSliderInputValues(
