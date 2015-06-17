@@ -327,17 +327,16 @@ namespace Omgevingsboek.Controllers
         }
 
         [Authorize(Roles = "SuperAdministrator")]
-        public ActionResult ToggeRole(List<string> UsersNames)
+        public string ToggeRole(List<string> UsersNames)
         {
-
             //TODO: checks
             foreach (string user in UsersNames)
             {
+                if (bs.GetUser(user) == null) return "NOK";
                 bs.ToggleRole(user);
 
             }
-
-            return View();
+            return "OK";
         }        
 
 
