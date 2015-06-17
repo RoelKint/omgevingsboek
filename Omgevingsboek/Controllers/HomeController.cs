@@ -289,8 +289,7 @@ namespace Omgevingsboek.Controllers
             else return;
 
         }
-
-        //DIT WERKT NIET IK KRIJG ZELFS NEN ERROR
+        //AANGEPAST
         /*
         [Authorize]
         public ActionResult GetRoutesById(int? id)
