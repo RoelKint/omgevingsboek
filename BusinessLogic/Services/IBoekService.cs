@@ -20,6 +20,8 @@ namespace BusinessLogic.Services
         void DeleteUserSoft(Models.MVC_Models.ApplicationUser user);
         void EditBoek(Models.OmgevingsBoek_Models.Boek boek);
         Models.OmgevingsBoek_Models.Activiteit GetActiviteitById(int id);
+        System.Collections.Generic.List<Models.OmgevingsBoek_Models.Activiteit> getActiviteiten50FromSortDeletedAZ(int from, string search, bool DisplayDeleted);
+        System.Collections.Generic.List<Models.OmgevingsBoek_Models.Activiteit> getActiviteiten50FromSortDeletedZA(int from, string search, bool DisplayDeleted);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Activiteit> GetActiviteiten50FromSortNameAZ(int from, string search, bool DisplayDeleted);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Activiteit> GetActiviteiten50FromSortNameZA(int from, string search, bool DisplayDeleted);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Activiteit> GetActiviteiten50FromSortPoiAZ(int from, string search, bool DisplayDeleted);
@@ -33,6 +35,8 @@ namespace BusinessLogic.Services
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Activiteit> GetActivitiesByUsername(string Username);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Benodigdheid> GetBenodigdhedenList();
         Models.OmgevingsBoek_Models.Boek GetBoekByID(object id);
+        System.Collections.Generic.List<Models.OmgevingsBoek_Models.Boek> GetBoeken50FromSortDeletedAZ(int from, string search, bool DisplayDeleted);
+        System.Collections.Generic.List<Models.OmgevingsBoek_Models.Boek> GetBoeken50FromSortDeletedZA(int from, string search, bool DisplayDeleted);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Boek> GetBoeken50FromSortNameAZ(int from, string search, bool DisplayDeleted);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Boek> GetBoeken50FromSortNameZA(int from, string search, bool DisplayDeleted);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Boek> GetBoeken50FromSortUserAZ(int from, string search, bool DisplayDeleted);
@@ -43,6 +47,8 @@ namespace BusinessLogic.Services
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Boek> getBoekUserByUser50from(int from, string Owner, string Visitor);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Poi> getPoi50FromSortAddressAZ(int from, string search, bool DisplayDeleted);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Poi> getPoi50FromSortAddressZA(int from, string search, bool DisplayDeleted);
+        System.Collections.Generic.List<Models.OmgevingsBoek_Models.Poi> getPoi50FromSortDeletedAZ(int from, string search, bool DisplayDeleted);
+        System.Collections.Generic.List<Models.OmgevingsBoek_Models.Poi> getPoi50FromSortDeletedZA(int from, string search, bool DisplayDeleted);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Poi> getPoi50FromSortEmailAZ(int from, string search, bool DisplayDeleted);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Poi> getPoi50FromSortEmailZA(int from, string search, bool DisplayDeleted);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Poi> GetPoi50FromSortNameAZ(int from, string search, bool DisplayDeleted);

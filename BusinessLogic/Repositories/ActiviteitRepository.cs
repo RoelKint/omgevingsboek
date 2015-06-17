@@ -66,15 +66,7 @@ namespace BusinessLogic.Repositories
             using (ApplicationDbContext context = new ApplicationDbContext())
             {
                 return (from a in context.Activiteiten.Include(a => a.Boeken)
-                            .Include(a => a.Benodigdheden)
-                            .Include(a => a.DeelLijst)
                             .Include(a => a.Eigenaar)
-                            
-                            .Include(a => a.Poi)
-                            .Include(a => a.Routes)
-                            .Include(a => a.Tags)
-                            .Include(a => a.Videos)
-                        where a.DeelLijst.Contains(context.Users.Select(u => u).Where(u => u.UserName == Username).FirstOrDefault())
                         where a.Boeken.Contains(context.Boeken.Select(b => b).Where(b => b.Id == BoekId).FirstOrDefault())
                         where !a.IsDeleted
                         select a).ToList();
@@ -83,32 +75,50 @@ namespace BusinessLogic.Repositories
         
         public List<Activiteit> get50FromSortNameAZ(int from,string search, bool DisplayDeleted)
         {
+            context.Configuration.LazyLoadingEnabled = false;
             return this.context.Activiteiten.Include(a => a.Eigenaar).Where(a => a.Poi.Naam.Contains(search) || a.Naam.Contains(search) || a.Eigenaar.UserName.Contains(search)).Include(a => a.Poi).Include(a => a.Eigenaar).Where(i => i.IsDeleted == false || i.IsDeleted == DisplayDeleted).OrderBy(a => a.Naam).Skip(from).Take(30).ToList();
         }
         public List<Activiteit> get50FromSortNameZA(int from, string search, bool DisplayDeleted)
         {
+            context.Configuration.LazyLoadingEnabled = false;
             return this.context.Activiteiten.Include(a => a.Eigenaar).Where(a => a.Poi.Naam.Contains(search) || a.Naam.Contains(search) || a.Eigenaar.UserName.Contains(search)).Include(a => a.Poi).Where(i => !i.IsDeleted || i.IsDeleted == DisplayDeleted).OrderByDescending(a => a.Naam).Skip(from).Take(30).ToList();
         }
         public List<Activiteit> get50FromSortUserAZ(int from, string search, bool DisplayDeleted)
         {
+            context.Configuration.LazyLoadingEnabled = false;
             return this.context.Activiteiten.Include(a => a.Eigenaar).Include(a => a.Poi).Where(i => !i.IsDeleted || i.IsDeleted == DisplayDeleted).Where(a => a.Poi.Naam.Contains(search) || a.Naam.Contains(search) || a.Eigenaar.UserName.Contains(search)).OrderBy(a => a.Eigenaar.UserName).Skip(from).Take(30).ToList();
         }
         public List<Activiteit> get50FromSortUserZA(int from, string search, bool DisplayDeleted)
         {
+            context.Configuration.LazyLoadingEnabled = false;
             return this.context.Activiteiten.Include(a => a.Eigenaar).Include(a => a.Poi).Where(i => !i.IsDeleted || i.IsDeleted == DisplayDeleted).Where(a => a.Poi.Naam.Contains(search) || a.Naam.Contains(search) || a.Eigenaar.UserName.Contains(search)).OrderByDescending(a => a.Eigenaar.UserName).Skip(from).Take(30).ToList();
         }
         public List<Activiteit> get50FromSortPoiAZ(int from, string search, bool DisplayDeleted)
         {
+            context.Configuration.LazyLoadingEnabled = false;
             return this.context.Activiteiten.Include(a => a.Eigenaar).Include(a => a.Poi).Where(i => !i.IsDeleted || i.IsDeleted == DisplayDeleted).Where(a => a.Poi.Naam.Contains(search) || a.Naam.Contains(search) || a.Eigenaar.UserName.Contains(search)).OrderBy(a => a.Poi.Naam).Skip(from).Take(30).ToList();
         }
         public List<Activiteit> get50FromSortPoiZA(int from, string search, bool DisplayDeleted)
         {
+            context.Configuration.LazyLoadingEnabled = false;
             return this.context.Activiteiten.Include(a => a.Eigenaar).Include(a => a.Poi).Where(i => !i.IsDeleted || i.IsDeleted == DisplayDeleted).Where(a => a.Poi.Naam.Contains(search) || a.Naam.Contains(search) || a.Eigenaar.UserName.Contains(search)).OrderByDescending(a => a.Poi.Naam).Skip(from).Take(30).ToList();
+        }
+        public List<Activiteit> get50FromSortDeletedAZ(int from, string search, bool DisplayDeleted)
+        {
+            context.Configuration.LazyLoadingEnabled = false;
+            return this.context.Activiteiten.Include(a => a.Eigenaar).Include(a => a.Poi).Where(i => !i.IsDeleted || i.IsDeleted == DisplayDeleted).Where(a => a.Poi.Naam.Contains(search) || a.Naam.Contains(search) || a.Eigenaar.UserName.Contains(search)).OrderBy(a => a.IsDeleted).Skip(from).Take(30).ToList();
+        }
+        public List<Activiteit> get50FromSortDeletedZA(int from, string search, bool DisplayDeleted)
+        {
+            context.Configuration.LazyLoadingEnabled = false;
+            return this.context.Activiteiten.Include(a => a.Eigenaar).Include(a => a.Poi).Where(i => !i.IsDeleted || i.IsDeleted == DisplayDeleted).Where(a => a.Poi.Naam.Contains(search) || a.Naam.Contains(search) || a.Eigenaar.UserName.Contains(search)).OrderByDescending(a => a.IsDeleted).Skip(from).Take(30).ToList();
         }
         public List<Activiteit> getUserActiviteitenByUser50from(int from, String Owner, String Visitor)
         {
+            context.Configuration.LazyLoadingEnabled = false;
             return this.context.Activiteiten.Include(a => a.Eigenaar).Include(a => a.Poi).Include(a => a.Eigenaar).Include(a => a.Poi).Where(i => !i.IsDeleted).Where(a => a.Eigenaar.UserName == Owner).Where(i => i.DeelLijst.Contains(context.Users.Select(u => u).Where(u => u.UserName == Visitor).FirstOrDefault())).OrderBy(a => a.Naam).Skip(from).Take(30).ToList();
         }
+
 
         public void DeleteSoft(Activiteit entityToDelete)
         {

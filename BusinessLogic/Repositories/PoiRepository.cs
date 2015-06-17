@@ -98,6 +98,16 @@ namespace BusinessLogic.Repositories
             context.Configuration.LazyLoadingEnabled = false;
             return this.context.Poi.Include(p => p.Tags.Select(t => t.Tag)).Include(p => p.Eigenaar).Where(i => !i.IsDeleted || i.IsDeleted == DisplayDeleted).Where(p => p.Naam.Contains(search) || p.Eigenaar.UserName.Contains(search) || p.Straat.Contains(search) || p.Gemeente.Contains(search) || p.Telefoon.Contains(search)).OrderByDescending(i => i.Straat).Skip(from).Take(30).ToList();
         }
+        public List<Poi> get50FromSortDeletedAZ(int from, string search, bool DisplayDeleted)
+        {
+            context.Configuration.LazyLoadingEnabled = false;
+            return this.context.Poi.Include(p => p.Tags.Select(t => t.Tag)).Include(p => p.Eigenaar).Where(i => !i.IsDeleted || i.IsDeleted == DisplayDeleted).Where(p => p.Naam.Contains(search) || p.Eigenaar.UserName.Contains(search) || p.Straat.Contains(search) || p.Gemeente.Contains(search) || p.Telefoon.Contains(search)).OrderBy(i => i.IsDeleted).Skip(from).Take(30).ToList();
+        }
+        public List<Poi> get50FromSortDeletedZA(int from, string search, bool DisplayDeleted)
+        {
+            context.Configuration.LazyLoadingEnabled = false;
+            return this.context.Poi.Include(p => p.Tags.Select(t => t.Tag)).Include(p => p.Eigenaar).Where(i => !i.IsDeleted || i.IsDeleted == DisplayDeleted).Where(p => p.Naam.Contains(search) || p.Eigenaar.UserName.Contains(search) || p.Straat.Contains(search) || p.Gemeente.Contains(search) || p.Telefoon.Contains(search)).OrderByDescending(i => i.IsDeleted).Skip(from).Take(30).ToList();
+        }
         public void Delete(Poi EntityToDelete)
         {
             base.Delete(EntityToDelete);

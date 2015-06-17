@@ -12,7 +12,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace BusinessLogic.Services
 {
-    public class BoekService : BusinessLogic.Services.IBoekService 
+    public class BoekService : BusinessLogic.Services.IBoekService
     {
         private ITagRepository repoTag = null;
         private IActiviteitRepository repoActiviteit = null;
@@ -102,6 +102,14 @@ namespace BusinessLogic.Services
         public List<Activiteit> GetActiviteiten50FromSortPoiZA(int from, string search, bool DisplayDeleted)
         {
             return repoActiviteit.get50FromSortPoiZA(from, search, DisplayDeleted);
+        }
+        public List<Activiteit> getActiviteiten50FromSortDeletedAZ(int from, string search, bool DisplayDeleted)
+        {
+            return repoActiviteit.get50FromSortDeletedAZ(from, search, DisplayDeleted);
+        }
+        public List<Activiteit> getActiviteiten50FromSortDeletedZA(int from, string search, bool DisplayDeleted)
+        {
+            return repoActiviteit.get50FromSortDeletedZA(from, search, DisplayDeleted);
         }
 
         public List<Activiteit> getActiviteitenUserByUser50from(int from, String Owner, String Visitor)
@@ -202,6 +210,14 @@ namespace BusinessLogic.Services
         {
             return repoBoek.getUserBoekByUser50from(from, Owner, Visitor);
         }
+        public List<Boek> GetBoeken50FromSortDeletedAZ(int from, string search, bool DisplayDeleted)
+        {
+            return repoBoek.get50FromSortDeletedAZ(from, search, DisplayDeleted);
+        }
+        public List<Boek> GetBoeken50FromSortDeletedZA(int from, string search, bool DisplayDeleted)
+        {
+            return repoBoek.get50FromSortDeletedZA(from, search, DisplayDeleted);
+        }
 
         public void UpdateBoekFoto(int BoekId, string afbeelding)
         {
@@ -278,6 +294,16 @@ namespace BusinessLogic.Services
         public List<Poi> getPoi50FromSortAddressZA(int from, string search, bool DisplayDeleted)
         {
             return repoPoi.get50FromSortAddressZA(from, search, DisplayDeleted);
+
+        }
+        public List<Poi> getPoi50FromSortDeletedAZ(int from, string search, bool DisplayDeleted)
+        {
+            return repoPoi.get50FromSortDeletedAZ(from, search, DisplayDeleted);
+
+        }
+        public List<Poi> getPoi50FromSortDeletedZA(int from, string search, bool DisplayDeleted)
+        {
+            return repoPoi.get50FromSortDeletedZA(from, search, DisplayDeleted);
 
         }
         

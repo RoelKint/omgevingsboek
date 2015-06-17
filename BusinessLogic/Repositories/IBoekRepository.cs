@@ -6,6 +6,8 @@ namespace BusinessLogic.Repositories
         void addUserToShareList(int Id, string Username, bool IsGedeeld);
         void Delete(Models.OmgevingsBoek_Models.Boek entityToDelete);
         void DeleteSoft(Models.OmgevingsBoek_Models.Boek entityToDelete);
+        System.Collections.Generic.List<Models.OmgevingsBoek_Models.Boek> get50FromSortDeletedAZ(int from, string search, bool DisplayDeleted);
+        System.Collections.Generic.List<Models.OmgevingsBoek_Models.Boek> get50FromSortDeletedZA(int from, string search, bool DisplayDeleted);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Boek> get50FromSortNameAZ(int from, string search, bool DisplayDeleted);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Boek> get50FromSortNameZA(int from, string search, bool DisplayDeleted);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Boek> get50FromSortUserAZ(int from, string search, bool DisplayDeleted);

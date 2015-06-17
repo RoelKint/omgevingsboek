@@ -265,6 +265,7 @@ namespace Omgevingsboek.Controllers
             if (boek == null) return RedirectToAction("Index");
             if (!bs.IsBoekAccessibleByUser((int)Id, User.Identity.Name)) return RedirectToAction("Index");
             boek.Routes = bs.getRoutesByBoek((int)Id);
+            boek.Activiteiten = bs.GetSharedActivitiesByBookId(boek.Id,User.Identity.Name);
             Session.Remove("stap3");
             Session["stap2"] = boek.Naam;
             Session["url2"] = "../home/Boek?id=" + boek.Id;
