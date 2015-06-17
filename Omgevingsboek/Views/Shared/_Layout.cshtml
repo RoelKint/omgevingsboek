@@ -45,7 +45,7 @@
                     ">
                         @if (ViewBag.stap1 != null)
                         {
-                        <li><a href="../@ViewBag.url1">@ViewBag.stap1</a></li>
+                            <li><a href="../@ViewBag.url1">@ViewBag.stap1</a></li>
                         }
                         @if (ViewBag.stap2 != null)
                         {
@@ -71,11 +71,7 @@
                             ">
                         </li>
                     </ol>
-                    <div class="breadcrumb" style="width: auto; margin-top: 8px; margin-bottom: 8px; height: 36px; margin-left: 5px; float: left; display: inline-block; padding: 0px;">
-                        <a style="padding: 0px;" href="#" data-container="body" data-toggle="popover" data-placement="bottom" class="shareItem">
-                            <span class="glyphicon glyphicon-share" style="font-size: 1.2em; padding: 8px 9px;"></span>
-                        </a>
-                    </div>
+                    @RenderSection("Share", required: false)
                     <ul class="nav navbar-nav navbar-right">
                         <li class="username"><a href="~/Home/Gebruiker?gebruikerId=@User.Identity.Name">@User.Identity.Name <span class="glyphicon glyphicon-user"></span></a></li>
                         <li class="dropdown">
@@ -111,7 +107,7 @@
             <span class="input-group-addon tag"><span class="glyphicon glyphicon-user"></span></span>
             <input class="form-control" type="text" id="us2-address" />
         </div>
-        <div class="form-control people"></div>
+        <div class="people"></div>
     </div>
 
     <script src="~/Content/js/shareItem.js"></script>

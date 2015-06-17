@@ -4,6 +4,14 @@
     ViewBag.Title = "Details";
 }
 
+@section Share{
+    <div class="breadcrumb" style="width: auto; margin-top: 8px; margin-bottom: 8px; height: 36px; margin-left: 5px; float: left; display: inline-block; padding: 0px;">
+        <a style="padding: 0px;" href="#" data-id="@(@Model.Id)" data-type="activiteit" data-container="body" data-toggle="popover" data-placement="bottom" class="shareItem">
+            <span class="glyphicon glyphicon-share" style="font-size: 1.2em; padding: 8px 9px;"></span>
+        </a>
+    </div>
+}
+
 <h2>Details</h2>
 
 <div>
