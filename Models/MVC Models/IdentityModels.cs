@@ -49,7 +49,6 @@ namespace Models.MVC_Models
         public DbSet<PoiTags> PoiTags { get; set; }
         public DbSet<BoekOrder> BoekOrder { get; set; }
         public DbSet<Foto> Fotos { get; set; }
-        public DbSet<RouteListItem> RouteListItem { get; set; }
 
 
 

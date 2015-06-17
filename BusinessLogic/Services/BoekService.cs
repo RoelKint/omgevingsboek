@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLogic.Services
 {
-    public class BoekService : BusinessLogic.Services.IBoekService
+    public class BoekService : BusinessLogic.Services.IBoekService 
     {
         private ITagRepository repoTag = null;
         private IActiviteitRepository repoActiviteit = null;
@@ -20,7 +20,6 @@ namespace BusinessLogic.Services
         private IBenodigdheidRepository repoBenodigdheid = null;
         private IGenericRepository<PoiTags> repoPoiTags = null;
         private IBoekOrderRepository repoBoekOrder = null;
-        private IRouteRepository repoRoute = null;
 
         public BoekService(
             ITagRepository repoTag,
@@ -30,8 +29,7 @@ namespace BusinessLogic.Services
             IUitnodigingRepository repoUitnodiging,
             IBenodigdheidRepository repoBenodigdheid,
             IGenericRepository<PoiTags> repoPoiTags,
-            IBoekOrderRepository repoBoekOrder,
-            IRouteRepository repoRoute
+            IBoekOrderRepository repoBoekOrder
             )
         {
             this.repoActiviteit = repoActiviteit;
@@ -42,7 +40,6 @@ namespace BusinessLogic.Services
             this.repoBenodigdheid = repoBenodigdheid;
             this.repoPoiTags = repoPoiTags;
             this.repoBoekOrder = repoBoekOrder;
-            this.repoRoute = repoRoute;
         }
 
         #region Activiteiten
@@ -134,7 +131,7 @@ namespace BusinessLogic.Services
         }
         public void addUserToActiviteitShareList(int Id, string Username, bool IsGedeeld)
         {
-            repoActiviteit.addUserToShareList(Id, Username, IsGedeeld);
+            repoActiviteit.addUserToShareList(Id, Username, bool IsGedeeld);
         }
         public void UpdateActiviteit(Activiteit activiteit)
         {
@@ -207,7 +204,7 @@ namespace BusinessLogic.Services
         }
         public void addUserToBoekShareList(int Id, string Username, bool IsGedeeld)
         {
-            repoBoek.addUserToShareList(Id, Username, IsGedeeld);
+            repoBoek.addUserToShareList(Id, Username, bool IsGedeeld);
         }
 
         #endregion
@@ -486,20 +483,6 @@ namespace BusinessLogic.Services
         public Uitnodiging GetUitnodigingById(int id)
         {
             return repoUitnodiging.GetByID(id);
-        }
-
-        #endregion
-
-
-        #region routes
-
-        public List<Route> getRoutesByBoek(int boekId)
-        {
-            return repoRoute.getRoutesByBoek(boekId);
-        }
-        public Route Insert(Route entity)
-        {
-            return repoRoute.Insert(entity);
         }
 
         #endregion

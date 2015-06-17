@@ -10,7 +10,7 @@ using System.Data.Entity;
 
 namespace BusinessLogic.Repositories
 {
-    public class RouteRepository : GenericRepository<Route>, BusinessLogic.Repositories.IRouteRepository
+    public class RouteRepository : GenericRepository<Route>
     {
         public RouteRepository(ApplicationDbContext context)
             : base(context)
@@ -37,22 +37,11 @@ namespace BusinessLogic.Repositories
             res.EigenaarID = entity.Eigenaar.Id;
             res.DeelLijst = new List<ApplicationUser>();
             res.DeelLijst.Add(context.Users.Find(entity.Eigenaar));
-            res.RouteLijst = new List<RouteListItem>();
+
+            return null;
 
 
-            foreach (RouteListItem rli in entity.RouteLijst)
-            {
-                res.RouteLijst.Add(context.RouteListItem.Add(new RouteListItem()
-                {
-                    Activiteit = context.Activiteiten.Find(rli.Activiteit),
-                    OrderIndex = rli.OrderIndex
-                }));
-            }
-
-
-            return Insert(res);
         }
-        
 
 
     }
