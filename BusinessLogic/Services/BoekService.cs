@@ -401,7 +401,7 @@ namespace BusinessLogic.Services
             }
         }
 
-        public List<ApplicationUser> GetUserNext30SortAZ(int from,string search, bool DisplayDeleted)
+        public List<ApplicationUser> GetUserNext30SortEmailAZ(int from,string search, bool DisplayDeleted)
         {
             using (ApplicationDbContext context = new ApplicationDbContext())
             {
@@ -409,12 +409,60 @@ namespace BusinessLogic.Services
                 return context.Users.OrderBy(i => i.UserName).Include(u => u.Roles).Where(u => u.Deleted == false || u.Deleted == DisplayDeleted).Where(u => u.UserName.Contains(search) || u.Voornaam.Contains(search) || u.Naam.Contains(search)).Skip(from).Take(30).ToList();
             }
         }
-        public List<ApplicationUser> GetUserNext30SortZA(int from, string search, bool DisplayDeleted)
+        public List<ApplicationUser> GetUserNext30SortEmailZA(int from, string search, bool DisplayDeleted)
         {
             using (ApplicationDbContext context = new ApplicationDbContext())
             {
                 context.Configuration.LazyLoadingEnabled = false;
                 return context.Users.OrderByDescending(i => i.UserName).Where(u => u.Deleted == false || u.Deleted == DisplayDeleted).Include(u => u.Roles).Where(u => u.UserName.Contains(search) || u.Voornaam.Contains(search) || u.Naam.Contains(search)).Skip(from).Take(30).ToList();
+            }
+        }
+        public List<ApplicationUser> GetUserNext30SortNaamAZ(int from, string search, bool DisplayDeleted)
+        {
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                context.Configuration.LazyLoadingEnabled = false;
+                return context.Users.OrderBy(i => i.Voornaam).Include(u => u.Roles).Where(u => u.Deleted == false || u.Deleted == DisplayDeleted).Where(u => u.UserName.Contains(search) || u.Voornaam.Contains(search) || u.Naam.Contains(search)).Skip(from).Take(30).ToList();
+            }
+        }
+        public List<ApplicationUser> GetUserNext30SortNaamZA(int from, string search, bool DisplayDeleted)
+        {
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                context.Configuration.LazyLoadingEnabled = false;
+                return context.Users.OrderByDescending(i => i.Voornaam).Where(u => u.Deleted == false || u.Deleted == DisplayDeleted).Include(u => u.Roles).Where(u => u.UserName.Contains(search) || u.Voornaam.Contains(search) || u.Naam.Contains(search)).Skip(from).Take(30).ToList();
+            }
+        }
+        public List<ApplicationUser> GetUserNext30SortDeletedAZ(int from, string search, bool DisplayDeleted)
+        {
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                context.Configuration.LazyLoadingEnabled = false;
+                return context.Users.OrderBy(i => i.Deleted).Include(u => u.Roles).Where(u => u.Deleted == false || u.Deleted == DisplayDeleted).Where(u => u.UserName.Contains(search) || u.Voornaam.Contains(search) || u.Naam.Contains(search)).Skip(from).Take(30).ToList();
+            }
+        }
+        public List<ApplicationUser> GetUserNext30SortDeletedZA(int from, string search, bool DisplayDeleted)
+        {
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                context.Configuration.LazyLoadingEnabled = false;
+                return context.Users.OrderByDescending(i => i.Deleted).Where(u => u.Deleted == false || u.Deleted == DisplayDeleted).Include(u => u.Roles).Where(u => u.UserName.Contains(search) || u.Voornaam.Contains(search) || u.Naam.Contains(search)).Skip(from).Take(30).ToList();
+            }
+        }
+        public List<ApplicationUser> GetUserNext30SortRoleAZ(int from, string search, bool DisplayDeleted)
+        {
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                context.Configuration.LazyLoadingEnabled = false;
+                return context.Users.OrderBy(i => i.Roles.FirstOrDefault()).Include(u => u.Roles).Where(u => u.Deleted == false || u.Deleted == DisplayDeleted).Where(u => u.UserName.Contains(search) || u.Voornaam.Contains(search) || u.Naam.Contains(search)).Skip(from).Take(30).ToList();
+            }
+        }
+        public List<ApplicationUser> GetUserNext30SortRoleZA(int from, string search, bool DisplayDeleted)
+        {
+            using (ApplicationDbContext context = new ApplicationDbContext())
+            {
+                context.Configuration.LazyLoadingEnabled = false;
+                return context.Users.OrderByDescending(i => i => i.Roles.FirstOrDefault()).Where(u => u.Deleted == false || u.Deleted == DisplayDeleted).Include(u => u.Roles).Where(u => u.UserName.Contains(search) || u.Voornaam.Contains(search) || u.Naam.Contains(search)).Skip(from).Take(30).ToList();
             }
         }
         // TODO: soft delete 

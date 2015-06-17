@@ -147,7 +147,7 @@ namespace Omgevingsboek.Controllers
 
         [Authorize(Roles = "Administrator,SuperAdministrator")]
         [HttpGet]
-        public ActionResult Gebruikers(int? vanaf, int? desc,string search, int? mode)
+        public ActionResult Gebruikers(int? vanaf, int? desc,string search, int? mode,int? filter)
         {
             Session.Remove("stap3");
             Session["stap2"] = "Gebruikers";
@@ -179,14 +179,43 @@ namespace Omgevingsboek.Controllers
             List<UserActivities> ua = new List<UserActivities>();
             List<ApplicationUser> res = new List<ApplicationUser>();
 
+            if (!filter.HasValue) filter = 0;
             if (!vanaf.HasValue) vanaf = 0;
             if (!desc.HasValue) desc = 0;
 
-
-            if (desc == 1)
-                res = bs.GetUserNext30SortZA((int)vanaf,search, DisplayDeleted);
-            else
-                res = bs.GetUserNext30SortAZ((int)vanaf, search, DisplayDeleted);
+            switch ((int)filter)
+            {
+                case 1:
+                    if (desc == 1)
+                        res = bs.GetUserNext30SortNaamZA((int)vanaf, search, DisplayDeleted);
+                    else
+                        res = bs.GetUserNext30SortNaamAZ((int)vanaf, search, DisplayDeleted);
+                    break;
+                case 2:
+                    if (desc == 1)
+                        res = bs.GetUserNext30SortEmailZA((int)vanaf, search, DisplayDeleted);
+                    else
+                        res = bs.GetUserNext30SortEmailAZ((int)vanaf, search, DisplayDeleted);
+                    break;
+                case 4:
+                    if (desc == 1)
+                        res = bs.GetUserNext30SortRoleZA((int)vanaf, search, DisplayDeleted);
+                    else
+                        res = bs.GetUserNext30SortRoleAZ((int)vanaf, search, DisplayDeleted);
+                    break;
+                case 5:
+                    if (desc == 1)
+                        res = bs.GetUserNext30SortDeletedZA((int)vanaf, search, DisplayDeleted);
+                    else
+                        res = bs.GetUserNext30SortDeletedAZ((int)vanaf, search, DisplayDeleted);
+                    break;
+                default:
+                    if (desc == 1)
+                        res = bs.GetUserNext30SortNaamZA((int)vanaf, search, DisplayDeleted);
+                    else
+                        res = bs.GetUserNext30SortNaamAZ((int)vanaf, search, DisplayDeleted);
+                    break;
+            }
 
 
             foreach (ApplicationUser user in res)
@@ -206,6 +235,7 @@ namespace Omgevingsboek.Controllers
 
             ViewBag.vanaf = vanaf;
             ViewBag.desc = desc;
+            ViewBag.filter = filter;
             GebruikersPM gpm = new GebruikersPM();
             gpm.UserActivities = ua;
             gpm.Uitnodigingen = bs.GetUitnodigingenOpenByUser(User.Identity.Name);
