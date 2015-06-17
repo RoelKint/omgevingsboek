@@ -134,7 +134,7 @@ namespace BusinessLogic.Services
         }
         public void addUserToActiviteitShareList(int Id, string Username, bool IsGedeeld)
         {
-            repoActiviteit.addUserToShareList(Id, Username, bool IsGedeeld);
+            repoActiviteit.addUserToShareList(Id, Username, IsGedeeld);
         }
         public void UpdateActiviteit(Activiteit activiteit)
         {
@@ -207,7 +207,7 @@ namespace BusinessLogic.Services
         }
         public void addUserToBoekShareList(int Id, string Username, bool IsGedeeld)
         {
-            repoBoek.addUserToShareList(Id, Username, bool IsGedeeld);
+            repoBoek.addUserToShareList(Id, Username, IsGedeeld);
         }
 
         #endregion
@@ -404,7 +404,7 @@ namespace BusinessLogic.Services
             using (ApplicationDbContext context = new ApplicationDbContext())
             {
                 context.Configuration.LazyLoadingEnabled = false;
-                return context.Users.OrderBy(i => i.UserName).Where(u => u.UserName.Contains(search) || u.Voornaam.Contains(search) || u.Naam.Contains(search)).Skip(from).Take(30).ToList();
+                return context.Users.OrderBy(i => i.UserName).Include(u => u.Roles).Where(u => u.UserName.Contains(search) || u.Voornaam.Contains(search) || u.Naam.Contains(search)).Skip(from).Take(30).ToList();
             }
         }
         public List<ApplicationUser> GetUserNext30SortZA(int from,string search)
@@ -412,7 +412,7 @@ namespace BusinessLogic.Services
             using (ApplicationDbContext context = new ApplicationDbContext())
             {
                 context.Configuration.LazyLoadingEnabled = false;
-                return context.Users.OrderByDescending(i => i.UserName).Where(u => u.UserName.Contains(search) || u.Voornaam.Contains(search) || u.Naam.Contains(search)).Skip(from).Take(30).ToList();
+                return context.Users.OrderByDescending(i => i.UserName).Include(u => u.Roles).Where(u => u.UserName.Contains(search) || u.Voornaam.Contains(search) || u.Naam.Contains(search)).Skip(from).Take(30).ToList();
             }
         }
         // TODO: soft delete 

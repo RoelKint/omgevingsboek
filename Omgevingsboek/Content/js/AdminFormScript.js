@@ -5,6 +5,22 @@ var currentPar;
 var currentRow;
 console.log("hoi");
 $().ready(function () {
+    $('.alertt').dialog({
+            resizable: false,
+            height: 150,
+            modal: true,
+            dialogClass: "no-close",
+            buttons: {
+                "verwijderen": function () {
+                    $(this).dialog("close");
+                },
+                Cancel: function () {
+                    $(this).dialog("close");
+                }
+            },
+            closeText: "hide"
+        });
+    
     resetVanaf();
     jsonItUp("../Admin/" + pagina + "?vanaf=" + vanaf + "&desc=" + desc + "&filter=" + currentRow + "&search=" + search + "&mode=1");
     table = $('.AdminTable');
@@ -20,7 +36,8 @@ $().ready(function () {
             if (pagina == "Pois" && i == 5 || i==4) {
                 $(this).children(".glyphicon").remove();
             }
-            if (pagina == "Gebruikers" && i == 3) {
+            if (pagina == "Gebruikers" && i == 3 ) {
+
                 $(this).children(".glyphicon").remove();
             }
             $(this).children('.glyphicon').click(function (e) {
@@ -116,7 +133,11 @@ $().ready(function () {
                 string = "<tr><td><input  name='listId' value='" + els[i]["Id"] + "' type='checkbox' /></td><td>" + els[i]["Naam"] + "</td><td>" + els[i]["Eigenaar"]["UserName"] + "</td>" + "<td>";
 
                 for (j = 0 ; j < els[i]["Activiteiten"].length ; j++) {
-                    string += "<a href='#'>" + els[i]["Activiteiten"][j]["Naam"] + "</a>"
+                    if (j == els[i]["Activiteiten"].length - 1) {
+                        string += "<a href='#'>" + els[i]["Activiteiten"][j]["Naam"] + "</a>"
+                    } else {
+                        string += "<a href='#'>" + els[i]["Activiteiten"][j]["Naam"] + "</a> ,"
+                    }
                 }
                 string += "</td><td><div class='displayInlineButtons'><button class='oneDel' value=" + els[i]["Id"] + "><span class='glyphicon glyphicon-remove'></span></button></div></td></tr>"
 
@@ -132,10 +153,22 @@ $().ready(function () {
             } else if (pagina == "Gebruikers") {
                 string = "<tr><td><input name='GebruikersToDelete' value='" + els[i]["User"]["Id"] + "'type='checkbox' /> </td><td>" + els[i]["User"]["Voornaam"] + " " + els[i]["User"]["Naam"] + "</td><td>" + els[i]["User"]["UserName"] + "</td><td>";
                 for (j = 0 ; j < els[i]["Activiteiten"].length ; j++) {
-                    string += "<a href='#'>" + els[i]["Activiteiten"][j]["Naam"] + "</a>";
+                    if (j == els[i]["Activiteiten"].length-1) {
+                        string += "<a href='#'>" + els[i]["Activiteiten"][j]["Naam"] + "</a>";
+                        console.log("ik gebeur zenne");
+                    } else {
+                        string += "<a href='#'>" + els[i]["Activiteiten"][j]["Naam"] + "</a> ,";
+                    }
+                    
                 }
-                string += "</td><td><div class='displayInlineButtons'><button class='oneDel' value=" + els[i]["Id"] + "><span class='glyphicon glyphicon-remove'></span></button></div></td></tr>";
+                if (rol == true) {
+                    var o;
+                    if (els[i]["User"]["Deleted"]) {o = "nee"} else { o = "ja"}
+                    string += "</td><td>" + o + "</td><td>+ iets van Admin +</td><td><div class='displayInlineButtons'><button class='oneDel' value=" + els[i]["Id"] + "><span class='glyphicon glyphicon-remove'></span></button></div></td></tr>";
 
+                } else {
+                string += "</td><td><div class='displayInlineButtons'><button class='oneDel' value=" + els[i]["Id"] + "><span class='glyphicon glyphicon-remove'></span></button></div></td></tr>";
+                }
             }
             body.append(string);
 
@@ -181,7 +214,7 @@ $().ready(function () {
             $('.SelVor').off();
             $('.SelVol').off();
             $('.SelVol').click(function () {
-                vanaf += 30;
+                vanaf = vanaf + 30;
                 var jsonString = "../Admin/" + pagina + "?vanaf=" + vanaf + "&desc=" + desc + "&filter=" + currentRow + "&search=" + search + "&mode=1";
                 jsonItUp(jsonString);
             });
@@ -190,13 +223,13 @@ $().ready(function () {
             $('.SelVor').css('opacity', 1);
             $('.SelVor').off();
             $('.SelVor').click(function () {
-                vanaf -= 30;
+                vanaf = vanaf - 30;
                 var jsonString = "../Admin/" + pagina + "?vanaf=" + vanaf + "&desc=" + desc + "&filter=" + currentRow + "&search=" + search + "&mode=1";
                 jsonItUp(jsonString);
             });
             $('.SelVol').off();
             $('.SelVol').click(function () {
-
+                vanaf = vanaf + 30;
                 var jsonString = "../Admin/" + pagina + "?vanaf=" + vanaf + "&desc=" + desc + "&filter=" + filter + "&search=" + search + "&mode=1";
                 jsonItUp(jsonString);
 

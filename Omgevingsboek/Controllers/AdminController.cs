@@ -1,4 +1,6 @@
 ﻿using BusinessLogic.Services;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Models.MVC_Models;
 using Models.OmgevingsBoek_Models;
 using Models.PresentationModels;
@@ -27,10 +29,12 @@ namespace Omgevingsboek.Controllers
         [Authorize(Roles = "Administrator,SuperAdministrator")]
         public ActionResult Index()
         {
-            Session["stap1"] = "admin";
-            Session["stap2"] = "";
+            Session["stap1"] = "Admin";
+            Session["url1"] = "../admin";
+            Session.Remove("stap3");
+            Session.Remove("stap2");
             ViewBag.stap1 = Session["stap1"];
-
+            ViewBag.url1 = Session["url1"];
             return View();
 
         }
@@ -42,9 +46,13 @@ namespace Omgevingsboek.Controllers
         [Authorize(Roles = "Administrator,SuperAdministrator")]
         public ActionResult Activities(int? vanaf, int? desc, int? filter, string search, int? mode)
         {
+            Session.Remove("stap3");
             Session["stap2"] = "activities";
+            Session["url2"] = "/../admin/Activities";
             ViewBag.stap1 = Session["stap1"];
+            ViewBag.url1 = Session["url1"];
             ViewBag.stap2 = Session["stap2"];
+            ViewBag.url2 = Session["url2"];
             //mode == 1 -> json
             //mode == 0/null -> view
 
@@ -138,9 +146,13 @@ namespace Omgevingsboek.Controllers
         [HttpGet]
         public ActionResult Gebruikers(int? vanaf, int? desc,string search, int? mode)
         {
-            Session["stap2"] = "gebruikers";
+            Session.Remove("stap3");
+            Session["stap2"] = "Gebruikers";
+            Session["url2"] = "/../admin/gebruikers";
             ViewBag.stap1 = Session["stap1"];
+            ViewBag.url1 = Session["url1"];
             ViewBag.stap2 = Session["stap2"];
+            ViewBag.url2 = Session["url2"];
             if (search == null) search = "";
             if (TempData["Feedback"] != null)
             {
@@ -171,11 +183,17 @@ namespace Omgevingsboek.Controllers
             else
                 res = bs.GetUserNext30SortAZ((int)vanaf, search);
 
+            //UserManager<ApplicationUser> um = new UserManager<ApplicationUser>(new UserStore<Models.MVC_Models.ApplicationUser>(new ApplicationDbContext()));
+
             foreach (ApplicationUser user in res)
             {
                 UserActivities u = new UserActivities();
                 u.User = user;
                 u.Activiteiten = bs.GetActivitiesByUsername(user.UserName);
+                if (user.Roles.Any(x => x.RoleId == "a2727df4-4163-4442-9b81-ba018f6ff99a")) u.Role = "User";
+                if (user.Roles.Any(x => x.RoleId == "0e17317e-9f44-4117-b033-4c5c7c2217fe")) u.Role = "Administrator";
+                if (user.Roles.Any(x => x.RoleId == "95311bc7-8180-4c53-9e33-61fd254c21fc")) u.Role = "SuperAdministrator";
+
                 ua.Add(u);
             }
 
@@ -329,9 +347,13 @@ namespace Omgevingsboek.Controllers
         [HttpGet]
         public ActionResult Boeken(int? vanaf, int? desc, int? filter, string search, int? mode)
         {
-            Session["stap2"] = "boeken";
+            Session.Remove("stap3");
+            Session["stap2"] = "Boeken";
+            Session["url2"] = "/../admin/boeken";
             ViewBag.stap1 = Session["stap1"];
+            ViewBag.url1 = Session["url1"];
             ViewBag.stap2 = Session["stap2"];
+            ViewBag.url2 = Session["url2"];
             //mode == 1 -> json
             //mode == 0/null -> view
 
@@ -419,9 +441,13 @@ namespace Omgevingsboek.Controllers
         [HttpGet]
         public ActionResult Pois(int? vanaf, int? desc, string search, int? filter, int? mode)
         {
-            Session["stap2"] = "pois";
+            Session.Remove("stap3");
+            Session["stap2"] = "Pois";
+            Session["url2"] = "/../admin/pois";
             ViewBag.stap1 = Session["stap1"];
+            ViewBag.url1 = Session["url1"];
             ViewBag.stap2 = Session["stap2"];
+            ViewBag.url2 = Session["url2"];
             //mode 1 = json
             //mode 0/null = view
 

@@ -13,5 +13,6 @@ namespace Models.PresentationModels
         public ApplicationUser User { get; set; }
         public List<Activiteit> Activiteiten { get; set; }
         public List<Boek> Boeken { get; set; }
+        public string Role { get; set; }
     }
 }
