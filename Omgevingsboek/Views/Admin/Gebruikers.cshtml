@@ -14,7 +14,11 @@
 @if (User.IsInRole("SuperAdministrator"))
 {
 <script>rol = true;</script>
-    }
+}
+else
+{
+    <script>rol = false;</script>
+}
 
 @{
     
@@ -33,9 +37,7 @@
     int desc = ViewBag.desc;
 }
 
-<div class="col-xs-12 col-md-12 nav">
-    <a href="../Admin">&lt;&lt; Terug naar overzicht</a>
-</div>
+
 <div class="alertt" style="display:none">
     <p>Zeker dat je deze Gebruiker(s) wilt verwijderen?</p>
 </div>
@@ -119,10 +121,6 @@
                 <th><span class="glyphicon glyphicon-th-list"></span></th>
                 <th>Uitgenodigde</th>
                 <th>Uitgenodigd door</th>
-                @if (User.IsInRole("SuperAdministrator"))
-                {
-                    <th><span>Admin</span></th>
-                }
                 <th>Opties</th>
 
             </tr>
