@@ -28,6 +28,10 @@ $().ready(function () {
             });
         }
     });
+    $('.oneDel').click(function (e) {
+        console.log('ola');
+        delOne(e);
+    });
     $('.delList').css('display','inline');
     $('.delList').click(function () {
         console.log("klik");
@@ -67,7 +71,50 @@ $().ready(function () {
             },
             closeText: "hide"
         });
+    });
+    $('.changeRecht').click(function () {
+        $('.alertr').dialog({
+            dialogClass: "dlg-no-title",
+            resizable: false,
+            height: 200,
+            modal: true,
+            buttons: {
+                "verwijderen": function () {
+                    changeRights();
+                    $(this).dialog("close");
+                },
+                Cancel: function () {
+                    $(this).dialog("close");
+                }
+            },
+            closeText: "hide"
+        });
+
     })
+    function DelOne(e) {
+        var value;
+        var formData = new FormData();
+        if ($(e.target).children('span').length == 0) {
+            value = $(e.target).parent().attr("value");
+        } else {
+            value = $(e.target).attr("value");
+        }
+        if (pagina == "Activities") {
+            formData.append("ActiviteitenToDelete", value);
+            Delurl = "../Admin/DeleteActiviteit";
+        } else if (pagina == "Boeken") {
+            formData.append("BoekenToDelete", value);
+            Delurl = "../Admin/DeleteBoeken";
+        } else if (pagina == "Pois") {
+            formData.append("PoisToDelete", value);
+            Delurl = "../Admin/DeletePoi";
+        } else if (pagina = "Gebruikers") {
+            formData.append("DeleteUsersSoft", value);
+            Delurl = "../Admin/UsersToDelete";
+        }
+        jsonListUp(formData, Delurl);
+
+    }
     function deleteList() {
 
         var formData = new FormData();
@@ -128,17 +175,23 @@ $().ready(function () {
         })
         jsonListUp(formData, Delurl);
     };
-
     function changeRights() {
         var formData = new FormData();
         var Delurl = "";
         var lijst = $('[name=listId]');
+        console.log('lijst');
+        console.log(lijst);
         lijst.each(function (iets) {
+            console.log('hallo');
             if ($(lijst[iets]).is(":checked")) {
-                var value = parseInt($(lijst[iets]).attr("value"));
-
+                var value = $(lijst[iets]).attr("naam");
+                formData.append("UsersNames", value);
+                console.log(value);
             }
+            Delurl = "../Admin/ToggeRole";
         });
+        Delurl = "../Admin/ToggeRole";
+        jsonListUp(formData, Delurl);
     }
     $('.superDelList').click(function () {
         var formData = new FormData();
@@ -183,7 +236,6 @@ $().ready(function () {
                         string += "<td>nee</td>"
                     }
                     string += "<td><div class='displayInlineButtons'><button class='oneDel' value=" + els[i]["Id"] + "><span class='glyphicon glyphicon-remove'></span></button></div></td></tr>";
-
                 } else {
                     string += "<td><div class='displayInlineButtons'><button class='oneDel' value=" + els[i]["Id"] + "><span class='glyphicon glyphicon-remove'></span></button></div></td></tr>";
                 }
@@ -191,12 +243,11 @@ $().ready(function () {
             } else if (pagina == "Boeken") {
 
                 string = "<tr><td><input  name='listId' value='" + els[i]["Id"] + "' type='checkbox' /></td><td>" + els[i]["Naam"] + "</td><td>" + els[i]["Eigenaar"]["UserName"] + "</td>" + "<td>";
-
                 for (j = 0 ; j < els[i]["Activiteiten"].length ; j++) {
                     if (j == els[i]["Activiteiten"].length - 1) {
-                        string += "<a href='#'>" + els[i]["Activiteiten"][j]["Naam"] + "</a>"
+                        string += "<a href='../Activiteiten/Details/" + els[i]["Activiteiten"][j]["Id"] + "'>" + els[i]["Activiteiten"][j]["Naam"] + "</a>"
                     } else {
-                        string += "<a href='#'>" + els[i]["Activiteiten"][j]["Naam"] + "</a> ,"
+                        string += "<a href='../Activiteiten/Details/" + els[i]["Activiteiten"][j]["Id"] + "'>" + els[i]["Activiteiten"][j]["Naam"] + "</a> ,"
                     }
                 }
                 if (rol == true) {
@@ -207,7 +258,6 @@ $().ready(function () {
                         string += "<td>nee</td>"
                     }
                     string += "<td><div class='displayInlineButtons'><button class='oneDel' value=" + els[i]["Id"] + "><span class='glyphicon glyphicon-remove'></span></button></div></td></tr>";
-
                 } else {
                     string += "</td><td><div class='displayInlineButtons'><button class='oneDel' value=" + els[i]["Id"] + "><span class='glyphicon glyphicon-remove'></span></button></div></td></tr>"
                 }
@@ -234,13 +284,13 @@ $().ready(function () {
 
 
             } else if (pagina == "Gebruikers") {
-                string = "<tr><td><input name='GebruikersToDelete' value='" + els[i]["User"]["Id"] + "'type='checkbox' /> </td><td>" + els[i]["User"]["Voornaam"] + " " + els[i]["User"]["Naam"] + "</td><td>" + els[i]["User"]["UserName"] + "</td><td>";
+                string = "<tr><td><input naam='" + els[i]["User"]["UserName"] + "'  name='listId' value='" + els[i]["User"]["Id"] + "'type='checkbox' /> </td><td>" + els[i]["User"]["Voornaam"] + " " + els[i]["User"]["Naam"] + "</td><td>" + els[i]["User"]["UserName"] + "</td><td>";
                 for (j = 0 ; j < els[i]["Activiteiten"].length ; j++) {
                     if (j == els[i]["Activiteiten"].length-1) {
-                        string += "<a href='#'>" + els[i]["Activiteiten"][j]["Naam"] + "</a>";
+                        string += "<a href='../Activiteiten/Details/" + els[i]["Activiteiten"][j]["Id"] + "'>" + els[i]["Activiteiten"][j]["Naam"] + "</a>";
                         console.log("ik gebeur zenne");
                     } else {
-                        string += "<a href='#'>" + els[i]["Activiteiten"][j]["Naam"] + "</a> ,";
+                        string += "<a href='../Activiteiten/Details/" + els[i]["Activiteiten"][j]["Id"] + "'>" + els[i]["Activiteiten"][j]["Naam"] + "</a> ,";
                     }
                     
                 }
@@ -260,35 +310,6 @@ $().ready(function () {
             DelOne(e);
         });
         resetVanaf();
-    }
-    function DelOne(e) {
-        var value;
-        var formData = new FormData();
-        console.log(e.target);
-        if ($(e.target).children('span').length == 0) {
-            console.log("span");
-            value = $(e.target).parent().attr("value");
-        } else {
-            console.log("button");
-            value = $(e.target).attr("value");
-        }
-        if (pagina == "Activities") {
-            formData.append("ActiviteitenToDelete", value);
-            Delurl = "../Admin/DeleteActiviteit";
-        } else if (pagina == "Boeken") {
-            console.log("hallo?");
-            formData.append("BoekenToDelete", value);
-            Delurl = "../Admin/DeleteBoeken";
-        } else if (pagina == "Pois") {
-            console.log("hoi");
-            formData.append("PoisToDelete", value);
-            Delurl = "../Admin/DeletePoi";
-        } else if (pagina = "Gebruikers") {
-            formData.append("DeleteUsersSoft", value);
-            Delurl = "../Admin/UsersToDelete";
-        }
-        jsonListUp(formData, Delurl);
-
     }
     function resetVanaf() {
         if (vanaf == 0) {
@@ -339,19 +360,16 @@ $().ready(function () {
                 $(pressed).addClass('glyphicon-menu-down');
             }
         } else {
-            console.log('oi');
             filter = row;
             //kijken of asc of desc
             if ($(this).hasClass('glyphicon-menu-up')) {
                 $(pressed).removeClass('glyphicon-menu-up');
                 $(pressed).addClass('glyphicon-menu-down');
                 desc = 0;
-                console.log('hey');
             } else {
                 $(pressed).removeClass('glyphicon-menu-down');
                 $(pressed).addClass('glyphicon-menu-up');
                 desc = 1;
-                console.log('ney');
             }
         }
         if (pagina == "Activities") {
@@ -408,13 +426,10 @@ $().ready(function () {
                 //BTW, data is one of the worst names you can make for a variable
                 //handleSuccessFunctionHERE(data);
                 var jsonString = "../Admin/" + pagina + "?vanaf=" + vanaf + "&desc=" + desc + "&filter=" + currentRow + "&search=" + search + "&mode=1";
-
                 jsonItUp(jsonString);
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 //do your own thing
-                console.log("fail");
-                console.log(errorThrown);
             }
         });
     }
