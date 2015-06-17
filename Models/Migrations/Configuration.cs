@@ -19,8 +19,7 @@ namespace Models.Migrations
 
         protected override void Seed(Models.MVC_Models.ApplicationDbContext context)
         {
-            if (System.Diagnostics.Debugger.IsAttached == false)
-                System.Diagnostics.Debugger.Launch();
+            
             #region ROLES
 
             string roleSuperAdmin = "SuperAdministrator";

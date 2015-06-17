@@ -50,6 +50,7 @@ namespace Models.MVC_Models
         public DbSet<BoekOrder> BoekOrder { get; set; }
         public DbSet<Foto> Fotos { get; set; }
         public DbSet<RouteListItem> RouteListItem { get; set; }
+        public DbSet<Vraag> Vragen { get; set; }
 
 
 
