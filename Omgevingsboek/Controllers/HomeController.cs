@@ -289,6 +289,9 @@ namespace Omgevingsboek.Controllers
             else return;
 
         }
+
+        //DIT WERKT NIET IK KRIJG ZELFS NEN ERROR
+        /*
         [Authorize]
         public ActionResult GetRoutesById(int? id)
         {
@@ -297,7 +300,7 @@ namespace Omgevingsboek.Controllers
 
             return bs.getRoutesByBoek((int)id);
 
-        }
+        }*/
         
         [Authorize]
         public ActionResult AddPoi(Poi poi, HttpPostedFileBase AfbeeldingFile, string TagsString)
