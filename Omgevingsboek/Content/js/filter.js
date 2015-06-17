@@ -146,7 +146,7 @@ function filter(query) {
     });
 
     $(function () {
-        $('[data-toggle="popover"]').popover()
+        $('.tag[data-toggle="popover"]').popover()
     });
 
     $(".poiTags span").click(function (tag) {
