@@ -53,7 +53,10 @@
         }
 
         <input name="filter" type="text" id="Zoeken" placeholder="Zoeken" />
+        <input form="formA" name="desc" type="hidden" value="0" />
+        <input form="formA" name="vanaf" type="hidden" value="@ViewBag.vanaf" />
     </div>
+<<<<<<< HEAD
     <table class="col-xs-12 col-md-12 col-sm-12 AdminTable table table-hover" id="tableGebruikers">
 
         @if (User.IsInRole("SuperAdministrator"))
@@ -70,6 +73,13 @@
         }
         else
         {
+=======
+    <form id="formA" action="Delete">
+
+
+
+        <table class="AdminTable table table-hover" id="tableGebruikers">
+>>>>>>> parent of e48c01b... De fix
             <colgroup>
                 <col class="col-lg-1 col-xs-1 col-md-1" />
                 <col class="col-lg-2 col-xs-2 col-md-2" />
@@ -92,17 +102,31 @@
                 <th>Opties</th>
 
 
+<<<<<<< HEAD
             </tr>
         </thead>
         <tbody></tbody>
     </table>
+=======
+                </tr>
+            </thead>
+            <tbody>
+              
+            </tbody>
+        </table>
+    </form>
+>>>>>>> parent of e48c01b... De fix
 
     <h2>Uitnodigingen</h2>
 
 
     <form id="formB" method="post" action="Delete">
+<<<<<<< HEAD
         <table class="col-xs-12 col-md-12 table table-hover">
 
+=======
+        <table class=" table table-hover">
+>>>>>>> parent of e48c01b... De fix
             <colgroup>
                 <col class="col-lg-1 col-xs-1 col-md-1" />
                 <col class="col-lg-2 col-xs-2 col-md-2" />
