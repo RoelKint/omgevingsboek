@@ -124,8 +124,8 @@ namespace Omgevingsboek.Controllers
             if (!User.IsInRole("SuperAdministrator")) return "fail";
             foreach (int activiteit in ActiviteitenToDelete)
             {
-                Activiteit a = bs.GetActiviteitById(activiteit);
-                if (a == null) continue;
+                Activiteit a = bs.GetActiviteitByIdAdmin(activiteit);
+                if (a == null) return "fail";
                 bs.DeleteActiviteit(a);
             }
             return "ok";
@@ -140,8 +140,8 @@ namespace Omgevingsboek.Controllers
             //TODO: ervoor zorgen dat lege gebruiker ook kan verwijderd worden.
             foreach (int activiteit in ActiviteitenToDelete)
             {
-                Activiteit a = bs.GetActiviteitById(activiteit);
-                if (a == null) continue;
+                Activiteit a = bs.GetActiviteitByIdAdmin(activiteit);
+                if (a == null) return "fail";
                 bs.DeleteActiviteitSoft(a);
             }
             return "ok";
@@ -458,8 +458,8 @@ namespace Omgevingsboek.Controllers
             if (!User.IsInRole("SuperAdministrator")) return "fail";
             foreach (int boek in BoekenToDelete)
             {
-                Boek a = bs.GetBoekByID(boek);
-                if (a == null) continue;
+                Boek a = bs.GetBoekByIDAdmin(boek);
+                if (a == null) return "fail";
                 bs.DeleteBoek(a);
             }
             return "ok";
@@ -473,8 +473,8 @@ namespace Omgevingsboek.Controllers
             if (!User.IsInRole("SuperAdministrator") && !User.IsInRole("Administrator")) return "fail";
             foreach (int boek in BoekenToDelete)
             {
-                Boek a = bs.GetBoekByID(boek);
-                if (a == null) continue;
+                Boek a = bs.GetBoekByIDAdmin(boek);
+                if (a == null) return "fail";
                 bs.DeleteBoekSoft(a);
             }
             return "ok";
@@ -565,8 +565,8 @@ namespace Omgevingsboek.Controllers
             if (!User.IsInRole("SuperAdministrator")) return "fail";
             foreach (int poi in PoisToDelete)
             {
-                Poi a = bs.GetPoiById(poi);
-                if (a == null) continue;
+                Poi a = bs.GetPoiByIdAdmin(poi);
+                if (a == null) return "fail";
                 bs.DeletePoi(a);
             }
             return "ok";
@@ -578,8 +578,8 @@ namespace Omgevingsboek.Controllers
             if (!User.IsInRole("SuperAdministrator") && !User.IsInRole("Administrator")) return "fail";
             foreach (int poi in PoisToDelete)
             {
-                Poi a = bs.GetPoiById(poi);
-                if (a == null) continue;
+                Poi a = bs.GetPoiByIdAdmin(poi);
+                if (a == null) return "fail";
                 bs.DeletePoiSoft(a);
             }
             return "ok";

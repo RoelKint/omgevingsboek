@@ -62,6 +62,10 @@ namespace BusinessLogic.Services
         {
             return repoActiviteit.GetByID(id);
         }
+        public Activiteit GetActiviteitByIdAdmin(int id)
+        {
+            return repoActiviteit.GetByIDAdmin(id);
+        }
         public List<Activiteit> GetActivitiesByUsername(string Username)
         {
             return repoActiviteit.getActivitiesByUsername(Username);
@@ -179,6 +183,10 @@ namespace BusinessLogic.Services
         public Boek GetBoekByID(object id)
         {
             return repoBoek.GetByID(id);
+        }
+        public Boek GetBoekByIDAdmin(int id)
+        {
+            return repoBoek.GetByIDAdmin(id);
         }
         public List<Boek> GetBoekenByUser(string username)
         {
@@ -327,6 +335,10 @@ namespace BusinessLogic.Services
         public Poi GetPoiById(int Id)
         {
             return repoPoi.GetByID(Id);
+        }
+        public Poi GetPoiByIdAdmin(int Id)
+        {
+            return repoPoi.GetByIDAdmin(Id);
         }
         public void AddTagToPoi(int PoiId, int TagId,string UserName)
         {

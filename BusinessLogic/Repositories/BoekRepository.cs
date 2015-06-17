@@ -48,6 +48,11 @@ namespace BusinessLogic.Repositories
                 .Where(b => b.Id == (int)id)
                 .SingleOrDefault();
         }
+        public Boek GetByIDAdmin(int id)
+        {
+            context.Configuration.LazyLoadingEnabled = false;
+            return this.context.Boeken.Where(b => b.Id == id).FirstOrDefault();
+        }
         public List<Boek> getBoekenByUser(string username)
         {
             return (from b in context.Boeken.Include(b => b.DeelLijst).Include(b => b.Activiteiten) where !b.IsDeleted where b.Eigenaar.UserName == username select b).ToList();

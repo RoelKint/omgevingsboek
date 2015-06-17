@@ -34,6 +34,10 @@ namespace BusinessLogic.Repositories
         {
             return this.context.Poi.Select(p => p).Where(p => !p.IsDeleted).Include(p => p.Tags.Select(t => t.Tag)).Where(p => p.ID == (int)id).SingleOrDefault();
         }
+        public Poi GetByIDAdmin(int id)
+        {
+            return this.context.Poi.Where(p => p.ID == id).SingleOrDefault();
+        }
         public Poi Insert(Poi entity)
         {
             List<PoiTags> tagsPoi = entity.Tags;

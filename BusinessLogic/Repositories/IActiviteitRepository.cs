@@ -20,6 +20,7 @@ namespace BusinessLogic.Repositories
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Activiteit> getActiviteitenPerPoi(int id);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Activiteit> getActivitiesByUsername(string Username);
         Models.OmgevingsBoek_Models.Activiteit GetByID(object id);
+        Models.OmgevingsBoek_Models.Activiteit GetByIDAdmin(int id);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Activiteit> getSharedActivitiesByBookId(int BoekId, string Username);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Activiteit> getSharedActivitiesByUsername(string Username);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Activiteit> getUserActiviteitenByUser50from(int from, string Owner, string Visitor);

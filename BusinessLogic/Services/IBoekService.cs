@@ -21,6 +21,7 @@ namespace BusinessLogic.Services
         void DeleteUserSoft(Models.MVC_Models.ApplicationUser user);
         void EditBoek(Models.OmgevingsBoek_Models.Boek boek);
         Models.OmgevingsBoek_Models.Activiteit GetActiviteitById(int id);
+        Models.OmgevingsBoek_Models.Activiteit GetActiviteitByIdAdmin(int id);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Activiteit> getActiviteiten50FromSortDeletedAZ(int from, string search, bool DisplayDeleted);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Activiteit> getActiviteiten50FromSortDeletedZA(int from, string search, bool DisplayDeleted);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Activiteit> GetActiviteiten50FromSortNameAZ(int from, string search, bool DisplayDeleted);
@@ -36,6 +37,7 @@ namespace BusinessLogic.Services
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Activiteit> GetActivitiesByUsername(string Username);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Benodigdheid> GetBenodigdhedenList();
         Models.OmgevingsBoek_Models.Boek GetBoekByID(object id);
+        Models.OmgevingsBoek_Models.Boek GetBoekByIDAdmin(int id);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Boek> GetBoeken50FromSortDeletedAZ(int from, string search, bool DisplayDeleted);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Boek> GetBoeken50FromSortDeletedZA(int from, string search, bool DisplayDeleted);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Boek> GetBoeken50FromSortNameAZ(int from, string search, bool DisplayDeleted);
@@ -55,6 +57,7 @@ namespace BusinessLogic.Services
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Poi> GetPoi50FromSortNameAZ(int from, string search, bool DisplayDeleted);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Poi> GetPoi50FromSortNameZA(int from, string search, bool DisplayDeleted);
         Models.OmgevingsBoek_Models.Poi GetPoiById(int Id);
+        Models.OmgevingsBoek_Models.Poi GetPoiByIdAdmin(int Id);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Poi> GetPoiList();
         Models.OmgevingsBoek_Models.PoiTags getPoiTag(int TagId, int PoiId, string UserId);
         Models.OmgevingsBoek_Models.Route getRouteById(int Id);

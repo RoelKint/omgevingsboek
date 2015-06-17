@@ -17,6 +17,7 @@ namespace BusinessLogic.Repositories
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Poi> get50FromSortNameAZ(int from, string search, bool DisplayDeleted);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Poi> get50FromSortNameZA(int from, string search, bool DisplayDeleted);
         Models.OmgevingsBoek_Models.Poi GetByID(object id);
+        Models.OmgevingsBoek_Models.Poi GetByIDAdmin(int id);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.PoiTags> GetTags(int PoiId);
         Models.OmgevingsBoek_Models.Poi Insert(Models.OmgevingsBoek_Models.Poi entity);
         void Update(Models.OmgevingsBoek_Models.Poi entityToUpdate);

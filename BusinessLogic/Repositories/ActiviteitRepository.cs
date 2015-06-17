@@ -40,6 +40,11 @@ namespace BusinessLogic.Repositories
         {
             return this.context.Activiteiten.Where(a => a.Id == (int)id).Where(i => !i.IsDeleted).Include(a => a.DeelLijst).Include(a => a.Eigenaar).Include(a => a.Benodigdheden).Include(a => a.Videos).Include(a => a.Fotos).Include(a => a.Tags).SingleOrDefault();
         }
+        public Activiteit GetByIDAdmin(int id)
+        {
+            context.Configuration.LazyLoadingEnabled = false;
+            return this.context.Activiteiten.Where(a => a.Id == (int)id).FirstOrDefault();
+        }
         public List<Activiteit> getActivitiesByUsername(string Username)
         {
             using (ApplicationDbContext context = new ApplicationDbContext())
