@@ -27,12 +27,13 @@ namespace BusinessLogic.Repositories
         {
             context.Configuration.LazyLoadingEnabled = false;
             
-            return (from r in context.Routes.Include(r => r.RouteLijst).Include(r => r.Boek) where r.BoekId == boekId where r.IsDeleted == false select r).ToList();
+            return (from r in context.Routes.Include(r => r.RouteLijst).Include(r => r.Boeken) where r.Boeken.Any(x => x.Id == boekId) where r.IsDeleted == false select r).ToList();
         }
         public override Route Insert(Route entity)
         {
             Route res = new Route();
-            res.BoekId = entity.BoekId;
+            res.Boeken = new List<Boek>();
+            res.Boeken.Add(context.Boeken.Find(entity.Boeken.FirstOrDefault().Id));
             res.Naam = entity.Naam;
             res.EigenaarID = entity.Eigenaar.Id;
             res.DeelLijst = new List<ApplicationUser>();
