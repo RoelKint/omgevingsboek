@@ -285,7 +285,7 @@
     -ms-transition: none;
     -o-transition: none;
 ">
-    @using (Html.BeginForm("AddRoute2", "Home", FormMethod.Post, new { enctype = "multipart/form-data", data_toggle = "validator" })) {
+    @using (Html.BeginForm("AddRoute2", "Home", FormMethod.Post, new { enctype = "multipart/form-data", data_toggle = "validator",@id = "addRouteForm" })) {
     <h3 class="rowheader">Routes</h3>
 
 

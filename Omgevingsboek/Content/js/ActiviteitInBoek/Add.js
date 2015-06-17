@@ -28,7 +28,7 @@ $().ready(function () {
 
 
         console.log("nu zou submit event moeten firen");
-        $("#routeSubmit").submit();
+        $("#addRouteForm").submit();
         
     })
 
