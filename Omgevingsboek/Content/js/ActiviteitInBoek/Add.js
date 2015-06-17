@@ -52,7 +52,7 @@
         console.log(waypointList);
 
         console.log("nu zou submit event moeten firen");
-        //$("#addRouteForm").submit();
+        $("#addRouteForm").submit();
 
     });
     $(".toggleRouteForm").click(function (e) {

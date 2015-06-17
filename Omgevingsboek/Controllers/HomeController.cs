@@ -495,11 +495,33 @@ namespace Omgevingsboek.Controllers
         }
         [Authorize]
         [HttpPost]
-        public ActionResult AddRoute2(Route route)
+        public ActionResult AddRoute2(string routeNaam, string activiteitenIds, int? boekId)
         {
+            Route nieuweRoute = new Route();
+            nieuweRoute.EigenaarID = bs.GetUser(User.Identity.Name).Id;
+            //DIT NOG VERANDEREN
+            nieuweRoute.Boeken = new List<Models.OmgevingsBoek_Models.Boek>();
+            nieuweRoute.Boeken.Add(bs.GetBoekByID(boekId));
+            nieuweRoute.Naam = routeNaam;
+            string[] idsSplit = activiteitenIds.Split(',');
+            nieuweRoute.RouteLijst = new List<RouteListItem>();
             
+            foreach(string a in idsSplit)
+            {
+                int res;
+                if(!int.TryParse(a,out res)) continue;
 
-            return View();
+                Activiteit ac = bs.GetActiviteitById(res);
+                if (ac == null) continue;
+                if (!bs.IsActivityAccessibleByUser(ac.Id, User.Identity.Name)) continue;
+                nieuweRoute.RouteLijst.Add(new RouteListItem()
+                {
+                    Activiteit = ac
+                });
+            }
+            bs.InsertRoute(nieuweRoute);
+
+            return RedirectToAction("index");
 
         }
 

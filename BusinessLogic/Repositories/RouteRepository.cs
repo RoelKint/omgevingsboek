@@ -34,7 +34,7 @@ namespace BusinessLogic.Repositories
             Route res = new Route();
             res.Boeken = new List<Boek>();
             res.Naam = entity.Naam;
-            res.EigenaarID = entity.Eigenaar.Id;
+            res.EigenaarID = entity.EigenaarID;
             res.DeelLijst = new List<ApplicationUser>();
             res.DeelLijst.Add(context.Users.Find(entity.Eigenaar));
             res.RouteLijst = new List<RouteListItem>();
@@ -44,17 +44,21 @@ namespace BusinessLogic.Repositories
                 res.Boeken.Add(context.Boeken.Where(x => x.Id == b.Id).FirstOrDefault());
             }
 
+            int count = 0;
             foreach (RouteListItem rli in entity.RouteLijst)
             {
                 res.RouteLijst.Add(context.RouteListItem.Add(new RouteListItem()
                 {
-                    Activiteit = context.Activiteiten.Find(rli.Activiteit),
-                    OrderIndex = rli.OrderIndex
+                    Activiteit = context.Activiteiten.Where(x => x.Id == rli.Activiteit.Id).FirstOrDefault(),
+                    OrderIndex = count
                 }));
+                count++;
             }
 
 
-            return Insert(res);
+            Route resroute = base.Insert(res);
+            context.SaveChanges();
+            return resroute;
         }
 
         public override Route GetByID(object id)
