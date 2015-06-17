@@ -5,6 +5,22 @@ var currentPar;
 var currentRow;
 console.log("hoi");
 $().ready(function () {
+    $('.alertt').dialog({
+            resizable: false,
+            height: 150,
+            modal: true,
+            dialogClass: "no-close",
+            buttons: {
+                "verwijderen": function () {
+                    $(this).dialog("close");
+                },
+                Cancel: function () {
+                    $(this).dialog("close");
+                }
+            },
+            closeText: "hide"
+        });
+    
     resetVanaf();
     jsonItUp("../Admin/" + pagina + "?vanaf=" + vanaf + "&desc=" + desc + "&filter=" + currentRow + "&search=" + search + "&mode=1");
     table = $('.AdminTable');

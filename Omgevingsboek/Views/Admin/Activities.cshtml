@@ -24,7 +24,9 @@
     int desc = ViewBag.desc;
 }
 
-
+<div class="alertt">
+    <p>Zeker dat je deze items wilt verwijderen?</p>
+</div>
 <div class="col-xs-12 col-md-12 nav">
     <a href="../Admin">&lt;&lt; Terug naar overzicht</a>
 </div>
@@ -37,6 +39,7 @@
         <button class="SelVor"><span class="glyphicon glyphicon-chevron-left"></span> Vorige Pag.</button>
         <button class="SelVol"><span class="glyphicon glyphicon-chevron-right"></span> Volgende Pag.</button>
         <button class="delList" type="submit"><span class="glyphicon glyphicon-remove-circle"></span>Volledig verwijderen</button>
+        
         <input name="filter" type="text" id="Zoeken" placeholder="Zoeken" />
     </div>
     <table class="AdminTable col-xs-12 col-md-12 table table-hover">
