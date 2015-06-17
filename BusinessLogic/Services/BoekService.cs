@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLogic.Services
 {
-    public class BoekService : BusinessLogic.Services.IBoekService 
+    public class BoekService : BusinessLogic.Services.IBoekService
     {
         private ITagRepository repoTag = null;
         private IActiviteitRepository repoActiviteit = null;
@@ -20,6 +20,7 @@ namespace BusinessLogic.Services
         private IBenodigdheidRepository repoBenodigdheid = null;
         private IGenericRepository<PoiTags> repoPoiTags = null;
         private IBoekOrderRepository repoBoekOrder = null;
+        private IRouteRepository repoRoute = null;
 
         public BoekService(
             ITagRepository repoTag,
@@ -29,7 +30,8 @@ namespace BusinessLogic.Services
             IUitnodigingRepository repoUitnodiging,
             IBenodigdheidRepository repoBenodigdheid,
             IGenericRepository<PoiTags> repoPoiTags,
-            IBoekOrderRepository repoBoekOrder
+            IBoekOrderRepository repoBoekOrder,
+            IRouteRepository repoRoute
             )
         {
             this.repoActiviteit = repoActiviteit;
@@ -40,6 +42,7 @@ namespace BusinessLogic.Services
             this.repoBenodigdheid = repoBenodigdheid;
             this.repoPoiTags = repoPoiTags;
             this.repoBoekOrder = repoBoekOrder;
+            this.repoRoute = repoRoute;
         }
 
         #region Activiteiten
@@ -129,9 +132,13 @@ namespace BusinessLogic.Services
         {
             repoActiviteit.UpdateActiviteitFoto(ActiviteitId, foto);
         }
-        public void addUserToActiviteitShareList(int Id, string Username)
+        public void addUserToActiviteitShareList(int Id, string Username, bool IsGedeeld)
         {
-            repoActiviteit.addUserToShareList(Id, Username);
+            repoActiviteit.addUserToShareList(Id, Username, IsGedeeld);
+        }
+        public void UpdateActiviteit(Activiteit activiteit)
+        {
+            repoActiviteit.UpdateActiviteit(activiteit);
         }
 
         #endregion
@@ -198,9 +205,9 @@ namespace BusinessLogic.Services
         {
             repoBoek.UpdateFoto(BoekId, afbeelding);
         }
-        public void addUserToBoekShareList(int Id, string Username)
+        public void addUserToBoekShareList(int Id, string Username, bool IsGedeeld)
         {
-            repoBoek.addUserToShareList(Id, Username);
+            repoBoek.addUserToShareList(Id, Username, IsGedeeld);
         }
 
         #endregion
@@ -397,7 +404,7 @@ namespace BusinessLogic.Services
             using (ApplicationDbContext context = new ApplicationDbContext())
             {
                 context.Configuration.LazyLoadingEnabled = false;
-                return context.Users.OrderBy(i => i.UserName).Include(a => a.Activiteiten).Include(a => a.Boeken).Include(a => a.Routes).Where(u => u.UserName.Contains(search) || u.Voornaam.Contains(search) || u.Naam.Contains(search)).Skip(from).Take(30).ToList();
+                return context.Users.OrderBy(i => i.UserName).Where(u => u.UserName.Contains(search) || u.Voornaam.Contains(search) || u.Naam.Contains(search)).Skip(from).Take(30).ToList();
             }
         }
         public List<ApplicationUser> GetUserNext30SortZA(int from,string search)
@@ -405,7 +412,7 @@ namespace BusinessLogic.Services
             using (ApplicationDbContext context = new ApplicationDbContext())
             {
                 context.Configuration.LazyLoadingEnabled = false;
-                return context.Users.OrderByDescending(i => i.UserName).Include(a => a.Activiteiten).Include(a => a.Boeken).Include(a => a.Routes).Where(u => u.UserName.Contains(search) || u.Voornaam.Contains(search) || u.Naam.Contains(search)).Skip(from).Take(30).ToList();
+                return context.Users.OrderByDescending(i => i.UserName).Where(u => u.UserName.Contains(search) || u.Voornaam.Contains(search) || u.Naam.Contains(search)).Skip(from).Take(30).ToList();
             }
         }
         // TODO: soft delete 
@@ -479,6 +486,20 @@ namespace BusinessLogic.Services
         public Uitnodiging GetUitnodigingById(int id)
         {
             return repoUitnodiging.GetByID(id);
+        }
+
+        #endregion
+
+
+        #region routes
+
+        public List<Route> getRoutesByBoek(int boekId)
+        {
+            return repoRoute.getRoutesByBoek(boekId);
+        }
+        public Route Insert(Route entity)
+        {
+            return repoRoute.Insert(entity);
         }
 
         #endregion

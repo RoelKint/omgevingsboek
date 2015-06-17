@@ -211,14 +211,14 @@ function calculateRoute() {
                 removeAllMarkersFromMap();
 
 
-                var routeSequence = StreetviewSequence('#route', {
-                    route: result,
-                    key: "AIzaSyCjq-aM_jzPvZ52dZHXcljkggQraeltQrM",
-                    duration: 150000,
-                    loop: true,
-                    width: 585,
-                    height: 325,
-                });
+                //var routeSequence = StreetviewSequence('#route', {
+                //    route: result,
+                //    key: "AIzaSyCjq-aM_jzPvZ52dZHXcljkggQraeltQrM",
+                //    duration: 150000,
+                //    loop: true,
+                //    width: 585,
+                //    height: 325,
+                //});
 
                 routeSequence.done(function (player) {
                     player.play();
@@ -331,9 +331,3 @@ function selectTravelMode() {
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
-
-google.maps.event.addListenerOnce(map, 'tilesloaded', function () {
-    google.maps.event.addListenerOnce(map, 'tilesloaded', function () {
-        google.maps.event.trigger(map, 'resize');
-    });
-});

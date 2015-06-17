@@ -4,7 +4,7 @@ namespace BusinessLogic.Repositories
     public interface IActiviteitRepository
     {
         void AddFotoToActiviteit(int ActiviteitId, string Foto);
-        void addUserToShareList(int Id, string Username);
+        void addUserToShareList(int Id, string Username, bool IsGedeeld);
         System.Collections.Generic.IEnumerable<Models.OmgevingsBoek_Models.Activiteit> All();
         void Delete(Models.OmgevingsBoek_Models.Activiteit id);
         void DeleteSoft(Models.OmgevingsBoek_Models.Activiteit entityToDelete);
@@ -23,6 +23,7 @@ namespace BusinessLogic.Repositories
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Activiteit> getUserActiviteitenByUser50from(int from, string Owner, string Visitor);
         Models.OmgevingsBoek_Models.Activiteit Insert(Models.OmgevingsBoek_Models.Activiteit entity);
         bool IsActivityAccessibleByUser(int activiteitId, string Username);
+        void UpdateActiviteit(Models.OmgevingsBoek_Models.Activiteit activiteit);
         void UpdateActiviteitFoto(int ActiviteitId, string foto);
     }
 }

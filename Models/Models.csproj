@@ -149,6 +149,14 @@
     <Compile Include="Migrations\201506151954017_activiteitfotoupdate.Designer.cs">
       <DependentUpon>201506151954017_activiteitfotoupdate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201506161946434_update-routes.cs" />
+    <Compile Include="Migrations\201506161946434_update-routes.Designer.cs">
+      <DependentUpon>201506161946434_update-routes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506161955233_update-routes2.cs" />
+    <Compile Include="Migrations\201506161955233_update-routes2.Designer.cs">
+      <DependentUpon>201506161955233_update-routes2.cs</DependentUpon>
+    </Compile>
     <Compile Include="OmgevingsBoek Models\Activiteit.cs" />
     <Compile Include="OmgevingsBoek Models\Benodigdheid.cs" />
     <Compile Include="OmgevingsBoek Models\Boek.cs" />
@@ -254,6 +262,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201506151954017_activiteitfotoupdate.resx">
       <DependentUpon>201506151954017_activiteitfotoupdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506161946434_update-routes.resx">
+      <DependentUpon>201506161946434_update-routes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506161955233_update-routes2.resx">
+      <DependentUpon>201506161955233_update-routes2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

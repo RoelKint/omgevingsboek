@@ -116,10 +116,6 @@ function filter(query) {
         $(html).appendTo("#listActivity");
     });
 
-    $(function () {
-        $('[data-toggle="popover"]').popover()
-    });
-
     $(".poiTags span").click(function (tag) {
         document.getElementById("searchPoi").value = document.getElementById("searchPoi").value + " Tags:" + $(this)[0].innerText;
         filter($("#searchPoi").val());

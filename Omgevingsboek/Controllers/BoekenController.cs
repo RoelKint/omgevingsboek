@@ -76,6 +76,8 @@ namespace Omgevingsboek.Controllers
             {
                 if (AfbeeldingFile != null)
                 {
+                    if (AfbeeldingFile.ContentLength > 10000000) return RedirectToAction("Index", "Home");
+
                     try
                     {
                         flickr.UploadPictureAsync(AfbeeldingFile.InputStream, boek.Naam, boek.Naam, "", "", false, false, false, ContentType.Photo, SafetyLevel.Safe, HiddenFromSearch.Hidden, (res) =>

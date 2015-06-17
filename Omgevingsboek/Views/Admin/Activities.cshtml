@@ -24,7 +24,9 @@
     int desc = ViewBag.desc;
 }
 
-
+<div class="alertt">
+    <p>Zeker dat je deze items wilt verwijderen?</p>
+</div>
 <div class="col-xs-12 col-md-12 nav">
     <a href="../Admin">&lt;&lt; Terug naar overzicht</a>
 </div>
@@ -36,30 +38,29 @@
     <div class="col-xs-12 col-md-12" id="buttonsAdBoven">
         <button class="SelVor"><span class="glyphicon glyphicon-chevron-left"></span> Vorige Pag.</button>
         <button class="SelVol"><span class="glyphicon glyphicon-chevron-right"></span> Volgende Pag.</button>
-        <button class="delList" type="submit"><span class="glyphicon glyphicon-remove-circle"></span> Verwijderen</button>
+        <button class="delList" type="submit"><span class="glyphicon glyphicon-remove-circle"></span>Volledig verwijderen</button>
+        
         <input name="filter" type="text" id="Zoeken" placeholder="Zoeken" />
     </div>
-        <table class="AdminTable table table-hover">
-            <colgroup>
-                <col class="col-lg-1 col-xs-1 col-md-1" />
-                <col class="col-lg-4 col-xs-4 col-md-3" />
-                <col class="col-lg-3 col-xs-3 col-md-3" />
-                <col class="col-lg-3 col-xs-3 col-md-3" />
-                <col class="col-lg-1 col-xs-1 col-md-1" />
-            </colgroup>
-            <thead>
-                <tr>
-                    <th><span class="glyphicon glyphicon-th-list"></span></th>
-                    <th><span>Naam</span></th>
-                    <th><span>Eigenaar</span></th>
-                    <th><span>Poi</span></th>
-                    <th><span>Opties</span></th>
-                </tr>
-            </thead>
-            <tbody>
-               
-            </tbody>
-        </table>
+    <table class="AdminTable col-xs-12 col-md-12 table table-hover">
+        <colgroup>
+            <col class="col-lg-1 col-xs-1 col-md-1" />
+            <col class="col-lg-4 col-xs-4 col-md-3" />
+            <col class="col-lg-3 col-xs-3 col-md-3" />
+            <col class="col-lg-3 col-xs-3 col-md-3" />
+            <col class="col-lg-1 col-xs-1 col-md-1" />
+        </colgroup>
+        <thead>
+            <tr>
+                <th><span class="glyphicon glyphicon-th-list"></span></th>
+                <th><span>Naam</span></th>
+                <th><span>Eigenaar</span></th>
+                <th><span>Poi</span></th>
+                <th><span>Opties</span></th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
     <div class="col-xs-12 col-md-12" id="buttonsAdOnder">
         <button class="SelVor"><span class="glyphicon glyphicon-chevron-left"></span> Vorige Pag.</button>
         <button class="SelVol"><span class="glyphicon glyphicon-chevron-right"></span> Volgende Pag.</button>

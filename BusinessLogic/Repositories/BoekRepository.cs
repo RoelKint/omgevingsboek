@@ -110,22 +110,22 @@ namespace BusinessLogic.Repositories
         public List<Boek> get50FromSortNameAZ(int from, string search)
         {
             context.Configuration.LazyLoadingEnabled = false;
-            return this.context.Boeken.Include(b => b.Eigenaar).Include(b => b.Activiteiten).Where(i => !i.IsDeleted).Where(b => b.Naam.Contains(search) || b.Eigenaar.UserName.Contains(search)).OrderBy(i => i.Naam).Skip(from).Take(30).ToList();
+            return this.context.Boeken.Include(b => b.Eigenaar).Include(b => b.Activiteiten).Where(i => !i.IsDeleted).Where(b => b.Naam.Contains(search) || b.Eigenaar.UserName.Contains(search)).OrderBy(i => i.Naam).Where(u => u.Eigenaar != null).Skip(from).Take(30).ToList();
         }
         public List<Boek> get50FromSortNameZA(int from, string search)
         {
             context.Configuration.LazyLoadingEnabled = false;
-            return this.context.Boeken.Include(b => b.Eigenaar).Include(b => b.Activiteiten).Where(i => !i.IsDeleted).Where(b => b.Naam.Contains(search) || b.Eigenaar.UserName.Contains(search)).OrderByDescending(i => i.Naam).Skip(from).Take(30).ToList();
+            return this.context.Boeken.Include(b => b.Eigenaar).Include(b => b.Activiteiten).Where(i => !i.IsDeleted).Where(b => b.Naam.Contains(search) || b.Eigenaar.UserName.Contains(search)).OrderByDescending(i => i.Naam).Where(u => u.Eigenaar != null).Skip(from).Take(30).ToList();
         }
         public List<Boek> get50FromSortUserAZ(int from, string search)
         {
             context.Configuration.LazyLoadingEnabled = false;
-            return this.context.Boeken.Include(b => b.Eigenaar).Include(b => b.Activiteiten).Where(i => !i.IsDeleted).Where(b => b.Naam.Contains(search) || b.Eigenaar.UserName.Contains(search)).OrderBy(i => i.Eigenaar.UserName).Skip(from).Take(30).ToList();
+            return this.context.Boeken.Include(b => b.Eigenaar).Include(b => b.Activiteiten).Where(i => !i.IsDeleted).Where(b => b.Naam.Contains(search) || b.Eigenaar.UserName.Contains(search)).OrderBy(i => i.Eigenaar.UserName).Where(u => u.Eigenaar != null).Skip(from).Take(30).ToList();
         }
         public List<Boek> get50FromSortUserZA(int from, string search)
         {
             context.Configuration.LazyLoadingEnabled = false;
-            return this.context.Boeken.Include(b => b.Eigenaar).Include(b => b.Activiteiten).Where(i => !i.IsDeleted).Where(b => b.Naam.Contains(search) || b.Eigenaar.UserName.Contains(search)).OrderByDescending(i => i.Eigenaar.UserName).Skip(from).Take(30).ToList();
+            return this.context.Boeken.Include(b => b.Eigenaar).Include(b => b.Activiteiten).Where(i => !i.IsDeleted).Where(b => b.Naam.Contains(search) || b.Eigenaar.UserName.Contains(search)).OrderByDescending(i => i.Eigenaar.UserName).Where(u => u.Eigenaar != null).Skip(from).Take(30).ToList();
         }
 
         public void DeleteSoft(Boek entityToDelete)
@@ -151,27 +151,37 @@ namespace BusinessLogic.Repositories
             b.Afbeelding = foto;
             Update(b);
         }
-        public void addUserToShareList(int Id, string Username)
+        public void addUserToShareList(int Id, string Username, bool IsGedeeld)
         {
             Boek b = GetByID(Id);
             ApplicationUser user = context.Users.Where(u => u.UserName == Username).FirstOrDefault();
-            b.DeelLijst.Add(user);
 
-            int previndex;
-            List<BoekOrder> l = context.BoekOrder.Where(i => i.EigenaarId == user.Id).Where(i => i.IsSharedLijst == true).ToList();
-            if (l.Count != 0 )
-                previndex = context.BoekOrder.Where(i => i.EigenaarId == user.Id).Where(i => i.IsSharedLijst == true).Max(i => i.Index);
-            else
-                previndex = -1;
-            context.BoekOrder.Add(new BoekOrder()
+            if (IsGedeeld)
             {
-                BoekId = b.Id,
-                EigenaarId = user.Id,
-                Index = (previndex + 1),
-                IsSharedLijst = true
-            });
-            
-            Update(b);
+                b.DeelLijst.Add(user);
+
+                int previndex;
+                List<BoekOrder> l = context.BoekOrder.Where(i => i.EigenaarId == user.Id).Where(i => i.IsSharedLijst == true).ToList();
+                if (l.Count != 0)
+                    previndex = context.BoekOrder.Where(i => i.EigenaarId == user.Id).Where(i => i.IsSharedLijst == true).Max(i => i.Index);
+                else
+                    previndex = -1;
+                context.BoekOrder.Add(new BoekOrder()
+                {
+                    BoekId = b.Id,
+                    EigenaarId = user.Id,
+                    Index = (previndex + 1),
+                    IsSharedLijst = true
+                });
+
+                Update(b);
+            }
+            else
+            {
+                context.BoekOrder.Remove(context.BoekOrder.Where(x => x.BoekId == b.Id).Where(x => x.EigenaarId == user.Id).FirstOrDefault());
+                b.DeelLijst.Remove(context.Users.Find(user));
+                Update(b);
+            }
         }
 
     }
