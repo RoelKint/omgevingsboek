@@ -294,10 +294,12 @@
         <div id="map-canvas"></div>
     </div>
     <div class="col-md-6 col-xs-12 col-lg-6">
-        <input type="text" id="routeNaam" name="routeNaam" placeholder="naam van de route" />
-        <button type="submit" class="btn btn-success form-control submit" data-loading-text="<i class='fa fa-spinner fa-pulse'></i>">
-                    <span class="glyphicon glyphicon-ok" />
+        <div class="form-group">
+            <input type="text" id="routeNaam" name="routeNaam" placeholder="naam van de route" class="col-md-6"/>
+            <button type="button" id="routeSubmit" class="btn btn-success submit col-md-6" data-loading-text="<i class='fa fa-spinner fa-pulse'></i>">
+                    <span class="glyphicon glyphicon-ok"></span>Route opslaan
         </button>
+        </div>
 
 
 
@@ -314,19 +316,19 @@
 
     </div>
     <div class="col-md-6 col-xs-12 col-lg-6">
-        <button class="btn btn-default btn-primary" onclick="calculateRoute();">
+        <button type="button" class="btn btn-default btn-primary" onclick="calculateRoute();">
             Route berekenen
         </button>
-        <button class="btn btn-default" id="moveWaypointUp">
+        <button type="button" class="btn btn-default" id="moveWaypointUp">
             <span class="glyphicon glyphicon-arrow-up"></span>Naar boven
         </button>
-        <button class="btn btn-default" id="moveWaypointDown">
+        <button type="button" class="btn btn-default" id="moveWaypointDown">
             <span class="glyphicon glyphicon-arrow-down"></span>Naar beneden
         </button>
-        <button onclick="removeWaypointFromList()" class="btn btn-danger">
+        <button type="button" onclick="removeWaypointFromList()" class="btn btn-danger">
             <span class="glyphicon glyphicon-remove"></span>Verwijder punt
         </button>
-        <button class="btn btn-danger">
+        <button type="button" class="btn btn-danger">
             <span class="glyphicon glyphicon-remove"></span>Verwijder route
         </button>
     </div>

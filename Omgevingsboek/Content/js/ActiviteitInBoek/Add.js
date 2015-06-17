@@ -24,10 +24,22 @@ $().ready(function () {
     }
 
 
+    $("#routeSubmit").click(function () {
+
+
+        console.log("nu zou submit event moeten firen");
+        $("#routeSubmit").submit();
+        
+    })
+
     $(".toggleRouteForm").click(function (e) {
         e.preventDefault();
         $("#routeForm").slideToggle(400, function () {
             google.maps.event.trigger(map, 'resize');
+            $("#routeSubmit").prop("disabled", true).popover({
+                content: "Je moet eerste de route berekenen voor je ze kan opslaan",
+                placement: "bottom"
+            })
         });
     })
 

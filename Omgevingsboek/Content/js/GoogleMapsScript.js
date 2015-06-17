@@ -204,6 +204,7 @@ function calculateRoute() {
 
         directionsService.route(request, function (result, status) {
             if (status == google.maps.DirectionsStatus.OK) {
+                $("#routeSubmit").prop("disabled", false).popover('hide');
                 directionsDisplay.setDirections(result);
                 directionsDisplay.setMap(map);
                 directionsDisplay.setPanel(document.getElementById('directions-panel'));
@@ -220,9 +221,9 @@ function calculateRoute() {
                 //    height: 325,
                 //});
 
-                routeSequence.done(function (player) {
-                    player.play();
-                });
+                //routeSequence.done(function (player) {
+                //    player.play();
+                //});
             } else {
                 console.log(status);
             }
