@@ -43,6 +43,7 @@ namespace BusinessLogic.Repositories
                 .Include(b => b.DeelLijst)
                 .Include(b => b.Activiteiten/*.Select(i => i.)*/)
                 .Include(a => a.Eigenaar)
+                .Include(a => a.Routes)
                 .Where(b => !b.IsDeleted)
                 .Where(b => b.Id == (int)id)
                 .SingleOrDefault();
