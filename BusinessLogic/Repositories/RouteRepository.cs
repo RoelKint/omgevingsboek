@@ -27,34 +27,45 @@ namespace BusinessLogic.Repositories
         {
             context.Configuration.LazyLoadingEnabled = false;
             
-            return (from r in context.Routes.Include(r => r.RouteLijst).Include(r => r.Boeken) where r.Boeken.Any(x => x.Id == boekId) where r.IsDeleted == false select r).ToList();
+            return (from r in context.Routes.Include(r => r.RouteLijst).Include(r => r.Boeken) where r.Boeken.Any(x => x.Id == boekId) where r.IsDeleted==false where r.IsDeleted == false select r).ToList();
         }
         public override Route Insert(Route entity)
         {
             Route res = new Route();
             res.Boeken = new List<Boek>();
-            res.Boeken.Add(context.Boeken.Find(entity.Boeken.FirstOrDefault().Id));
             res.Naam = entity.Naam;
-            res.EigenaarID = entity.Eigenaar.Id;
+            res.EigenaarID = entity.EigenaarID;
             res.DeelLijst = new List<ApplicationUser>();
             res.DeelLijst.Add(context.Users.Find(entity.Eigenaar));
             res.RouteLijst = new List<RouteListItem>();
 
+            foreach (Boek b in entity.Boeken)
+            {
+                res.Boeken.Add(context.Boeken.Where(x => x.Id == b.Id).FirstOrDefault());
+            }
 
+            int count = 0;
             foreach (RouteListItem rli in entity.RouteLijst)
             {
                 res.RouteLijst.Add(context.RouteListItem.Add(new RouteListItem()
                 {
-                    Activiteit = context.Activiteiten.Find(rli.Activiteit),
-                    OrderIndex = rli.OrderIndex
+                    Activiteit = context.Activiteiten.Where(x => x.Id == rli.Activiteit.Id).FirstOrDefault(),
+                    OrderIndex = count
                 }));
+                count++;
             }
 
 
-            return Insert(res);
+            Route resroute = base.Insert(res);
+            context.SaveChanges();
+            return resroute;
         }
-        
 
+        public override Route GetByID(object id)
+        {
+            return context.Routes.Include(r => r.RouteLijst).Include(r => r.RouteLijst.Select(x => x.Activiteit)).Include(r => r.DeelLijst).Where(r => r.IsDeleted == false).Where(r => r.Id == (int)id).SingleOrDefault();
+                
+        }
 
     }
 }

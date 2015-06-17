@@ -60,6 +60,9 @@ namespace Omgevingsboek.Controllers
             //desc == 0 -> ascending
             if (search == null) search = "";
             List<Activiteit> res = new List<Activiteit>();
+            bool DisplayDeleted = false;
+            if (bs.GetUser(User.Identity.Name).Roles.Any(r => r.RoleId == "95311bc7-8180-4c53-9e33-61fd254c21fc")) DisplayDeleted = true;
+
 
             if (!vanaf.HasValue) vanaf = 0;
             if (!desc.HasValue) desc = 0;
@@ -70,29 +73,29 @@ namespace Omgevingsboek.Controllers
                 case 1:
                     //activiteit naam
                     if (desc == 1)
-                        res = bs.GetActiviteiten50FromSortNameZA((int)vanaf,search);
+                        res = bs.GetActiviteiten50FromSortNameZA((int)vanaf,search,DisplayDeleted);
                     else
-                        res = bs.GetActiviteiten50FromSortNameAZ((int)vanaf,search);
+                        res = bs.GetActiviteiten50FromSortNameAZ((int)vanaf, search, DisplayDeleted);
                     break;
                 case 2:
                     //gebruiker naam
                     if (desc == 1)
-                        res = bs.GetActiviteiten50FromSortUserZA((int)vanaf, search);
+                        res = bs.GetActiviteiten50FromSortUserZA((int)vanaf, search, DisplayDeleted);
                     else
-                        res = bs.GetActiviteiten50FromSortUserAZ((int)vanaf, search);
+                        res = bs.GetActiviteiten50FromSortUserAZ((int)vanaf, search, DisplayDeleted);
                     break;
                 case 3:
                     //poi
                     if (desc == 1)
-                        res = bs.GetActiviteiten50FromSortPoiZA((int)vanaf, search);
+                        res = bs.GetActiviteiten50FromSortPoiZA((int)vanaf, search, DisplayDeleted);
                     else
-                        res = bs.GetActiviteiten50FromSortPoiAZ((int)vanaf, search);
+                        res = bs.GetActiviteiten50FromSortPoiAZ((int)vanaf, search, DisplayDeleted);
                     break;
                 default:
                     if (desc == 1)
-                        res = bs.GetActiviteiten50FromSortNameZA((int)vanaf, search);
+                        res = bs.GetActiviteiten50FromSortNameZA((int)vanaf, search, DisplayDeleted);
                     else
-                        res = bs.GetActiviteiten50FromSortNameAZ((int)vanaf, search);
+                        res = bs.GetActiviteiten50FromSortNameAZ((int)vanaf, search, DisplayDeleted);
                     break;
             }
             
@@ -132,7 +135,7 @@ namespace Omgevingsboek.Controllers
             {
                 Activiteit a = bs.GetActiviteitById(activiteit);
                 if (a == null) continue;
-                bs.DeleteActiviteit(a);
+                bs.DeleteActiviteitSoft(a);
             }
             return "ok";
         }
@@ -170,6 +173,8 @@ namespace Omgevingsboek.Controllers
 
             //desc == 1 -> descending
             //desc == 0 -> ascending
+            bool DisplayDeleted = false;
+            if (bs.GetUser(User.Identity.Name).Roles.Any(r => r.RoleId == "95311bc7-8180-4c53-9e33-61fd254c21fc")) DisplayDeleted = true;
 
             List<UserActivities> ua = new List<UserActivities>();
             List<ApplicationUser> res = new List<ApplicationUser>();
@@ -179,11 +184,10 @@ namespace Omgevingsboek.Controllers
 
 
             if (desc == 1)
-                res = bs.GetUserNext30SortZA((int)vanaf,search);
+                res = bs.GetUserNext30SortZA((int)vanaf,search, DisplayDeleted);
             else
-                res = bs.GetUserNext30SortAZ((int)vanaf, search);
+                res = bs.GetUserNext30SortAZ((int)vanaf, search, DisplayDeleted);
 
-            //UserManager<ApplicationUser> um = new UserManager<ApplicationUser>(new UserStore<Models.MVC_Models.ApplicationUser>(new ApplicationDbContext()));
 
             foreach (ApplicationUser user in res)
             {
@@ -196,6 +200,9 @@ namespace Omgevingsboek.Controllers
 
                 ua.Add(u);
             }
+
+
+
 
             ViewBag.vanaf = vanaf;
             ViewBag.desc = desc;
@@ -212,24 +219,7 @@ namespace Omgevingsboek.Controllers
                 return jsonResult;
             }
         }
-        [Authorize(Roles = "Administrator,SuperAdministrator")]
-        public ActionResult ZoekGebruiker(string q)
-        {
-            
-            if (q == null) q = "";
-            List<UserActivities> ua = new List<UserActivities>();
-            List<ApplicationUser> geb = bs.GetUserNext30SortAZ(0,q);
-            foreach (ApplicationUser user in geb)
-            {
-                UserActivities u = new UserActivities();
-                u.User = user;
-                u.Activiteiten = bs.GetActivitiesByUsername(user.UserName);
-                ua.Add(u);
-            }
-            var jsonResult = Json(JsonConvert.SerializeObject(ua), JsonRequestBehavior.AllowGet);
-            jsonResult.MaxJsonLength = int.MaxValue;
-            return jsonResult;
-        }
+        
 
         [Authorize(Roles = "Administrator,SuperAdministrator")]
         public ActionResult AddUsers(String Mails)
@@ -336,6 +326,19 @@ namespace Omgevingsboek.Controllers
             smtpClient.Send(mail);
         }
 
+        [Authorize(Roles = "SuperAdministrator")]
+        public string ToggeRole(List<string> UsersNames)
+        {
+            //TODO: checks
+            foreach (string user in UsersNames)
+            {
+                if (bs.GetUser(user) == null) return "NOK";
+                bs.ToggleRole(user);
+
+            }
+            return "OK";
+        }        
+
 
         #endregion
 
@@ -359,6 +362,8 @@ namespace Omgevingsboek.Controllers
 
             //desc == 1 -> descending
             //desc == 0 -> ascending
+            bool DisplayDeleted = false;
+            if (bs.GetUser(User.Identity.Name).Roles.Any(r => r.RoleId == "95311bc7-8180-4c53-9e33-61fd254c21fc")) DisplayDeleted = true;
 
             if (search == null) search = "";
 
@@ -373,22 +378,22 @@ namespace Omgevingsboek.Controllers
                 case 1:
                     //boek naam
                     if (desc == 1)
-                        res = bs.GetBoeken50FromSortNameZA((int)vanaf, search);
+                        res = bs.GetBoeken50FromSortNameZA((int)vanaf, search,DisplayDeleted);
                     else
-                        res = bs.GetBoeken50FromSortNameAZ((int)vanaf, search);
+                        res = bs.GetBoeken50FromSortNameAZ((int)vanaf, search, DisplayDeleted);
                     break;
                 case 2:
                     //gebruiker naam
                     if (desc == 1)
-                        res = bs.GetBoeken50FromSortUserZA((int)vanaf, search);
+                        res = bs.GetBoeken50FromSortUserZA((int)vanaf, search, DisplayDeleted);
                     else
-                        res = bs.GetBoeken50FromSortUserAZ((int)vanaf, search);
+                        res = bs.GetBoeken50FromSortUserAZ((int)vanaf, search, DisplayDeleted);
                     break;
                 default:
                     if (desc == 1)
-                        res = bs.GetBoeken50FromSortNameZA((int)vanaf, search);
+                        res = bs.GetBoeken50FromSortNameZA((int)vanaf, search, DisplayDeleted);
                     else
-                        res = bs.GetBoeken50FromSortNameAZ((int)vanaf, search);
+                        res = bs.GetBoeken50FromSortNameAZ((int)vanaf, search, DisplayDeleted);
                     break;
             }
             ViewBag.vanaf = vanaf;
@@ -453,6 +458,10 @@ namespace Omgevingsboek.Controllers
 
             //desc == 1 -> descending
             //desc == 0 -> ascending
+
+            bool DisplayDeleted = false;
+            if (bs.GetUser(User.Identity.Name).Roles.Any(r => r.RoleId == "95311bc7-8180-4c53-9e33-61fd254c21fc")) DisplayDeleted = true;
+
             if (search == null) search = "";
             List<Poi> res = new List<Poi>();
             if (!filter.HasValue) filter = 0;
@@ -463,29 +472,29 @@ namespace Omgevingsboek.Controllers
             case 1:
                 //naam
                 if (desc == 1)
-                    res = bs.GetPoi50FromSortNameZA((int)vanaf,search);
+                    res = bs.GetPoi50FromSortNameZA((int)vanaf,search,DisplayDeleted);
                 else
-                    res = bs.GetPoi50FromSortNameAZ((int)vanaf, search);
+                    res = bs.GetPoi50FromSortNameAZ((int)vanaf, search, DisplayDeleted);
             break;
             case 2:
                 //email
                 if (desc == 1)
-                    res = bs.getPoi50FromSortEmailZA((int)vanaf, search);
+                    res = bs.getPoi50FromSortEmailZA((int)vanaf, search, DisplayDeleted);
                 else
-                    res = bs.getPoi50FromSortEmailAZ((int)vanaf, search);
+                    res = bs.getPoi50FromSortEmailAZ((int)vanaf, search, DisplayDeleted);
             break;
             case 3:
                 //address
                 if (desc == 1)
-                    res = bs.getPoi50FromSortAddressZA((int)vanaf, search);
+                    res = bs.getPoi50FromSortAddressZA((int)vanaf, search, DisplayDeleted);
                 else
-                    res = bs.getPoi50FromSortAddressAZ((int)vanaf, search);
+                    res = bs.getPoi50FromSortAddressAZ((int)vanaf, search, DisplayDeleted);
             break;
             default:
                 if (desc == 1)
-                    res = bs.GetPoi50FromSortNameZA((int)vanaf, search);
+                    res = bs.GetPoi50FromSortNameZA((int)vanaf, search, DisplayDeleted);
                 else
-                    res = bs.GetPoi50FromSortNameAZ((int)vanaf, search);
+                    res = bs.GetPoi50FromSortNameAZ((int)vanaf, search, DisplayDeleted);
             break;
             }
 

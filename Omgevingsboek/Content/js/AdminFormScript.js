@@ -5,21 +5,6 @@ var currentPar;
 var currentRow;
 console.log("hoi");
 $().ready(function () {
-    $('.alertt').dialog({
-            resizable: false,
-            height: 150,
-            modal: true,
-            dialogClass: "no-close",
-            buttons: {
-                "verwijderen": function () {
-                    $(this).dialog("close");
-                },
-                Cancel: function () {
-                    $(this).dialog("close");
-                }
-            },
-            closeText: "hide"
-        });
     
     resetVanaf();
     jsonItUp("../Admin/" + pagina + "?vanaf=" + vanaf + "&desc=" + desc + "&filter=" + currentRow + "&search=" + search + "&mode=1");
@@ -45,8 +30,30 @@ $().ready(function () {
             });
         }
     });
+    $('.delList').css('display','inline');
     $('.delList').click(function () {
+        console.log("klik");
+        $('.alertt').dialog({
+            dialogClass: "dlg-no-title",
+            resizable: false,
+            height: 200,
+            modal: true,
+            buttons: {
+                "verwijderen": function () {
+                    deleteList();
+                    $(this).dialog("close");
+                },
+                Cancel: function () {
+                    $(this).dialog("close");
+                }
+            },
+            closeText: "hide"
+        });
         
+    });
+
+    function deleteList() {
+
         var formData = new FormData();
         var Delurl = "";
         var lijst = $('[name=listId]');
@@ -58,9 +65,9 @@ $().ready(function () {
                 console.log("Aantal");
                 var value = parseInt($(lijst[iets]).attr("value"));
 
-                if(pagina == "Activities") {
-                formData.append("ActiviteitenToDelete", value);
-                Delurl = "../Admin/DeleteActiviteit";
+                if (pagina == "Activities") {
+                    formData.append("ActiviteitenToDelete", value);
+                    Delurl = "../Admin/DeleteActiviteit";
                 } else if (pagina == "Boeken") {
                     console.log("hallo?");
                     formData.append("BoekenToDelete", value);
@@ -74,25 +81,28 @@ $().ready(function () {
                     Delurl = "../Admin/UsersToDelete";
                 }
             }
-            })
-        
-      // for (var i = 0; i < lijst.children.length; i++) {
-      //     console.log(lijst.children.length);
-      //     if (lijst.children[i].attr('checked', true)) {
-      //         console.log(lijst.children.eq(i));
-      //    }
-      //     //
-        
-        
+        })
+
+        // for (var i = 0; i < lijst.children.length; i++) {
+        //     console.log(lijst.children.length);
+        //     if (lijst.children[i].attr('checked', true)) {
+        //         console.log(lijst.children.eq(i));
+        //    }
+        //     //
+
+
         //console.log($(lijst.children));
-        
-        
-        
+
+
+
         jsonListUp(formData, Delurl);
 
 
-        
-    });
+
+    }
+
+
+
     $('.superDelList').click(function () {
         var formData = new FormData();
         var Delurl = "";
@@ -139,6 +149,7 @@ $().ready(function () {
                         string += "<a href='#'>" + els[i]["Activiteiten"][j]["Naam"] + "</a> ,"
                     }
                 }
+
                 string += "</td><td><div class='displayInlineButtons'><button class='oneDel' value=" + els[i]["Id"] + "><span class='glyphicon glyphicon-remove'></span></button></div></td></tr>"
 
             } else if (pagina == "Pois") {

@@ -119,6 +119,7 @@ namespace Omgevingsboek.Controllers
                         {
                             flickr.UploadPictureAsync(AfbeeldingFile.InputStream, activiteit.Naam, activiteit.Naam, "", "", false, false, false, ContentType.Photo, SafetyLevel.Safe, HiddenFromSearch.Hidden, (res) =>
                             {
+                                
                                 if (!res.HasError)
                                 {
                                     flickr.PhotosetsAddPhoto(ConfigurationManager.AppSettings.Get("FlickrActiviteitenAlbumId"), res.Result);
@@ -262,6 +263,7 @@ namespace Omgevingsboek.Controllers
             Boek boek = bs.GetBoekByID((int)Id);
             if (boek == null) return RedirectToAction("Index");
             if (!bs.IsBoekAccessibleByUser((int)Id, User.Identity.Name)) return RedirectToAction("Index");
+            boek.Routes = bs.getRoutesByBoek((int)Id);
             Session.Remove("stap3");
             Session["stap2"] = boek.Naam;
             Session["url2"] = "../home/Boek?id=" + boek.Id;
@@ -270,7 +272,6 @@ namespace Omgevingsboek.Controllers
             ViewBag.stap2 = Session["stap2"];
             ViewBag.url2 = Session["url2"];
 
-            if (!bs.IsBoekAccessibleByUser((int)Id, User.Identity.Name)) return RedirectToAction("Index");
             return View(boek);
         }
 
@@ -482,14 +483,50 @@ namespace Omgevingsboek.Controllers
 
         //VERANDERD
         [Authorize]
-        public ActionResult GetRoutesById(int? id)
+        public ActionResult GetRouteById(int? id)
         {
-            //TODO: Meer checks
             if (!id.HasValue) return RedirectToAction("Index");
+            Route res = bs.getRouteById((int)id);
+            if (res == null) return RedirectToAction("Index");
+            if (!res.DeelLijst.Any(u => u.UserName == User.Identity.Name)) return RedirectToAction("Index");
 
-            return View(bs.getRoutesByBoek((int)id));
+            return View(res);
 
         }
+        [Authorize]
+        [HttpPost]
+        public ActionResult AddRoute2(string routeNaam, string activiteitenIds, int? boekId)
+        {
+            Route nieuweRoute = new Route();
+            nieuweRoute.EigenaarID = bs.GetUser(User.Identity.Name).Id;
+            //DIT NOG VERANDEREN
+            nieuweRoute.Boeken = new List<Models.OmgevingsBoek_Models.Boek>();
+            nieuweRoute.Boeken.Add(bs.GetBoekByID(boekId));
+            nieuweRoute.Naam = routeNaam;
+            string[] idsSplit = activiteitenIds.Split(',');
+            nieuweRoute.RouteLijst = new List<RouteListItem>();
+            
+            foreach(string a in idsSplit)
+            {
+                int res;
+                if(!int.TryParse(a,out res)) continue;
+
+                Activiteit ac = bs.GetActiviteitById(res);
+                if (ac == null) continue;
+                if (!bs.IsActivityAccessibleByUser(ac.Id, User.Identity.Name)) continue;
+                nieuweRoute.RouteLijst.Add(new RouteListItem()
+                {
+                    Activiteit = ac
+                });
+            }
+            bs.InsertRoute(nieuweRoute);
+
+            return RedirectToAction("index");
+
+        }
+
+
+       
 
         #endregion
 

@@ -1,8 +1,23 @@
-﻿
-$().ready(function () {
+﻿$().ready(function () {
     var ageSlider;
     var timeSlider;
 
+
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        console.log(e.target); // newly activated tab
+        if ($(e.target).attr('href') == "#routes") {
+            console.log("op routes geklikt");
+            google.maps.event.trigger(map, 'resize');
+            $("#activiteitSidebar").show(0);
+            $("#poipartial").hide(0);
+
+        } else if ($(e.target).attr('href') == "#activiteiten") {
+            console.log("op activiteiten geklikt");
+            $("#activiteitSidebar").hide(0);
+            $("#poipartial").show(0);
+
+        }
+    });
     $(".toggleActivityForm").click(function (e) {
         e.preventDefault();
         emptyActivityFields();
@@ -24,10 +39,35 @@ $().ready(function () {
     }
 
 
+    $("#routeSubmit").click(function () {
+        var waypointList = "";
+        $("#waypointsList option").each(function () {
+            var optionlistitem = $(this).attr("value");
+            waypointList += optionlistitem + ",";
+        })
+        
+        waypointList = waypointList.slice(0, -1);
+        $("#activiteitenIds").val(waypointList);
+        console.log($("#activiteitenIds").val());
+        console.log(waypointList);
+
+        console.log("nu zou submit event moeten firen");
+        $("#addRouteForm").submit();
+
+    });
     $(".toggleRouteForm").click(function (e) {
         e.preventDefault();
         $("#routeForm").slideToggle(400, function () {
+
+
+
             google.maps.event.trigger(map, 'resize');
+            //$("#routeSubmit").prop("disabled", true);
+            //    $("#routeSubmitContainer").popover({
+            //    trigger:"hover",
+            //    content: "Je moet eerste de route berekenen voor je ze kan opslaan",
+            //    placement: "bottom"
+            //})
         });
     })
 
@@ -130,10 +170,10 @@ $().ready(function () {
                function (element) {
                    tagSel = json.filter(function (el) { return el.poi.ID == $(poi).attr("data-id") })[0];
                    if ($('#activityForm').css("display") !== 'none') {
-                      
+
                        $("#poi").val(tagSel.poi.ID);
                        $("#poiName").val(tagSel.poi.Naam);
-                      moveSliders($("#slider-boek-age"), tagSel.poi.MinLeeftijd, tagSel.poi.MaxLeeftijd);
+                       moveSliders($("#slider-boek-age"), tagSel.poi.MinLeeftijd, tagSel.poi.MaxLeeftijd);
                        setSliderInputValues(
                             $("#minAgeBoek"),
                             $("#maxAgeBoek"),
@@ -144,29 +184,7 @@ $().ready(function () {
                         );
 
                        $("#prijsLeerling").val(tagSel.poi.Prijs);
-                   } else if ($('#routes').hasClass("active") == true) {
-                     
-                       var attr = $("#waypointsList option:first-child").attr('disabled');
-                       //check if list is empty or
-                       if (typeof attr !== typeof undefined && attr !== false) {
-                           // lijst leegmaken
-                           $("#waypointsList").children().remove();
-                       }
-                       $("#waypointsList").append($('<option>', {
-                           value: /*hier moet de lat & lng inkomen voor de berekening van de route*/ 0,
-                           text: tagSel.poi.Naam
-                       }));
-
-                       marker = new google.maps.Marker({
-                           position: /*TODO: Use actual location here*/new google.maps.LatLng(50, 3.01),
-                           map: map
-                       });
-                       map.setCenter(new google.maps.LatLng(50, 3.01));
-                       map.setZoom(9);
-                       markerArray.push(marker);
-
-
-                   }
+                   };
                });
 
          });
