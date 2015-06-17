@@ -285,6 +285,7 @@
     -ms-transition: none;
     -o-transition: none;
 ">
+    @using (Html.BeginForm("AddRoute2", "Home", FormMethod.Post, new { enctype = "multipart/form-data", data_toggle = "validator" })) {
     <h3 class="rowheader">Routes</h3>
 
 
@@ -296,7 +297,10 @@
         <input type="text" id="routeNaam" name="routeNaam" placeholder="naam van de route" />
         <button type="submit" class="btn btn-success form-control submit" data-loading-text="<i class='fa fa-spinner fa-pulse'></i>">
                     <span class="glyphicon glyphicon-ok" />
-                    </button>
+        </button>
+
+
+
         <select size="5" id="waypointsList">
             <option disabled>Klik op een POI om te starten</option>
         </select>
@@ -328,7 +332,7 @@
     </div>
 
 
-
+    }
 
     @*@using (Html.BeginForm("AddActivity", "Home", FormMethod.Post, new { enctype = "multipart/form-data", data_toggle = "validator" }))
         {
