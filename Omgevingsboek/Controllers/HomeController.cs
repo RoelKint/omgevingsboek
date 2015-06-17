@@ -119,6 +119,7 @@ namespace Omgevingsboek.Controllers
                         {
                             flickr.UploadPictureAsync(AfbeeldingFile.InputStream, activiteit.Naam, activiteit.Naam, "", "", false, false, false, ContentType.Photo, SafetyLevel.Safe, HiddenFromSearch.Hidden, (res) =>
                             {
+                                
                                 if (!res.HasError)
                                 {
                                     flickr.PhotosetsAddPhoto(ConfigurationManager.AppSettings.Get("FlickrActiviteitenAlbumId"), res.Result);
