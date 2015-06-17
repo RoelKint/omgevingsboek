@@ -513,7 +513,7 @@ namespace BusinessLogic.Services
         {
             return repoRoute.getRoutesByBoek(boekId);
         }
-        public Route Insert(Route entity)
+        public Route InsertRoute(Route entity)
         {
             return repoRoute.Insert(entity);
         }

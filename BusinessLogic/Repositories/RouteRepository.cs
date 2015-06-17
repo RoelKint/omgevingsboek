@@ -44,13 +44,15 @@ namespace BusinessLogic.Repositories
                 res.Boeken.Add(context.Boeken.Where(x => x.Id == b.Id).FirstOrDefault());
             }
 
+            int count = 0;
             foreach (RouteListItem rli in entity.RouteLijst)
             {
                 res.RouteLijst.Add(context.RouteListItem.Add(new RouteListItem()
                 {
                     Activiteit = context.Activiteiten.Find(rli.Activiteit),
-                    OrderIndex = rli.OrderIndex
+                    OrderIndex = count
                 }));
+                count++;
             }
 
 
