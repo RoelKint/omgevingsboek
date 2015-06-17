@@ -18,6 +18,11 @@
                     <img class="img-responsive" src="@boek.Afbeelding" />
                     <span class="caption">@boek.Naam</span>
                 </a>
+                <span class="buttons">
+                    <a style="padding: 0px;" type="button" href="#" data-id="@(@boek.Id)" data-type="boek" data-container="body" data-toggle="popover" data-placement="bottom" class="shareItem expand btn btn-default">
+                        <span class="glyphicon glyphicon-share"></span>
+                    </a>
+                </span>
             </div>
         }
         <div class="static col-sm-6 col-md-3" id="toevoegenBoek">
