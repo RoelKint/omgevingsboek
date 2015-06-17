@@ -95,6 +95,7 @@
     <Compile Include="Repositories\RouteRepository.cs" />
     <Compile Include="Repositories\TagRepository.cs" />
     <Compile Include="Repositories\UitnodigingRepository.cs" />
+    <Compile Include="Repositories\VraagRepository.cs" />
     <Compile Include="Services\BoekService.cs" />
     <Compile Include="Services\IBoekService.cs" />
   </ItemGroup>
