@@ -127,6 +127,15 @@ namespace Models.MVC_Models
                       cs.MapRightKey("Activiteit_Id");
                       cs.ToTable("BoekActiviteiten");
                   });
+            modelBuilder.Entity<Boek>()
+                   .HasMany<Route>(s => s.Routes)
+                   .WithMany(c => c.Boeken)
+                   .Map(cs =>
+                   {
+                       cs.MapLeftKey("Boek_Id");
+                       cs.MapRightKey("Route_Id");
+                       cs.ToTable("BoekRoutes");
+                   });
            
             modelBuilder.Entity<Tag>()
                  .HasMany<Activiteit>(s => s.Activiteiten)

@@ -15,8 +15,7 @@ namespace Models.OmgevingsBoek_Models
         public string Naam { get; set; }
         public virtual ApplicationUser Eigenaar { get; set; }
         public string EigenaarID { get; set; }
-        public virtual Boek Boek{ get; set; }
-        public int BoekId { get; set; }
+        public virtual List<Boek> Boeken{ get; set; }
         public virtual List<ApplicationUser> DeelLijst { get; set; }
         public virtual List<RouteListItem> RouteLijst { get; set; }
         public bool IsDeleted { get; set; }
