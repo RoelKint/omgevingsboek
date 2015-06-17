@@ -50,6 +50,7 @@ namespace BusinessLogic.Services
         Models.OmgevingsBoek_Models.Poi GetPoiById(int Id);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Poi> GetPoiList();
         Models.OmgevingsBoek_Models.PoiTags getPoiTag(int TagId, int PoiId, string UserId);
+        System.Collections.Generic.List<Models.OmgevingsBoek_Models.Route> getRoutesByBoek(int boekId);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Activiteit> GetSharedActivitiesByBookId(int BoekId, string Username);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Activiteit> GetSharedActivitiesByUsername(string Username);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Boek> GetSharedBoeken(string username);
@@ -66,6 +67,7 @@ namespace BusinessLogic.Services
         System.Collections.Generic.List<Models.MVC_Models.ApplicationUser> GetUsers();
         bool HeeftEmailAlEenUitnodiging(string Email);
         Models.OmgevingsBoek_Models.BoekOrder Insert(Models.OmgevingsBoek_Models.BoekOrder entity);
+        Models.OmgevingsBoek_Models.Route Insert(Models.OmgevingsBoek_Models.Route entity);
         Models.OmgevingsBoek_Models.Activiteit InsertActiviteit(Models.OmgevingsBoek_Models.Activiteit activiteit);
         Models.OmgevingsBoek_Models.Benodigdheid InsertBenodigdheid(string benodigdheid);
         Models.OmgevingsBoek_Models.Boek InsertBoek(Models.OmgevingsBoek_Models.Boek boek);

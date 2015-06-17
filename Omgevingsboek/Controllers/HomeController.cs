@@ -289,6 +289,17 @@ namespace Omgevingsboek.Controllers
             else return;
 
         }
+        //AANGEPAST
+        /*
+        [Authorize]
+        public ActionResult GetRoutesById(int? id)
+        {
+            //TODO: Meer checks
+            if (!id.HasValue) return RedirectToAction("Index");
+
+            return bs.getRoutesByBoek((int)id);
+
+        }*/
         
         [Authorize]
         public ActionResult AddPoi(Poi poi, HttpPostedFileBase AfbeeldingFile, string TagsString)
