@@ -4,7 +4,6 @@ var els;
 var currentPar;
 var currentRow;
 $().ready(function () {
-    
     resetVanaf();
     jsonItUp("../Admin/" + pagina + "?vanaf=" + vanaf + "&desc=" + desc + "&filter=" + currentRow + "&search=" + search + "&mode=1");
     table = $('.AdminTable');
@@ -59,7 +58,7 @@ $().ready(function () {
             modal: true,
             buttons: {
                 "verwijderen": function () {
-                    deleteList();
+                    hardDeleteList();
                     $(this).dialog("close");
                 },
                 Cancel: function () {
@@ -112,7 +111,6 @@ $().ready(function () {
             if ($(lijst[iets]).is(":checked")) {
                 console.log("Aantal");
                 var value = parseInt($(lijst[iets]).attr("value"));
-
                 if (pagina == "Activities") {
                     formData.append("ActiviteitenToDelete", value);
                     Delurl = "../Admin/HardDeleteActiviteit";
@@ -135,8 +133,13 @@ $().ready(function () {
         var formData = new FormData();
         var Delurl = "";
         var lijst = $('[name=listId]');
-    }
+        lijst.each(function (iets) {
+            if ($(lijst[iets]).is(":checked")) {
+                var value = parseInt($(lijst[iets]).attr("value"));
 
+            }
+        });
+    }
     $('.superDelList').click(function () {
         var formData = new FormData();
         var Delurl = "";

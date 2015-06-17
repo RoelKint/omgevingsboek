@@ -86,15 +86,15 @@ else
         <thead>
             <tr>
                 <th><span class="glyphicon glyphicon-th-list"></span></th>
-                <th>Naam</th>
-                <th>Email</th>
-                <th>Activiteiten</th>
+                <th><span>Naam</span></th>
+                <th><span>Email</span></th>
+                <th><span>Activiteiten</span></th>
                 @if (User.IsInRole("SuperAdministrator"))
                 {
-                    <th>Actief</th>
-                    <th>rechten</th>
+                    <th><span>Actief</span></th>
+                    <th><span>rechten</span></th>
                 }
-                <th>Opties</th>
+                <th><span>Opties</span></th>
 
 
             </tr>
