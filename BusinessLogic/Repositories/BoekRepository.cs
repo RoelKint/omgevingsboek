@@ -95,12 +95,14 @@ namespace BusinessLogic.Repositories
         }
         public override void Delete(Boek entityToDelete)
         {
-            Boek orig = GetByID(entityToDelete.Id);
+            Boek orig = GetByIDAdmin(entityToDelete.Id);
+            if(orig.Activiteiten != null)
             foreach (Activiteit activity in orig.Activiteiten)
             {
                 activity.IsDeleted = true;
 
             }
+            if (orig.Routes != null)
             foreach (Route route in orig.Routes)
             {
                 route.IsDeleted = true;
