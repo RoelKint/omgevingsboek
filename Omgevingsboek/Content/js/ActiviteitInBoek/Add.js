@@ -25,21 +25,31 @@ $().ready(function () {
 
 
     $("#routeSubmit").click(function () {
-
+        var waypointList = "";
+        $("#waypointsList option").each(function () {
+            var optionlistitem = $(this).attr("value");
+            waypointList += optionlistitem + ",";
+        })
+        
+        waypointList = waypointList.slice(0, -1);
+        $("#activiteitenIds").val(waypointList);
+        console.log($("#activiteitenIds").val());
+        console.log(waypointList);
 
         console.log("nu zou submit event moeten firen");
-        $("#addRouteForm").submit();
-        
-    })
+        //$("#addRouteForm").submit();
 
+    });
     $(".toggleRouteForm").click(function (e) {
         e.preventDefault();
         $("#routeForm").slideToggle(400, function () {
             google.maps.event.trigger(map, 'resize');
-            $("#routeSubmit").prop("disabled", true).popover({
-                content: "Je moet eerste de route berekenen voor je ze kan opslaan",
-                placement: "bottom"
-            })
+            //$("#routeSubmit").prop("disabled", true);
+            //    $("#routeSubmitContainer").popover({
+            //    trigger:"hover",
+            //    content: "Je moet eerste de route berekenen voor je ze kan opslaan",
+            //    placement: "bottom"
+            //})
         });
     })
 

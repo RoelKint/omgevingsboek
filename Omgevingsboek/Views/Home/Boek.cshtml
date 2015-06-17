@@ -295,25 +295,26 @@
     </div>
     <div class="col-md-6 col-xs-12 col-lg-6">
         <div class="form-group">
-            <input type="text" id="routeNaam" name="routeNaam" placeholder="naam van de route" class="col-md-6"/>
-            <button type="button" id="routeSubmit" class="btn btn-success submit col-md-6" data-loading-text="<i class='fa fa-spinner fa-pulse'></i>">
+    <input type="text" id="routeNaam" name="routeNaam" placeholder="naam van de route" class="col-md-6" />
+    <div id="routeSubmitContainer">
+        <button type="button" id="routeSubmit" class="btn btn-success submit col-md-6" data-loading-text="<i class='fa fa-spinner fa-pulse'></i>">
                     <span class="glyphicon glyphicon-ok"></span>Route opslaan
-        </button>
-        </div>
-
-
-
-        <select size="5" id="waypointsList">
-            <option disabled>Klik op een POI om te starten</option>
-        </select>
     </div>
+    
+    </div>
+
+
+
+    <select size="5" id="waypointsList">
+        <option disabled>Klik op een activiteit om te starten</option>
+    </select>
+
+    </div>
+
     <div class="col-md-6 col-xs-12 col-lg-6">
         <div id="directions-panel">
 
         </div>
-
-
-
     </div>
     <div class="col-md-6 col-xs-12 col-lg-6">
         <button type="button" class="btn btn-default btn-primary" onclick="calculateRoute();">
@@ -331,10 +332,11 @@
         <button type="button" class="btn btn-danger">
             <span class="glyphicon glyphicon-remove"></span>Verwijder route
         </button>
+        <input type="text" class="form-control hidden-input" id="activiteitenIds" name="activiteitenIds" required>
     </div>
 
 
-    }
+                                                                                                                                                          }
 
     @*@using (Html.BeginForm("AddActivity", "Home", FormMethod.Post, new { enctype = "multipart/form-data", data_toggle = "validator" }))
         {
