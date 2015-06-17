@@ -381,6 +381,7 @@ namespace BusinessLogic.Services
         {
             using (ApplicationDbContext context = new ApplicationDbContext())
             {
+                context.Configuration.LazyLoadingEnabled = false;
                 return context.Users.ToList();
             }
             

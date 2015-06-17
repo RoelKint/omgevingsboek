@@ -51,7 +51,8 @@ namespace Omgevingsboek.Controllers
             if (!Id.HasValue) return RedirectToAction("Index");
 
             Activiteit a = bs.GetActiviteitById((int)Id);
-            if (a.Eigenaar.UserName != User.Identity.Name) return RedirectToAction("Index");
+            if (a == null) return HttpNotFound("Onbestaande Activiteit");
+            if (a.Eigenaar.UserName != User.Identity.Name) return HttpNotFound("Geen toegang tot deze activiteit");
             return Json(JsonConvert.SerializeObject(a), JsonRequestBehavior.AllowGet);
 
         }
@@ -610,13 +611,15 @@ namespace Omgevingsboek.Controllers
                 Activiteit a = bs.GetActiviteitById((int) Id);
                 if(a == null) return null;
                 if (a.Eigenaar.UserName != User.Identity.Name) return null;
-                foreach (ApplicationUser user in bs.GetUsers())
+                List<ApplicationUser> userLijst = bs.GetUsers();
+                foreach (ApplicationUser user in userLijst)
                 {
+                    if (user.UserName == User.Identity.Name) continue;
                     ShareListPM r = new ShareListPM(){
                         Username = user.UserName,
                         Naam = user.Voornaam + " "+ user.Naam
                     };
-                    if (bs.IsBoekAccessibleByUser(a.Id, user.UserName)) r.IsGedeeld = true;
+                    if (a.DeelLijst.Any(w => w.UserName == user.UserName)) r.IsGedeeld = true;
                     else r.IsGedeeld = false;
                     res.Add(r);
                 }
@@ -625,14 +628,16 @@ namespace Omgevingsboek.Controllers
                 Boek b = bs.GetBoekByID((int) Id);
                 if (b == null) return null;
                 if (b.Eigenaar.UserName != User.Identity.Name) return null;
-                foreach (ApplicationUser user in bs.GetUsers())
+                List<ApplicationUser> userLijst = bs.GetUsers();
+                foreach (ApplicationUser user in userLijst)
                 {
+                    if (user.UserName == User.Identity.Name) continue;
                     ShareListPM r = new ShareListPM()
                     {
                         Username = user.UserName,
                         Naam = user.Voornaam + " " + user.Naam
                     };
-                    if (bs.IsBoekAccessibleByUser(b.Id,user.UserName)) r.IsGedeeld = true;
+                    if (b.DeelLijst.Any(w => w.UserName == user.UserName)) r.IsGedeeld = true;
                     else r.IsGedeeld = false;
                     res.Add(r);
                 }

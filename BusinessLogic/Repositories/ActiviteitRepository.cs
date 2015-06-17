@@ -194,10 +194,12 @@ namespace BusinessLogic.Repositories
         {
             Activiteit a = GetByID(Id);
             ApplicationUser user = context.Users.Where(u => u.UserName == Username).FirstOrDefault();
+            
             if (IsGedeeld)
             {
+                if (a.DeelLijst.Any(d => d.UserName == Username)) return;
                 Boek deelboek;
-                if (context.Boeken.Where(b => b.Naam == "Gedeelde Activiteiten").Where(b => b.DeelLijst.Any(x => x.UserName == user.UserName)).Where(b => b.EigenaarId == "").FirstOrDefault() == null)
+                if (context.Boeken.Where(b => b.Naam == "Gedeelde Activiteiten").Where(b => b.DeelLijst.Any(x => x.UserName == user.UserName)).Where(b => b.EigenaarId == null).FirstOrDefault() == null)
                 {
                     List<ApplicationUser> deellijst = new List<ApplicationUser>();
                     deellijst.Add(user);
@@ -226,7 +228,7 @@ namespace BusinessLogic.Repositories
                 }
                 else
                 {
-                    deelboek = context.Boeken.Where(b => b.Naam == "Gedeelde Activiteiten").Where(b => b.DeelLijst.Any(x => x.UserName == user.UserName)).Where(b => b.EigenaarId == "").FirstOrDefault();
+                    deelboek = context.Boeken.Where(b => b.Naam == "Gedeelde Activiteiten").Include(x => x.Activiteiten).Where(b => b.DeelLijst.Any(x => x.UserName == user.UserName)).Where(b => b.EigenaarId == null).FirstOrDefault();
                 }
                 if (deelboek.Activiteiten == null) deelboek.Activiteiten = new List<Activiteit>();
                 deelboek.Activiteiten.Add(a);
@@ -237,6 +239,8 @@ namespace BusinessLogic.Repositories
             }
             else
             {
+                Boek deelboek = context.Boeken.Where(b => b.Naam == "Gedeelde Activiteiten").Include(x => x.Activiteiten).Where(b => b.DeelLijst.Any(x => x.UserName == user.UserName)).Where(b => b.EigenaarId == null).FirstOrDefault();
+                deelboek.Activiteiten.Remove(a);
                 a.DeelLijst.Remove(user);
                 Update(a);
                 context.SaveChanges();

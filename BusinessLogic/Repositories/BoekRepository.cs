@@ -159,6 +159,8 @@ namespace BusinessLogic.Repositories
 
             if (IsGedeeld)
             {
+                if (b.DeelLijst.Any(d => d.UserName == Username)) return;
+
                 b.DeelLijst.Add(user);
 
                 int previndex;
@@ -179,8 +181,10 @@ namespace BusinessLogic.Repositories
             }
             else
             {
-                context.BoekOrder.Remove(context.BoekOrder.Where(x => x.BoekId == b.Id).Where(x => x.EigenaarId == user.Id).FirstOrDefault());
-                b.DeelLijst.Remove(context.Users.Find(user));
+                BoekOrder bo = context.BoekOrder.Where(x => x.BoekId == b.Id).Where(x => x.EigenaarId == user.Id).FirstOrDefault();
+                if (bo == null) return;
+                context.BoekOrder.Remove(bo);
+                b.DeelLijst.Remove(user);
                 Update(b);
             }
         }
