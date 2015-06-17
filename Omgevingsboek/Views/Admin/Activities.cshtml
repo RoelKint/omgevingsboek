@@ -24,8 +24,8 @@
     int desc = ViewBag.desc;
 }
 
-<div class="alertt" >
-    <p>Zeker dat je deze items wilt verwijderen?</p>
+<div class="alertt" style="display:none">
+    <p>Zeker dat je deze Activiteit(en) wilt verwijderen?</p>
 </div>
 <div class="col-xs-12 col-md-12 nav">
     <a href="../Admin">&lt;&lt; Terug naar overzicht</a>
@@ -43,24 +43,51 @@
         <input name="filter" type="text" id="Zoeken" placeholder="Zoeken" />
     </div>
     <table class="AdminTable col-xs-12 col-md-12 table table-hover">
-        <colgroup>
-            <col class="col-lg-1 col-xs-1 col-md-1" />
-            <col class="col-lg-4 col-xs-4 col-md-3" />
-            <col class="col-lg-3 col-xs-3 col-md-3" />
-            <col class="col-lg-3 col-xs-3 col-md-3" />
-            <col class="col-lg-1 col-xs-1 col-md-1" />
-        </colgroup>
+
+        @if (User.IsInRole("SuperAdministrator"))
+        {
+            <colgroup>
+                <col class="col-lg-1 col-xs-1 col-md-1" />
+                <col class="col-lg-3 col-xs-3 col-md-3" />
+                <col class="col-lg-3 col-xs-3 col-md-3" />
+                <col class="col-lg-3 col-xs-3 col-md-3" />
+                <col class="col-lg-1 col-xs-1 col-md-1" />
+                <col class="col-lg-1 col-xs-1 col-md-1" />
+            </colgroup>
+        }
+        else
+        {
+            <colgroup>
+                <col class="col-lg-1 col-xs-1 col-md-1" />
+                <col class="col-lg-4 col-xs-4 col-md-3" />
+                <col class="col-lg-3 col-xs-3 col-md-3" />
+                <col class="col-lg-3 col-xs-3 col-md-3" />
+                <col class="col-lg-1 col-xs-1 col-md-1" />
+            </colgroup>
+        }
+        
         <thead>
             <tr>
                 <th><span class="glyphicon glyphicon-th-list"></span></th>
                 <th><span>Naam</span></th>
                 <th><span>Eigenaar</span></th>
                 <th><span>Poi</span></th>
+@if (User.IsInRole("SuperAdministrator"))
+{
+    <th><span>Verwijderd</span></th>
+}
                 <th><span>Opties</span></th>
             </tr>
         </thead>
         <tbody></tbody>
     </table>
+
+
+
+
+
+
+
     <div class="col-xs-12 col-md-12" id="buttonsAdOnder">
         <button class="SelVor"><span class="glyphicon glyphicon-chevron-left"></span> Vorige Pag.</button>
         <button class="SelVol"><span class="glyphicon glyphicon-chevron-right"></span> Volgende Pag.</button>
