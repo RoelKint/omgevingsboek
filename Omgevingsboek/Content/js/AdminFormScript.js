@@ -3,7 +3,6 @@ var TopRow;
 var els;
 var currentPar;
 var currentRow;
-console.log("hoi");
 $().ready(function () {
     
     resetVanaf();
@@ -18,7 +17,7 @@ $().ready(function () {
                 //console.log($(this).children(".glyphicon"));
                 $(this).children(".glyphicon").remove();
             }
-            if (pagina == "Pois" && i == 5 || i==4) {
+            if (pagina == "Pois" && i == 5 || i==7) {
                 $(this).children(".glyphicon").remove();
             }
             if (pagina == "Gebruikers" && i == 3 ) {
@@ -51,7 +50,25 @@ $().ready(function () {
         });
         
     });
-
+    $('.compDel').click(function () {
+        console.log("klak");
+        $('.alerth').dialog({
+            dialogClass: "dlg-no-title",
+            resizable: false,
+            height: 200,
+            modal: true,
+            buttons: {
+                "verwijderen": function () {
+                    deleteList();
+                    $(this).dialog("close");
+                },
+                Cancel: function () {
+                    $(this).dialog("close");
+                }
+            },
+            closeText: "hide"
+        });
+    })
     function deleteList() {
 
         var formData = new FormData();
@@ -82,26 +99,43 @@ $().ready(function () {
                 }
             }
         })
-
-        // for (var i = 0; i < lijst.children.length; i++) {
-        //     console.log(lijst.children.length);
-        //     if (lijst.children[i].attr('checked', true)) {
-        //         console.log(lijst.children.eq(i));
-        //    }
-        //     //
-
-
-        //console.log($(lijst.children));
-
-
-
         jsonListUp(formData, Delurl);
-
-
-
     }
+    function hardDeleteList() {
+        var formData = new FormData();
+        var Delurl = "";
+        var lijst = $('[name=listId]');
+        console.log(lijst);
+        console.log("hu?");
+        var array = [];
+        lijst.each(function (iets) {
+            if ($(lijst[iets]).is(":checked")) {
+                console.log("Aantal");
+                var value = parseInt($(lijst[iets]).attr("value"));
 
+                if (pagina == "Activities") {
+                    formData.append("ActiviteitenToDelete", value);
+                    Delurl = "../Admin/HardDeleteActiviteit";
+                } else if (pagina == "Boeken") {
+                    formData.append("BoekenToDelete", value);
+                    Delurl = "../Admin/HardDeleteBoeken";
+                } else if (pagina == "Pois") {
+                    formData.append("PoisToDelete", value);
+                    Delurl = "../Admin/HardDeletePoi";
+                } else if (pagina = "Gebruikers") {
+                    formData.append("UsersToDelete", value);
+                    Delurl = "../Admin/DeleteUsersHard";
+                }
+            }
+        })
+        jsonListUp(formData, Delurl);
+    };
 
+    function changeRights() {
+        var formData = new FormData();
+        var Delurl = "";
+        var lijst = $('[name=listId]');
+    }
 
     $('.superDelList').click(function () {
         var formData = new FormData();
@@ -137,7 +171,20 @@ $().ready(function () {
         var string = "";
         for (i = 0; i < els.length; i++) {
             if (pagina == "Activities") {
-                string = "<tr><td><input  name='listId' value='" + els[i]["Id"] + "' type='checkbox' /></td>" + "<td>" + els[i]["Naam"] + "</td><td>" + els[i]["Eigenaar"]["UserName"] + "</td>" + "<td>" + els[i]["Poi"]["Naam"] + "</td>" + "<td><div class='displayInlineButtons'><button class='oneDel' value=" + els[i]["Id"] + "><span class='glyphicon glyphicon-remove'></span></button></div></td></tr>";
+                string = "<tr><td><input  name='listId' value='" + els[i]["Id"] + "' type='checkbox' /></td>" + "<td>" + els[i]["Naam"] + "</td><td>" + els[i]["Eigenaar"]["UserName"] + "</td>" + "<td>" + els[i]["Poi"]["Naam"] + "</td>"
+                if (rol == true) {
+                    var o;
+                    if (els[i]["IsDeleted"]) {
+                        string += "<td>ja</td>"
+                    } else {
+                        string += "<td>nee</td>"
+                    }
+                    string += "<td><div class='displayInlineButtons'><button class='oneDel' value=" + els[i]["Id"] + "><span class='glyphicon glyphicon-remove'></span></button></div></td></tr>";
+
+                } else {
+                    string += "<td><div class='displayInlineButtons'><button class='oneDel' value=" + els[i]["Id"] + "><span class='glyphicon glyphicon-remove'></span></button></div></td></tr>";
+                }
+                //IsDeleted
             } else if (pagina == "Boeken") {
 
                 string = "<tr><td><input  name='listId' value='" + els[i]["Id"] + "' type='checkbox' /></td><td>" + els[i]["Naam"] + "</td><td>" + els[i]["Eigenaar"]["UserName"] + "</td>" + "<td>";
@@ -149,16 +196,38 @@ $().ready(function () {
                         string += "<a href='#'>" + els[i]["Activiteiten"][j]["Naam"] + "</a> ,"
                     }
                 }
+                if (rol == true) {
+                    var o;
+                    if (els[i]["IsDeleted"]) {
+                        string += "<td>ja</td>"
+                    } else {
+                        string += "<td>nee</td>"
+                    }
+                    string += "<td><div class='displayInlineButtons'><button class='oneDel' value=" + els[i]["Id"] + "><span class='glyphicon glyphicon-remove'></span></button></div></td></tr>";
 
-                string += "</td><td><div class='displayInlineButtons'><button class='oneDel' value=" + els[i]["Id"] + "><span class='glyphicon glyphicon-remove'></span></button></div></td></tr>"
-
+                } else {
+                    string += "</td><td><div class='displayInlineButtons'><button class='oneDel' value=" + els[i]["Id"] + "><span class='glyphicon glyphicon-remove'></span></button></div></td></tr>"
+                }
             } else if (pagina == "Pois") {
-                string = "<tr><td><input  name='listId' value='" + els[i]["ID"] + "'type='checkbox' /> </td><td>" + els[i]["Naam"] + "</td><td>" + els[i]["Eigenaar"]["UserName"] + "</td><td>" + els[i]["Straat"] + " " + els[i]["Nummer"] + " " + els[i]["Postcode"] + " " + els[i]["Gemeente"] + "</td><td>" + els[i]["Telefoon"] + "</td><td>";
+                string = "<tr><td><input  name='listId' value='" + els[i]["ID"] + "'type='checkbox' /> </td><td>" + els[i]["Naam"] + "</td><td>" + els[i]["Eigenaar"]["UserName"] + "</td><td>" + els[i]["Straat"] + " " + els[i]["Nummer"] + " " + els[i]["Postcode"] + " " + els[i]["Gemeente"] + "</td>";
+                if (els[i]["Telefoon"] != null) {
+                    string += "<td>"+ els[i]["Telefoon"] + "</td><td>";
+                } else {
+                    string += "<td></td><td>";
+                }
 
                 for (j = 0 ; j < els[i]["Tags"].length ; j++) {
                     string += '<span class="tag">' + els[i]["Tags"][j]["Tag"]["Naam"] + "</span>";
                 }
-                string += "</td><td><div class='displayInlineButtons'><button class='oneDel' value=" + els[i]["ID"] + "><span class='glyphicon glyphicon-remove'></span></button></div></td></tr>";
+                if (rol == true) {
+                    var o;
+                    if (els[i]["IsDeleted"]) {
+                        string += "</td><td>ja</td>"
+                    } else {
+                        string += "</td><td>nee</td>"
+                    }
+                }
+                string += "<td><div class='displayInlineButtons'><button class='oneDel' value=" + els[i]["ID"] + "><span class='glyphicon glyphicon-remove'></span></button></div></td></tr>";
 
 
             } else if (pagina == "Gebruikers") {
@@ -174,8 +243,8 @@ $().ready(function () {
                 }
                 if (rol == true) {
                     var o;
-                    if (els[i]["User"]["Deleted"]) {o = "nee"} else { o = "ja"}
-                    string += "</td><td>" + o + "</td><td>+ iets van Admin +</td><td><div class='displayInlineButtons'><button class='oneDel' value=" + els[i]["Id"] + "><span class='glyphicon glyphicon-remove'></span></button></div></td></tr>";
+                    if (els[i]["User"]["Deleted"]) { o = "nee" } else { o = "ja" }
+                    string += "</td><td>" + o + "</td><td>" + els[i]["Role"] + "</td><td><div class='displayInlineButtons'><button class='oneDel' value=" + els[i]["Id"] + "><span class='glyphicon glyphicon-remove'></span></button></div></td></tr>";
 
                 } else {
                 string += "</td><td><div class='displayInlineButtons'><button class='oneDel' value=" + els[i]["Id"] + "><span class='glyphicon glyphicon-remove'></span></button></div></td></tr>";
@@ -346,6 +415,7 @@ $().ready(function () {
             }
         });
     }
+
     function jsonItUp(jsonString) {
         //console.log(jsonString);
         $.getJSON(jsonString, function (data) {

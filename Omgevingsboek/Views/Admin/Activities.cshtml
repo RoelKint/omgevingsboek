@@ -8,7 +8,14 @@
     pagina = "Activities";
 
 </script>
-
+@if (User.IsInRole("SuperAdministrator"))
+{
+    <script>rol = true;</script>
+}
+else
+{
+    <script>rol = false;</script>
+}
 @{
     ViewBag.Title = "Activities";
     int meer = ViewBag.vanaf + 30;
@@ -27,8 +34,8 @@
 <div class="alertt" style="display:none">
     <p>Zeker dat je deze Activiteit(en) wilt verwijderen?</p>
 </div>
-<div class="col-xs-12 col-md-12 nav">
-    <a href="../Admin">&lt;&lt; Terug naar overzicht</a>
+<div class="alerth" style="display:none">
+    <p>Zeker dat je deze Activiteit(en) helemaal wilt verwijderen?</p>
 </div>
 <div class="adminList col-xs-12 col-md-12 content" id="content">
     <h2 class="tittel">Activiteiten</h2>
@@ -39,7 +46,10 @@
         <button class="SelVor"><span class="glyphicon glyphicon-chevron-left"></span> Vorige Pag.</button>
         <button class="SelVol"><span class="glyphicon glyphicon-chevron-right"></span> Volgende Pag.</button>
         <button class="delList" type="submit"><span class="glyphicon glyphicon-remove-circle"></span>verwijderen</button>
-        
+        @if (User.IsInRole("SuperAdministrator"))
+        {
+            <button class="compDel" type="submit"><span class="glyphicon glyphicon-trash"></span> Volledig verwijderen</button>
+        }
         <input name="filter" type="text" id="Zoeken" placeholder="Zoeken" />
     </div>
     <table class="AdminTable col-xs-12 col-md-12 table table-hover">
