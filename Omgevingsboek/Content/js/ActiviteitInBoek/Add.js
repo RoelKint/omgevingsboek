@@ -22,6 +22,15 @@ $().ready(function () {
         $('[name=Prijs]').val(0);
         console.log("hey");
     }
+
+
+    $(".toggleRouteForm").click(function (e) {
+        e.preventDefault();
+        $("#routeForm").slideToggle(400, function () {
+            google.maps.event.trigger(map, 'resize');
+        });
+    })
+
     function fillActivtyFields(e) {
         console.log("ho");
         getvalues(1);

@@ -347,6 +347,7 @@ h3.rowheader {
   overflow: hidden;
   border-radius: 5px;
   background-color: #216075;
+  cursor: pointer;
 }
 .row.poi .preview img {
   max-width: 95%;
@@ -405,6 +406,7 @@ h3.rowheader {
   overflow: hidden;
   border-radius: 5px;
   background-color: #216075;
+  cursor: pointer;
 }
 .row.activity .preview img {
   max-width: 95%;
@@ -628,7 +630,7 @@ span.tag {
   padding: 10px;
 }
 #waypointsList option:first-child {
-  background-color: #216075;
+  background-color: #008800;
   color: white;
 }
 #waypointsList option:first-child:before {
