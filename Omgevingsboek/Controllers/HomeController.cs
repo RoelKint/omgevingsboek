@@ -262,6 +262,7 @@ namespace Omgevingsboek.Controllers
             Boek boek = bs.GetBoekByID((int)Id);
             if (boek == null) return RedirectToAction("Index");
             if (!bs.IsBoekAccessibleByUser((int)Id, User.Identity.Name)) return RedirectToAction("Index");
+            boek.Routes = bs.getRoutesByBoek((int)Id);
             Session.Remove("stap3");
             Session["stap2"] = boek.Naam;
             Session["url2"] = "../home/Boek?id=" + boek.Id;
@@ -270,7 +271,6 @@ namespace Omgevingsboek.Controllers
             ViewBag.stap2 = Session["stap2"];
             ViewBag.url2 = Session["url2"];
 
-            if (!bs.IsBoekAccessibleByUser((int)Id, User.Identity.Name)) return RedirectToAction("Index");
             return View(boek);
         }
 
@@ -482,14 +482,28 @@ namespace Omgevingsboek.Controllers
 
         //VERANDERD
         [Authorize]
-        public ActionResult GetRoutesById(int? id)
+        public ActionResult GetRouteById(int? id)
         {
-            //TODO: Meer checks
             if (!id.HasValue) return RedirectToAction("Index");
+            Route res = bs.getRouteById((int)id);
+            if (res == null) return RedirectToAction("Index");
+            if (!res.DeelLijst.Any(u => u.UserName == User.Identity.Name)) return RedirectToAction("Index");
 
-            return View(bs.getRoutesByBoek((int)id));
+            return View(res);
 
         }
+        [Authorize]
+        [HttpPost]
+        public ActionResult AddRoute2(Route route)
+        {
+            
+
+            return View();
+
+        }
+
+
+       
 
         #endregion
 

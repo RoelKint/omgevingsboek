@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Data.Entity;
 using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace BusinessLogic.Services
 {
@@ -443,6 +445,20 @@ namespace BusinessLogic.Services
             }
         }
 
+        public ApplicationUser ToggleRole(string UserName)
+        {
+            ApplicationUser user = GetUser(UserName);
+            UserManager<ApplicationUser> um = new UserManager<ApplicationUser>(new UserStore<Models.MVC_Models.ApplicationUser>(new ApplicationDbContext()));
+            if (um.IsInRole(user.Id, "User")){
+                um.AddToRole(user.Id,"Administrator");
+                um.RemoveFromRole(user.Id, "User");
+            }
+            else if (um.IsInRole(user.Id, "Administrator")){
+                um.AddToRole(user.Id,"User");
+                um.RemoveFromRole(user.Id, "Administrator");
+            }
+            return user;
+        }
 
         #endregion
 
@@ -500,6 +516,10 @@ namespace BusinessLogic.Services
         public Route Insert(Route entity)
         {
             return repoRoute.Insert(entity);
+        }
+        public Route getRouteById(int Id)
+        {
+            return repoRoute.GetByID(Id);
         }
 
         #endregion

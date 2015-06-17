@@ -197,6 +197,9 @@ namespace Omgevingsboek.Controllers
                 ua.Add(u);
             }
 
+
+
+
             ViewBag.vanaf = vanaf;
             ViewBag.desc = desc;
             GebruikersPM gpm = new GebruikersPM();
@@ -224,6 +227,9 @@ namespace Omgevingsboek.Controllers
                 UserActivities u = new UserActivities();
                 u.User = user;
                 u.Activiteiten = bs.GetActivitiesByUsername(user.UserName);
+                if (user.Roles.Any(x => x.RoleId == "a2727df4-4163-4442-9b81-ba018f6ff99a")) u.Role = "User";
+                if (user.Roles.Any(x => x.RoleId == "0e17317e-9f44-4117-b033-4c5c7c2217fe")) u.Role = "Administrator";
+                if (user.Roles.Any(x => x.RoleId == "95311bc7-8180-4c53-9e33-61fd254c21fc")) u.Role = "SuperAdministrator";
                 ua.Add(u);
             }
             var jsonResult = Json(JsonConvert.SerializeObject(ua), JsonRequestBehavior.AllowGet);
@@ -335,6 +341,20 @@ namespace Omgevingsboek.Controllers
             smtpClient.Credentials = creds;
             smtpClient.Send(mail);
         }
+
+        [Authorize(Roles = "SuperAdministrator")]
+        public ActionResult ToggeRole(List<string> UsersNames)
+        {
+
+            //TODO: checks
+            foreach (string user in UsersNames)
+            {
+                bs.ToggleRole(user);
+
+            }
+
+            return View();
+        }        
 
 
         #endregion
