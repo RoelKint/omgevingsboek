@@ -22,12 +22,15 @@ namespace Omgevingsboek.Controllers
     {
         private IBoekService bs;
         private Flickr flickr;
-
         public HomeController(IBoekService bs)
         {
             this.bs = bs;
             flickr = MvcApplication.flickr;
             if (flickr == null) flickr = FlickrApiManager.GetInstance();
+        }
+        public HomeController()
+        {
+
         }
 
         [Authorize]
@@ -291,16 +294,16 @@ namespace Omgevingsboek.Controllers
         }
 
         //DIT WERKT NIET IK KRIJG ZELFS NEN ERROR
-        /*
+        
         [Authorize]
         public ActionResult GetRoutesById(int? id)
         {
             //TODO: Meer checks
             if (!id.HasValue) return RedirectToAction("Index");
 
-            return bs.getRoutesByBoek((int)id);
+            return View(bs.getRoutesByBoek((int)id));
 
-        }*/
+        }
         
         [Authorize]
         public ActionResult AddPoi(Poi poi, HttpPostedFileBase AfbeeldingFile, string TagsString)
