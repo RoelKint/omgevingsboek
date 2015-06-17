@@ -79,29 +79,29 @@ namespace BusinessLogic.Services
             return repoActiviteit.getActiviteitenPerPoi(id);
         }
 
-        public List<Activiteit> GetActiviteiten50FromSortNameAZ(int from, string search)
+        public List<Activiteit> GetActiviteiten50FromSortNameAZ(int from, string search, bool DisplayDeleted)
         {
-            return repoActiviteit.get50FromSortNameAZ(from,search);
+            return repoActiviteit.get50FromSortNameAZ(from,search,DisplayDeleted);
         }
-        public List<Activiteit> GetActiviteiten50FromSortNameZA(int from, string search)
+        public List<Activiteit> GetActiviteiten50FromSortNameZA(int from, string search, bool DisplayDeleted)
         {
-            return repoActiviteit.get50FromSortNameZA(from, search);
+            return repoActiviteit.get50FromSortNameZA(from, search, DisplayDeleted);
         }
-        public List<Activiteit> GetActiviteiten50FromSortUserAZ(int from, string search)
+        public List<Activiteit> GetActiviteiten50FromSortUserAZ(int from, string search, bool DisplayDeleted)
         {
-            return repoActiviteit.get50FromSortUserAZ(from, search);
+            return repoActiviteit.get50FromSortUserAZ(from, search, DisplayDeleted);
         }
-        public List<Activiteit> GetActiviteiten50FromSortUserZA(int from, string search)
+        public List<Activiteit> GetActiviteiten50FromSortUserZA(int from, string search, bool DisplayDeleted)
         {
-            return repoActiviteit.get50FromSortUserZA(from, search);
+            return repoActiviteit.get50FromSortUserZA(from, search, DisplayDeleted);
         }
-        public List<Activiteit> GetActiviteiten50FromSortPoiAZ(int from, string search)
+        public List<Activiteit> GetActiviteiten50FromSortPoiAZ(int from, string search, bool DisplayDeleted)
         {
-            return repoActiviteit.get50FromSortPoiAZ(from, search);
+            return repoActiviteit.get50FromSortPoiAZ(from, search, DisplayDeleted);
         }
-        public List<Activiteit> GetActiviteiten50FromSortPoiZA(int from, string search)
+        public List<Activiteit> GetActiviteiten50FromSortPoiZA(int from, string search, bool DisplayDeleted)
         {
-            return repoActiviteit.get50FromSortPoiZA(from, search);
+            return repoActiviteit.get50FromSortPoiZA(from, search, DisplayDeleted);
         }
 
         public List<Activiteit> getActiviteitenUserByUser50from(int from, String Owner, String Visitor)
@@ -182,21 +182,21 @@ namespace BusinessLogic.Services
             return repoBoek.getSharedBoeken(username);
         }
 
-        public List<Boek> GetBoeken50FromSortNameAZ(int from, string search)
+        public List<Boek> GetBoeken50FromSortNameAZ(int from, string search, bool DisplayDeleted)
         {
-            return repoBoek.get50FromSortNameAZ(from, search);
+            return repoBoek.get50FromSortNameAZ(from, search, DisplayDeleted);
         }
-        public List<Boek> GetBoeken50FromSortNameZA(int from, string search)
+        public List<Boek> GetBoeken50FromSortNameZA(int from, string search, bool DisplayDeleted)
         {
-            return repoBoek.get50FromSortNameZA(from, search);
+            return repoBoek.get50FromSortNameZA(from, search, DisplayDeleted);
         }
-        public List<Boek> GetBoeken50FromSortUserAZ(int from, string search)
+        public List<Boek> GetBoeken50FromSortUserAZ(int from, string search, bool DisplayDeleted)
         {
-            return repoBoek.get50FromSortUserAZ(from, search);
+            return repoBoek.get50FromSortUserAZ(from, search, DisplayDeleted);
         }
-        public List<Boek> GetBoeken50FromSortUserZA(int from, string search)
+        public List<Boek> GetBoeken50FromSortUserZA(int from, string search, bool DisplayDeleted)
         {
-            return repoBoek.get50FromSortUserZA(from, search);
+            return repoBoek.get50FromSortUserZA(from, search, DisplayDeleted);
         }
         public List<Boek> getBoekUserByUser50from(int from, String Owner, String Visitor)
         {
@@ -253,31 +253,31 @@ namespace BusinessLogic.Services
 
         #region Poi
 
-        public List<Poi> GetPoi50FromSortNameAZ(int from, string search)
+        public List<Poi> GetPoi50FromSortNameAZ(int from, string search, bool DisplayDeleted)
         {
-            return repoPoi.get50FromSortNameAZ(from,search);
+            return repoPoi.get50FromSortNameAZ(from, search, DisplayDeleted);
         }
-        public List<Poi> GetPoi50FromSortNameZA(int from,string search)
+        public List<Poi> GetPoi50FromSortNameZA(int from, string search, bool DisplayDeleted)
         {
-            return repoPoi.get50FromSortNameZA(from, search);
+            return repoPoi.get50FromSortNameZA(from, search, DisplayDeleted);
         }
-        public List<Poi> getPoi50FromSortEmailAZ(int from, string search)
+        public List<Poi> getPoi50FromSortEmailAZ(int from, string search, bool DisplayDeleted)
         {
-            return repoPoi.get50FromSortEmailAZ(from, search);
+            return repoPoi.get50FromSortEmailAZ(from, search, DisplayDeleted);
         }
-        public List<Poi> getPoi50FromSortEmailZA(int from, string search)
+        public List<Poi> getPoi50FromSortEmailZA(int from, string search, bool DisplayDeleted)
         {
-            return repoPoi.get50FromSortEmailZA(from, search);
+            return repoPoi.get50FromSortEmailZA(from, search, DisplayDeleted);
 
         }
-        public List<Poi> getPoi50FromSortAddressAZ(int from, string search)
+        public List<Poi> getPoi50FromSortAddressAZ(int from, string search, bool DisplayDeleted)
         {
-            return repoPoi.get50FromSortAddressAZ(from, search);
+            return repoPoi.get50FromSortAddressAZ(from, search, DisplayDeleted);
 
         }
-        public List<Poi> getPoi50FromSortAddressZA(int from, string search)
+        public List<Poi> getPoi50FromSortAddressZA(int from, string search, bool DisplayDeleted)
         {
-            return repoPoi.get50FromSortAddressZA(from, search);
+            return repoPoi.get50FromSortAddressZA(from, search, DisplayDeleted);
 
         }
         
@@ -390,7 +390,7 @@ namespace BusinessLogic.Services
         {
             using (ApplicationDbContext context = new ApplicationDbContext())
             {
-                return context.Users.Select(i => i).Where(i => i.UserName == Username).Single();
+                return context.Users.Select(i => i).Where(i => i.UserName == Username).Include(i => i.Roles).Single();
             }
         }
         public ApplicationUser GetUserById(String UserId)
@@ -401,20 +401,20 @@ namespace BusinessLogic.Services
             }
         }
 
-        public List<ApplicationUser> GetUserNext30SortAZ(int from,string search)
+        public List<ApplicationUser> GetUserNext30SortAZ(int from,string search, bool DisplayDeleted)
         {
             using (ApplicationDbContext context = new ApplicationDbContext())
             {
                 context.Configuration.LazyLoadingEnabled = false;
-                return context.Users.OrderBy(i => i.UserName).Include(u => u.Roles).Where(u => u.UserName.Contains(search) || u.Voornaam.Contains(search) || u.Naam.Contains(search)).Skip(from).Take(30).ToList();
+                return context.Users.OrderBy(i => i.UserName).Include(u => u.Roles).Where(u => u.Deleted == false || u.Deleted == DisplayDeleted).Where(u => u.UserName.Contains(search) || u.Voornaam.Contains(search) || u.Naam.Contains(search)).Skip(from).Take(30).ToList();
             }
         }
-        public List<ApplicationUser> GetUserNext30SortZA(int from,string search)
+        public List<ApplicationUser> GetUserNext30SortZA(int from, string search, bool DisplayDeleted)
         {
             using (ApplicationDbContext context = new ApplicationDbContext())
             {
                 context.Configuration.LazyLoadingEnabled = false;
-                return context.Users.OrderByDescending(i => i.UserName).Include(u => u.Roles).Where(u => u.UserName.Contains(search) || u.Voornaam.Contains(search) || u.Naam.Contains(search)).Skip(from).Take(30).ToList();
+                return context.Users.OrderByDescending(i => i.UserName).Where(u => u.Deleted == false || u.Deleted == DisplayDeleted).Include(u => u.Roles).Where(u => u.UserName.Contains(search) || u.Voornaam.Contains(search) || u.Naam.Contains(search)).Skip(from).Take(30).ToList();
             }
         }
         // TODO: soft delete 
