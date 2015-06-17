@@ -24,9 +24,6 @@ namespace Omgevingsboek
             container.RegisterType<IGenericRepository<PoiTags>, GenericRepository<PoiTags>>();
             container.RegisterType<IBoekOrderRepository, BoekOrderRepository>();
 
-            //toegevoegd door roel !!!!!! VERANDERING
-            container.RegisterType<IRouteRepository, RouteRepository>();
-
             
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));

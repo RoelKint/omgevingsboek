@@ -22,17 +22,21 @@ namespace Omgevingsboek.Controllers
     {
         private IBoekService bs;
         private Flickr flickr;
+
         public HomeController(IBoekService bs)
         {
             this.bs = bs;
             flickr = MvcApplication.flickr;
             if (flickr == null) flickr = FlickrApiManager.GetInstance();
         }
+<<<<<<< HEAD
         public HomeController()
         {
 
         }
         #region Activiteiten
+=======
+>>>>>>> parent of e48c01b... De fix
 
         [Authorize]
         public ActionResult Activiteit(int? Id)
@@ -403,6 +407,67 @@ namespace Omgevingsboek.Controllers
         }
 
 
+<<<<<<< HEAD
+=======
+            }else if(type.ToLower() == "boek"){
+                Boek b = bs.GetBoekByID((int) Id);
+                if (b == null) return null;
+                if (b.Eigenaar.UserName != User.Identity.Name) return null;
+                foreach (ApplicationUser user in bs.GetUsers())
+                {
+                    ShareListPM r = new ShareListPM()
+                    {
+                        Username = user.UserName,
+                        Naam = user.Voornaam + " " + user.Naam
+                    };
+                    if (bs.IsBoekAccessibleByUser(b.Id,user.UserName)) r.IsGedeeld = true;
+                    else r.IsGedeeld = false;
+                    res.Add(r);
+                }
+
+            }else return null;
+
+            return Json(JsonConvert.SerializeObject(res), JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        [Authorize]
+        public void EditShare(string Username, int Id, string Type, bool IsGedeeld)
+        {
+            if (!ModelState.IsValid) return;
+            ApplicationUser user = bs.GetUser(Username);
+            if (user == null) return;
+            if (Type.ToLower() == "activiteit")
+            {
+                Activiteit a = bs.GetActiviteitById((int)Id);
+                if (a == null) return;
+                if (a.Eigenaar.UserName != User.Identity.Name) return;
+                bs.addUserToActiviteitShareList(a.Id, user.UserName,IsGedeeld);
+
+            }
+            else if (Type.ToLower() == "boek")
+            {
+                Boek b = bs.GetBoekByID((int)Id);
+                if (b == null) return;
+                if (b.Eigenaar.UserName != User.Identity.Name) return;
+                bs.addUserToBoekShareList(b.Id, user.UserName, IsGedeeld);
+            }
+            else return;
+
+        }
+
+        //DIT WERKT NIET IK KRIJG ZELFS NEN ERROR
+        /*
+        [Authorize]
+        public ActionResult GetRoutesById(int? id)
+        {
+            //TODO: Meer checks
+            if (!id.HasValue) return RedirectToAction("Index");
+
+            return bs.getRoutesByBoek((int)id);
+
+        }*/
+        
+>>>>>>> parent of e48c01b... De fix
         [Authorize]
         public ActionResult AddPoi(Poi poi, HttpPostedFileBase AfbeeldingFile, string TagsString)
         {
