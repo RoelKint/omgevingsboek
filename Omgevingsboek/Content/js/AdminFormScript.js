@@ -5,7 +5,6 @@ var currentPar;
 var currentRow;
 console.log("hoi");
 $().ready(function () {
-    //$('.alertt').css('visibility', 'hidden');
     
     resetVanaf();
     jsonItUp("../Admin/" + pagina + "?vanaf=" + vanaf + "&desc=" + desc + "&filter=" + currentRow + "&search=" + search + "&mode=1");
@@ -31,16 +30,14 @@ $().ready(function () {
             });
         }
     });
+    $('.delList').css('display','inline');
     $('.delList').click(function () {
         console.log("klik");
-        //$('.alertt').css('visibility', 'visible');
-        //$('.ui-dialog-titlebar').css('display', 'none');
-
         $('.alertt').dialog({
+            dialogClass: "dlg-no-title",
             resizable: false,
-            height: 150,
+            height: 200,
             modal: true,
-            dialogClass: "open",
             buttons: {
                 "verwijderen": function () {
                     deleteList();
@@ -152,6 +149,7 @@ $().ready(function () {
                         string += "<a href='#'>" + els[i]["Activiteiten"][j]["Naam"] + "</a> ,"
                     }
                 }
+
                 string += "</td><td><div class='displayInlineButtons'><button class='oneDel' value=" + els[i]["Id"] + "><span class='glyphicon glyphicon-remove'></span></button></div></td></tr>"
 
             } else if (pagina == "Pois") {
