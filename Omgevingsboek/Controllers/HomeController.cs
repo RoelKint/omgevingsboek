@@ -250,6 +250,21 @@ namespace Omgevingsboek.Controllers
             return RedirectToAction("Boek", new { id = (int)BoekId });
 
         }
+
+        [Authorize]
+        public ActionResult DeleteActiviteit(int? Id, int? boekId)
+        {
+            //geef hier het boekid mee zodat de gebruiker terug naar zijn boek kan aub.
+            if(!Id.HasValue) return RedirectToAction("Index");
+            Activiteit activiteit = bs.GetActiviteitById((int)Id);
+            if (activiteit == null) return RedirectToAction("Index");
+            if (activiteit.EigenaarId != bs.GetUser(User.Identity.Name).Id) return RedirectToAction("Index");
+
+            bs.DeleteActiviteitSoft(activiteit);
+
+            return RedirectToAction("Boek", new { id = boekId });
+        }
+
         
 
         #endregion
@@ -276,8 +291,6 @@ namespace Omgevingsboek.Controllers
 
             return View(boek);
         }
-
-
 
         public void SaveBoekenSort(string volgorde, bool? IsGedeeldLijst)
         {
@@ -316,6 +329,20 @@ namespace Omgevingsboek.Controllers
             bs.UpdateLijst(resList);
 
         }
+
+        [Authorize]
+        public ActionResult DeleteBoek(int? Id)
+        {
+            if (!Id.HasValue) return RedirectToAction("Index");
+            Boek boek = bs.GetBoekByID((int)Id);
+            if (boek == null) return RedirectToAction("Index");
+            if (boek.EigenaarId != bs.GetUser(User.Identity.Name).Id) return RedirectToAction("Index");
+
+            bs.DeleteBoekSoft(boek);
+
+            return RedirectToAction("Index");
+        }
+
         #endregion
 
         #region Gebruiker
@@ -475,7 +502,18 @@ namespace Omgevingsboek.Controllers
 
             return RedirectToAction("Index");
         }
+        [Authorize]
+        public ActionResult DeletePoi(int? Id)
+        {
+            if (!Id.HasValue) return RedirectToAction("Index");
+            Poi poi = bs.GetPoiById((int)Id);
+            if (poi == null) return RedirectToAction("Index");
+            if (poi.EigenaarId != bs.GetUser(User.Identity.Name).Id) return RedirectToAction("Index");
 
+            bs.DeletePoiSoft(poi);
+
+            return RedirectToAction("Index");
+        }
 
         #endregion
 
@@ -483,7 +521,6 @@ namespace Omgevingsboek.Controllers
         #region routes
 
 
-        //VERANDERD
         [Authorize]
         public ActionResult GetRouteById(int? id)
         {
@@ -499,9 +536,13 @@ namespace Omgevingsboek.Controllers
         [HttpPost]
         public ActionResult AddRoute2(string routeNaam, string activiteitenIds, int? boekId)
         {
+            if (!boekId.HasValue) return RedirectToAction("Index");
             Route nieuweRoute = new Route();
             nieuweRoute.EigenaarID = bs.GetUser(User.Identity.Name).Id;
             //DIT NOG VERANDEREN
+            Boek boek = bs.GetBoekByID(boekId);
+            if (boek == null) return RedirectToAction("Index");
+            if (boek.EigenaarId != bs.GetUser(User.Identity.Name).Id) return RedirectToAction("Index");
             nieuweRoute.Boeken = new List<Models.OmgevingsBoek_Models.Boek>();
             nieuweRoute.Boeken.Add(bs.GetBoekByID(boekId));
             nieuweRoute.Naam = routeNaam;
@@ -523,11 +564,23 @@ namespace Omgevingsboek.Controllers
             }
             bs.InsertRoute(nieuweRoute);
 
-            return RedirectToAction("index");
+            return RedirectToAction("Boek", new { id = boekId });
 
         }
 
+        [Authorize]
+        public ActionResult DeleteRoute(int? Id, int? boekId)
+        {
+            //geef hier het boekid mee zodat de gebruiker terug naar zijn boek kan aub.
+            if (!Id.HasValue) return RedirectToAction("Index");
+            Route route = bs.getRouteById((int)Id);
+            if (route == null) return RedirectToAction("Index");
+            if (route.EigenaarID != bs.GetUser(User.Identity.Name).Id) return RedirectToAction("Index");
 
+            bs.DeleteRouteSoft(route.Id);
+
+            return RedirectToAction("Boek", new { id = boekId });
+        }
        
 
         #endregion
@@ -672,6 +725,7 @@ namespace Omgevingsboek.Controllers
             else return;
 
         }
+
 
       
       

@@ -90,7 +90,17 @@ namespace BusinessLogic.Repositories
         }
         public override void Delete(Boek entityToDelete)
         {
+            Boek orig = GetByID(entityToDelete.Id);
+            foreach (Activiteit activity in orig.Activiteiten)
+            {
+                activity.IsDeleted = true;
 
+            }
+            foreach (Route route in orig.Routes)
+            {
+                route.IsDeleted = true;
+
+            }
             foreach (BoekOrder bo in context.BoekOrder.Where(b => b.BoekId == entityToDelete.Id).ToList())
             {
                 context.BoekOrder.Remove(bo);
@@ -147,6 +157,11 @@ namespace BusinessLogic.Repositories
             {
                 activity.IsDeleted = true;
                 
+            }
+            foreach (Route route in orig.Routes)
+            {
+                route.IsDeleted = true;
+
             }
 
             foreach (BoekOrder bo in context.BoekOrder.Where(b => b.BoekId == entityToDelete.Id).ToList())

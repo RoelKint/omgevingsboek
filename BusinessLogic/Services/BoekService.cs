@@ -12,7 +12,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace BusinessLogic.Services
 {
-    public class BoekService : BusinessLogic.Services.IBoekService
+    public class BoekService : BusinessLogic.Services.IBoekService 
     {
         private ITagRepository repoTag = null;
         private IActiviteitRepository repoActiviteit = null;
@@ -595,6 +595,10 @@ namespace BusinessLogic.Services
         public Route getRouteById(int Id)
         {
             return repoRoute.GetByID(Id);
+        }
+        public void DeleteRouteSoft(int Id)
+        {
+            repoRoute.SoftDelete(Id);
         }
 
         #endregion

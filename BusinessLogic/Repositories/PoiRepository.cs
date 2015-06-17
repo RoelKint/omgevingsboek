@@ -110,6 +110,11 @@ namespace BusinessLogic.Repositories
         }
         public void Delete(Poi EntityToDelete)
         {
+            List<Activiteit> acs = context.Activiteiten.Where(w => w.PoiId == EntityToDelete.ID).ToList();
+            foreach (Activiteit a in acs)
+            {
+                a.IsDeleted = true;
+            }
             base.Delete(EntityToDelete);
             context.SaveChanges();
         }
@@ -137,6 +142,7 @@ namespace BusinessLogic.Repositories
 
         public void DeleteSoft(Poi poi)
         {
+
             poi.IsDeleted = true;
             Update(poi);
             
