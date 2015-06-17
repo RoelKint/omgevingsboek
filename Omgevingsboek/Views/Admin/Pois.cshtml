@@ -32,7 +32,10 @@ else
 }
 
 <div class="alertt" style="display:none">
-    <p>Zeker dat je deze Poi(s) wilt verwijderen?</p>
+    <p>Zeker dat je deze Activiteit(en) wilt verwijderen?</p>
+</div>
+<div class="alerth" style="display:none">
+    <p>Zeker dat je deze Poi('s) <span style="font-weight:bolder">helemaal</span> wilt verwijderen?</p>
 </div>
 <div class="adminList col-xs-12 col-md-12 content" id="content">
     <h2>Point of Interest's</h2>
@@ -43,9 +46,13 @@ else
         <button class="SelVor"><span class="glyphicon glyphicon-chevron-left"></span> Vorige Pag.</button>
         <button class="SelVol"><span class="glyphicon glyphicon-chevron-right"></span> Volgende Pag.</button>
         <button class="delList" type="submit"><span class="glyphicon glyphicon-remove-circle"></span> Verwijderen</button>
+        @if (User.IsInRole("SuperAdministrator"))
+        {
+            <button class="compDel" type="submit"><span class="glyphicon glyphicon-trash"></span> Volledig verwijderen</button>
+        }
         <input name="filter" type="text" id="Zoeken" placeholder="Zoeken" />
     </div>
-    <table class="AdminTable table table-hover">
+    <table class="AdminTable col-xs-12 col-md-12 col-sm-12 table table-hover">
         @if (User.IsInRole("SuperAdministrator"))
         {
             <colgroup>
@@ -79,10 +86,10 @@ else
                 <th><span>Adres</span></th>
                 <th><span>Telefoon Nr.</span></th>
                 <th><span>Tags</span></th>
-@if (User.IsInRole("SuperAdministrator"))
-        {
-    <th><span>Verwijderd</span></th>
-}
+                @if (User.IsInRole("SuperAdministrator"))
+                {
+                    <th><span>Verwijderd</span></th>
+                }
                 <th><span>Opties</span></th>
             </tr>
         </thead>
