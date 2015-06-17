@@ -7,11 +7,20 @@
     search = "";
     pagina = "Gebruikers";
 
+
+    console.log("ja vanalles he");
+
 </script>
+@if (User.IsInRole("SuperAdministrator"))
+{
+<script>rol = true;</script>
+    }
 
 @{
+    
     ViewBag.Title = "Gebruikers";
-    int meer = ViewBag.vanaf+30;
+
+    int meer = ViewBag.vanaf + 30;
     int minder = 0;
     if (ViewBag.vanaf == 0)
     {
@@ -28,7 +37,7 @@
     <a href="../Admin">&lt;&lt; Terug naar overzicht</a>
 </div>
 <div class="adminList col-xs-6 col-md-9 content" id="content">
-    <h2 class="tittel">Activiteiten</h2>
+    <h2 class="tittel">Gebruikers</h2>
     <div class="col-xs-6 col-md-9">
         <span style="font-weight:bold" class="voorbVanaf">@ViewBag.vanaf - @meer</span>
     </div>
@@ -36,10 +45,31 @@
 
         <button class="SelVor"><span class="glyphicon glyphicon-chevron-left"></span> Vorige Pag.</button>
         <button class="SelVol"><span class="glyphicon glyphicon-chevron-right"></span> Volgende Pag.</button>
-        <button form="formA" type="submit"><span class="glyphicon glyphicon-remove-circle"></span> Verwijderen</button>
+        <button class="delList" type="submit"><span class="glyphicon glyphicon-remove-circle"></span> Verwijderen</button>
+        @if (User.IsInRole("SuperAdministrator"))
+        {
+            <button class="compDel" type="submit"><span class="glyphicon glyphicon-trash"></span> Volledig verwijderen</button>
+            <button class="changeRecht" type="submit"><span class="glyphicon glyphicon-ice-lolly"></span> Verander rechten</button>
+        }
+
         <input name="filter" type="text" id="Zoeken" placeholder="Zoeken" />
     </div>
-        <table class="col-xs-12 col-md-12 col-sm-12 AdminTable table table-hover" id="tableGebruikers">
+    <table class="col-xs-12 col-md-12 col-sm-12 AdminTable table table-hover" id="tableGebruikers">
+
+        @if (User.IsInRole("SuperAdministrator"))
+        {
+            <colgroup>
+                <col class="col-lg-1 col-xs-1 col-md-1" />
+                <col class="col-lg-2 col-xs-2 col-md-2" />
+                <col class="col-lg-2 col-xs-2 col-md-2" />
+                <col class="col-lg-3 col-xs-3 col-md-3" />
+                <col class="col-lg-1 col-xs-1 col-md-1" />
+                <col class="col-lg-2 col-xs-2 col-md-2" />
+                <col class="col-lg-2 col-xs-2 col-md-2" />
+            </colgroup>
+        }
+        else
+        {
             <colgroup>
                 <col class="col-lg-1 col-xs-1 col-md-1" />
                 <col class="col-lg-2 col-xs-2 col-md-2" />
@@ -47,25 +77,32 @@
                 <col class="col-lg-6 col-xs-7 col-md-4" />
                 <col class="col-lg-2 col-xs-2 col-md-2" />
             </colgroup>
-            <thead>
-                <tr>
-                    <th><span class="glyphicon glyphicon-th-list"></span></th>
-                    <th>Naam</th>
-                    <th>Email</th>
-                    <th>Activiteiten</th>
-                    <th>Opties</th>
+        }
+        <thead>
+            <tr>
+                <th><span class="glyphicon glyphicon-th-list"></span></th>
+                <th>Naam</th>
+                <th>Email</th>
+                <th>Activiteiten</th>
+                @if (User.IsInRole("SuperAdministrator"))
+                {
+                    <th>Actief</th>
+                    <th>rechten</th>
+                }
+                <th>Opties</th>
 
 
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
 
     <h2>Uitnodigingen</h2>
 
 
     <form id="formB" method="post" action="Delete">
         <table class="col-xs-12 col-md-12 table table-hover">
+
             <colgroup>
                 <col class="col-lg-1 col-xs-1 col-md-1" />
                 <col class="col-lg-2 col-xs-2 col-md-2" />
@@ -73,10 +110,16 @@
                 <col class="col-lg-2 col-xs-2 col-md-2" />
             </colgroup>
 
+
+
             <tr>
                 <th><span class="glyphicon glyphicon-th-list"></span></th>
                 <th>Uitgenodigde</th>
                 <th>Uitgenodigd door</th>
+                @if (User.IsInRole("SuperAdministrator"))
+                {
+                    <th><span>Admin</span></th>
+                }
                 <th>Opties</th>
 
             </tr>

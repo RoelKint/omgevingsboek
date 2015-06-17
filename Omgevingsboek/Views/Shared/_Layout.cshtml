@@ -45,16 +45,22 @@
                     ">
                         @if (ViewBag.stap1 != null)
                         {
-                            <li><a href="@ViewBag.url1">@ViewBag.stap1</a></li>
+                        <li><a href="../@ViewBag.url1">@ViewBag.stap1</a></li>
                         }
                         @if (ViewBag.stap2 != null)
                         {
-                            <li><a href="@ViewBag.url2">@ViewBag.stap2</a></li>
+                            if (ViewBag.stap3 != null)
+                            {
+                                <li><a href="../@ViewBag.url1@ViewBag.url2">@ViewBag.stap2</a></li>
+
+                                <li><a href="../@ViewBag.url3">@ViewBag.stap3</a></li>
+                            }
+                            else
+                            {
+                                <li><a href="@ViewBag.url1@ViewBag.url2">@ViewBag.stap2</a></li>
+                            }
                         }
-                        @if (ViewBag.stap3 != null)
-                        {
-                            <li><a href="@ViewBag.url3">@ViewBag.stap3</a></li>
-                        }
+
                         <li class="active">
                             <span class="glyphicon glyphicon-search"></span>
                             <input type="text" id="searchMainElements" class="form-control" style="

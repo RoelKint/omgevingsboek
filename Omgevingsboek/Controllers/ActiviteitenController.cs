@@ -1,5 +1,6 @@
 ﻿using BusinessLogic.Services;
 using FlickrNet;
+using Models.OmgevingsBoek_Models;
 using Omgevingsboek.Config;
 using System;
 using System.Collections.Generic;
@@ -27,7 +28,17 @@ namespace Omgevingsboek.Controllers
         public ActionResult Details(int? id)
         {
             if (!id.HasValue) return RedirectToAction("Index", "Home");
-            return View(bs.GetActiviteitById((int)id));
+
+            Activiteit activ = bs.GetActiviteitById((int)id);
+            Session["stap3"] = activ.Naam;
+            Session["url3"] = "../Activiteiten/Details/" + activ.Id;
+            ViewBag.stap1 = Session["stap1"];
+            ViewBag.url1 = Session["url1"];
+            ViewBag.stap2 = Session["stap2"];
+            ViewBag.url2 = Session["url2"];
+            ViewBag.stap3 = Session["stap3"];
+            ViewBag.url3 = Session["url3"];
+            return View(activ);
         }
         #endregion
 

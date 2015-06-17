@@ -27,10 +27,12 @@ namespace Omgevingsboek.Controllers
         [Authorize(Roles = "Administrator,SuperAdministrator")]
         public ActionResult Index()
         {
-            Session["stap1"] = "admin";
-            Session["stap2"] = "";
+            Session["stap1"] = "Admin";
+            Session["url1"] = "../admin";
+            Session.Remove("stap3");
+            Session.Remove("stap2");
             ViewBag.stap1 = Session["stap1"];
-
+            ViewBag.url1 = Session["url1"];
             return View();
 
         }
@@ -42,9 +44,13 @@ namespace Omgevingsboek.Controllers
         [Authorize(Roles = "Administrator,SuperAdministrator")]
         public ActionResult Activities(int? vanaf, int? desc, int? filter, string search, int? mode)
         {
+            Session.Remove("stap3");
             Session["stap2"] = "activities";
+            Session["url2"] = "/../admin/Activities";
             ViewBag.stap1 = Session["stap1"];
+            ViewBag.url1 = Session["url1"];
             ViewBag.stap2 = Session["stap2"];
+            ViewBag.url2 = Session["url2"];
             //mode == 1 -> json
             //mode == 0/null -> view
 
@@ -138,9 +144,13 @@ namespace Omgevingsboek.Controllers
         [HttpGet]
         public ActionResult Gebruikers(int? vanaf, int? desc,string search, int? mode)
         {
-            Session["stap2"] = "gebruikers";
+            Session.Remove("stap3");
+            Session["stap2"] = "Gebruikers";
+            Session["url2"] = "/../admin/gebruikers";
             ViewBag.stap1 = Session["stap1"];
+            ViewBag.url1 = Session["url1"];
             ViewBag.stap2 = Session["stap2"];
+            ViewBag.url2 = Session["url2"];
             if (search == null) search = "";
             if (TempData["Feedback"] != null)
             {
@@ -329,9 +339,13 @@ namespace Omgevingsboek.Controllers
         [HttpGet]
         public ActionResult Boeken(int? vanaf, int? desc, int? filter, string search, int? mode)
         {
-            Session["stap2"] = "boeken";
+            Session.Remove("stap3");
+            Session["stap2"] = "Boeken";
+            Session["url2"] = "/../admin/boeken";
             ViewBag.stap1 = Session["stap1"];
+            ViewBag.url1 = Session["url1"];
             ViewBag.stap2 = Session["stap2"];
+            ViewBag.url2 = Session["url2"];
             //mode == 1 -> json
             //mode == 0/null -> view
 
@@ -419,9 +433,13 @@ namespace Omgevingsboek.Controllers
         [HttpGet]
         public ActionResult Pois(int? vanaf, int? desc, string search, int? filter, int? mode)
         {
-            Session["stap2"] = "pois";
+            Session.Remove("stap3");
+            Session["stap2"] = "Pois";
+            Session["url2"] = "/../admin/pois";
             ViewBag.stap1 = Session["stap1"];
+            ViewBag.url1 = Session["url1"];
             ViewBag.stap2 = Session["stap2"];
+            ViewBag.url2 = Session["url2"];
             //mode 1 = json
             //mode 0/null = view
 
