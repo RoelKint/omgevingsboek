@@ -26,9 +26,10 @@
             var item = $(this)[0];
 
             if (pagina == "Gebruikers") {
-                var status = "nee";
-                if (item.IsDeleted == true) status = "ja";
-                var listelement = '<tr> <td><input type="checkbox" name="checkbox" value="' + item.User.Id + '"></td><td>' + item.User.Naam + ' ' + item.User.Voornaam + '</td><td>' + item.User.UserName + '</td><td>';
+
+                var status = "ja";
+                if (item.User.Deleted == true) status = "nee";
+                var listelement = '<tr> <td><input type="checkbox" name="GebruikersToDelete" value="' + item.User.Id + '"></td><td>' + item.User.Naam + ' ' + item.User.Voornaam + '</td><td>' + item.User.UserName + '</td><td>';
                 if (item.Activiteiten !== undefined) {
                     $.each(item.Activiteiten, function () {
                         var a = $(this)[0];
@@ -36,16 +37,16 @@
                             listelement = listelement + '<a href="#">' + a.Naam + '</a>';
                         }
                         else {
-                            listelement = listelement + '<a href="#">' + a.Naam + '</a>, ';
+                            listelement = listelement + '<a href="#">' + a.Naam + '</a> ,';
                         }
                     });
                 }
-                listelement = listelement + '</td><td><div class="displayInlineButtons"><button class="oneDel" value="' + item.Id + '"><span class="glyphicon glyphicon-remove"></span></button><button><span class="glyphicon glyphicon-pencil"></span></button></div></td></tr>';
+                listelement = listelement + '</td><td>' + status + '</td><td>' + item.Role + '</td><td><div class="displayInlineButtons"><button class="oneDel" value="' + item.Id + '"><span class="glyphicon glyphicon-remove"></span></button><button><span class="glyphicon glyphicon-pencil"></span></button></div></td></tr>';
                 $(".AdminTable tbody").append(listelement);
             } else if (pagina == "Boeken") {
                 var status = "nee";
                 if (item.IsDeleted == true) status = "ja";
-                var listelement = '<tr> <td><input from="formA" type="checkbox" name="BoekenToDelete" value="' + item.Id + '"></td><td>' + item.Naam + '</td><td>' + item.Eigenaar.UserName + '</td><td>';
+                var listelement = '<tr> <td><input type="checkbox" name="listId" value="' + item.Id + '"></td><td>' + item.Naam + '</td><td>' + item.Eigenaar.UserName + '</td><td>';
                 if (item.Activiteiten !== undefined) {
                     $.each(item.Activiteiten, function () {
                         var a = $(this)[0];
@@ -62,7 +63,7 @@
             } else if (pagina == "Activities") {
                 var status = "nee";
                 if (item.IsDeleted == true) status = "ja";
-                var listelement = '<tr> <td><input from="formA" id="DylanToch" type="checkbox" name="ActiviteitenToDelete" value="' + item.Id + '"></td><td>' + item.Naam + '</td><td>' + item.Eigenaar.UserName + '</td><td>' + item.Poi.Naam;
+                var listelement = '<tr> <td><input id="DylanToch" type="checkbox" name="listId" value="' + item.Id + '"></td><td>' + item.Naam + '</td><td>' + item.Eigenaar.UserName + '</td><td>' + item.Poi.Naam;
                 
                 listelement = listelement + '</td><td>' + status + '</td><td><div class="displayInlineButtons"><button class="oneDel" value="' + item.Id + '"><span class="glyphicon glyphicon-remove"></span></button></div></td></tr>';
                 $(".AdminTable tbody").append(listelement);
@@ -71,7 +72,7 @@
                 if (item.IsDeleted == true) status = "ja";
                 var tel = item.Telefoon;
                 if (tel == null) tel = " ";
-                var listelement = '<tr> <td><input from="formA" type="checkbox" name="PoisToDelete" value="' + item.Id + '"></td><td>' + item.Naam + '</td><td>' + item.Eigenaar.UserName + '</td><td>' + item.Straat + " " + item.Nummer + " " + item.Postcode + " " + item.Gemeente + '</td><td>' + tel + '</td><td>';
+                var listelement = '<tr> <td><input type="checkbox" name="PoisToDelete" value="' + item.Id + '"></td><td>' + item.Naam + '</td><td>' + item.Eigenaar.UserName + '</td><td>' + item.Straat + " " + item.Nummer + " " + item.Postcode + " " + item.Gemeente + '</td><td>' + tel + '</td><td>';
                 if (item.Tags !== undefined) {
                     $.each(item.Tags, function () {
                         var a = $(this)[0];
