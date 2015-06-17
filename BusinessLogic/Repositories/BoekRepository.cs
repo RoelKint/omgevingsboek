@@ -90,7 +90,17 @@ namespace BusinessLogic.Repositories
         }
         public override void Delete(Boek entityToDelete)
         {
+            Boek orig = GetByID(entityToDelete.Id);
+            foreach (Activiteit activity in orig.Activiteiten)
+            {
+                activity.IsDeleted = true;
 
+            }
+            foreach (Route route in orig.Routes)
+            {
+                route.IsDeleted = true;
+
+            }
             foreach (BoekOrder bo in context.BoekOrder.Where(b => b.BoekId == entityToDelete.Id).ToList())
             {
                 context.BoekOrder.Remove(bo);
@@ -129,8 +139,31 @@ namespace BusinessLogic.Repositories
             return this.context.Boeken.Include(b => b.Eigenaar).Include(b => b.Activiteiten).Where(i => !i.IsDeleted || i.IsDeleted == DisplayDeleted).Where(b => b.Naam.Contains(search) || b.Eigenaar.UserName.Contains(search)).OrderByDescending(i => i.Eigenaar.UserName).Where(u => u.Eigenaar != null).Skip(from).Take(30).ToList();
         }
 
+        public List<Boek> get50FromSortDeletedAZ(int from, string search, bool DisplayDeleted)
+        {
+            context.Configuration.LazyLoadingEnabled = false;
+            return this.context.Boeken.Include(b => b.Eigenaar).Include(b => b.Activiteiten).Where(i => !i.IsDeleted || i.IsDeleted == DisplayDeleted).Where(b => b.Naam.Contains(search) || b.Eigenaar.UserName.Contains(search)).OrderBy(i => i.IsDeleted).Where(u => u.Eigenaar != null).Skip(from).Take(30).ToList();
+        }
+        public List<Boek> get50FromSortDeletedZA(int from, string search, bool DisplayDeleted)
+        {
+            context.Configuration.LazyLoadingEnabled = false;
+            return this.context.Boeken.Include(b => b.Eigenaar).Include(b => b.Activiteiten).Where(i => !i.IsDeleted || i.IsDeleted == DisplayDeleted).Where(b => b.Naam.Contains(search) || b.Eigenaar.UserName.Contains(search)).OrderByDescending(i => i.IsDeleted).Where(u => u.Eigenaar != null).Skip(from).Take(30).ToList();
+        }
         public void DeleteSoft(Boek entityToDelete)
         {
+            Boek orig = GetByID(entityToDelete.Id);
+
+            foreach (Activiteit activity in orig.Activiteiten)
+            {
+                activity.IsDeleted = true;
+                
+            }
+            foreach (Route route in orig.Routes)
+            {
+                route.IsDeleted = true;
+
+            }
+
             foreach (BoekOrder bo in context.BoekOrder.Where(b => b.BoekId == entityToDelete.Id).ToList())
             {
                 context.BoekOrder.Remove(bo);
@@ -159,6 +192,8 @@ namespace BusinessLogic.Repositories
 
             if (IsGedeeld)
             {
+                if (b.DeelLijst.Any(d => d.UserName == Username)) return;
+
                 b.DeelLijst.Add(user);
 
                 int previndex;
@@ -179,8 +214,10 @@ namespace BusinessLogic.Repositories
             }
             else
             {
-                context.BoekOrder.Remove(context.BoekOrder.Where(x => x.BoekId == b.Id).Where(x => x.EigenaarId == user.Id).FirstOrDefault());
-                b.DeelLijst.Remove(context.Users.Find(user));
+                BoekOrder bo = context.BoekOrder.Where(x => x.BoekId == b.Id).Where(x => x.EigenaarId == user.Id).FirstOrDefault();
+                if (bo == null) return;
+                context.BoekOrder.Remove(bo);
+                b.DeelLijst.Remove(user);
                 Update(b);
             }
         }

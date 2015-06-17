@@ -12,6 +12,7 @@ namespace BusinessLogic.Repositories
 {
     public class RouteRepository : GenericRepository<Route>, BusinessLogic.Repositories.IRouteRepository
     {
+        
         public RouteRepository(ApplicationDbContext context)
             : base(context)
         {
@@ -58,14 +59,24 @@ namespace BusinessLogic.Repositories
 
             Route resroute = base.Insert(res);
             context.SaveChanges();
+            
             return resroute;
         }
 
         public override Route GetByID(object id)
         {
+            
             return context.Routes.Include(r => r.RouteLijst).Include(r => r.RouteLijst.Select(x => x.Activiteit)).Include(r => r.DeelLijst).Where(r => r.IsDeleted == false).Where(r => r.Id == (int)id).SingleOrDefault();
                 
         }
+        public void SoftDelete(int id)
+        {
+            Route r = GetByID(id);
+            r.IsDeleted = true;
+            Update(r);
+            context.SaveChanges();
+        }
+
 
     }
 }

@@ -91,6 +91,13 @@ namespace Omgevingsboek.Controllers
                     else
                         res = bs.GetActiviteiten50FromSortPoiAZ((int)vanaf, search, DisplayDeleted);
                     break;
+                case 4:
+                    //poi
+                    if (desc == 1)
+                        res = bs.getActiviteiten50FromSortDeletedZA((int)vanaf, search, DisplayDeleted);
+                    else
+                        res = bs.getActiviteiten50FromSortDeletedAZ((int)vanaf, search, DisplayDeleted);
+                    break;
                 default:
                     if (desc == 1)
                         res = bs.GetActiviteiten50FromSortNameZA((int)vanaf, search, DisplayDeleted);
@@ -419,6 +426,12 @@ namespace Omgevingsboek.Controllers
                     else
                         res = bs.GetBoeken50FromSortUserAZ((int)vanaf, search, DisplayDeleted);
                     break;
+                case 4:
+                    if (desc == 1)
+                        res = bs.GetBoeken50FromSortDeletedZA((int)vanaf, search, DisplayDeleted);
+                    else
+                        res = bs.GetBoeken50FromSortDeletedAZ((int)vanaf, search, DisplayDeleted);
+                    break;
                 default:
                     if (desc == 1)
                         res = bs.GetBoeken50FromSortNameZA((int)vanaf, search, DisplayDeleted);
@@ -519,6 +532,13 @@ namespace Omgevingsboek.Controllers
                     res = bs.getPoi50FromSortAddressZA((int)vanaf, search, DisplayDeleted);
                 else
                     res = bs.getPoi50FromSortAddressAZ((int)vanaf, search, DisplayDeleted);
+            break;
+            case 6:
+            //address
+            if (desc == 1)
+                res = bs.getPoi50FromSortDeletedZA((int)vanaf, search, DisplayDeleted);
+            else
+                res = bs.getPoi50FromSortDeletedAZ((int)vanaf, search, DisplayDeleted);
             break;
             default:
                 if (desc == 1)

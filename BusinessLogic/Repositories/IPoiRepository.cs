@@ -10,6 +10,8 @@ namespace BusinessLogic.Repositories
         void DeleteTag(int PoiTagId);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Poi> get50FromSortAddressAZ(int from, string search, bool DisplayDeleted);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Poi> get50FromSortAddressZA(int from, string search, bool DisplayDeleted);
+        System.Collections.Generic.List<Models.OmgevingsBoek_Models.Poi> get50FromSortDeletedAZ(int from, string search, bool DisplayDeleted);
+        System.Collections.Generic.List<Models.OmgevingsBoek_Models.Poi> get50FromSortDeletedZA(int from, string search, bool DisplayDeleted);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Poi> get50FromSortEmailAZ(int from, string search, bool DisplayDeleted);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Poi> get50FromSortEmailZA(int from, string search, bool DisplayDeleted);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Poi> get50FromSortNameAZ(int from, string search, bool DisplayDeleted);
