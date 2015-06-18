@@ -111,10 +111,10 @@
             if (els['AfbeeldingNaam'] != null) {
                 $('.fileUpload').children('span').html('Upload nieuwe </br> foto')
                 $('.fileUpload').css('background-color', '#216075');
-                $('[name=DitactischeToelichting]').val(els['DitactischeToelichting']);
-                $('[name=Uitleg]').val(els['Uitleg']);
                 $("#AfbeeldingNaam").val(els['AfbeeldingNaam']);
             }
+            $('[name=DitactischeToelichting]').val(els['DitactischeToelichting']);
+            $('[name=Uitleg]').val(els['Uitleg']);
             var tags = $('[name=TagsString]');
             $('[name=PoiShow]').val(els['Poi']["Naam"]);
             $('#poi').val(els['Poi']["ID"]);
