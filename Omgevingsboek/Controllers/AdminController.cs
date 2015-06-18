@@ -238,8 +238,6 @@ namespace Omgevingsboek.Controllers
             }
 
 
-
-
             ViewBag.vanaf = vanaf;
             ViewBag.desc = desc;
             ViewBag.filter = filter;

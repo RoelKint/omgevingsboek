@@ -23,6 +23,7 @@ namespace BusinessLogic.Services
         private IGenericRepository<PoiTags> repoPoiTags = null;
         private IBoekOrderRepository repoBoekOrder = null;
         private IRouteRepository repoRoute = null;
+        private IVraagRepository repoVraag = null;
 
         public BoekService(
             ITagRepository repoTag,
@@ -33,7 +34,8 @@ namespace BusinessLogic.Services
             IBenodigdheidRepository repoBenodigdheid,
             IGenericRepository<PoiTags> repoPoiTags,
             IBoekOrderRepository repoBoekOrder,
-            IRouteRepository repoRoute
+            IRouteRepository repoRoute,
+            IVraagRepository repoVraag
             )
         {
             this.repoActiviteit = repoActiviteit;
@@ -45,6 +47,7 @@ namespace BusinessLogic.Services
             this.repoPoiTags = repoPoiTags;
             this.repoBoekOrder = repoBoekOrder;
             this.repoRoute = repoRoute;
+            this.repoVraag = repoVraag;
         }
 
         #region Activiteiten
@@ -615,6 +618,32 @@ namespace BusinessLogic.Services
 
         #endregion
 
+
+
+        #region Helpdesk
+
+        public List<Vraag> GetVragen()
+        {
+            return repoVraag.GetVragen();
+        }
+        public Vraag Insert(Vraag entity)
+        {
+            return repoVraag.Insert(entity);
+        }
+        public void VraagOpgelost(int VraagId)
+        {
+            repoVraag.Opgelost(VraagId);
+        }
+        public Vraag GetVraagByID(object id)
+        {
+            return repoVraag.GetByID(id);
+        }
+        public void VraagGelezen(int VraagId)
+        {
+            repoVraag.Gelezen(VraagId);
+        }
+
+        #endregion
 
 
     }
