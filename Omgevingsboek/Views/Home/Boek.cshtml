@@ -62,7 +62,7 @@
                 @foreach (Models.OmgevingsBoek_Models.Route route in Model.Routes)
                 {
                     <div class="col-sm-6 col-md-3 element">
-                        <a href="/Routes/Details/@route.Id">
+                        <a href="/home/Route?id=@route.Id">
                             <span class="caption">@route.Naam</span>
                             </a>
                             <span class="buttons">

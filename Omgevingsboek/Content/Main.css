@@ -693,4 +693,8 @@ span.tag {
   margin: 0;
   border-radius: 5px;
 }
+.routedisplay #directions-panel {
+  height: 300px;
+  overflow-y: scroll;
+}
 /*# sourceMappingURL=Main.css.map */

@@ -1,12 +1,72 @@
-﻿@model Models.PresentationModels.RoutePM
+﻿@model Models.OmgevingsBoek_Models.Route
 @{
-    ViewBag.Title = "Route overzicht"
+    ViewBag.Title = "Route overzicht";
 }
 
 <script>
     gebruikerId = "@ViewBag.gebruikerId";
 </script>
 
-<div class="col-xs-12 col-md-12 content" id="content">
+<div class="col-xs-12 col-md-12 content routedisplay" id="content">
+    <div class="col-md-6 col-xs-6 col-lg-9">
+        <div id="map-canvas"></div>
+    </div>
+    
 
+
+    <div class="col-xs-6 col-md-6 col-lg-3">
+        <select id="waypointsList" size="5">
+            @foreach (Models.OmgevingsBoek_Models.RouteListItem rli in @Model.RouteLijst)
+            {
+                <option latitude="@rli.Activiteit.Poi.Latitude" longitude="@rli.Activiteit.Poi.Longitude">@rli.Activiteit.Naam</option>
+            }
+        </select>
+    </div>
+
+    <div class="col-xs-6 col-md-6 col-lg-9">
+        <div id="directions-panel"></div>
+    </div>
+
+
+    <script src="~/Content/js/GoogleMapsScript.js"></script>
+
+    <script>
+        $().ready(function () {
+            deferMapReady();
+
+
+            function deferMapReady() {
+                if (maploaded !== null) {
+                    if (maploaded == true) {
+                        console.log("map ready");
+                        $("#waypointsList option").each(function () {
+                            console.log($(this).attr("latitude") + $(this).attr("longitude"));
+
+                            var lat = $(this).attr("latitude").replace(",", ".");
+                            var longitude = $(this).attr("longitude").replace(",", ".");
+
+
+                            var marker = new google.maps.Marker({
+                                map: map,
+                                position: new google.maps.LatLng(lat,longitude)
+                            })
+                            markerArray.push(marker);
+
+
+                        })
+                        calculateRoute();
+                    } else {
+                        console.log("map not ready yet");
+                        setTimeout(deferMapReady, 50);
+
+                    }
+                } else {
+                    console.log("map not ready yet");
+                    setTimeout(deferMapReady, 50);
+                }
+            }
+            
+        });
+        
+    </script>
 </div>
