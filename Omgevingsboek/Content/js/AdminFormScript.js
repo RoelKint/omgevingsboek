@@ -135,11 +135,11 @@ $().ready(function () {
         var value;
         var formData = new FormData();
         if ($(e.target).children('span').length == 0) {
-            roel = $(e.target).parent().parent();
+            roel = $(e.target).parent().parent().parent().parent();
             value = $(e.target).parent().attr("value");
         } else {
             value = $(e.target).attr("value");
-            roel = $(e.target).parent();
+            roel = $(e.target).parent().parent().parent();
         }
         formData.append("deleteIds", value);
         url = "../Admin/deleteuitnodiging";
