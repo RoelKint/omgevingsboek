@@ -86,7 +86,7 @@ if (typeof Object.create !== "function") {
             base.wrapItems();
             base.$owlItems = base.$elem.find(".owl-item");
             base.$owlWrapper = base.$elem.find(".owl-wrapper");
-            base.playDirection = "next";
+            base.playDirection = "Volgende";
             base.prevItem = 0;
             base.prevArr = [0];
             base.currentItem = 0;
@@ -1080,10 +1080,10 @@ if (typeof Object.create !== "function") {
                 direction;
             if (base.newRelativeX < 0) {
                 direction = "right";
-                base.playDirection = "next";
+                base.playDirection = "Volgende";
             } else {
                 direction = "left";
-                base.playDirection = "prev";
+                base.playDirection = "Vorige";
             }
             return direction;
         },
@@ -1469,7 +1469,7 @@ if (typeof Object.create !== "function") {
         stopOnHover : false,
 
         navigation : false,
-        navigationText : ["prev", "next"],
+        navigationText : ["Vorige", "Volgende"],
         rewindNav : true,
         scrollPerPage : false,
 

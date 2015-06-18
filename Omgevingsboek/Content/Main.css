@@ -12,10 +12,13 @@ h3.title {
   padding: 2em;
   color: #FFF;
   margin-left: 0em;
-  border-top-right-radius: 0.2em;
-  border-bottom-right-radius: 0.2em;
+  margin-top: 0;
+  border-radius: 0.2em;
   background-size: cover;
   float: left;
+}
+h3.title.noimg {
+  color: black;
 }
 h3.title + div {
   float: left;
@@ -29,8 +32,15 @@ h3.title + div {
 }
 #owl-demo .item img {
   display: block;
-  width: 100%;
-  height: auto;
+  width: 100vw;
+  height: 100vh;
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+#owl-demo .item {
+  overflow: hidden;
+  height: 80vh;
+  border-radius: 4px;
 }
 p.title {
   font-weight: bold;
@@ -203,6 +213,7 @@ div.main > .row {
   -moz-transform: rotate(-90deg);
   -ms-transform: rotate(-90deg);
   -o-transform: rotate(-90deg);
+  transform: rotate(-90deg);
 }
 .expandable button.expand {
   position: absolute;
@@ -378,6 +389,8 @@ h3.rowheader {
   width: 23.333333333%;
   min-height: 8em;
   background-size: cover;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
   overflow: hidden;
   border-radius: 5px;
@@ -437,6 +450,8 @@ h3.rowheader {
   width: 23.333333333%;
   min-height: 8em;
   background-size: cover;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
   overflow: hidden;
   border-radius: 5px;
@@ -481,6 +496,7 @@ h3.rowheader {
   -moz-transition: all 0.2s ease;
   -ms-transition: all 0.2s ease;
   -o-transition: all 0.2s ease;
+  transition: all 0.2s ease;
   opacity: 0;
   border-radius: 100px;
   visibility: hidden;
@@ -700,6 +716,8 @@ span.tag {
   font-weight: 300;
   margin-left: 12px;
   padding: 0 11px 0 13px;
+  -ms-text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
   text-overflow: ellipsis;
   width: 200px;
 }
@@ -710,6 +728,7 @@ span.tag {
   margin-top: 7px;
   border: 1px solid transparent;
   border-radius: 2px 0 0 2px;
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   height: 32px;
