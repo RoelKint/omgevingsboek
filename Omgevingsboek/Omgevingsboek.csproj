@@ -256,7 +256,6 @@
     <Content Include="Content\img\paper_fibers.png" />
     <Content Include="Content\jquery.tagsinput.min.css" />
     <Content Include="Content\js\ActiviteitInBoek\Add.js" />
-    <Content Include="Content\js\ActiviteitInBoek\Edit.js" />
     <Content Include="Content\js\activiteitpartialscript.js" />
     <Content Include="Content\js\AdminFormScript.js" />
     <Content Include="Content\js\boekenScript.js" />
@@ -269,6 +268,7 @@
     <Content Include="Content\js\MainElementFilter.js" />
     <Content Include="Content\js\poipartialscript.js" />
     <Content Include="Content\js\shareItem.js" />
+    <Content Include="Content\js\userDeleteScript.js" />
     <Content Include="Content\js\validationFixes.js" />
     <Content Include="Content\js\ZoekScript.js" />
     <Content Include="Content\Main.css">

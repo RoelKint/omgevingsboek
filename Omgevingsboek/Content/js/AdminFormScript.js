@@ -28,11 +28,40 @@ $().ready(function () {
             });
         }
     });
+    //De kliklisteners
     $('.oneDel').click(function (e) {
         console.log('ola');
         delOne(e);
     });
-    $('.delList').css('display','inline');
+    $('.delList').css('display', 'inline');
+    $('.superDelList').click(function () {
+        var formData = new FormData();
+        var Delurl = "";
+        var lijst = $('[name=listId]');
+        console.log(lijst);
+        var array = [];
+        lijst.each(function (iets) {
+            if ($(lijst[iets]).is(":checked")) {
+                console.log("Aantal");
+                var value = parseInt($(lijst[iets]).attr("value"));
+
+                if (pagina == "Activities") {
+                    formData.append("ActiviteitenToDelete", value);
+                    Delurl = "../Admin/HardDeleteActiviteit";
+                } else if (pagina == "Boeken") {
+                    formData.append("BoekenToDelete", value);
+                    Delurl = "../Admin/HardDeleteBoeken";
+                } else if (pagina == "Pois") {
+                    formData.append("PoisToDelete", value);
+                    Delurl = "../Admin/HardDeletePoi";
+                } else if (pagina = "Gebruikers") {
+                    formData.append("DeleteUsersSoft", value);
+                    Delurl = "../Admin/DeleteUsersHard";
+                }
+            }
+        })
+        jsonListUp(formData, Delurl);
+    });
     $('.delList').click(function () {
         console.log("klik");
         $('.alertt').dialog({
@@ -91,6 +120,7 @@ $().ready(function () {
         });
 
     })
+    //compleet verwijderen via glyphicons
     function DelOne(e) {
         var value;
         var formData = new FormData();
@@ -115,6 +145,7 @@ $().ready(function () {
         jsonListUp(formData, Delurl);
 
     }
+    //soft verwijderen via button
     function deleteList() {
 
         var formData = new FormData();
@@ -147,6 +178,7 @@ $().ready(function () {
         })
         jsonListUp(formData, Delurl);
     }
+    //compleet verwijderen via button
     function hardDeleteList() {
         var formData = new FormData();
         var Delurl = "";
@@ -175,6 +207,7 @@ $().ready(function () {
         })
         jsonListUp(formData, Delurl);
     };
+    //veranderen rechten bij gebruikers
     function changeRights() {
         var formData = new FormData();
         var Delurl = "";
@@ -193,34 +226,7 @@ $().ready(function () {
         Delurl = "../Admin/ToggeRole";
         jsonListUp(formData, Delurl);
     }
-    $('.superDelList').click(function () {
-        var formData = new FormData();
-        var Delurl = "";
-        var lijst = $('[name=listId]');
-        console.log(lijst);
-        var array = [];
-        lijst.each(function (iets) {
-            if ($(lijst[iets]).is(":checked")) {
-                console.log("Aantal");
-                var value = parseInt($(lijst[iets]).attr("value"));
-
-                if (pagina == "Activities") {
-                    formData.append("ActiviteitenToDelete", value);
-                    Delurl = "../Admin/HardDeleteActiviteit";
-                } else if (pagina == "Boeken") {
-                    formData.append("BoekenToDelete", value);
-                    Delurl = "../Admin/HardDeleteBoeken";
-                } else if (pagina == "Pois") {
-                    formData.append("PoisToDelete", value);
-                    Delurl = "../Admin/HardDeletePoi";
-                } else if (pagina = "Gebruikers") {
-                    formData.append("DeleteUsersSoft", value);
-                    Delurl = "../Admin/DeleteUsersHard";
-                }
-            }
-        })
-        jsonListUp(formData, Delurl);
-    });
+    //Verwerken van aangekregen data
     function switchTable() {
         var body = table.children('tbody');
         body.children('tr').remove();
@@ -311,6 +317,7 @@ $().ready(function () {
         });
         resetVanaf();
     }
+    //Het script voor de volgende of vorige 30
     function resetVanaf() {
         if (vanaf == 0) {
             $('.SelVor').attr('disabled', 'disabled');
@@ -341,6 +348,7 @@ $().ready(function () {
         }
         $('.voorbVanaf').html("" + vanaf + " - " + (vanaf + 30));
     }
+    //oproepen json it up & zetten van vinkjes voor sortering
     function getNewData(e) {
         var pressed = e.target;
         var par = e.currentTarget.parentElement;
@@ -410,6 +418,9 @@ $().ready(function () {
         
         
     }
+
+
+    //versturen van lijsten voor het veranderen van acties
     function jsonListUp(formData, url) {
         formData.append("vanaf", vanaf);
         formData.append("desc", desc);
@@ -433,7 +444,7 @@ $().ready(function () {
             }
         });
     }
-
+    //ophalen van lijsten voor het laten zien van data
     function jsonItUp(jsonString) {
         //console.log(jsonString);
         $.getJSON(jsonString, function (data) {

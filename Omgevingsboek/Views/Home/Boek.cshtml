@@ -12,7 +12,7 @@
     </div>
 }
 
-<h3 class="rowheader">@Model.Naam</h3>
+<div class="rowheader col-xs-6 col-md-9    "><h3>@Model.Naam   <a class="delItem" href="#"><span class="glyphicon glyphicon-trash"></span></a></h3></div>
 
 <div class="col-xs-6 col-md-9 content" id="content">
 
@@ -591,6 +591,7 @@
 <script src="~/Content/js/GoogleMapsScript.js"></script>
 <script src="~/Content/js/ActiviteitInBoek/Add.js"></script>
 <script src="~/Content/js/ActiviteitInBoek/Edit.js"></script>
+<script src="~/Content/js/userDeleteScript.js"></script>
 @{ Html.RenderAction("ActiviteitPartial", "Home"); }
 @{ Html.RenderAction("PoiPartial", "Home"); }
 <script src="~/Content/js/MainElementFilter.js"></script>
