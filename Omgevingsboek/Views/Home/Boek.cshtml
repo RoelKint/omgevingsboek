@@ -44,7 +44,7 @@
                                 <span class="glyphicon glyphicon-share"></span>
                             </a>
                             <a href="/home/Activiteit?id=@activiteit.Id&action=public" class="expand btn btn-default" type="button"><span class="glyphicon glyphicon-eye-close"></span></a>
-                            <a href="#" class="toggleActivityEdit expand btn btn-default" type="button"><span class="glyphicon glyphicon-cog"></span></a>
+                            <a href="#" value="@activiteit.Id" class="toggleActivityEdit expand btn btn-default" type="button"><span value="@activiteit.Id" class="glyphicon glyphicon-cog"></span></a>
                         </span>
                     </div>
                 }
@@ -58,6 +58,8 @@
                 }
             </div>
         </div>
+
+        
         <div role="tabpanel" class="tab-pane" id="routes">
             <div class="row books" id="mijnRoutes">
                 @*<ol class="breadcrumb list-inline">
@@ -73,7 +75,7 @@
                             <span class="buttons">
                                 <a href="/home/Route?id=@route.Id&action=share" class="expand btn btn-default" type="button"><span class="glyphicon glyphicon-share"></span></a>
                                 <a href="/home/Route?id=@route.Id&action=public" class="expand btn btn-default" type="button"><span class="glyphicon glyphicon-eye-close"></span></a>
-                                <a href="#" class="toggleActivityEdit expand btn btn-default" type="button"><span class="glyphicon glyphicon-cog"></span></a>
+                                <a href="#"  class="toggleActivityEdit expand btn btn-default" type="button"><span class="glyphicon glyphicon-cog"></span></a>
                             </span>
                         </div>
                 }
@@ -360,187 +362,7 @@
 
                                                                                                                                                           }
 
-    @*@using (Html.BeginForm("AddActivity", "Home", FormMethod.Post, new { enctype = "multipart/form-data", data_toggle = "validator" }))
-        {
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label for="naam">Naam:</label><span class="help-block with-errors"></span>
-                        <input type="text" class="form-control" id="name" name="Naam" placeholder="Naam van activiteit" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="PoiShow">POI:</label><span class="help-block with-errors"></span>
-                        <input type="text" name="PoiShow" class="form-control" id="poiName" placeholder="Klik op de afbeelding van een POI." readonly>
-                        <input type="text" class="form-control hidden-input" id="poi" name="PoiId" required>
-                    </div>
-                </div>
-                <div class="form-group col-md-2 upload">
-                    <label for="inputFile">Plaats cover</label>
-                    <div class="fileUpload btn btn-default form-control">
-                        <span>Upload Foto</span>
-                        <input type="file" class="upload" name="AfbeeldingFile" id="exampleInputFile" accept="image/x-png, image/jpeg">
-                    </div>
-                </div>
-                <div class="form-group col-md-5">
-                    <label for="amount">Tags:</label>
-                    <div class="input-group">
-                        <span class="input-group-addon tag"><span class="glyphicon glyphicon-tags"></span></span>
-                        <input name="TagsString" class="form-control tags" id="poiTags" value="" />
-                    </div>
-                </div>
-                <div class="col-md-1">
-                    <button class="toggleActivityForm btn btn-danger">
-                        <span class="caption"><span class="glyphicon glyphicon-remove"></span></span>
-                    </button>
-                </div>
-
-            </div>
-
-            <div class="row">
-                <div role="tabpanel" class="col-md-12">
-                    <!-- Nav tabs -->
-
-                    <ul class="nav nav-tabs" role="tablist">
-                        <li role="presentation" class="active"><a href="#basis" aria-controls="basis" role="tab" data-toggle="tab">Basis info</a></li>
-                        <li role="presentation"><a href="#media" aria-controls="media" role="tab" data-toggle="tab">Media</a></li>
-                    </ul>
-
-                    <!-- Tab panes -->
-                    @Html.Hidden("BoekId", Model.Id)
-                    <div class="tab-content">
-                        <div role="tabpanel" class="tab-pane fade in active" id="basis">
-                            <div class="row">
-                                <div class="form-group col-md-4">
-                                    <label for="amount">Leeftijd doelgroep:</label>
-                                    <input type="hidden" class="form-control" id="amount" readonly style="">
-                                    <div class="input-group">
-                                        <span class="input-group-addon" id="minAgeBoek"></span>
-                                        <div class="form-control slider" id="slider-boek-age"></div>
-                                        <span class="input-group-addon" id="maxAgeBoek"></span>
-                                        <input type="hidden" name="MaxLeeftijd" id="maxAgeHiddenBoek" />
-                                        <input type="hidden" name="MinLeeftijd" id="minAgeHiddenBoek" />
-
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label for="amount">Geschatte tijdsduur:</label>
-                                    <input type="hidden" class="form-control" id="amount" readonly style="">
-                                    <div class="input-group">
-                                        <span class="input-group-addon" id="minTimeBook"></span>
-                                        <div class="form-control slider" id="slider-boek-time"></div>
-                                        <span class="input-group-addon" id="maxTimeBook"></span>
-                                        <input type="hidden" name="MaxDuur" id="maxTimeHiddenBook" />
-                                        <input type="hidden" name="MinDuur" id="minTimeHiddenBook" />
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label for="amount">Prijs per leerling:</label>
-                                    <div class="input-group">
-                                        <span class="input-group-addon">&euro;</span>
-                                        <input class="form-control" pattern="[0-9]+([,][0-9]+)?" fuckyouasp type="text" id="prijsLeerling" name="Prijs">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-md-6">
-                                    <label for="amount">Toelichting:</label>
-                                    <textarea class="form-control" type="text" id="prijsLeerling" name="DitactischeToelichting"></textarea>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="amount">Uitleg activiteit:</label>
-                                    <textarea class="form-control" type="text" id="prijsLeerling" name="Uitleg"></textarea>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-md-12">
-                                    <label for="amount">Benodigdheden:</label>
-                                    <div class="input-group">
-                                        <span class="input-group-addon tag"><span class="glyphicon glyphicon-shopping-cart"></span></span>
-                                        <input name="BenodigdhedenString" class="form-control shopping" id="poiTags" value="" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div role="tabpanel" class="tab-pane fade" id="media">
-                            <h3>Video</h3>
-                            <div class="upload_video">
-                                <div class="row">
-                                    <div class="form-group col-md-12">
-                                        <span id="signinButton" class="pre-sign-in">
-                                            <!-- IMPORTANT: Replace the value of the <code>data-clientid</code>
-                                            attribute in the following tag with your project's client ID. -->
-                                            <span class="g-signin"
-                                                  data-callback="signinCallback"
-                                                  data-clientid="373280989230-i785digcek4jpfhtg802a4el59jsfv1t.apps.googleusercontent.com"
-                                                  data-cookiepolicy="single_host_origin"
-                                                  data-scope="https://www.googleapis.com/auth/youtube.upload https://www.googleapis.com/auth/youtube">
-                                            </span>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="post-sign-in">
-                                    <div class="row">
-                                        <div class="form-group col-md-3" id="profile-show">
-                                            <span id="channel-name"></span>
-                                        </div>
-                                        <div class="form-group col-md-3">
-                                            <label for="title">Benaming:</label>
-                                            <input id="title" class="form-control" type="text" placeholder="Titel van video">
-                                        </div>
-                                        <div class="form-group col-md-3">
-                                            <label for="description">Beschrijving:</label>
-                                            <textarea class="form-control" id="description"></textarea>
-                                            <div>
-                                                <select hidden id="privacy-status">
-                                                    <option>public</option>
-                                                    <option selected>unlisted</option>
-                                                    <option>private</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group col-md-3">
-                                            <label for="file">Uploaden:</label>
-                                            <input input type="file" id="file" class="button form-control" accept="video/*">
-                                            <button class="btn btn-default form-control" id="button">Video uploaden</button>
-                                            <div class="during-upload">
-                                                <p><span id="percent-transferred"></span>% done (<span id="bytes-transferred"></span>/<span id="total-bytes"></span> bytes)</p>
-                                                <progress id="upload-progress" max="1" value="0"></progress>
-                                            </div>
-                                            <div class="post-upload">
-                                                <input class="form-control" disabled name="video" id="video-id" />
-                                                <p>De video is geupload. (<a id="video-url" href="#"></a>)</p>
-                                                <ul hidden id="post-upload-status"></ul>
-                                                <div id="player"></div>
-                                            </div>
-                                        </div>
-                                        <script src="//apis.google.com/js/client:plusone.js"></script>
-                                        <script src="~/Scripts/cors_upload.js"></script>
-                                        <script src="~/Scripts/upload_video.js"></script>
-                                    </div>
-                                </div>
-                            </div>
-                            <h3>Afbeeldingen</h3>
-                            <div class="row">
-                                <div class="form-group col-md-12 upload">
-                                    <label for="images">Kies afbeeldingen: (tip: je kan meerdere afbeeldingen tegelijk selecteren)</label>
-                                    <div class="fileUpload btn btn-default form-control">
-                                        <span>Upload Foto</span>
-                                        <input type="file" multiple class="upload" name="images" id="images" accept="image/x-png, image/jpeg">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-md-12">
-                            <button type="submit" class="btn btn-success form-control" data-loading-text="<i class='fa fa-spinner fa-pulse'></i>" >
-                                <span class="glyphicon glyphicon-ok" />
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        }*@
+    
 </div>
 
 <div class="col-xs-6 col-md-9 content" id="routeForm" style="
@@ -595,7 +417,6 @@
 
 <script src="~/Content/js/GoogleMapsScript.js"></script>
 <script src="~/Content/js/ActiviteitInBoek/Add.js"></script>
-<script src="~/Content/js/ActiviteitInBoek/Edit.js"></script>
 <script src="~/Content/js/userDeleteScript.js"></script>
 @{ Html.RenderAction("ActiviteitPartial", "Home"); }
 @{ Html.RenderAction("PoiPartial", "Home"); }
