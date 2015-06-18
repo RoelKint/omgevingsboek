@@ -179,12 +179,48 @@ $().ready(function () {
             contentType: false,
             processData: false,
             success: function (data) {
-                console.log(data);
+                Command: toastr["info"]("Mail verstuurd")
+
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-left",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                }
+                
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 alert('Hiet is niet gelukt sorry.');
-                console.log(data);
-                console.log(value);
+                Command: toastr["error"]("Sorry we konden niks verzenden, gelieve ons te contacteren!")
+
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-left",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                }
             }
         });
     }
