@@ -31,9 +31,10 @@ namespace Omgevingsboek.Controllers
                 Omschrhijving = vraag.Omschrhijving,
                 Titel = vraag.Titel,
                 Datum = DateTime.Now,
-                //EigenaarId = bs.GetUser(User.Identity.Name).Id
+                EigenaarId = bs.GetUser(User.Identity.Name).Id
+                
             };
-
+            bs.InsertVraag(resVraag);
 
             return View();
         }

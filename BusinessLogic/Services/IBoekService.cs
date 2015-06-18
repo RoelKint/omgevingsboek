@@ -86,7 +86,7 @@ namespace BusinessLogic.Services
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Vraag> GetVragen();
         bool HeeftEmailAlEenUitnodiging(string Email);
         Models.OmgevingsBoek_Models.BoekOrder Insert(Models.OmgevingsBoek_Models.BoekOrder entity);
-        Models.OmgevingsBoek_Models.Vraag Insert(Models.OmgevingsBoek_Models.Vraag entity);
+        Models.OmgevingsBoek_Models.Vraag InsertVraag(Models.OmgevingsBoek_Models.Vraag entity);
         Models.OmgevingsBoek_Models.Activiteit InsertActiviteit(Models.OmgevingsBoek_Models.Activiteit activiteit);
         Models.OmgevingsBoek_Models.Benodigdheid InsertBenodigdheid(string benodigdheid);
         Models.OmgevingsBoek_Models.Boek InsertBoek(Models.OmgevingsBoek_Models.Boek boek);

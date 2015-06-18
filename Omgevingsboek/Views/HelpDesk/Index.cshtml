@@ -1,4 +1,4 @@
-﻿@model Models.Vraag
+﻿@model Models.OmgevingsBoek_Models.Vraag
 
 @{
     ViewBag.Title = "Index";
@@ -7,7 +7,7 @@
 <h2>Index</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("PostVraag","HelpDesk" )) 
 {
     @Html.AntiForgeryToken()
     
