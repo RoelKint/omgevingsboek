@@ -26,7 +26,8 @@
     });
     $(".toggleActivityEdit").click(function (e) {
         e.preventDefault();
-        fillActivtyFields(e)
+        console.log(e.target);
+        fillActivtyFields($(e.target).attr('value'))
         $("#activityForm").slideToggle(400, function () {
         });
     });
@@ -73,10 +74,10 @@
 
     function fillActivtyFields(e) {
         console.log("ho");
-        getvalues(1);
+        getvalues(e);
     }
     function getvalues(Id) {
-        var jsonString = "../Home/" + 'GetActiviteit' + "?Id=" + Id;
+        var jsonString = "../../Home/" + 'GetActiviteit' + "?Id=" + Id;
 
         $.getJSON(jsonString, function (data) {
             els = jQuery.parseJSON(data);
@@ -91,8 +92,29 @@
                 $('.fileUpload').css('background-color', '#216075');
                 $('[name=DitactischeToelichting]').val(els['DitactischeToelichting']);
                 $('[name=Uitleg]').val(els['Uitleg']);
+                
             }
+            var tags = $('[name=TagsString]');
+            
+            $(els['Tags']).each(function (i) {
+                console.log(i);
+                tags.addTag(els['Tags'][i]['Naam']);
+            });
+            var benodigdheden = $('[name=BenodigdhedenString]');
+            console.log(benodigdheden);
+            $(els['benodigdheden']).each(function (i) {
+                console.log(i);
+                benodigdheden.addTag(els['Tags'][i]['Naam']);
+            });
 
+            setSliderInputValues(
+            $("#minAgeBoek"),
+            $("#maxAgeBoek"),
+            $("#minAgeHiddenBoek"),
+            $("#maxAgeHiddenBoek"),
+            0,
+            14
+        );
 
         });
     };
