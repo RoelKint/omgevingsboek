@@ -522,7 +522,6 @@
     <Content Include="Scripts\jquery.validate.min.js.map">
       <DependentUpon>jquery.validate.min.js</DependentUpon>
     </Content>
-    <Content Include="Views\Home\Activiteit.cshtml" />
     <Content Include="Views\Shared\_ActiviteitPartial.cshtml" />
     <Content Include="Views\Activiteiten\Details.cshtml" />
     <Content Include="Views\Activiteiten\Delete.cshtml" />

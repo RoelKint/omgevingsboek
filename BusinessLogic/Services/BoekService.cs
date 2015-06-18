@@ -626,7 +626,7 @@ namespace BusinessLogic.Services
         {
             return repoVraag.GetVragen();
         }
-        public Vraag Insert(Vraag entity)
+        public Vraag InsertVraag(Vraag entity)
         {
             return repoVraag.Insert(entity);
         }

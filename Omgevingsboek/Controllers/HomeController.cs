@@ -35,12 +35,13 @@ namespace Omgevingsboek.Controllers
         #region Activiteiten
 
         [Authorize]
-        public ActionResult Activiteit(int? Id)
+        public ActionResult Activiteit(int? Id, int? boekId)
         {
             if (!Id.HasValue) return RedirectToAction("Index");
             Activiteit activiteit = bs.GetActiviteitById((int)Id);
             if (activiteit == null) return RedirectToAction("Index");
             if (!bs.IsActivityAccessibleByUser((int)Id, User.Identity.Name)) return RedirectToAction("Index");
+            ViewBag.boekId = boekId;
             return View(activiteit);
 
         }
@@ -289,6 +290,7 @@ namespace Omgevingsboek.Controllers
             ViewBag.stap2 = Session["stap2"];
             ViewBag.url2 = Session["url2"];
 
+            
             return View(boek);
         }
 
