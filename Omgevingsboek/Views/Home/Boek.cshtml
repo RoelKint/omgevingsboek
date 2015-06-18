@@ -3,7 +3,9 @@
 @{
     ViewBag.Title = "Boeken";
 }
-
+<script>
+    id = @Model.Id;
+</script>
 @section Share{
     <div class="breadcrumb" style="width: auto; margin-top: 8px; margin-bottom: 8px; height: 36px; margin-left: 5px; float: left; display: inline-block; padding: 0px;">
         <a style="padding: 0px;" href="#" data-id="@(@Model.Id)" data-type="boek" data-container="body" data-toggle="popover" data-placement="bottom" class="shareItem">
@@ -12,10 +14,12 @@
     </div>
 }
 
-<div class="rowheader col-xs-6 col-md-9    "><h3>@Model.Naam   <a class="delItem" href="#"><span class="glyphicon glyphicon-trash"></span></a></h3></div>
+<div class="rowheader col-xs-6 col-md-9    "><h3>@Model.Naam   <a class="delItem" href="#"><span style="font-size:0.6em" class="glyphicon glyphicon-trash"></span></a></h3></div>
 
 <div class="col-xs-6 col-md-9 content" id="content">
-
+    <div class="alertt" style="display:none">
+        <p>Zeker dat je dit boek wilt verwijderen?</p>
+    </div>
     <ul class="nav nav-tabs" role="tablist">
         <li role="presentation" class="active"><a href="#activiteiten" aria-controls="activiteiten" role="tab" data-toggle="tab">Activiteiten</a></li>
         <li role="presentation"><a href="#routes" aria-controls="routes" role="tab" data-toggle="tab">Routes</a></li>
