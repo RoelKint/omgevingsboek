@@ -3,10 +3,11 @@
 @{
     ViewBag.Title = "Details";
 }
-<script>
-    Id = @Model.Id;
-    IdB = ViewBag.boekId;
-</script>
+
+<!-- Important Owl stylesheet -->
+<link rel="stylesheet" href="~/Scripts/owl.carousel/owl-carousel/owl.carousel.min.css">
+<link rel="stylesheet" href="~/Scripts/owl.carousel/owl-carousel/owl.theme.min.css">
+
 @section Share{
     <div class="breadcrumb" style="width: auto; margin-top: 8px; margin-bottom: 8px; height: 36px; margin-left: 5px; float: left; display: inline-block; padding: 0px;">
         <a style="padding: 0px;" href="#" data-id="@(@Model.Id)" data-type="activiteit" data-container="body" data-toggle="popover" data-placement="bottom" class="shareItem">
@@ -15,51 +16,141 @@
     </div>
 }
 
-<div class="alertt" style="display:none">
-    <p>Zeker dat je dit boek wilt verwijderen?</p>
+
+<div class="detailView">
+    <script>
+        id = @Model.Id;
+        pagina = "activiteit";
+        IdB = @ViewBag.boekId;
+    </script>
+    <div class="col-md-6">
+        <div class="alertt" style="display:none">
+            <p>Zeker dat je dit boek wilt verwijderen?</p>
+        </div>
+
+        @if (Model.AfbeeldingNaam != null)
+        {
+            <h3 class="title" style="background-image:url('@Model.AfbeeldingNaam');">
+                @Html.DisplayFor(model => model.Naam)
+                <a class="delItem" href="#"><span style="font-size:0.6em" class="glyphicon glyphicon-trash"></span></a>
+        </h3>
+        }
+        else
+        {
+            <h3 class="title noimg" style="background-image:url('@Model.AfbeeldingNaam');">@Html.DisplayFor(model => model.Naam)</h3>
+        }
+        <div class="mainUitleg">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseInfo">
+                            Info
+                            <span class="glyphicon glyphicon-chevron-up"></span>
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseInfo" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <p>Van <span class="age">@Html.DisplayFor(model => model.MinLeeftijd)</span> tot <span class="age">@Html.DisplayFor(model => model.MaxLeeftijd)</span> jaar.</p>
+                        <p>Van <span class="age">@Html.DisplayFor(model => model.MinDuur)</span> tot <span class="age">@Html.DisplayFor(model => model.MaxDuur)</span> uur.</p>
+                        <p>De kostprijs werd geschat op &euro;@Html.DisplayFor(model => model.Prijs).</p>
+                        <p><a href="/Home/poi?id=@Model.PoiId">POI</a></p>
+                        <p class="poiTags">
+                            @foreach (Models.OmgevingsBoek_Models.Tag tag in Model.Tags)
+                            {
+                                <span>@tag.Naam</span>
+                            }
+                        </p>
+                        <p class="poiTags benodigdheden">
+                            @foreach (Models.OmgevingsBoek_Models.Benodigdheid ben in Model.Benodigdheden)
+                            {
+                                <span>@ben.Naam</span>
+                            }
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                            Toelichting
+                            <span class="glyphicon glyphicon-chevron-up"></span>
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        @Model.DitactischeToelichting
+
+                        @foreach (Models.OmgevingsBoek_Models.Video video in Model.Videos)
+                        {
+                            <div class="item"><img src="@video.Naam"></div>
+                            <div class="item"><img src="@video.ID"></div>
+                        }
+
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                            Uitleg
+                            <span class="glyphicon glyphicon-chevron-up"></span>
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseTwo" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        @Model.Uitleg
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                            Routes
+                            <span class="glyphicon glyphicon-chevron-up"></span>
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseThree" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        @if (Model.Routes != null)
+                        {
+                            foreach (Models.OmgevingsBoek_Models.Route route in Model.Routes)
+                            {
+                                <div class="item"><a href="/home/Route?id=@route.Id">@route.Naam</a></div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div id="owl-demo" class="owl-carousel owl-theme">
+            @foreach (Models.OmgevingsBoek_Models.Video video in Model.Videos)
+            {
+                <div id="player" class="embed-responsive embed-responsive-4by3">
+                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/@video.Naam" frameborder="0" allowfullscreen></iframe>
+                </div>
+            }
+            @foreach (Models.OmgevingsBoek_Models.Foto afb in Model.Fotos)
+            {
+                <div class="item"><img src="@afb.FotoUrl"></div>
+            }
+        </div>
+    </div>
 </div>
-
-<h3 class="title" style="background-image:url('@Model.AfbeeldingNaam');">@Html.DisplayFor(model => model.Naam)</h3>
-<div>
-    <p>Van <span class="age">@Html.DisplayFor(model => model.MinLeeftijd)</span> tot <span class="age">@Html.DisplayFor(model => model.MaxLeeftijd)</span> jaar.</p>
-    <p>Van <span class="age">@Html.DisplayFor(model => model.MinDuur)</span> tot <span class="age">@Html.DisplayFor(model => model.MaxDuur)</span> uur.</p>
-    <p>De kostprijs werd geschat op &euro;@Html.DisplayFor(model => model.Prijs).</p>
-</div>
-
-<div class="mainUitleg">
-    <p class="title">
-        @Html.DisplayNameFor(model => model.DitactischeToelichting)
-    </p>
-
-    <p>
-        @Html.DisplayFor(model => model.DitactischeToelichting)
-    </p>
-
-    <p class="title">
-        @Html.DisplayNameFor(model => model.Uitleg)
-    </p>
-
-    <p>
-        @Html.DisplayFor(model => model.Uitleg)
-    </p>
-
-</div>
-
-<div id="owl-demo" class="owl-carousel owl-theme">
-    @foreach (Models.OmgevingsBoek_Models.Foto afb in Model.Fotos)
-    {
-        <div class="item"><img src="@afb.FotoUrl"></div>
-    }
-</div>
-
-
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
 
 <script src="~/Content/js/userDeleteScript.js"></script>
-<script src="~/Scripts/owl.carousel/owl-carousel/owl.carousel.min.js">
+<script src="~/Scripts/owl.carousel/owl-carousel/owl.carousel.min.js"></script>
+
+<script>
     $(document).ready(function () {
         $("#owl-demo").owlCarousel({
             navigation: true, // Show next and prev buttons

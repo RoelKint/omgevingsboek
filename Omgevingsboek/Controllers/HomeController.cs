@@ -57,12 +57,11 @@ namespace Omgevingsboek.Controllers
             return Json(JsonConvert.SerializeObject(a), JsonRequestBehavior.AllowGet);
 
         }
-        public ActionResult AddActivity(Activiteit activiteit, string TagsString, string BenodigdhedenString, HttpPostedFileBase AfbeeldingFile, string Prijs, int? BoekId, List<HttpPostedFileBase> images, List<string> bestaandefotos, string videos)
+        //public ActionResult AddActivity(FormCollection coll)
+
+        public ActionResult AddActivity(Activiteit activiteit, string video, string TagsString, string BenodigdhedenString, HttpPostedFileBase AfbeeldingFile, string Prijs, int? BoekId, List<HttpPostedFileBase> images, List<string> bestaandefotos)
         {
-
             //TODO: lijst van de geselecteerde afbeeldingen?
-
-
             ModelState.Remove("Prijs");
 
             if (!BoekId.HasValue) return RedirectToAction("Index");
@@ -80,13 +79,13 @@ namespace Omgevingsboek.Controllers
             }
 
 
-            String[] benodigdheden = TagsString.Split(',');
+            String[] benodigdheden = BenodigdhedenString.Split(',');
             List<Benodigdheid> benodigdhedenList = new List<Benodigdheid>();
 
             foreach (string b in benodigdheden)
             {
                 if (b == "") continue;
-                tagList.Add(bs.InsertTag(b));
+                benodigdhedenList.Add(bs.InsertBenodigdheid(b));
             }
 
             if (activiteit.Id == 0)
@@ -106,8 +105,15 @@ namespace Omgevingsboek.Controllers
                     Uitleg = activiteit.Uitleg,
                     Benodigdheden = benodigdhedenList,
                     Tags = tagList
+                    
                 };
-
+                if(video != null){
+                    NieuweActiviteit.Videos = new List<Video>();
+                    NieuweActiviteit.Videos.Add(new Video()
+                    {
+                        Naam = video
+                    });
+                }
                 NieuweActiviteit.Boeken = new List<Boek>();
                 NieuweActiviteit.Boeken.Add(bs.GetBoekByID((int)BoekId));
 

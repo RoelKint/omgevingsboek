@@ -15,7 +15,7 @@
     </div>
 }
 
-<div class="rowheader col-xs-6 col-md-9    "><h3>@Model.Naam   <a class="delItem" href="#"><span style="font-size:0.6em" class="glyphicon glyphicon-trash"></span></a></h3></div>
+<h3>@Model.Naam   <a class="delItem" href="#"><span style="font-size:0.6em" class="glyphicon glyphicon-trash"></span></a></h3>
 
 <div class="col-xs-6 col-md-9 content" id="content">
     <div class="alertt" style="display:none">
@@ -43,7 +43,7 @@
                             <a style="padding: 0px;" type="button" href="#" data-id="@(@activiteit.Id)" data-type="activiteit" data-container="body" data-toggle="popover" data-placement="bottom" class="shareItem expand btn btn-default">
                                 <span class="glyphicon glyphicon-share"></span>
                             </a>
-                            <a href="/home/Activiteit?id=@activiteit.Id&action=public" class="expand btn btn-default" type="button"><span class="glyphicon glyphicon-eye-close"></span></a>
+                            <!--<a href="/home/Activiteit?id=@activiteit.Id&action=public" class="expand btn btn-default" type="button"><span class="glyphicon glyphicon-eye-close"></span></a>-->
                             <a href="#" value="@activiteit.Id" class="toggleActivityEdit expand btn btn-default" type="button"><span value="@activiteit.Id" class="glyphicon glyphicon-cog"></span></a>
                         </span>
                     </div>
@@ -262,7 +262,7 @@
                                             <progress id="upload-progress" max="1" value="0"></progress>
                                         </div>
                                         <div class="post-upload">
-                                            <input class="form-control" disabled name="video" id="video-id" />
+                                            <input class="form-control" readonly name="video" id="video-id" />
                                             <p>De video is geupload. (<a id="video-url" href="#"></a>)</p>
                                         </div>
                                     </div>
@@ -281,6 +281,12 @@
                                 <div class="fileUpload btn btn-default form-control">
                                     <span>Upload Foto</span>
                                     <input type="file" multiple class="upload" name="images" id="images" accept="image/x-png, image/jpeg">
+                                </div>
+                                <div >
+                                    <span>fotolijst</span>
+                                    <div class="row books" id="fotoLijst">
+
+                                    </div>
                                 </div>
                             </div>
                         </div>
