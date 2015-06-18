@@ -33,7 +33,7 @@
         {
             <h3 class="title" style="background-image:url('@Model.AfbeeldingNaam');">
                 @Html.DisplayFor(model => model.Naam)
-                <a class="delItem" href="#"><span style="font-size:0.6em" class="glyphicon glyphicon-trash"></span></a>
+                @if(Model.Eigenaar != null && Model.Eigenaar.UserName == User.Identity.Name){<a class="delItem" href="#"><span style="font-size:0.6em" class="glyphicon glyphicon-trash"></span></a>}
         </h3>
         }
         else

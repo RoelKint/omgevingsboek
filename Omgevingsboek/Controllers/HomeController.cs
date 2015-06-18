@@ -530,12 +530,13 @@ namespace Omgevingsboek.Controllers
 
 
         [Authorize]
-        public ActionResult Route(int? id)
+        public ActionResult Route(int? id, int? boekId)
         {
             if (!id.HasValue) return RedirectToAction("Index");
             Route res = bs.getRouteById((int)id);
             if (res == null) return RedirectToAction("Index");
             //if (!res.DeelLijst.Any(u => u.UserName == User.Identity.Name)) return RedirectToAction("Index");
+            ViewBag.boekId = boekId;
 
             return View(res);
         }

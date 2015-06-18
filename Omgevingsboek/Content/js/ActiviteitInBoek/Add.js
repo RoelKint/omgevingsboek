@@ -24,6 +24,7 @@
         $('#activityForm form')[0].reset();
         $($("input[name=TagsString]")[0]).removeTag();
         $($("input[name=BenodigdhedenString]")[0]).removeTag();
+        $("#fotoLijst")[0].innerHTML = "";
         initSliders();
         $("#activityForm").slideToggle(400, function () {
         });
@@ -35,6 +36,7 @@
         $('#activityForm form')[0].reset();
         $($("input[name=TagsString]")[0]).removeTag();
         $($("input[name=BenodigdhedenString]")[0]).removeTag();
+        $("#fotoLijst")[0].innerHTML = "";
         fillActivtyFields($(e.target).attr('value'))
         $("#activityForm").slideToggle(400, function () {
         });
@@ -73,6 +75,27 @@
         console.log("ho");
         getvalues(e);
     }
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            for (var i = 0; i < input.files.length; i++) {
+                var file;
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    var string = '<div  class="col-sm-6 col-md-4 element"><a style="height:200px"><span class="glyphicon glyphicon-remove-circle removeclick" id="1042" style="display:none; position:absolute; float:right; right: 0px;"></span><img class="img-responsive" src="' + e.target.result + '"/></a></div>';
+                    $("#fotoLijst")[0].innerHTML = $("#fotoLijst")[0].innerHTML + string;
+                };
+                reader.readAsDataURL(input.files[i]);
+            }
+        }
+    }
+
+
+    $("#images").change(function () {
+        readURL(this);
+    });
+
+
     function getvalues(Id) {
         var jsonString = "../../Home/" + 'GetActiviteit' + "?Id=" + Id;
 
@@ -92,9 +115,8 @@
                 $('[name=Uitleg]').val(els['Uitleg']);
             }
             var tags = $('[name=TagsString]');
-            listLoa
-            $('[name=PoiShow]').val();
-            $('#Poi').val(els['poiId']);
+            $('[name=PoiShow]').val(els['Poi']["Naam"]);
+            $('#poi').val(els['Poi']["ID"]);
             $(els['Tags']).each(function (i) {
                 console.log(i);
                 tags.addTag(els['Tags'][i]['Naam']);
@@ -104,6 +126,12 @@
             $(els['Benodigdheden']).each(function (i) {
                 benodigdheden.addTag(els['Benodigdheden'][i]['Naam']);
             });
+
+            console.log(els["Fotos"]);
+            $('bestaandefotos').val(els["Fotos"]);
+            console.log($("#id"));
+            $("#id").val(els['Id']);
+            console.log("Act id: " + els['Id']);
 
             moveSliders($("#slider-boek-age"), els['MinLeeftijd'], els['MaxLeeftijd']);
             setSliderInputValues(

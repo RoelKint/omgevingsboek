@@ -15,7 +15,7 @@
     </div>
 }
 
-<h3>@Model.Naam   <a class="delItem" href="#"><span style="font-size:0.6em" class="glyphicon glyphicon-trash"></span></a></h3>
+<h3>@Model.Naam   @if(Model.Eigenaar != null && Model.Eigenaar.UserName == User.Identity.Name){<a class="delItem" href="#"><span style="font-size:0.6em" class="glyphicon glyphicon-trash"></span></a>}</h3>
 
 <div class="col-xs-6 col-md-9 content" id="content">
     <div class="alertt" style="display:none">
@@ -107,6 +107,8 @@
 ">
     @using (Html.BeginForm("AddActivity", "Home", FormMethod.Post, new { enctype = "multipart/form-data", data_toggle = "validator" }))
     {
+        <input type="text" id="id" name="id" hidden >
+    <input type="text" id="bestaandefotos" name="bestaandefotos" hidden>
         <h3 class="rowheader">Activiteit toevoegen aan @Model.Naam</h3>
         <div class="row">
             <div class="col-md-4">
@@ -283,7 +285,6 @@
                                     <input type="file" multiple class="upload" name="images" id="images" accept="image/x-png, image/jpeg">
                                 </div>
                                 <div >
-                                    <span>fotolijst</span>
                                     <div class="row books" id="fotoLijst">
 
                                     </div>
