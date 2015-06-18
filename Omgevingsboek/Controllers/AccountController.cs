@@ -271,11 +271,11 @@ namespace Omgevingsboek.Controllers
 
         public void ResetWachtwoordVersturen(string MailTo, string link)
         {
-            SmtpClient smtpClient = new SmtpClient("smtp.sendgrid.net", 587);
+            SmtpClient smtpClient = new SmtpClient(ConfigurationManager.AppSettings.Get("SMTPServer"), int.Parse(ConfigurationManager.AppSettings.Get("SMTPPoort")));
 
-            System.Net.NetworkCredential creds = new System.Net.NetworkCredential("azure_9bab81a4769eae1b17dfaf2e69d71fd7@azure.com", "h8C2xnCHIEuESrt");
+            System.Net.NetworkCredential creds = new System.Net.NetworkCredential(ConfigurationManager.AppSettings.Get("SMTPUserName"), ConfigurationManager.AppSettings.Get("SMTPPasswoord"));
 
-            smtpClient.Credentials = new System.Net.NetworkCredential("azure_9bab81a4769eae1b17dfaf2e69d71fd7@azure.com", "h8C2xnCHIEuESrt");
+            smtpClient.Credentials = new System.Net.NetworkCredential(ConfigurationManager.AppSettings.Get("SMTPUserName"), ConfigurationManager.AppSettings.Get("SMTPPasswoord"));
             smtpClient.UseDefaultCredentials = true;
             smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
             smtpClient.EnableSsl = true;
@@ -289,7 +289,7 @@ namespace Omgevingsboek.Controllers
             mail.Body = "Beste,</br>" +
             "Om uw wachtwoord te herstellen volg dan de volgende link: </br>" +
             link+
-            "Met vriendelijke groeten, </br> Het Howest Omgevingsboek team.";
+            "<br/>Met vriendelijke groeten, </br> Het Howest Omgevingsboek team.";
 
             smtpClient.Credentials = creds;
             smtpClient.Send(mail);

@@ -109,7 +109,7 @@ namespace Omgevingsboek.Controllers
             mail.To.Add(new MailAddress(MailTo));
             mail.Subject = "Antwoord op uw vraag: "+titel;
             mail.Body =  body+
-            "Met vriendelijke groeten, "+ MailFrom +".";
+            "<br/>Met vriendelijke groeten, "+ MailFrom +".";
 
 
             smtpClient.Credentials = creds;
