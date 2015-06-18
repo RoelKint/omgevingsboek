@@ -43,17 +43,17 @@ namespace Models.Migrations
 
 
             // TODO: Updaten naar echte data
-            
-            if (!context.Users.Any(u => u.Email.Equals("testSuperAdmin@howest.be")))
+
+            if (!context.Users.Any(u => u.Email.Equals("SuperAdmin@Omgevingsboek.howest.be")))
             {
                 var store = new UserStore<Models.MVC_Models.ApplicationUser>(context);
                 var manager = new UserManager<Models.MVC_Models.ApplicationUser>(store);
                 var user = new Models.MVC_Models.ApplicationUser()
                 {
-                    Naam = "test",
-                    Voornaam = "test",
-                    Email = "test@howest.be",
-                    UserName = "testSuperAdmin@howest.be",
+                    Naam = "Admin",
+                    Voornaam = "Super",
+                    Email = "SuperAdmin@Omgevingsboek.howest.be",
+                    UserName = "SuperAdmin@Omgevingsboek.howest.be",
                     Deleted = false
 
                 };
@@ -61,23 +61,23 @@ namespace Models.Migrations
                 manager.AddToRole(user.Id, roleSuperAdmin);
             }
 
-            if (!context.Users.Any(u => u.Email.Equals("testAdmin@howest.be")))
+            if (!context.Users.Any(u => u.Email.Equals("Admin@omgevingsboek.howest.be")))
             {
                 var store = new UserStore<Models.MVC_Models.ApplicationUser>(context);
                 var manager = new UserManager<Models.MVC_Models.ApplicationUser>(store);
                 var user = new Models.MVC_Models.ApplicationUser()
                 {
-                    Naam = "test",
-                    Voornaam = "test",
-                    Email = "test@howest.be",
-                    UserName = "testAdmin@howest.be",
+                    Naam = "Admin",
+                    Voornaam = "gewone",
+                    Email = "Admin@omgevingsboek.howest.be",
+                    UserName = "Admin@omgevingsboek.howest.be",
                     Deleted = false
 
                 };
                 manager.Create(user, "paswoord");
                 manager.AddToRole(user.Id, roleAdmin);
             }
-
+            /*
             if (!context.Users.Any(u => u.Email.Equals("testUser@howest.be")))
             {
                 var store = new UserStore<Models.MVC_Models.ApplicationUser>(context);
@@ -94,7 +94,7 @@ namespace Models.Migrations
                 manager.Create(user, "paswoord");
                 manager.AddToRole(user.Id, roleNormalUser);
             }
-            
+            */
             #endregion
 
             #region DATA
