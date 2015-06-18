@@ -1,4 +1,5 @@
-﻿using Models;
+﻿using BusinessLogic.Services;
+using Models.OmgevingsBoek_Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,13 @@ namespace Omgevingsboek.Controllers
 {
     public class HelpDeskController : Controller
     {
+        IBoekService bs = null;
+
+        public HelpDeskController(IBoekService bs)
+        {
+            this.bs = bs;
+        }
+
         // GET: HelpDesk
         public ActionResult Index()
         {
@@ -18,6 +26,15 @@ namespace Omgevingsboek.Controllers
         [Authorize]
         public ActionResult PostVraag (Vraag vraag)
         {
+            Vraag resVraag = new Vraag()
+            {
+                Omschrhijving = vraag.Omschrhijving,
+                Titel = vraag.Titel,
+                Datum = DateTime.Now,
+                //EigenaarId = bs.GetUser(User.Identity.Name).Id
+            };
+
+
             return View();
         }
         [Authorize(Roles = "Administrator,SuperAdministrator")]        

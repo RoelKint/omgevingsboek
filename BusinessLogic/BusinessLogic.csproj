@@ -91,6 +91,7 @@
     <Compile Include="Repositories\IRouteRepository.cs" />
     <Compile Include="Repositories\ITagRepository.cs" />
     <Compile Include="Repositories\IUitnodigingRepository.cs" />
+    <Compile Include="Repositories\IVraagRepository.cs" />
     <Compile Include="Repositories\PoiRepository.cs" />
     <Compile Include="Repositories\RouteRepository.cs" />
     <Compile Include="Repositories\TagRepository.cs" />

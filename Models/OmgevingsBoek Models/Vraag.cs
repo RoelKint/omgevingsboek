@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Models
+namespace Models.OmgevingsBoek_Models
 {
     public class Vraag
     {
@@ -13,7 +13,7 @@ namespace Models
         public string Titel { get; set; }
         public string Omschrhijving { get; set; }
         public virtual ApplicationUser Eigenaar { get; set; }
-        public int EigenaarId { get; set; }
+        public string EigenaarId { get; set; }
         public bool IsGelezen { get; set; }
         public bool IsDeleted { get; set; }
         public DateTime Datum { get; set; }
