@@ -248,6 +248,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\css\font-awesome.css" />
     <Content Include="Content\css\font-awesome.min.css" />
+    <Content Include="Content\css\toastr.css" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\img\profileDefault.png" />
     <Content Include="Content\img\background.png" />
@@ -269,6 +270,7 @@
     <Content Include="Content\js\poipartialscript.js" />
     <Content Include="Content\js\shareItem.js" />
     <Content Include="Content\js\StreetViewSequence.js" />
+    <Content Include="Content\js\toastr.js" />
     <Content Include="Content\js\userDeleteScript.js" />
     <Content Include="Content\js\validationFixes.js" />
     <Content Include="Content\js\ZoekScript.js" />
