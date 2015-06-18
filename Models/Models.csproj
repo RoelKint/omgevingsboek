@@ -196,6 +196,7 @@
     <Compile Include="PresentationModels\GebruikersPM.cs" />
     <Compile Include="PresentationModels\HomeIndexPM.cs" />
     <Compile Include="PresentationModels\PoiPM.cs" />
+    <Compile Include="PresentationModels\RoutePM.cs" />
     <Compile Include="PresentationModels\ShareListPM.cs" />
     <Compile Include="PresentationModels\SimpleTag.cs" />
     <Compile Include="PresentationModels\UitnodigingFeedbackPM.cs" />

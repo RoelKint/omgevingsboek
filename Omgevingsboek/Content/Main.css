@@ -4,6 +4,29 @@
 .nav .breadcrumb {
   margin: 0 7px;
 }
+img.presenter {
+  float: left;
+  width: 8%;
+}
+h2.title {
+  padding: 2em;
+  color: #FFF;
+  margin-left: 0em;
+  border-top-right-radius: 0.2em;
+  border-bottom-right-radius: 0.2em;
+  background-size: cover;
+  float: left;
+}
+h2.title + div {
+  float: left;
+  font-size: 1.5em;
+  font-weight: bold;
+  padding-left: 1em;
+  margin-top: 1.8em;
+}
+div.mainUitleg {
+  clear: both;
+}
 div#profile-show {
   background-size: cover;
   height: 8em;

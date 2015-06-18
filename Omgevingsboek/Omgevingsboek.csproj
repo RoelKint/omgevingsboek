@@ -460,6 +460,7 @@
       <DependentUpon>respond.min.js</DependentUpon>
     </Content>
     <Content Include="Views\HelpDesk\Index.cshtml" />
+    <Content Include="Views\Home\Route.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

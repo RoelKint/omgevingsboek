@@ -522,6 +522,14 @@ namespace Omgevingsboek.Controllers
 
         #region routes
 
+        [Authorize]
+        public ActionResult Route(int? id)
+        {
+            return View();
+        }
+
+
+
 
         [Authorize]
         public ActionResult GetRouteById(int? id)

@@ -138,7 +138,7 @@ function filter(query) {
             distance: distance,
             city: home.poi.Gemeente,
             id: home.poi.ID,
-            activities: home.Activiteiten.map(function(act){ return "<p class='activity'>" + "<a href='/Home/Activiteit/" + act.Id + "'>" + act.Naam + "</a></p>"}).join(""),
+            activities: home.Activiteiten.map(function(act){ return "<p class='activity'>" + "<a href='/Activiteiten/Details/" + act.Id + "'>" + act.Naam + "</a></p>"}).join(""),
             numActivities: home.Activiteiten.length,
         };
         var html = poiTemplate(context);
