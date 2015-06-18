@@ -432,7 +432,7 @@ namespace BusinessLogic.Services
         {
             using (ApplicationDbContext context = new ApplicationDbContext())
             {
-                return context.Users.Select(i => i).Where(i => i.UserName == Username).Include(i => i.Roles).Single();
+                return context.Users.Select(i => i).Where(i => i.UserName == Username).Include(i => i.Roles).SingleOrDefault();
             }
         }
         public ApplicationUser GetUserById(String UserId)

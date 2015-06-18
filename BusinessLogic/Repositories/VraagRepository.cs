@@ -52,7 +52,7 @@ namespace BusinessLogic.Repositories
         }
         public override Vraag GetByID(object id)
         {
-            return base.GetByID(id);
+            return context.Vragen.Where(v => v.Id == (int)id).Include(v => v.Eigenaar).FirstOrDefault();
         }
         public void Gelezen(int VraagId)
         {
@@ -61,6 +61,7 @@ namespace BusinessLogic.Repositories
             Update(vraag);
             context.SaveChanges();
         }
+        
 
     }
 }

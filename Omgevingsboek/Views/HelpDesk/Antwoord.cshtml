@@ -1,0 +1,38 @@
+﻿@model Models.OmgevingsBoek_Models.Vraag
+
+
+@{
+    ViewBag.Title = "Verstuur antwoord";
+}
+<div class="col-xs-12 content" id="content">
+    <h2>Antwoord</h2>
+
+    @using (Html.BeginForm("VerstuurAntwoord", "HelpDesk",FormMethod.Get))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+           
+            @Html.Hidden("Id",Model.Id)
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group col-md-10">
+                <p>Antwoord voor: <b>@Model.Eigenaar.UserName </b>omtrend het onderwerp:<b> @Model.Titel</b></p>
+            </div>
+
+            <div class="form-group col-md-10">
+                @Html.Label("Antwoord")
+                <div class="col-md-10">
+                    @Html.TextArea("text","", 15, 1, new { @class = "form-control" })
+                </div>
+            </div>
+
+
+            <div class="form-group col-md-10">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Verstuur" class="btn btn-success form-control submit" />
+                </div>
+            </div>
+        </div>
+    }
+</div>
