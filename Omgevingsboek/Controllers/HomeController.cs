@@ -107,8 +107,15 @@ namespace Omgevingsboek.Controllers
                     Uitleg = activiteit.Uitleg,
                     Benodigdheden = benodigdhedenList,
                     Tags = tagList
+                    
                 };
-
+                if(video != null){
+                    NieuweActiviteit.Videos = new List<Video>();
+                    NieuweActiviteit.Videos.Add(new Video()
+                    {
+                        Naam = video
+                    });
+                }
                 NieuweActiviteit.Boeken = new List<Boek>();
                 NieuweActiviteit.Boeken.Add(bs.GetBoekByID((int)BoekId));
 
