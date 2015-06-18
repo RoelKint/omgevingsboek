@@ -21,7 +21,7 @@
     </div>
 }
 
-<div class="col-md-3">
+<div class="col-md-6">
     <div class="alertt" style="display:none">
         <p>Zeker dat je dit boek wilt verwijderen?</p>
     </div>
@@ -34,33 +34,64 @@
     {
         <h3 class="title noimg" style="background-image:url('@Model.AfbeeldingNaam');">@Html.DisplayFor(model => model.Naam)</h3>
     }
-
-    <div>
-        <p>Van <span class="age">@Html.DisplayFor(model => model.MinLeeftijd)</span> tot <span class="age">@Html.DisplayFor(model => model.MaxLeeftijd)</span> jaar.</p>
-        <p>Van <span class="age">@Html.DisplayFor(model => model.MinDuur)</span> tot <span class="age">@Html.DisplayFor(model => model.MaxDuur)</span> uur.</p>
-        <p>De kostprijs werd geschat op &euro;@Html.DisplayFor(model => model.Prijs).</p>
-    </div>
-
     <div class="mainUitleg">
-        <p class="title">
-            @Html.DisplayNameFor(model => model.DitactischeToelichting)
-        </p>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseInfo">
+                        Info
+                        <span class="glyphicon glyphicon-chevron-up"></span>
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseInfo" class="panel-collapse collapse">
+                <div class="panel-body">
+                    <p>Van <span class="age">@Html.DisplayFor(model => model.MinLeeftijd)</span> tot <span class="age">@Html.DisplayFor(model => model.MaxLeeftijd)</span> jaar.</p>
+                    <p>Van <span class="age">@Html.DisplayFor(model => model.MinDuur)</span> tot <span class="age">@Html.DisplayFor(model => model.MaxDuur)</span> uur.</p>
+                    <p>De kostprijs werd geschat op &euro;@Html.DisplayFor(model => model.Prijs).</p>                </div>
+            </div>
+        </div>
 
-        <p>
-            @Html.DisplayFor(model => model.DitactischeToelichting)
-        </p>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                        Toelichting
+                        <span class="glyphicon glyphicon-chevron-up"></span>
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse">
+                <div class="panel-body">
+                    @Model.DitactischeToelichting
 
-        <p class="title">
-            @Html.DisplayNameFor(model => model.Uitleg)
-        </p>
+                    @foreach (Models.OmgevingsBoek_Models.Video video in Model.Videos)
+                    {
+                        <div class="item"><img src="@video.Naam"></div>
+                        <div class="item"><img src="@video.ID"></div>
+                    }
 
-        <p>
-            @Html.DisplayFor(model => model.Uitleg)
-        </p>
-
+                </div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                        Uitleg
+                        <span class="glyphicon glyphicon-chevron-up"></span>
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseTwo" class="panel-collapse collapse">
+                <div class="panel-body">
+                    @Model.Uitleg
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-<div class="col-md-9">
+<div class="col-md-6">
     <div id="owl-demo" class="owl-carousel owl-theme">
         @foreach (Models.OmgevingsBoek_Models.Foto afb in Model.Fotos)
         {

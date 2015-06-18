@@ -547,6 +547,9 @@
     <Content Include="Scripts\owl.carousel\demos\json\data.json" />
     <Content Include="Scripts\owl.carousel\LICENSE" />
     <Content Include="Scripts\owl.carousel\README.md" />
+    <Content Include="Scripts\owl.carousel\owl-carousel\owl.carousel.min.js.map">
+      <DependentUpon>owl.carousel.min.js</DependentUpon>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
