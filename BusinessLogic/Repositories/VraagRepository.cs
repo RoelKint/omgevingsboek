@@ -26,6 +26,10 @@ namespace BusinessLogic.Repositories
         {
             return context.Vragen.Where(v => !v.IsDeleted).ToList();
         }
+        public List<Vraag> GetVragenByUser(string username)
+        {
+            return context.Vragen.Where(v => !v.IsDeleted).Where(v => v.EigenaarId == context.Users.Where(u => u.UserName == username).FirstOrDefault().Id).ToList();
+        }
         public override Vraag Insert(Vraag entity)
         {
             Vraag v = base.Insert(entity);

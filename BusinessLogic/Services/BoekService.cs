@@ -642,6 +642,10 @@ namespace BusinessLogic.Services
         {
             repoVraag.Gelezen(VraagId);
         }
+        public List<Vraag> GetVragenByUser(string username)
+        {
+            return repoVraag.GetVragenByUser(username);
+        }
 
         #endregion
 

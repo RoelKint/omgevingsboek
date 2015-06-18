@@ -84,15 +84,16 @@ namespace BusinessLogic.Services
         System.Collections.Generic.List<Models.MVC_Models.ApplicationUser> GetUsers();
         Models.OmgevingsBoek_Models.Vraag GetVraagByID(object id);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Vraag> GetVragen();
+        System.Collections.Generic.List<Models.OmgevingsBoek_Models.Vraag> GetVragenByUser(string username);
         bool HeeftEmailAlEenUitnodiging(string Email);
         Models.OmgevingsBoek_Models.BoekOrder Insert(Models.OmgevingsBoek_Models.BoekOrder entity);
-        Models.OmgevingsBoek_Models.Vraag InsertVraag(Models.OmgevingsBoek_Models.Vraag entity);
         Models.OmgevingsBoek_Models.Activiteit InsertActiviteit(Models.OmgevingsBoek_Models.Activiteit activiteit);
         Models.OmgevingsBoek_Models.Benodigdheid InsertBenodigdheid(string benodigdheid);
         Models.OmgevingsBoek_Models.Boek InsertBoek(Models.OmgevingsBoek_Models.Boek boek);
         Models.OmgevingsBoek_Models.Poi InsertPoi(Models.OmgevingsBoek_Models.Poi poi);
         Models.OmgevingsBoek_Models.Route InsertRoute(Models.OmgevingsBoek_Models.Route entity);
         Models.OmgevingsBoek_Models.Tag InsertTag(string tag);
+        Models.OmgevingsBoek_Models.Vraag InsertVraag(Models.OmgevingsBoek_Models.Vraag entity);
         bool IsActivityAccessibleByUser(int activiteitId, string Username);
         bool IsBoekAccessibleByUser(int BoekId, string Username);
         bool IsValidKey(string Key);

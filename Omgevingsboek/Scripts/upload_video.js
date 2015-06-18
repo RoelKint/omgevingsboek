@@ -165,8 +165,15 @@ UploadVideo.prototype.uploadFile = function (file) {
 };
 
 UploadVideo.prototype.handleUploadClicked = function () {
-    $('#button').attr('disabled', true);
-    this.uploadFile($('#file').get(0).files[0]);
+    if (
+        $("textarea#description").val().trim() != "" &&
+        $("input#title").val().trim() != "" &&
+        $("input#file").val().trim() != ""
+    ){
+        $('#button').attr('disabled', true);
+        $(".after-submit").show();
+        this.uploadFile($('#file').get(0).files[0]);
+    }
 };
 
 UploadVideo.prototype.pollForVideoStatus = function () {
@@ -191,6 +198,7 @@ UploadVideo.prototype.pollForVideoStatus = function () {
                         break;
                         // The video was successfully transcoded and is available.
                     case 'processed':
+                        $('#playerEmbed').show();
                         $('#player').append(response.items[0].player.embedHtml);
                         $('#post-upload-status').append('<li>Final status.</li>');
                         break;

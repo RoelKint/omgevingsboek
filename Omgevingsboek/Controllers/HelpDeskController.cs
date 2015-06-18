@@ -18,8 +18,11 @@ namespace Omgevingsboek.Controllers
         }
 
         // GET: HelpDesk
+        [Authorize]
+
         public ActionResult Index()
         {
+            ViewBag.vragen = bs.GetVragenByUser(User.Identity.Name);
             return View();
         }
         [HttpPost]
@@ -32,11 +35,11 @@ namespace Omgevingsboek.Controllers
                 Titel = vraag.Titel,
                 Datum = DateTime.Now,
                 EigenaarId = bs.GetUser(User.Identity.Name).Id
-                
             };
-            bs.InsertVraag(resVraag);
+            Vraag antw = bs.InsertVraag(resVraag);
 
-            return View();
+            if (antw.Id > 0) return View("Success");
+            return RedirectToAction("index");
         }
         [Authorize(Roles = "Administrator,SuperAdministrator")]        
         public ActionResult IndexAdmin()

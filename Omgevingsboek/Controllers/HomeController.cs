@@ -57,7 +57,7 @@ namespace Omgevingsboek.Controllers
             return Json(JsonConvert.SerializeObject(a), JsonRequestBehavior.AllowGet);
 
         }
-        public ActionResult AddActivity(Activiteit activiteit, string TagsString, string BenodigdhedenString, HttpPostedFileBase AfbeeldingFile, string Prijs, int? BoekId, List<HttpPostedFileBase> images, List<string> bestaandefotos, string videos)
+        public ActionResult AddActivity(Activiteit activiteit, string TagsString, string BenodigdhedenString, HttpPostedFileBase AfbeeldingFile, string Prijs, int? BoekId, List<HttpPostedFileBase> images, List<string> bestaandefotos, string video)
         {
 
             //TODO: lijst van de geselecteerde afbeeldingen?
@@ -80,13 +80,13 @@ namespace Omgevingsboek.Controllers
             }
 
 
-            String[] benodigdheden = TagsString.Split(',');
+            String[] benodigdheden = BenodigdhedenString.Split(',');
             List<Benodigdheid> benodigdhedenList = new List<Benodigdheid>();
 
             foreach (string b in benodigdheden)
             {
                 if (b == "") continue;
-                tagList.Add(bs.InsertTag(b));
+                benodigdhedenList.Add(bs.InsertBenodigdheid(b));
             }
 
             if (activiteit.Id == 0)
@@ -522,25 +522,16 @@ namespace Omgevingsboek.Controllers
 
         #region routes
 
+
         [Authorize]
         public ActionResult Route(int? id)
-        {
-            return View();
-        }
-
-
-
-
-        [Authorize]
-        public ActionResult GetRouteById(int? id)
         {
             if (!id.HasValue) return RedirectToAction("Index");
             Route res = bs.getRouteById((int)id);
             if (res == null) return RedirectToAction("Index");
-            if (!res.DeelLijst.Any(u => u.UserName == User.Identity.Name)) return RedirectToAction("Index");
+            //if (!res.DeelLijst.Any(u => u.UserName == User.Identity.Name)) return RedirectToAction("Index");
 
             return View(res);
-
         }
         [Authorize]
         [HttpPost]
