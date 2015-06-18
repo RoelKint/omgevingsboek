@@ -115,8 +115,8 @@
                 $('[name=Uitleg]').val(els['Uitleg']);
             }
             var tags = $('[name=TagsString]');
-            $('[name=PoiShow]').val(els['Poi']);
-            $('#Poi').val(els['poiId']);
+            $('[name=PoiShow]').val(els['Poi']["Naam"]);
+            $('#poi').val(els['Poi']["ID"]);
             $(els['Tags']).each(function (i) {
                 console.log(i);
                 tags.addTag(els['Tags'][i]['Naam']);
@@ -126,6 +126,12 @@
             $(els['Benodigdheden']).each(function (i) {
                 benodigdheden.addTag(els['Benodigdheden'][i]['Naam']);
             });
+
+            console.log(els["Fotos"]);
+            $('bestaandefotos').val(els["Fotos"]);
+            console.log($("#id"));
+            $("#id").val(els['Id']);
+            console.log("Act id: " + els['Id']);
 
             moveSliders($("#slider-boek-age"), els['MinLeeftijd'], els['MaxLeeftijd']);
             setSliderInputValues(
