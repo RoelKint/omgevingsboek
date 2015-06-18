@@ -86,7 +86,7 @@ UploadVideo.prototype.ready = function (accessToken) {
             }
         }.bind(this)
     });
-    $('#button').on("click", this.handleUploadClicked.bind(this));
+    $('#uploadvideo').on("click", this.handleUploadClicked.bind(this));
 };
 
 /**

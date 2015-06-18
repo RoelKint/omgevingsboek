@@ -17,7 +17,7 @@
 
 <div class="alertt" style="display:none">
     <p>Zeker dat je dit boek wilt verwijderen?</p>
-</div> 
+</div>
 
 <h3 class="title" style="background-image:url('@Model.AfbeeldingNaam');">@Html.DisplayFor(model => model.Naam)</h3>
 <div>
@@ -27,31 +27,45 @@
 </div>
 
 <div class="mainUitleg">
-        <dt>
-            @Html.DisplayNameFor(model => model.DitactischeToelichting)
-        </dt>
+    <p class="title">
+        @Html.DisplayNameFor(model => model.DitactischeToelichting)
+    </p>
 
-        <dd>
-            @Html.DisplayFor(model => model.DitactischeToelichting)
-        </dd>
+    <p>
+        @Html.DisplayFor(model => model.DitactischeToelichting)
+    </p>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Uitleg)
-        </dt>
+    <p class="title">
+        @Html.DisplayNameFor(model => model.Uitleg)
+    </p>
 
-        <dd>
-            @Html.DisplayFor(model => model.Uitleg)
-        </dd>
+    <p>
+        @Html.DisplayFor(model => model.Uitleg)
+    </p>
 
-    </dl>
+</div>
+
+<div id="owl-demo" class="owl-carousel owl-theme">
     @foreach (Models.OmgevingsBoek_Models.Foto afb in Model.Fotos)
     {
-        <img src="@afb.FotoUrl" />
+        <div class="item"><img src="@afb.FotoUrl"></div>
     }
 </div>
+
+
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
 
-<script src="~/Content/js/userDeleteScript.js"></script> 
+<script src="~/Content/js/userDeleteScript.js"></script>
+<script src="~/Scripts/owl.carousel/owl-carousel/owl.carousel.min.js">
+    $(document).ready(function () {
+        $("#owl-demo").owlCarousel({
+            navigation: true, // Show next and prev buttons
+            slideSpeed: 300,
+            paginationSpeed: 400,
+            singleItem: true
+        });
+    });
+</script>
