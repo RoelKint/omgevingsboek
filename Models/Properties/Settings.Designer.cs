@@ -42,5 +42,14 @@ namespace Models.Properties {
                 return ((string)(this["Setting1"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        public string Setting2 {
+            get {
+                return ((string)(this["Setting2"]));
+            }
+        }
     }
 }

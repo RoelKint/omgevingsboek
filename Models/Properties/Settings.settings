@@ -18,5 +18,9 @@
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
       <Value Profile="(Default)">Data Source=DYLAN-PC;Initial Catalog=omgevingsboek;Integrated Security=True</Value>
     </Setting>
+    <Setting Name="Setting2" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)" />
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

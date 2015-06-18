@@ -62,6 +62,8 @@ namespace Omgevingsboek.Controllers
             if (search == null) search = "";
             List<Activiteit> res = new List<Activiteit>();
             bool DisplayDeleted = false;
+
+            //if (bs.GetUser(User.Identity.Name).Roles.Any(r => r.RoleId == "32a0d6e2-3270-485e-88b9-0b0a6e59ff09")) DisplayDeleted = true;
             if (bs.GetUser(User.Identity.Name).Roles.Any(r => r.RoleId == "95311bc7-8180-4c53-9e33-61fd254c21fc")) DisplayDeleted = true;
 
 
@@ -182,6 +184,7 @@ namespace Omgevingsboek.Controllers
             //desc == 1 -> descending
             //desc == 0 -> ascending
             bool DisplayDeleted = false;
+            
             if (bs.GetUser(User.Identity.Name).Roles.Any(r => r.RoleId == "95311bc7-8180-4c53-9e33-61fd254c21fc")) DisplayDeleted = true;
 
             List<UserActivities> ua = new List<UserActivities>();
