@@ -289,17 +289,17 @@ namespace BusinessLogic.Repositories
             origineleActiviteit.Uitleg = activiteit.Uitleg;
             origineleActiviteit.Benodigdheden =new List<Benodigdheid>();
             foreach(Benodigdheid b in activiteit.Benodigdheden){
-                origineleActiviteit.Benodigdheden.Add(context.Benodigdheden.Find(b));
+                origineleActiviteit.Benodigdheden.Add(context.Benodigdheden.Where(c => c.Naam == b.Naam).FirstOrDefault());
             }
             origineleActiviteit.Fotos = new List<Foto>();
             foreach (Foto f in activiteit.Fotos)
             {
-                origineleActiviteit.Fotos.Add(context.Fotos.Find(f));
+                origineleActiviteit.Fotos.Add(context.Fotos.Where(x => x.FotoUrl == f.FotoUrl).FirstOrDefault());
             }
             origineleActiviteit.Tags = new List<Tag>();
             foreach (Tag t in activiteit.Tags)
             {
-                origineleActiviteit.Tags.Add(context.Tags.Find(t));
+                origineleActiviteit.Tags.Add(context.Tags.Where(x => x.Naam == t.Naam).FirstOrDefault());
             }
             Update(origineleActiviteit);
             context.SaveChanges();
