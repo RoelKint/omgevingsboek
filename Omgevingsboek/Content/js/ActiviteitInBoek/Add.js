@@ -2,6 +2,7 @@
     var ageSlider;
     var timeSlider;
 
+    var editMode = false;
 
     $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
         console.log(e.target); // newly activated tab
@@ -20,25 +21,26 @@
     });
     $(".toggleActivityForm").click(function (e) {
         e.preventDefault();
-        emptyActivityFields();
+        $('#activityForm form')[0].reset();
+        $($("input[name=TagsString]")[0]).removeTag();
+        $($("input[name=BenodigdhedenString]")[0]).removeTag();
+        $("#fotoLijst")[0].innerHTML = "";
+        initSliders();
         $("#activityForm").slideToggle(400, function () {
         });
     });
     $(".toggleActivityEdit").click(function (e) {
         e.preventDefault();
+        editMode = true;
         console.log(e.target);
+        $('#activityForm form')[0].reset();
+        $($("input[name=TagsString]")[0]).removeTag();
+        $($("input[name=BenodigdhedenString]")[0]).removeTag();
+        $("#fotoLijst")[0].innerHTML = "";
         fillActivtyFields($(e.target).attr('value'))
         $("#activityForm").slideToggle(400, function () {
         });
     });
-    function emptyActivityFields() {
-        $('#name').val('');
-        $('[name=DitactischeToelichting]').val('');
-        $('[name=Uitleg]').val("");
-        $('[name=Prijs]').val(0);
-        console.log("hey");
-    }
-
 
     $("#routeSubmit").click(function () {
         var waypointList = "";
@@ -59,9 +61,6 @@
     $(".toggleRouteForm").click(function (e) {
         e.preventDefault();
         $("#routeForm").slideToggle(400, function () {
-
-
-
             google.maps.event.trigger(map, 'resize');
             //$("#routeSubmit").prop("disabled", true);
             //    $("#routeSubmitContainer").popover({
@@ -76,6 +75,27 @@
         console.log("ho");
         getvalues(e);
     }
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            for (var i = 0; i < input.files.length; i++) {
+                var file;
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    var string = '<div  class="col-sm-6 col-md-4 element"><a style="height:200px"><span class="glyphicon glyphicon-remove-circle removeclick" id="1042" style="display:none; position:absolute; float:right; right: 0px;"></span><img class="img-responsive" src="' + e.target.result + '"/></a></div>';
+                    $("#fotoLijst")[0].innerHTML = $("#fotoLijst")[0].innerHTML + string;
+                };
+                reader.readAsDataURL(input.files[i]);
+            }
+        }
+    }
+
+
+    $("#images").change(function () {
+        readURL(this);
+    });
+
+
     function getvalues(Id) {
         var jsonString = "../../Home/" + 'GetActiviteit' + "?Id=" + Id;
 
@@ -84,7 +104,6 @@
             console.log(els);
             console.log(els['Naam']);
             $('#name').val(els['Naam']);
-            
             if (els['Prijs'] != null) 
                 $('[name=Prijs]').val(els['Prijs']);
 
@@ -107,12 +126,31 @@
             $(els['Benodigdheden']).each(function (i) {
                 benodigdheden.addTag(els['Benodigdheden'][i]['Naam']);
             });
+
             moveSliders($("#slider-boek-age"), els['MinLeeftijd'], els['MaxLeeftijd']);
+            setSliderInputValues(
+    $("#minAgeBoek"),
+    $("#maxAgeBoek"),
+    $("#minAgeHiddenBoek"),
+    $("#maxAgeHiddenBoek"),
+    els['MinLeeftijd'],
+    els['MaxLeeftijd']
+);
             moveSliders($("#slider-boek-time"), els['MinDuur'], els['MaxDuur']);
+
+            setSliderInputValues(
+    $("#minTimeBook"),
+    $("#maxTimeBook"),
+    $("#minTimeHiddenBook"),
+    $("#maxTimeHiddenBook"),
+    els['MinDuur'],
+    els['MaxDuur']
+);
+
             var fotolijst = $('#fotoLijst');
             $(els['Fotos']).each(function (i) {
                 console.log(i);
-                var string = '<div  class="col-sm-6 col-md-4 element"  id="@boek.Id""><a style="height:200px"><span class="glyphicon glyphicon-remove-circle removeclick" id="1042" style="display:none; position:absolute; float:right; right: 0px;"></span><img class="img-responsive" src="' + els['Fotos'][i]['FotoUrl'] + '"/></a></div>';
+                var string = '<div  class="col-sm-6 col-md-4 element"><a style="height:200px"><span class="glyphicon glyphicon-remove-circle removeclick" id="1042" style="display:none; position:absolute; float:right; right: 0px;"></span><img class="img-responsive" src="' + els['Fotos'][i]['FotoUrl'] + '"/></a></div>';
                 fotolijst.append(string);
                 VerbergCloses();
             })
@@ -278,7 +316,6 @@
             );
         });
     }
-
 
     function deferListener(method) {
         if (typeof listLoaded !== 'undefined' && listLoaded == true) {

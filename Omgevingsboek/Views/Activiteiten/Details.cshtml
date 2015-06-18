@@ -3,6 +3,11 @@
 @{
     ViewBag.Title = "Details";
 }
+<script>
+    id = @Model.Id;
+    paginaa = "Activiteit";
+    idB = @ViewBag.boekId;
+</script>
 
 <!-- Important Owl stylesheet -->
 <link rel="stylesheet" href="~/Scripts/owl.carousel/owl-carousel/owl.carousel.min.css">
@@ -18,11 +23,7 @@
 
 
 <div class="detailView">
-    <script>
-        id = @Model.Id;
-        pagina = "activiteit";
-        IdB = @ViewBag.boekId;
-    </script>
+   
     <div class="col-md-6">
         <div class="alertt" style="display:none">
             <p>Zeker dat je dit boek wilt verwijderen?</p>

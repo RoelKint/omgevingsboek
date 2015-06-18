@@ -1,5 +1,5 @@
 ﻿$('.delItem').click(function () {
-    if (pagina == "Boek") {
+    if (paginaa == "Boek") {
         $('.alertt').dialog({
             dialogClass: "dlg-no-title",
             resizable: false,
@@ -16,7 +16,24 @@
             },
             closeText: "hide"
         });
-    } else if(pagina == "activiteit"){
+    } else if (paginaa == "Activiteit") {
+        $('.alertt').dialog({
+            dialogClass: "dlg-no-title",
+            resizable: false,
+            height: 200,
+            modal: true,
+            buttons: {
+                "verwijderen": function () {
+                    location.href = '../../home/DeleteActiviteit?Id=' + id + '&boekId=' + idB
+                    $(this).dialog("close");
+                },
+                Cancel: function () {
+                    $(this).dialog("close");
+                }
+            },
+            closeText: "hide"
+        });
+    } else if (paginaa == "Route") {
         $('.alertt').dialog({
             dialogClass: "dlg-no-title",
             resizable: false,
@@ -33,7 +50,6 @@
             },
             closeText: "hide"
         });
-        delItem
     }
     
 });
