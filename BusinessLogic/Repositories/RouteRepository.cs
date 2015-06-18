@@ -28,7 +28,7 @@ namespace BusinessLogic.Repositories
         {
             context.Configuration.LazyLoadingEnabled = false;
             
-            return (from r in context.Routes.Include(r => r.RouteLijst).Include(r => r.Boeken) where r.Boeken.Any(x => x.Id == boekId) where r.IsDeleted==false where r.IsDeleted == false select r).ToList();
+            return (from r in context.Routes.Include(r => r.RouteLijst).Include(r => r.Boeken).Include(r => r.Eigenaar) where r.Boeken.Any(x => x.Id == boekId) where r.IsDeleted==false where r.IsDeleted == false select r).ToList();
         }
         public override Route Insert(Route entity)
         {

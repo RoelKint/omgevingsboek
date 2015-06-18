@@ -59,7 +59,7 @@ namespace Omgevingsboek.Controllers
         }
         //public ActionResult AddActivity(FormCollection coll)
 
-        public ActionResult AddActivity(Activiteit activiteit, string video, string TagsString, string BenodigdhedenString, HttpPostedFileBase AfbeeldingFile, string Prijs, int? BoekId, List<HttpPostedFileBase> images, List<string> bestaandefotos)
+        public ActionResult AddActivity(Activiteit activiteit, string video, string TagsString, string BenodigdhedenString, HttpPostedFileBase AfbeeldingFile, string Prijs, int? BoekId, List<HttpPostedFileBase> images, string bestaandefotos)
         {
             //TODO: lijst van de geselecteerde afbeeldingen?
             ModelState.Remove("Prijs");
@@ -104,7 +104,8 @@ namespace Omgevingsboek.Controllers
                     PoiId = activiteit.PoiId,
                     Uitleg = activiteit.Uitleg,
                     Benodigdheden = benodigdhedenList,
-                    Tags = tagList
+                    Tags = tagList,
+                    AfbeeldingNaam = activiteit.AfbeeldingNaam
                     
                 };
                 if(video != null){
@@ -174,9 +175,11 @@ namespace Omgevingsboek.Controllers
                 if (origineeleActiviteit == null) return RedirectToAction("Boek", new { id = (int)BoekId });
                 if (origineeleActiviteit.Eigenaar.UserName != User.Identity.Name) return RedirectToAction("Boek", new { id = (int)BoekId });
 
-                for (int i = 0; i < bestaandefotos.Count; i++)
+                string[] bf = bestaandefotos.Split(',');
+
+                for (int i = 0; i < bf.Length; i++)
                 {
-                    bestaandefotos[i] = bestaandefotos[i].Trim();
+                    bf[i] = bf[i].Trim();
                 }
 
                 foreach (Foto f in origineeleActiviteit.Fotos)

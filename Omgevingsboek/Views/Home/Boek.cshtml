@@ -39,6 +39,7 @@
                             <img class="img-responsive" src="@activiteit.AfbeeldingNaam" />
                             <span class="caption">@activiteit.Naam</span>
                         </a>
+                        @if (activiteit.Eigenaar != null && activiteit.Eigenaar.UserName == User.Identity.Name) { 
                         <span class="buttons">
                             <a style="padding: 0px;" type="button" href="#" data-id="@(@activiteit.Id)" data-type="activiteit" data-container="body" data-toggle="popover" data-placement="bottom" class="shareItem expand btn btn-default">
                                 <span class="glyphicon glyphicon-share"></span>
@@ -46,6 +47,7 @@
                             <!--<a href="/home/Activiteit?id=@activiteit.Id&action=public" class="expand btn btn-default" type="button"><span class="glyphicon glyphicon-eye-close"></span></a>-->
                             <a href="#" value="@activiteit.Id" class="toggleActivityEdit expand btn btn-default" type="button"><span value="@activiteit.Id" class="glyphicon glyphicon-cog"></span></a>
                         </span>
+                        }
                     </div>
                 }
                 @if (Model.Eigenaar != null && Model.Eigenaar.UserName == User.Identity.Name)
@@ -72,11 +74,12 @@
                         <a href="/home/Route?id=@route.Id">
                             <span class="caption">@route.Naam</span>
                             </a>
+                            @if (route.Eigenaar != null && route.Eigenaar.UserName == User.Identity.Name) {
                             <span class="buttons">
                                 <a href="/home/Route?id=@route.Id&action=share" class="expand btn btn-default" type="button"><span class="glyphicon glyphicon-share"></span></a>
-                                <a href="/home/Route?id=@route.Id&action=public" class="expand btn btn-default" type="button"><span class="glyphicon glyphicon-eye-close"></span></a>
-                                <a href="#"  class="toggleActivityEdit expand btn btn-default" type="button"><span class="glyphicon glyphicon-cog"></span></a>
+                                @*<a href="#"  class="toggleActivityEdit expand btn btn-default" type="button"><span class="glyphicon glyphicon-cog"></span></a>*@
                             </span>
+                            }
                         </div>
                 }
                 @if (Model.Eigenaar != null && Model.Eigenaar.UserName == User.Identity.Name)
