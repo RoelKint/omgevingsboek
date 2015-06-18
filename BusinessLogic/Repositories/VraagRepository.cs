@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Entity;
+
 
 namespace BusinessLogic.Repositories
 {
@@ -24,11 +26,11 @@ namespace BusinessLogic.Repositories
 
         public List<Vraag> GetVragen()
         {
-            return context.Vragen.Where(v => !v.IsDeleted).ToList();
+            return context.Vragen.Include(v => v.Eigenaar).Where(v => !v.IsDeleted).ToList();
         }
         public List<Vraag> GetVragenByUser(string username)
         {
-            return context.Vragen.Where(v => !v.IsDeleted).Where(v => v.EigenaarId == context.Users.Where(u => u.UserName == username).FirstOrDefault().Id).ToList();
+            return context.Vragen.Include(v => v.Eigenaar).Where(v => !v.IsDeleted).Where(v => v.EigenaarId == context.Users.Where(u => u.UserName == username).FirstOrDefault().Id).ToList();
         }
         public override Vraag Insert(Vraag entity)
         {

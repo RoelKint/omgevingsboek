@@ -183,7 +183,20 @@ namespace BusinessLogic.Repositories
             entity.Boeken = new List<Boek>(){
                 context.Boeken.Find(entity.Boeken.FirstOrDefault().Id)
             };
-
+            string vidlink = "";
+            foreach (Video vid in entity.Videos)
+            {
+                vidlink = vid.Naam;
+            }
+            if (vidlink != "")
+            {
+                entity.Videos = new List<Video>();
+                Video v = context.Videos.Add(new Video()
+                {
+                    Naam = vidlink
+                });
+                entity.Videos.Add(v);
+            }
 
             context.Activiteiten.Add(entity);
             context.SaveChanges();
