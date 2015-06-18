@@ -108,12 +108,10 @@ else
         <tbody></tbody>
     </table>
     <h2>Uitnodigingen</h2>
-    <form id="formB" method="post" action="Delete">
         <table class="col-xs-12 col-md-12 table table-hover">
 
             <colgroup>
-                <col class="col-lg-1 col-xs-1 col-md-1" />
-                <col class="col-lg-2 col-xs-2 col-md-2" />
+                <col class="col-lg-3 col-xs-3 col-md-3" />
                 <col class="col-lg-7 col-xs-7 col-md-7" />
                 <col class="col-lg-2 col-xs-2 col-md-2" />
             </colgroup>
@@ -121,7 +119,6 @@ else
 
 
             <tr>
-                <th><span class="glyphicon glyphicon-th-list"></span></th>
                 <th>Uitgenodigde</th>
                 <th>Uitgenodigd door</th>
                 <th>Opties</th>
@@ -131,21 +128,20 @@ else
             @foreach (Models.OmgevingsBoek_Models.Uitnodiging item in Model.Uitnodigingen)
             {
                 <tr>
-                    <td><input type="checkbox" name="checkbox" value=""></td>
                     <td>@item.EmailUitgenodigde</td>
                     <td>
                         @item.Eigenaar.UserName
                     </td>
                     <td>
                         <div class="displayInlineButtons">
-                            <button><span class="glyphicon glyphicon-remove"></span></button>
-                            <button><span class="glyphicon glyphicon-envelope">@item.Id</span></button>
+                            <button class="remUit" value="@item.Id"><span class="glyphicon glyphicon-remove"></span></button>
+                            <button class="resUit" value="@item.Id"><span class="glyphicon glyphicon-envelope"></span></button>
                         </div>
                     </td>
                 </tr>
             }
         </table>
-    </form>
+
 
 
     <div id="buttonsAdOnder">
