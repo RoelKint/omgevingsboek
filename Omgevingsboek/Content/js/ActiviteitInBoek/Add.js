@@ -24,6 +24,7 @@
         $('#activityForm form')[0].reset();
         $($("input[name=TagsString]")[0]).removeTag();
         $($("input[name=BenodigdhedenString]")[0]).removeTag();
+        $("#fotoLijst")[0].innerHTML = "";
         initSliders();
         $("#activityForm").slideToggle(400, function () {
         });
@@ -35,6 +36,7 @@
         $('#activityForm form')[0].reset();
         $($("input[name=TagsString]")[0]).removeTag();
         $($("input[name=BenodigdhedenString]")[0]).removeTag();
+        $("#fotoLijst")[0].innerHTML = "";
         fillActivtyFields($(e.target).attr('value'))
         $("#activityForm").slideToggle(400, function () {
         });
