@@ -204,7 +204,6 @@
                             tagSel.poi.MinLeeftijd,
                             tagSel.poi.MaxLeeftijd
                         );
-
                        $("#prijsLeerling").val(tagSel.poi.Prijs);
                    };
                });
