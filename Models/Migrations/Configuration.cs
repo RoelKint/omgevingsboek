@@ -43,7 +43,7 @@ namespace Models.Migrations
 
 
             // TODO: Updaten naar echte data
-            /*
+            
             if (!context.Users.Any(u => u.Email.Equals("testSuperAdmin@howest.be")))
             {
                 var store = new UserStore<Models.MVC_Models.ApplicationUser>(context);
@@ -94,7 +94,7 @@ namespace Models.Migrations
                 manager.Create(user, "paswoord");
                 manager.AddToRole(user.Id, roleNormalUser);
             }
-            */
+            
             #endregion
 
             #region DATA
@@ -288,7 +288,7 @@ namespace Models.Migrations
             };
             context.Activiteiten.Add(activiteit8);
             context.SaveChanges();
-             */
+             
 
             if (context.Boeken.Select(i => i).Where(i => i.Naam == "1e graad") == null)
             {
@@ -529,7 +529,7 @@ namespace Models.Migrations
 
             }
 
-            
+            */
 
 
             #endregion

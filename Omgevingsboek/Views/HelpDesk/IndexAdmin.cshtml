@@ -1,0 +1,64 @@
+﻿@model List<Models.OmgevingsBoek_Models.Vraag>
+
+@{
+    ViewBag.Title = "Helpdesk tickets";
+}
+
+<div class="col-xs-12 content" id="content">
+    <h2>Helpdesk</h2>
+    <hr />
+    <ul class="nav nav-tabs" id="filtertickets">
+        <li role="presentation" class="active"><a href="?filter=ongelezen">Ongelezen tickets</a></li>
+        <li role="presentation"><a href="?filter=gelezen">Gelezen tickets</a></li>
+        <li role="presentation"><a href="?filter=verwijderd">Verwijderde tickets</a></li>
+    </ul>
+    <h3>Ongelezen tickets</h3>
+    <div class="form-horizontal col-md-10">
+        <label class="control-label col-md-2"></label>
+        <div class="col-md-10">
+            @{int count = 0;}
+            @foreach (Models.OmgevingsBoek_Models.Vraag vraag in Model)
+            {
+                count++;
+                <div class="panel panel-default">
+                    <a data-toggle="collapse" data-target="#@count">
+                        <div class="panel-heading">
+                            <table>
+                                <tr>
+                                    <td class="col-md-3"><h3 class="panel-title">@vraag.Eigenaar.Voornaam @vraag.Eigenaar.Naam</h3></td>
+                                    <td class="col-md-9"><h3 class="panel-title">@vraag.Titel</h3></td>
+                                    <td class="col-md-2"><h3 class="panel-title">@vraag.Datum</h3></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </a>
+                    <div class="panel-body collapse" id="@count">
+                        <div class="col-md-12"> 
+                            @vraag.Omschrhijving
+                            
+                        </div>
+                        
+
+                        <div class="col-md-12">
+                            <hr />
+                            <i>@vraag.Datum - @vraag.Eigenaar.UserName</i>
+                        </div>
+                        <div class="col-md-12 btn-group">
+                            <br /> 
+                            <a href="Antwoord?Id=@vraag.Id" class="btn btn-info">Beantwoorden</a>
+                            <a href="" class="btn btn-info">Markeren als gelezen</a>
+                            <a href="" class="btn btn-info">Verwijderen</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+</div>
+<script>
+    $('#filtertickets a').click(function (e) {
+  e.preventDefault()
+  $(this).tab('show')
+})
+</script>

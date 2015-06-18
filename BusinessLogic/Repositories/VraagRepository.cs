@@ -24,13 +24,18 @@ namespace BusinessLogic.Repositories
             context.Configuration.LazyLoadingEnabled = false;
         }
 
-        public List<Vraag> GetVragen()
+        public List<Vraag> GetVragen(string filter)
         {
-            return context.Vragen.Include(v => v.Eigenaar).Where(v => !v.IsDeleted).ToList();
+            if(filter == "gelezen")
+                return context.Vragen.Include(v => v.Eigenaar).Where(v => !v.IsDeleted).Where(v => v.IsGelezen).OrderByDescending(u => u.Datum).ToList();
+            if(filter == "verwijderd")
+                return context.Vragen.Include(v => v.Eigenaar).Where(v => !v.IsDeleted).Where(v => v.IsDeleted).OrderByDescending(u => u.Datum).ToList();
+
+            return context.Vragen.Include(v => v.Eigenaar).Where(v => !v.IsDeleted).Where(v => !v.IsGelezen).OrderByDescending(u => u.Datum).ToList();
         }
         public List<Vraag> GetVragenByUser(string username)
         {
-            return context.Vragen.Include(v => v.Eigenaar).Where(v => !v.IsDeleted).Where(v => v.EigenaarId == context.Users.Where(u => u.UserName == username).FirstOrDefault().Id).ToList();
+            return context.Vragen.Include(v => v.Eigenaar).Where(v => !v.IsDeleted).Where(v => v.EigenaarId == context.Users.Where(u => u.UserName == username).FirstOrDefault().Id).OrderByDescending(u => u.Datum).ToList();
         }
         public override Vraag Insert(Vraag entity)
         {
