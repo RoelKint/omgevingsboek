@@ -191,7 +191,9 @@
 
         $("#activityForm input:file").change(function () {
             var fileName = $(this).val();
-            $("#activityForm .fileUpload").toggleClass("upload-ok");
+            if(fileName.trim() != ""){
+                $(this).parent().toggleClass("upload-ok");
+            }
             //$(".filename").html(fileName);
         });
     }

@@ -245,7 +245,16 @@
                                     <div class="form-group col-md-3">
                                         <label for="file">Uploaden:</label>
                                         <input input type="file" id="file" class="button form-control" accept="video/*">
-                                        <button class="btn btn-default form-control" type="button" id="uploadvideo">Video uploaden</button>
+                                    </div>
+                                    <script src="//apis.google.com/js/client:plusone.js"></script>
+                                    <script src="~/Scripts/cors_upload.js"></script>
+                                    <script src="~/Scripts/upload_video.js"></script>
+                                </div>
+                                <div class="row">
+                                    <button class="btn btn-default form-control" type="button" id="uploadvideo">Video uploaden</button>
+                                </div>
+                                <div class="row after-submit" style="display: none;">
+                                    <div class="form-group col-md-3">
                                         <div class="during-upload">
                                             <p><span id="percent-transferred"></span>% done (<span id="bytes-transferred"></span>/<span id="total-bytes"></span> bytes)</p>
                                             <progress id="upload-progress" max="1" value="0"></progress>
@@ -253,18 +262,18 @@
                                         <div class="post-upload">
                                             <input class="form-control" disabled name="video" id="video-id" />
                                             <p>De video is geupload. (<a id="video-url" href="#"></a>)</p>
-                                            <ul hidden id="post-upload-status"></ul>
-                                            <div id="player"></div>
                                         </div>
                                     </div>
-                                    <script src="//apis.google.com/js/client:plusone.js"></script>
-                                    <script src="~/Scripts/cors_upload.js"></script>
-                                    <script src="~/Scripts/upload_video.js"></script>
+                                    <div class="col-md-9" id="playerEmbed">
+                                        <ul hidden id="post-upload-status"></ul>
+                                        <div id="player" class="embed-responsive embed-responsive-16by9">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <h3>Afbeeldingen</h3>
                         <div class="row">
+                            <h3>Afbeeldingen</h3>
                             <div class="form-group col-md-12 upload">
                                 <label for="images">Kies afbeeldingen: (tip: je kan meerdere afbeeldingen tegelijk selecteren)</label>
                                 <div class="fileUpload btn btn-default form-control">
