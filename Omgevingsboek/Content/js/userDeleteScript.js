@@ -24,7 +24,7 @@
             modal: true,
             buttons: {
                 "verwijderen": function () {
-                    location.href = '../home/DeleteActiviteit?Id=' + id + '&IdB=' + idB
+                    location.href = '../home/DeleteActiviteit?Id=' + id + '&boekId=' + idB
                     $(this).dialog("close");
                 },
                 Cancel: function () {
