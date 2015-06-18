@@ -81,11 +81,45 @@
             for (var i = 0; i < input.files.length; i++) {
                 var file;
                 var reader = new FileReader();
+                var filename = document.getElementById('images').files[i].name;
                 reader.onload = function (e) {
-                    var string = '<div  class="col-sm-6 col-md-4 element"><a style="height:200px"><span class="glyphicon glyphicon-remove-circle removeclick" id="1042" style="display:none; position:absolute; float:right; right: 0px;"></span><img class="img-responsive" src="' + e.target.result + '"/></a></div>';
+                    var string = '<div  class="col-sm-6 col-md-4 element"><a style="height:200px"><span class="glyphicon glyphicon-remove-circle removeclick" data-existing="new" data-url="' + filename + '"id="1042" style="display:none; position:absolute; float:right; right: 0px;"></span><img class="img-responsive" src="' + e.target.result + '"/></a></div>';
                     $("#fotoLijst")[0].innerHTML = $("#fotoLijst")[0].innerHTML + string;
                 };
+
                 reader.readAsDataURL(input.files[i]);
+
+                reader.onloadend = function (e) {
+                    $("#fotoLijst div").each(function () {
+                        console.log("vergerg: " + this);
+                        $(this).find(".removeclick").hide();
+                        console.log(this);
+                        $(this).mouseover(function () {
+                            if ($(this).find(".removeclick")[0].dataset.existing == "original"){
+                                $(this).find(".removeclick").show();
+                            }
+                        });
+                        $(this).mouseout(function () {
+                            $(this).find(".removeclick").hide();
+                        });
+
+                        $(this).find(".removeclick").click(function () {
+                            console.log('uuuuhhhhhh');
+                            var array = $(document.getElementById('bestaandefotos')).val().split(",");
+                            var index = array.indexOf(this.dataset.url);
+                            if (index > -1) {
+                                array.splice(index, 1);
+                            }
+                            console.log($(document.getElementById('bestaandefotos')).val());
+                            $(document.getElementById('bestaandefotos')).val(array.join(","));
+                            console.log($(document.getElementById('bestaandefotos')).val());
+
+                            $($(this).parent().parent()).remove();
+
+                            var element = $(this)[0];
+                        });
+                    });
+                }
             }
         }
     }
@@ -94,7 +128,6 @@
     $("#images").change(function () {
         readURL(this);
     });
-
 
     function getvalues(Id) {
         var jsonString = "../../Home/" + 'GetActiviteit' + "?Id=" + Id;
@@ -157,10 +190,37 @@
 
             var fotolijst = $('#fotoLijst');
             $(els['Fotos']).each(function (i) {
-                console.log(i);
-                var string = '<div  class="col-sm-6 col-md-4 element"><a style="height:200px"><span class="glyphicon glyphicon-remove-circle removeclick" id="1042" style="display:none; position:absolute; float:right; right: 0px;"></span><img class="img-responsive" src="' + els['Fotos'][i]['FotoUrl'] + '"/></a></div>';
+                console.log("FotoLijst: " + i);
+                var string = '<div class="col-sm-6 col-md-4 element"><a style="height:200px"><span class="glyphicon glyphicon-remove-circle removeclick" data-existing="original" data-url="' + els['Fotos'][i]['FotoUrl'] + '" id="1042" style="display:none; position:absolute; float:right; right: 0px;"></span><img class="img-responsive" src="' + els['Fotos'][i]['FotoUrl'] + '"/></a></div>';
                 fotolijst.append(string);
-                VerbergCloses();
+                var difke;
+                $("#fotoLijst div").each(function () {
+                    console.log("vergerg: " + this);
+                    $(this).find(".removeclick").hide();
+                    console.log(this);
+                    $(this).mouseover(function () {
+                        $(this).find(".removeclick").show();
+                    });
+                    $(this).mouseout(function () {
+                        $(this).find(".removeclick").hide();
+                    });
+
+                    $(this).find(".removeclick").click(function () {
+                        console.log('uuuuhhhhhh');
+                        var array = $(document.getElementById('bestaandefotos')).val().split(",");
+                        var index = array.indexOf(this.dataset.url);
+                        if (index > -1) {
+                            array.splice(index, 1);
+                        }
+                        console.log($(document.getElementById('bestaandefotos')).val());
+                        $(document.getElementById('bestaandefotos')).val(array.join(","));
+                        console.log($(document.getElementById('bestaandefotos')).val());
+
+                        $($(this).parent().parent()).remove();
+                        $("#images").val();
+                        var element = $(this)[0];
+                    });
+                });
             })
             //$('#fotoLijst')
         });
@@ -168,7 +228,35 @@
     //de remove voor de afbeeldingen
     function VerbergCloses() {
         var difke;
+        $("#fotoLijst div").each(function () {
+            console.log("vergerg: " + this);
+            $(this).find(".removeclick").hide();
+            console.log(this);  
+            $(this).mouseover(function () {
+                $(this).find(".removeclick").show();
+            });
+            $(this).mouseout(function () {
+                $(this).find(".removeclick").hide();
+            });
+
+            $(this).find(".removeclick").click(function () {
+                console.log('uuuuhhhhhh');
+                var array = $(document.getElementById('bestaandefotos')).val().split(",");
+                var index = array.indexOf(this.dataset.url);
+                if (index > -1) {
+                    array.splice(index, 1);
+                }
+                console.log($(document.getElementById('bestaandefotos')).val());
+                $(document.getElementById('bestaandefotos')).val(array.join(","));
+                console.log($(document.getElementById('bestaandefotos')).val());
+
+                $($(this).parent().parent()).remove();
+                var element = $(this)[0];
+            });
+        });
+        /*
         $.each($("#fotoLijst div"), function () {
+            console.log("vergerg: " + this);
             $(this).find(".removeclick").hide();
             $(this).mouseover(function () {
                     $(this).find(".removeclick").show();
@@ -176,14 +264,11 @@
             $(this).mouseout(function () {
                 $(this).find(".removeclick").hide();
             });
-        });
+        });*/
+        /*
         $(".removeclick").click(true, function () {
-            console.log('uuuuhhhhhh');
-            $($(this).parent().parent()).remove();
 
-            var element = $(this)[0];
-
-        });
+        });*/
     }
     function initSliders() {
         setSliderInputValues(
