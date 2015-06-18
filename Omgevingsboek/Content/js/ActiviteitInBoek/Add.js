@@ -129,30 +129,31 @@
             });
 
             console.log(els["Fotos"]);
-            $('bestaandefotos').val(els["Fotos"]);
+            console.log((els["Fotos"].map(function (el) { return el.FotoUrl; })).join(","));
+            $('#bestaandefotos').val(els["Fotos"].map(function (el) { return el.FotoUrl;} ).join(","));
             console.log($("#id"));
             $("#id").val(els['Id']);
             console.log("Act id: " + els['Id']);
 
             moveSliders($("#slider-boek-age"), els['MinLeeftijd'], els['MaxLeeftijd']);
             setSliderInputValues(
-    $("#minAgeBoek"),
-    $("#maxAgeBoek"),
-    $("#minAgeHiddenBoek"),
-    $("#maxAgeHiddenBoek"),
-    els['MinLeeftijd'],
-    els['MaxLeeftijd']
-);
-            moveSliders($("#slider-boek-time"), els['MinDuur'], els['MaxDuur']);
+                $("#minAgeBoek"),
+                $("#maxAgeBoek"),
+                $("#minAgeHiddenBoek"),
+                $("#maxAgeHiddenBoek"),
+                els['MinLeeftijd'],
+                els['MaxLeeftijd']
+            );
 
+            moveSliders($("#slider-boek-time"), els['MinDuur'], els['MaxDuur']);
             setSliderInputValues(
-    $("#minTimeBook"),
-    $("#maxTimeBook"),
-    $("#minTimeHiddenBook"),
-    $("#maxTimeHiddenBook"),
-    els['MinDuur'],
-    els['MaxDuur']
-);
+                $("#minTimeBook"),
+                $("#maxTimeBook"),
+                $("#minTimeHiddenBook"),
+                $("#maxTimeHiddenBook"),
+                els['MinDuur'],
+                els['MaxDuur']
+            );
 
             var fotolijst = $('#fotoLijst');
             $(els['Fotos']).each(function (i) {
