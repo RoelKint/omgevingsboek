@@ -73,6 +73,27 @@
         console.log("ho");
         getvalues(e);
     }
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            for (var i = 0; i < input.files.length; i++) {
+                var file;
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    var string = '<div  class="col-sm-6 col-md-4 element"><a style="height:200px"><span class="glyphicon glyphicon-remove-circle removeclick" id="1042" style="display:none; position:absolute; float:right; right: 0px;"></span><img class="img-responsive" src="' + e.target.result + '"/></a></div>';
+                    $("#fotoLijst")[0].innerHTML = $("#fotoLijst")[0].innerHTML + string;
+                };
+                reader.readAsDataURL(input.files[i]);
+            }
+        }
+    }
+
+
+    $("#images").change(function () {
+        readURL(this);
+    });
+
+
     function getvalues(Id) {
         var jsonString = "../../Home/" + 'GetActiviteit' + "?Id=" + Id;
 
@@ -93,8 +114,7 @@
                 $('[name=Uitleg]').val(els['Uitleg']);
             }
             var tags = $('[name=TagsString]');
-            listLoa
-            $('[name=PoiShow]').val();
+            $('[name=PoiShow]').val(els['Poi']);
             $('#Poi').val(els['poiId']);
             $(els['Tags']).each(function (i) {
                 console.log(i);
