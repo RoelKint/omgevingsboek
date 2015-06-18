@@ -57,9 +57,10 @@ namespace Omgevingsboek.Controllers
             return Json(JsonConvert.SerializeObject(a), JsonRequestBehavior.AllowGet);
 
         }
-        public ActionResult AddActivity(Activiteit activiteit, string TagsString, string BenodigdhedenString, HttpPostedFileBase AfbeeldingFile, string Prijs, int? BoekId, List<HttpPostedFileBase> images, List<string> bestaandefotos, string video)
-        {
+        //public ActionResult AddActivity(FormCollection coll)
 
+        public ActionResult AddActivity(Activiteit activiteit, string video, string TagsString, string BenodigdhedenString, HttpPostedFileBase AfbeeldingFile, string Prijs, int? BoekId, List<HttpPostedFileBase> images, List<string> bestaandefotos)
+        {
             //TODO: lijst van de geselecteerde afbeeldingen?
 
 
