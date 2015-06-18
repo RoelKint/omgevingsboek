@@ -86,7 +86,7 @@ namespace Omgevingsboek.Controllers
             foreach (string b in benodigdheden)
             {
                 if (b == "") continue;
-                tagList.Add(bs.InsertTag(b));
+                benodigdhedenList.Add(bs.InsertBenodigdheid(b));
             }
 
             if (activiteit.Id == 0)
