@@ -12,7 +12,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace BusinessLogic.Services
 {
-    public class BoekService : BusinessLogic.Services.IBoekService 
+    public class BoekService : BusinessLogic.Services.IBoekService
     {
         private ITagRepository repoTag = null;
         private IActiviteitRepository repoActiviteit = null;
@@ -592,6 +592,10 @@ namespace BusinessLogic.Services
         public Uitnodiging GetUitnodigingById(int id)
         {
             return repoUitnodiging.GetByID(id);
+        }
+        public void DeleteUitnodiging(Uitnodiging u)
+        {
+            repoUitnodiging.Delete(u);
         }
 
         #endregion

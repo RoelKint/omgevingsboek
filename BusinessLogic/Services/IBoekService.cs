@@ -17,6 +17,7 @@ namespace BusinessLogic.Services
         void DeletePoiTag(Models.OmgevingsBoek_Models.PoiTags poitag);
         void DeleteRouteSoft(int Id);
         void DeleteTagFromPoi(int PoiTagsId);
+        void DeleteUitnodiging(Models.OmgevingsBoek_Models.Uitnodiging u);
         void DeleteUserHard(Models.MVC_Models.ApplicationUser user);
         void DeleteUserSoft(Models.MVC_Models.ApplicationUser user);
         void EditBoek(Models.OmgevingsBoek_Models.Boek boek);

@@ -83,7 +83,11 @@ namespace BusinessLogic.Repositories
             return context.Uitnodigingen.Where(u => u.Id == (int)id).Include(u => u.Eigenaar).SingleOrDefault();
         }
 
-
+        public override void Delete(Uitnodiging u)
+        {
+            base.Delete(u);
+            context.SaveChanges();
+        }
 
     }
 }

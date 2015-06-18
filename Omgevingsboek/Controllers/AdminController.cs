@@ -149,6 +149,21 @@ namespace Omgevingsboek.Controllers
             }
             return "ok";
         }
+        [HttpPost]
+        [Authorize(Roles = "Administrator,SuperAdministrator")]
+        public String DeleteUitnodiging(List<int> deleteIds)
+        {
+            if (!User.IsInRole("SuperAdministrator") && !User.IsInRole("Administrator")) return "fail";
+
+            //TODO: ervoor zorgen dat lege gebruiker ook kan verwijderd worden.
+            foreach (int u in deleteIds)
+            {
+                Uitnodiging a = bs.GetUitnodigingById(u);
+                if (a == null) return "fail";
+                bs.DeleteUitnodiging(a);
+            }
+            return "ok";
+        }
 
         #endregion
 

@@ -1,9 +1,10 @@
 ﻿using System;
 namespace BusinessLogic.Repositories
 {
-    public interface IUitnodigingRepository 
+    public interface IUitnodigingRepository
     {
         Models.OmgevingsBoek_Models.Uitnodiging Create(string UitgenodigdDoorUserName, string EmailUitgenodigde);
+        void Delete(Models.OmgevingsBoek_Models.Uitnodiging u);
         Models.OmgevingsBoek_Models.Uitnodiging GetByID(object id);
         Models.OmgevingsBoek_Models.Uitnodiging GetUitnodigingByKey(string key);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Uitnodiging> GetUitnodigingenAllByUser(string Username);
