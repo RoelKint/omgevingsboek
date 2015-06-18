@@ -122,6 +122,72 @@ $().ready(function () {
         });
 
     })
+    $('.remUit').click(function (e) {
+        DelOneuit(e);
+       // deleteuitnodiging
+    
+    });
+    $('.resUit').click(function (e) {
+        ResOneUit(e);
+    })
+    function DelOneuit(e) {
+        var roel;
+        var value;
+        var formData = new FormData();
+        if ($(e.target).children('span').length == 0) {
+            roel = $(e.target).parent().parent();
+            value = $(e.target).parent().attr("value");
+        } else {
+            value = $(e.target).attr("value");
+            roel = $(e.target).parent();
+        }
+        formData.append("deleteIds", value);
+        url = "../Admin/deleteuitnodiging";
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: formData,
+            dataType: 'text',//change to your own, else read my note above on enabling the JsonValueProviderFactory in MVC
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                console.log(data);
+                roel.remove();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert('Hiet is niet gelukt sorry.');
+                
+            }
+        });
+    }
+    function ResOneUit(e) {
+        console.log(e);
+        var value;
+        var formData = new FormData();
+        if ($(e.target).children('span').length == 0) {
+            value = $(e.target).parent().attr("value");
+        } else {
+            value = $(e.target).attr("value");
+        }
+        formData.append("Id", value);
+        url = "../Admin/HerzendUitnodiging";
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: formData,
+            dataType: 'text',//change to your own, else read my note above on enabling the JsonValueProviderFactory in MVC
+            contentType: false,
+            processData: false,
+            success: function (data) {
+                console.log(data);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert('Hiet is niet gelukt sorry.');
+                console.log(data);
+                console.log(value);
+            }
+        });
+    }
     //compleet verwijderen via glyphicons
     function DelOne(e) {
         var value;
