@@ -43,7 +43,7 @@
                             <a style="padding: 0px;" type="button" href="#" data-id="@(@activiteit.Id)" data-type="activiteit" data-container="body" data-toggle="popover" data-placement="bottom" class="shareItem expand btn btn-default">
                                 <span class="glyphicon glyphicon-share"></span>
                             </a>
-                            <a href="/home/Activiteit?id=@activiteit.Id&action=public" class="expand btn btn-default" type="button"><span class="glyphicon glyphicon-eye-close"></span></a>
+                            <!--<a href="/home/Activiteit?id=@activiteit.Id&action=public" class="expand btn btn-default" type="button"><span class="glyphicon glyphicon-eye-close"></span></a>-->
                             <a href="#" value="@activiteit.Id" class="toggleActivityEdit expand btn btn-default" type="button"><span value="@activiteit.Id" class="glyphicon glyphicon-cog"></span></a>
                         </span>
                     </div>
@@ -281,6 +281,12 @@
                                 <div class="fileUpload btn btn-default form-control">
                                     <span>Upload Foto</span>
                                     <input type="file" multiple class="upload" name="images" id="images" accept="image/x-png, image/jpeg">
+                                </div>
+                                <div >
+                                    <span>fotolijst</span>
+                                    <div class="row books" id="fotoLijst">
+
+                                    </div>
                                 </div>
                             </div>
                         </div>
