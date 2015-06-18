@@ -740,4 +740,12 @@ span.tag {
   height: 300px;
   overflow-y: scroll;
 }
+#route {
+  height: 300px;
+  overflow-y: hidden;
+}
+#btnPause {
+  margin-left: 0px;
+  margin-top: 5px;
+}
 /*# sourceMappingURL=Main.css.map */
