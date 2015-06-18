@@ -5,21 +5,7 @@ var currentPar;
 var currentRow;
 $().ready(function () {
 
-    herverzend
-
-    $("#herverzend").click(true, function (event) {
-        var element = $(this)[0];
-        event.preventDefault();
-        $.ajax({
-            type: "GET",
-            url: "HerzendUitnodiging" + "?Id=" + $(this)[0].value,
-            success: function (data) {
-                if (data == "OK") {
-
-                }
-
-            }
-        });
+    
     resetVanaf();
     jsonItUp("../Admin/" + pagina + "?vanaf=" + vanaf + "&desc=" + desc + "&filter=" + currentRow + "&search=" + search + "&mode=1");
     table = $('.AdminTable');
