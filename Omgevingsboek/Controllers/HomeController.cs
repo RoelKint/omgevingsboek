@@ -175,18 +175,24 @@ namespace Omgevingsboek.Controllers
                 if (origineeleActiviteit == null) return RedirectToAction("Boek", new { id = (int)BoekId });
                 if (origineeleActiviteit.Eigenaar.UserName != User.Identity.Name) return RedirectToAction("Boek", new { id = (int)BoekId });
 
-                string[] bf = bestaandefotos.Split(',');
-
-                for (int i = 0; i < bf.Length; i++)
+                
+                if (bestaandefotos != null)
                 {
-                    bf[i] = bf[i].Trim();
-                }
+                    string[] bf = bestaandefotos.Split(',');
 
-                foreach (Foto f in origineeleActiviteit.Fotos)
-                {
-                    if (!bestaandefotos.Contains(f.FotoUrl))
-                        origineeleActiviteit.Fotos.Remove(f);
+                    for (int i = 0; i < bf.Length; i++)
+                    {
+                        bf[i] = bf[i].Trim();
+                    }
+                    foreach (Foto f in origineeleActiviteit.Fotos)
+                    {
+                        if (!bestaandefotos.Contains(f.FotoUrl))
+                            origineeleActiviteit.Fotos.Remove(f);
+                    }
                 }
+                 
+
+                
 
                 Activiteit NieuweActiviteit = new Activiteit()
                 {
