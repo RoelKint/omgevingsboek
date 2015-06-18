@@ -28,7 +28,9 @@ namespace BusinessLogic.Repositories
         }
         public override Vraag Insert(Vraag entity)
         {
-            return base.Insert(entity);
+            Vraag v = base.Insert(entity);
+            context.SaveChanges();
+            return v;
         }
         public void Opgelost(int VraagId)
         {

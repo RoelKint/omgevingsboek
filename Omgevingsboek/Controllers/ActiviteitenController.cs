@@ -25,12 +25,14 @@ namespace Omgevingsboek.Controllers
         #region DETAILS
         // GET: Activiteiten/Details/5
         [Authorize]
-        public ActionResult Details(int? id)
+        public ActionResult Details(int? id,int? boekId)
         {
             if (!id.HasValue) return RedirectToAction("Index", "Home");
+            
+
 
             Activiteit activ = bs.GetActiviteitById((int)id);
-            /*Session["stap3"] = activ.Naam;
+            Session["stap3"] = activ.Naam;
             Session["url3"] = "../Activiteiten/Details/" + activ.Id;
             ViewBag.stap1 = Session["stap1"];
             ViewBag.url1 = Session["url1"];
@@ -38,7 +40,8 @@ namespace Omgevingsboek.Controllers
             ViewBag.url2 = Session["url2"];
             ViewBag.stap3 = Session["stap3"];
             ViewBag.url3 = Session["url3"];
-            */
+            
+            ViewBag.boekId = boekId;
             return View(activ);
         }
         #endregion

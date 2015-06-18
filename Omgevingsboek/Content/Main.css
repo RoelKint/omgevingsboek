@@ -4,6 +4,38 @@
 .nav .breadcrumb {
   margin: 0 7px;
 }
+img.presenter {
+  float: left;
+  width: 8%;
+}
+h3.title {
+  padding: 2em;
+  color: #FFF;
+  margin-left: 0em;
+  border-top-right-radius: 0.2em;
+  border-bottom-right-radius: 0.2em;
+  background-size: cover;
+  float: left;
+}
+h3.title + div {
+  float: left;
+  font-size: 1.5em;
+  font-weight: bold;
+  padding-left: 1em;
+  margin-top: 1.1em;
+}
+#owl-demo .item img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+p.title {
+  font-weight: bold;
+  margin-bottom: 0;
+}
+div.mainUitleg {
+  clear: both;
+}
 div#profile-show {
   background-size: cover;
   height: 8em;
