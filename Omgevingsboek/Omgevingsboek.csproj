@@ -461,6 +461,7 @@
     </Content>
     <Content Include="Views\HelpDesk\Index.cshtml" />
     <Content Include="Views\Home\Route.cshtml" />
+    <Content Include="Views\HelpDesk\Success.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
