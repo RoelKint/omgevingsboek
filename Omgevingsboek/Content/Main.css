@@ -8,7 +8,7 @@ img.presenter {
   float: left;
   width: 8%;
 }
-h2.title {
+h3.title {
   padding: 2em;
   color: #FFF;
   margin-left: 0em;
@@ -17,12 +17,21 @@ h2.title {
   background-size: cover;
   float: left;
 }
-h2.title + div {
+h3.title + div {
   float: left;
   font-size: 1.5em;
   font-weight: bold;
   padding-left: 1em;
-  margin-top: 1.8em;
+  margin-top: 1.1em;
+}
+#owl-demo .item img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+p.title {
+  font-weight: bold;
+  margin-bottom: 0;
 }
 div.mainUitleg {
   clear: both;
