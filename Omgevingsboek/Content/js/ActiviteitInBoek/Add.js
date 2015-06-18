@@ -102,7 +102,6 @@
             console.log(els);
             console.log(els['Naam']);
             $('#name').val(els['Naam']);
-            
             if (els['Prijs'] != null) 
                 $('[name=Prijs]').val(els['Prijs']);
 
