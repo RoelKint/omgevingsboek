@@ -5,6 +5,7 @@ var geocoder;
 var directionsDisplay;
 var directionsService = new google.maps.DirectionsService();
 var autocomplete;
+var maploaded;
 
 Array.prototype.move = function (old_index, new_index) {
     while (old_index < 0) {
@@ -50,6 +51,12 @@ function initialize() {
     });
     map = new google.maps.Map(document.getElementById('map-canvas'),
         mapOptions);
+
+
+    google.maps.event.addListenerOnce(map, 'idle', function () {
+        //console.log("map fully loaded");
+        maploaded = true;
+    });
 
     
     //var input = document.getElementById('pac-input');
@@ -152,6 +159,7 @@ function setUpPanorama(location) {
 
 function calculateRoute() {
     directionsDisplay.setMap(map);
+    console.log("calculateRoute called");
     if (markerArray.length >= 2) {
         var request;
 
@@ -161,7 +169,7 @@ function calculateRoute() {
         if (markerArray.length == 2) {
             //route zonder waypoints
             var origin = markerArray[0].getPosition();
-            setUpPanorama(origin);
+            //setUpPanorama(origin);
             var destination = markerArray[1].getPosition();
             var optimizeWaypoints = true;
 
