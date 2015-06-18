@@ -87,37 +87,58 @@
             
             if (els['Prijs'] != null) 
                 $('[name=Prijs]').val(els['Prijs']);
+
+            //afbeelding
             if (els['AfbeeldingNaam'] != null) {
                 $('.fileUpload').children('span').html('Upload nieuwe </br> foto')
                 $('.fileUpload').css('background-color', '#216075');
                 $('[name=DitactischeToelichting]').val(els['DitactischeToelichting']);
                 $('[name=Uitleg]').val(els['Uitleg']);
-                
             }
             var tags = $('[name=TagsString]');
-            
+            $('[name=PoiShow]').val(els['Poi']);
+            $('#Poi').val(els['poiId']);
             $(els['Tags']).each(function (i) {
                 console.log(i);
                 tags.addTag(els['Tags'][i]['Naam']);
             });
             var benodigdheden = $('[name=BenodigdhedenString]');
             console.log(benodigdheden);
-            $(els['benodigdheden']).each(function (i) {
-                console.log(i);
-                benodigdheden.addTag(els['Tags'][i]['Naam']);
+            $(els['Benodigdheden']).each(function (i) {
+                benodigdheden.addTag(els['Benodigdheden'][i]['Naam']);
             });
-
-            setSliderInputValues(
-            $("#minAgeBoek"),
-            $("#maxAgeBoek"),
-            $("#minAgeHiddenBoek"),
-            $("#maxAgeHiddenBoek"),
-            0,
-            14
-        );
-
+            moveSliders($("#slider-boek-age"), els['MinLeeftijd'], els['MaxLeeftijd']);
+            moveSliders($("#slider-boek-time"), els['MinDuur'], els['MaxDuur']);
+            var fotolijst = $('#fotoLijst');
+            $(els['Fotos']).each(function (i) {
+                console.log(i);
+                var string = '<div  class="col-sm-6 col-md-4 element"  id="@boek.Id""><a style="height:200px"><span class="glyphicon glyphicon-remove-circle removeclick" id="1042" style="display:none; position:absolute; float:right; right: 0px;"></span><img class="img-responsive" src="' + els['Fotos'][i]['FotoUrl'] + '"/></a></div>';
+                fotolijst.append(string);
+                VerbergCloses();
+            })
+            //$('#fotoLijst')
         });
     };
+    //de remove voor de afbeeldingen
+    function VerbergCloses() {
+        var difke;
+        $.each($("#fotoLijst div"), function () {
+            $(this).find(".removeclick").hide();
+            $(this).mouseover(function () {
+                    $(this).find(".removeclick").show();
+            });
+            $(this).mouseout(function () {
+                $(this).find(".removeclick").hide();
+            });
+        });
+        $(".removeclick").click(true, function () {
+            console.log('uuuuhhhhhh');
+            $($(this).parent().parent()).remove();
+
+            var element = $(this)[0];
+
+        });
+    }
     function initSliders() {
         setSliderInputValues(
             $("#minTimeBook"),
