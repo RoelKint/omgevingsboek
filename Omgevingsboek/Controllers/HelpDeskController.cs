@@ -44,9 +44,24 @@ namespace Omgevingsboek.Controllers
         [Authorize(Roles = "Administrator,SuperAdministrator")]        
         public ActionResult IndexAdmin(string filter)
         {
-            //if (filter == null) return  RedirectToAction("Index");
-            //if (filter != "ongelezen" || filter != "gelezen" || filter != "verwijderd") return RedirectToAction("Index");
+            
+            ViewBag.filter = filter;
             return View(bs.GetVragen(filter));
         }
+        [Authorize(Roles = "Administrator,SuperAdministrator")]
+        public string GelezenTicket(int Id)
+        {
+            if (bs.GetVraagByID(Id) == null) return "NOK";
+            bs.VraagGelezen(Id);
+            return "OK";
+        }
+        [Authorize(Roles = "Administrator,SuperAdministrator")]
+        public string VerwijderTicket(int Id)
+        {
+            if (bs.GetVraagByID(Id) == null) return "NOK";
+            bs.VraagOpgelost(Id);
+            return "OK";
+        }
+
     }
 }

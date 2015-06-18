@@ -131,7 +131,7 @@ else
             @foreach (Models.OmgevingsBoek_Models.Uitnodiging item in Model.Uitnodigingen)
             {
                 <tr>
-                    <td><input type="checkbox" name="checkbox" value="@item.Id"></td>
+                    <td><input type="checkbox" name="checkbox" value=""></td>
                     <td>@item.EmailUitgenodigde</td>
                     <td>
                         @item.Eigenaar.UserName
@@ -139,7 +139,7 @@ else
                     <td>
                         <div class="displayInlineButtons">
                             <button><span class="glyphicon glyphicon-remove"></span></button>
-                            <button><span class="glyphicon glyphicon-envelope"></span></button>
+                            <button><span id="herverzend" class="glyphicon glyphicon-envelope">@item.Id</span></button>
                         </div>
                     </td>
                 </tr>

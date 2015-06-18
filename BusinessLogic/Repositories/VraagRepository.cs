@@ -29,7 +29,7 @@ namespace BusinessLogic.Repositories
             if(filter == "gelezen")
                 return context.Vragen.Include(v => v.Eigenaar).Where(v => !v.IsDeleted).Where(v => v.IsGelezen).OrderByDescending(u => u.Datum).ToList();
             if(filter == "verwijderd")
-                return context.Vragen.Include(v => v.Eigenaar).Where(v => !v.IsDeleted).Where(v => v.IsDeleted).OrderByDescending(u => u.Datum).ToList();
+                return context.Vragen.Include(v => v.Eigenaar).Where(v => v.IsDeleted).OrderByDescending(u => u.Datum).ToList();
 
             return context.Vragen.Include(v => v.Eigenaar).Where(v => !v.IsDeleted).Where(v => !v.IsGelezen).OrderByDescending(u => u.Datum).ToList();
         }

@@ -8,57 +8,126 @@
     <h2>Helpdesk</h2>
     <hr />
     <ul class="nav nav-tabs" id="filtertickets">
-        <li role="presentation" class="active"><a href="?filter=ongelezen">Ongelezen tickets</a></li>
-        <li role="presentation"><a href="?filter=gelezen">Gelezen tickets</a></li>
-        <li role="presentation"><a href="?filter=verwijderd">Verwijderde tickets</a></li>
+        <li role="presentation" id="ongelezenli"><a href="/HelpDesk/IndexAdmin?filter=ongelezen">Ongelezen tickets</a></li>
+        <li role="presentation" id="gelezenli"><a href="/HelpDesk/IndexAdmin?filter=gelezen">Gelezen tickets</a></li>
+        <li role="presentation" id="verwijderdli"><a href="/HelpDesk/IndexAdmin?filter=verwijderd">Verwijderde tickets</a></li>
     </ul>
-    <h3>Ongelezen tickets</h3>
+    @if (ViewBag.filter == null)
+    {
+        <h3>Ongelezen tickets</h3>
+    }
+    else if (ViewBag.filter == "gelezen")
+    {
+        <h3>Gelezen tickets</h3>
+    }
+    else if (ViewBag.filter == "verwijderd")
+    {
+        <h3>Verwijderde tickets</h3>
+    }
+    else
+    {
+        <h3>Ongelezen tickets</h3>
+    }
     <div class="form-horizontal col-md-10">
         <label class="control-label col-md-2"></label>
         <div class="col-md-10">
             @{int count = 0;}
-            @foreach (Models.OmgevingsBoek_Models.Vraag vraag in Model)
+            @if (Model.Count == 0)
             {
-                count++;
-                <div class="panel panel-default">
-                    <a data-toggle="collapse" data-target="#@count">
-                        <div class="panel-heading">
-                            <table>
-                                <tr>
-                                    <td class="col-md-3"><h3 class="panel-title">@vraag.Eigenaar.Voornaam @vraag.Eigenaar.Naam</h3></td>
-                                    <td class="col-md-9"><h3 class="panel-title">@vraag.Titel</h3></td>
-                                    <td class="col-md-2"><h3 class="panel-title">@vraag.Datum</h3></td>
-                                </tr>
-                            </table>
-                        </div>
-                    </a>
-                    <div class="panel-body collapse" id="@count">
-                        <div class="col-md-12"> 
-                            @vraag.Omschrhijving
-                            
-                        </div>
-                        
+                <p>Geen items om weer te geven</p>
+            }
+            else
+            {
+                foreach (Models.OmgevingsBoek_Models.Vraag vraag in Model)
+                {
+                    count++;
+                    <div class="panel panel-default">
+                        <a data-toggle="collapse" data-target="#@count">
+                            <div class="panel-heading">
+                                <table>
+                                    <tr>
+                                        <td class="col-md-3"><h3 class="panel-title">@vraag.Eigenaar.Voornaam @vraag.Eigenaar.Naam</h3></td>
+                                        <td class="col-md-9"><h3 class="panel-title">@vraag.Titel</h3></td>
+                                        <td class="col-md-2"><h3 class="panel-title">@vraag.Datum</h3></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </a>
+                        <div class="panel-body collapse" id="@count">
+                            <div class="col-md-12">
+                                @vraag.Omschrhijving
 
-                        <div class="col-md-12">
-                            <hr />
-                            <i>@vraag.Datum - @vraag.Eigenaar.UserName</i>
-                        </div>
-                        <div class="col-md-12 btn-group">
-                            <br /> 
-                            <a href="Antwoord?Id=@vraag.Id" class="btn btn-info">Beantwoorden</a>
-                            <a href="" class="btn btn-info">Markeren als gelezen</a>
-                            <a href="" class="btn btn-info">Verwijderen</a>
+                            </div>
+
+
+                            <div class="col-md-12">
+                                <hr />
+                                <i>@vraag.Datum - @vraag.Eigenaar.UserName</i>
+                            </div>
+                            @if (ViewBag.filter != "verwijderd")
+                            {
+                            <div class="col-md-12 btn-group">
+                                <br />
+                                
+                                <a href="Antwoord?Id=@vraag.Id" class="btn btn-info">Beantwoorden</a>
+                                @if (ViewBag.filter != "verwijderd" && ViewBag.filter != "gelezen")
+                                {<a href="#" id="@vraag.Id" class="Gelezen btn btn-info">Markeren als gelezen</a>}
+                                <a href="#" id="@vraag.Id" class="Verwijderd btn btn-info">Verwijderen</a>
+                            </div>
+                            }
                         </div>
                     </div>
-                </div>
+                }
             }
+            
         </div>
     </div>
 
 </div>
 <script>
-//    $('#filtertickets a').click(function (e) {
-//        e.preventDefault()
-//        $(this).tab('show')
-//})
+
+    $(function () {
+        if ("@ViewBag.filter" == null) {
+            $("#ongelezenli").addClass("active")
+        }
+        else if ("@ViewBag.filter" == "gelezen") {
+            $("#gelezenli").addClass("active")
+        }
+        else if ("@ViewBag.filter" == "verwijderd") {
+            $("#verwijderdli").addClass("active")
+        }
+        else {
+            $("#ongelezenli").addClass("active")
+        }
+        $(".Gelezen").click(true, function (event) {
+            var element = $(this)[0];
+            event.preventDefault();
+            $.ajax({
+                type: "GET",
+                url: "GelezenTicket" + "?Id=" + $(this)[0].id,
+                success: function (data) {
+                    if (data == "OK") {
+                        $(element).parent().parent().parent().remove();
+                    }
+
+                }
+            });
+        });
+        $(".Verwijderd").click(true, function (event) {
+            var element = $(this)[0];
+            event.preventDefault();
+            $.ajax({
+                type: "GET",
+                url: "VerwijderTicket" + "?Id=" + $(this)[0].id,
+                success: function (data) {
+                    if (data == "OK") {
+                        $(element).parent().parent().parent().remove();
+                    }
+
+                }
+            });
+        });
+
+    });
+
 </script>

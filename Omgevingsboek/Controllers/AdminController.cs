@@ -7,6 +7,7 @@ using Models.PresentationModels;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Net.Mail;
 using System.Text.RegularExpressions;
@@ -321,26 +322,26 @@ namespace Omgevingsboek.Controllers
         }
 
         [Authorize(Roles = "Administrator,SuperAdministrator")]
-        public ActionResult HerzendUitnodiging(int? Id)
+        public string HerzendUitnodiging(int? Id)
         {
-            if (!Id.HasValue) return RedirectToAction("Gebruikers");
+            if (!Id.HasValue) return "NOK";
             Uitnodiging u = bs.GetUitnodigingById((int)Id);
-            if (u == null) return RedirectToAction("Gebruikers");
-            if (u.Gebruikt) return RedirectToAction("Gebruikers");
+            if (u == null) return "NOK";
+            if (u.Gebruikt) return "NOK";
             ApplicationUser zenderNaam = bs.GetUser(u.Eigenaar.UserName);
             UitnodigingSturen(u.EmailUitgenodigde, zenderNaam.Voornaam + " " + zenderNaam.Naam, u.Key);
 
-            return View();
+            return "OK";
         }
 
         [NonAction]
         public void UitnodigingSturen(string MailTo, string MailFrom, string Key)
         {
-            SmtpClient smtpClient = new SmtpClient("smtp.sendgrid.net", 587);
+            SmtpClient smtpClient = new SmtpClient(ConfigurationManager.AppSettings.Get("SMTPServer"), int.Parse(ConfigurationManager.AppSettings.Get("SMTPPoort")));
 
-            System.Net.NetworkCredential creds = new System.Net.NetworkCredential("azure_9bab81a4769eae1b17dfaf2e69d71fd7@azure.com", "h8C2xnCHIEuESrt");
+            System.Net.NetworkCredential creds = new System.Net.NetworkCredential(ConfigurationManager.AppSettings.Get("SMTPUserName"), ConfigurationManager.AppSettings.Get("SMTPPasswoord"));
 
-            smtpClient.Credentials = new System.Net.NetworkCredential("azure_9bab81a4769eae1b17dfaf2e69d71fd7@azure.com", "h8C2xnCHIEuESrt");
+            smtpClient.Credentials = new System.Net.NetworkCredential(ConfigurationManager.AppSettings.Get("SMTPUserName"), ConfigurationManager.AppSettings.Get("SMTPPasswoord"));
             smtpClient.UseDefaultCredentials = true;
             smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
             smtpClient.EnableSsl = true;
@@ -348,7 +349,8 @@ namespace Omgevingsboek.Controllers
 
 
             mail.IsBodyHtml = true;
-            mail.From = new MailAddress("azure_9bab81a4769eae1b17dfaf2e69d71fd7@azure.com", "Omgevingsboek Team");
+            //Admin address meschien nog veranderen??
+            mail.From = new MailAddress(ConfigurationManager.AppSettings.Get("SMTPUserName"), "Omgevingsboek Team");
             mail.To.Add(new MailAddress(MailTo));
             mail.Subject = "Uitnodiging voor het Omgevingsboek van " + MailFrom;
             mail.Body = "Beste,</br>" + MailFrom + " heeft je uitgenodigd om een account aan te maken op het omgevingsboek van Howest.</br>" +
