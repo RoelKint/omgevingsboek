@@ -83,7 +83,7 @@ namespace BusinessLogic.Services
         System.Collections.Generic.List<Models.MVC_Models.ApplicationUser> GetUserNext30SortRoleZA(int from, string search, bool DisplayDeleted);
         System.Collections.Generic.List<Models.MVC_Models.ApplicationUser> GetUsers();
         Models.OmgevingsBoek_Models.Vraag GetVraagByID(object id);
-        System.Collections.Generic.List<Models.OmgevingsBoek_Models.Vraag> GetVragen();
+        System.Collections.Generic.List<Models.OmgevingsBoek_Models.Vraag> GetVragen(string filter);
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.Vraag> GetVragenByUser(string username);
         bool HeeftEmailAlEenUitnodiging(string Email);
         Models.OmgevingsBoek_Models.BoekOrder Insert(Models.OmgevingsBoek_Models.BoekOrder entity);

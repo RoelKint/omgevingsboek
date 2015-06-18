@@ -622,9 +622,9 @@ namespace BusinessLogic.Services
 
         #region Helpdesk
 
-        public List<Vraag> GetVragen()
+        public List<Vraag> GetVragen(string filter)
         {
-            return repoVraag.GetVragen();
+            return repoVraag.GetVragen(filter);
         }
         public Vraag InsertVraag(Vraag entity)
         {

@@ -42,9 +42,11 @@ namespace Omgevingsboek.Controllers
             return RedirectToAction("index");
         }
         [Authorize(Roles = "Administrator,SuperAdministrator")]        
-        public ActionResult IndexAdmin()
+        public ActionResult IndexAdmin(string filter)
         {
-            return View();
+            //if (filter == null) return  RedirectToAction("Index");
+            //if (filter != "ongelezen" || filter != "gelezen" || filter != "verwijderd") return RedirectToAction("Index");
+            return View(bs.GetVragen(filter));
         }
     }
 }
