@@ -12,74 +12,18 @@
     </div>
 }
 
-<h2>Details</h2>
+<div class="alertt" style="display:none">
+    <p>Zeker dat je dit boek wilt verwijderen?</p>
+</div> 
 
+<h3 class="title" style="background-image:url('@Model.AfbeeldingNaam');">@Html.DisplayFor(model => model.Naam)</h3>
 <div>
-    <h4>Activiteit</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.EigenaarId)
-        </dt>
+    <p>Van <span class="age">@Html.DisplayFor(model => model.MinLeeftijd)</span> tot <span class="age">@Html.DisplayFor(model => model.MaxLeeftijd)</span> jaar.</p>
+    <p>Van <span class="age">@Html.DisplayFor(model => model.MinDuur)</span> tot <span class="age">@Html.DisplayFor(model => model.MaxDuur)</span> uur.</p>
+    <p>De kostprijs werd geschat op &euro;@Html.DisplayFor(model => model.Prijs).</p>
+</div>
 
-        <dd>
-            @Html.DisplayFor(model => model.EigenaarId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Naam)
-        </dt>
-
-        <dd>
-            <h3>
-                @Html.DisplayFor(model => model.Naam)
-            </h3>
-        </dd>
-
-        <dt>
-            <p>Van <span class="age">@Html.DisplayFor(model => model.MinLeeftijd)</span> tot <span class="age">@Html.DisplayFor(model => model.MaxLeeftijd)</span> jaar.</p>
-        </dt>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.MinDuur)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.MinDuur)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.MaxDuur)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.MaxDuur)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.IsDeleted)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.IsDeleted)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Prijs)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Prijs)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.AfbeeldingNaam)
-        </dt>
-
-        <dd>
-            <img src="@Model.AfbeeldingNaam" />
-        </dd>
-
+<div class="mainUitleg">
         <dt>
             @Html.DisplayNameFor(model => model.DitactischeToelichting)
         </dt>
@@ -99,10 +43,12 @@
     </dl>
     @foreach (Models.OmgevingsBoek_Models.Foto afb in Model.Fotos)
     {
-        <img src="@afb.FotoUrl"/>
+        <img src="@afb.FotoUrl" />
     }
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+
+<script src="~/Content/js/userDeleteScript.js"></script> 
