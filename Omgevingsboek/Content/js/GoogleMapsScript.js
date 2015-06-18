@@ -6,6 +6,7 @@ var directionsDisplay;
 var directionsService = new google.maps.DirectionsService();
 var autocomplete;
 var maploaded;
+var routeSequence;
 
 Array.prototype.move = function (old_index, new_index) {
     while (old_index < 0) {
@@ -218,20 +219,29 @@ function calculateRoute() {
                 directionsDisplay.setPanel(document.getElementById('directions-panel'));
                 //hier de markers verwijderen van de kaart, omdat die gerendered worden door de directionsDisplay
                 removeAllMarkersFromMap();
+                var duration = 30;
+                var totalFrames = duration *24;
+                var canvasWidth = $("#route").width();
+                var canvasHeight = 300;
+                routeSequence = StreetviewSequence('#route', {
+                    route: result,
+                    key: "AIzaSyCjq-aM_jzPvZ52dZHXcljkggQraeltQrM",
+                    duration: duration*1000,
+                    loop: true,
+                    width: canvasWidth,
+                    height: canvasHeight,
+                    totalFrames: totalFrames
+                });
 
-
-                //var routeSequence = StreetviewSequence('#route', {
-                //    route: result,
-                //    key: "AIzaSyCjq-aM_jzPvZ52dZHXcljkggQraeltQrM",
-                //    duration: 150000,
-                //    loop: true,
-                //    width: 585,
-                //    height: 325,
-                //});
-
-                //routeSequence.done(function (player) {
-                //    player.play();
-                //});
+                var $routeProgressContainer = $("#route-progress-container");
+                var $routeProgressBar = $routeProgressContainer.find('.progress-bar');
+                routeSequence.progress(function (p) {
+                    $routeProgressBar.css({ width: (p * 100) + '%' });
+                });
+                routeSequence.done(function (player) {
+                    $routeProgressContainer.hide();
+                    player.play();
+                });
             } else {
                 console.log(status);
             }
@@ -335,7 +345,7 @@ function selectTravelMode() {
         case "WALKING":
             return google.maps.TravelMode.WALKING;
         default:
-            return google.maps.TravelMode.DRIVING;
+            return google.maps.TravelMode.WALKING;
     }
 }
 
