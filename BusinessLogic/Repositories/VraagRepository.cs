@@ -1,5 +1,6 @@
-﻿using Models;
+﻿
 using Models.MVC_Models;
+using Models.OmgevingsBoek_Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace BusinessLogic.Repositories
 {
-    class VraagRepository : GenericRepository<Vraag>
+    public class VraagRepository : GenericRepository<Vraag>, BusinessLogic.Repositories.IVraagRepository
     {
         public VraagRepository(ApplicationDbContext context)
             : base(context)
@@ -27,7 +28,9 @@ namespace BusinessLogic.Repositories
         }
         public override Vraag Insert(Vraag entity)
         {
-            return base.Insert(entity);
+            Vraag v = base.Insert(entity);
+            context.SaveChanges();
+            return v;
         }
         public void Opgelost(int VraagId)
         {
@@ -39,6 +42,13 @@ namespace BusinessLogic.Repositories
         public override Vraag GetByID(object id)
         {
             return base.GetByID(id);
+        }
+        public void Gelezen(int VraagId)
+        {
+            Vraag vraag = GetByID(VraagId);
+            vraag.IsGelezen = true;
+            Update(vraag);
+            context.SaveChanges();
         }
 
     }

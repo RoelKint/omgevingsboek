@@ -165,6 +165,10 @@
     <Compile Include="Migrations\201506171943051_update-helpdesk.Designer.cs">
       <DependentUpon>201506171943051_update-helpdesk.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201506180735537_vraagfix.cs" />
+    <Compile Include="Migrations\201506180735537_vraagfix.Designer.cs">
+      <DependentUpon>201506180735537_vraagfix.cs</DependentUpon>
+    </Compile>
     <Compile Include="OmgevingsBoek Models\Activiteit.cs" />
     <Compile Include="OmgevingsBoek Models\Benodigdheid.cs" />
     <Compile Include="OmgevingsBoek Models\Boek.cs" />
@@ -192,6 +196,7 @@
     <Compile Include="PresentationModels\GebruikersPM.cs" />
     <Compile Include="PresentationModels\HomeIndexPM.cs" />
     <Compile Include="PresentationModels\PoiPM.cs" />
+    <Compile Include="PresentationModels\RoutePM.cs" />
     <Compile Include="PresentationModels\ShareListPM.cs" />
     <Compile Include="PresentationModels\SimpleTag.cs" />
     <Compile Include="PresentationModels\UitnodigingFeedbackPM.cs" />
@@ -206,7 +211,7 @@
     <Compile Include="OmgevingsBoek Models\Route.cs" />
     <Compile Include="OmgevingsBoek Models\Tag.cs" />
     <Compile Include="OmgevingsBoek Models\Video.cs" />
-    <Compile Include="Vraag.cs" />
+    <Compile Include="OmgevingsBoek Models\Vraag.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
@@ -283,6 +288,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201506171943051_update-helpdesk.resx">
       <DependentUpon>201506171943051_update-helpdesk.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506180735537_vraagfix.resx">
+      <DependentUpon>201506180735537_vraagfix.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -34,7 +34,7 @@
                 @foreach (Models.OmgevingsBoek_Models.Activiteit activiteit in Model.Activiteiten)
                 {
                     <div class="col-sm-6 col-md-3 element">
-                        <a href="/Activiteiten/Details/@activiteit.Id">
+                        <a href="/Activiteiten/Details/@activiteit.Id&boekId=@Model.Id">
                             <img class="img-responsive" src="@activiteit.AfbeeldingNaam" />
                             <span class="caption">@activiteit.Naam</span>
                         </a>
@@ -70,8 +70,8 @@
                             <span class="caption">@route.Naam</span>
                             </a>
                             <span class="buttons">
-                                <a href="/home/Activiteit?id=@route.Id&action=share" class="expand btn btn-default" type="button"><span class="glyphicon glyphicon-share"></span></a>
-                                <a href="/home/Activiteit?id=@route.Id&action=public" class="expand btn btn-default" type="button"><span class="glyphicon glyphicon-eye-close"></span></a>
+                                <a href="/home/Route?id=@route.Id&action=share" class="expand btn btn-default" type="button"><span class="glyphicon glyphicon-share"></span></a>
+                                <a href="/home/Route?id=@route.Id&action=public" class="expand btn btn-default" type="button"><span class="glyphicon glyphicon-eye-close"></span></a>
                                 <a href="#" class="toggleActivityEdit expand btn btn-default" type="button"><span class="glyphicon glyphicon-cog"></span></a>
                             </span>
                         </div>

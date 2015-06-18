@@ -82,8 +82,11 @@ namespace BusinessLogic.Services
         System.Collections.Generic.List<Models.MVC_Models.ApplicationUser> GetUserNext30SortRoleAZ(int from, string search, bool DisplayDeleted);
         System.Collections.Generic.List<Models.MVC_Models.ApplicationUser> GetUserNext30SortRoleZA(int from, string search, bool DisplayDeleted);
         System.Collections.Generic.List<Models.MVC_Models.ApplicationUser> GetUsers();
+        Models.OmgevingsBoek_Models.Vraag GetVraagByID(object id);
+        System.Collections.Generic.List<Models.OmgevingsBoek_Models.Vraag> GetVragen();
         bool HeeftEmailAlEenUitnodiging(string Email);
         Models.OmgevingsBoek_Models.BoekOrder Insert(Models.OmgevingsBoek_Models.BoekOrder entity);
+        Models.OmgevingsBoek_Models.Vraag InsertVraag(Models.OmgevingsBoek_Models.Vraag entity);
         Models.OmgevingsBoek_Models.Activiteit InsertActiviteit(Models.OmgevingsBoek_Models.Activiteit activiteit);
         Models.OmgevingsBoek_Models.Benodigdheid InsertBenodigdheid(string benodigdheid);
         Models.OmgevingsBoek_Models.Boek InsertBoek(Models.OmgevingsBoek_Models.Boek boek);
@@ -102,5 +105,7 @@ namespace BusinessLogic.Services
         System.Collections.Generic.List<Models.OmgevingsBoek_Models.BoekOrder> UpdateLijst(System.Collections.Generic.List<Models.OmgevingsBoek_Models.BoekOrder> lijst);
         void UpdatePoiFoto(int PoiId, string Afbeelding);
         Models.MVC_Models.ApplicationUser UpdateUserAfbeelding(Models.MVC_Models.ApplicationUser user);
+        void VraagGelezen(int VraagId);
+        void VraagOpgelost(int VraagId);
     }
 }

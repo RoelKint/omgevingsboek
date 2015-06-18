@@ -10,6 +10,33 @@
     margin: 0 7px;
 }
 
+img.presenter {
+    float: left;
+    width: 8%;
+}
+
+h2.title {
+    padding: 2em;
+    color: #FFF;
+    margin-left: 0em;
+    border-top-right-radius: 0.2em;
+    border-bottom-right-radius: 0.2em;
+    background-size: cover;
+    float: left;
+}
+
+h2.title + div {
+    float: left;
+    font-size: 1.5em;
+    font-weight: bold;
+    padding-left: 1em;
+    margin-top: 1.8em;
+}
+
+div.mainUitleg {
+    clear: both;
+}
+
 div#profile-show {
     background-size: cover;
     height: 8em;
@@ -30,10 +57,10 @@ body, html {
 }
 
 .form-group label {
-    float:left;
+    float: left;
 
     &:after {
-        content:" ";
+        content: " ";
     }
 }
 
@@ -43,9 +70,9 @@ body, html {
 
 .has-error .help-block {
     margin: 0;
-    margin-left:5px;
-    display:inline-block;
-    float:left;
+    margin-left: 5px;
+    display: inline-block;
+    float: left;
 }
 
 form input.hidden-input {
@@ -87,7 +114,7 @@ a {
 
     textarea {
         resize: vertical;
-}
+    }
 }
 
 @media (min-width: 768px) {
@@ -180,7 +207,7 @@ span.buttons {
 div.main {
     position: relative;
     height: 90%;
-    
+
     > .row {
         height: 100%;
     }
@@ -261,22 +288,21 @@ div.stackright {
     > .poi {
         height: 100%;
 
-       #list {
+        #list {
             overflow-y: scroll;
             overflow-x: hidden;
             height: 93%;
         }
-       
     }
 
-    > .activity{
-        height:100%;
+    > .activity {
+        height: 100%;
 
-        #listActivity{
-           overflow-y:scroll;
-           overflow-x:hidden;
-           height:93%;
-       }
+        #listActivity {
+            overflow-y: scroll;
+            overflow-x: hidden;
+            height: 93%;
+        }
     }
 
     .form-horizontal {
@@ -435,8 +461,8 @@ h3.rowheader {
         box-sizing: border-box;
         overflow: hidden;
         border-radius: 5px;
-        background-color:#216075;
-        cursor:pointer;
+        background-color: #216075;
+        cursor: pointer;
 
         img {
             max-width: 95%;
@@ -449,7 +475,7 @@ h3.rowheader {
 }
 
 
-.row.activity{
+.row.activity {
     width: 100%;
     padding-top: 7px;
     margin: 0;
@@ -506,8 +532,8 @@ h3.rowheader {
         box-sizing: border-box;
         overflow: hidden;
         border-radius: 5px;
-        background-color:#216075;
-        cursor:pointer;
+        background-color: #216075;
+        cursor: pointer;
 
         img {
             max-width: 95%;
@@ -547,8 +573,9 @@ h3.rowheader {
 }
 
 .pleps {
-    background-color:#216075;
+    background-color: #216075;
 }
+
 #vlakEnIcoon {
     -webkit-transition: all 0.2s ease;
     -moz-transition: all 0.2s ease;
@@ -560,21 +587,21 @@ h3.rowheader {
     position: absolute;
     width: 100px;
     height: 100px;
-    background-color:white;
-    z-index:0;
+    background-color: white;
+    z-index: 0;
 
- span  {
-     z-index:3;
-    font-size: 40px;
-   width:84px;
-   height:100px;
-   position:absolute;
-   top:50%;
-   left:50%;
-   margin-top:-20px;
-   margin-left:-20px;
-   }
- }
+    span {
+        z-index: 3;
+        font-size: 40px;
+        width: 84px;
+        height: 100px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-top: -20px;
+        margin-left: -20px;
+    }
+}
 
 #vlakEnIcoon {
     span {
@@ -587,15 +614,15 @@ h3.rowheader {
         left: 50%;
         margin-top: -20px;
         margin-left: -20px;
-        }
+    }
 
-input.upload {
+    input.upload {
         z-index: 4;
         height: 100px !important;
         width: 100px !important;
         opacity: 0;
         position: absolute;
-        }
+    }
 }
 
 
@@ -618,56 +645,57 @@ input.upload {
 }
 
 li.tags {
-     margin: 0;
+    margin: 0;
 
-            div {
-                position: relative;
-                padding: 2px 4px;
-                margin-right: 3px;
-                display: inline;
-                margin-left: 3px;
-                background-color: #86CFE8;
-                border-radius: 5px;
-                color: white;
-                box-shadow: 0 0 5px #86cfe8;
-            }
+    div {
+        position: relative;
+        padding: 2px 4px;
+        margin-right: 3px;
+        display: inline;
+        margin-left: 3px;
+        background-color: #86CFE8;
+        border-radius: 5px;
+        color: white;
+        box-shadow: 0 0 5px #86cfe8;
+    }
 
-            input {
-                padding: 1px 4px;
-                margin-right: 3px;
-                background-color: #86CFE8;
-                border-radius: 5px;
-                color: black;
-            }
-            .tagwrap{
-                position: relative;
-            }
+    input {
+        padding: 1px 4px;
+        margin-right: 3px;
+        background-color: #86CFE8;
+        border-radius: 5px;
+        color: black;
+    }
+
+    .tagwrap {
+        position: relative;
+    }
 }
 
 
-li.tags>span {
-  padding: 2px 4px;
-  margin-right: 3px;
-  margin-left: 3px;
-  background-color: #86CFE8;
-  border-radius: 5px;
-  color: white;
-  box-shadow: 0 0 5px #86cfe8;
+li.tags > span {
+    padding: 2px 4px;
+    margin-right: 3px;
+    margin-left: 3px;
+    background-color: #86CFE8;
+    border-radius: 5px;
+    color: white;
+    box-shadow: 0 0 5px #86cfe8;
 }
 
 
-li.tags div .removeclick{
+li.tags div .removeclick {
     position: absolute;
     right: -5px;
-    cursor:pointer;
+    cursor: pointer;
     top: -4px;
     z-index: 100;
-    color:#216075;
-    text-decoration:none;
+    color: #216075;
+    text-decoration: none;
 }
 
-li.tags span{
-    width:auto;
+li.tags span {
+    width: auto;
 }
 
 #toevoegenBoek {
@@ -697,15 +725,17 @@ li.tags span{
 label.error {
     color: red;
 }
+
 span.tag {
     padding: 2px 4px;
-                margin-right: 3px;
-        margin-left: 3px;
-        background-color: #F5F5F5;
-                border-radius: 5px;
-                color: black;
-                box-shadow: 0 0 5px rgba(134, 207, 232, 1);
+    margin-right: 3px;
+    margin-left: 3px;
+    background-color: #F5F5F5;
+    border-radius: 5px;
+    color: black;
+    box-shadow: 0 0 5px rgba(134, 207, 232, 1);
 }
+
 .upload_video {
 
     #channel-image {
@@ -732,11 +762,11 @@ span.tag {
 
     .post-sign-in {
         display: none;
-}
+    }
 
     .during-upload {
         display: none;
-        }
+    }
 
     .post-upload {
         display: none;
@@ -744,99 +774,110 @@ span.tag {
 
     label {
         display: block;
-}
+    }
 
     input[type="text"], textarea, progress {
         font-size: 0.75em;
         margin-bottom: 1em;
         padding: 0.5em;
         font-family: "Open Sans", sans-serif;
-}
+    }
 
     textarea {
         height: 7em;
     }
 }
 
-#map-canvas{
-    height:400px;
-    width:100%;
-    float:left;
+#map-canvas {
+    height: 400px;
+    width: 100%;
+    float: left;
 }
 
-#waypointsList{
-    width:100%;
-    min-height:400px;
-    option{
-        padding:10px;
-        &:first-child{
-            background-color:#008800;
-            color:white;
-            &:before{
-                content:'Bestemming: ';
+#waypointsList {
+    width: 100%;
+    min-height: 400px;
+
+    option {
+        padding: 10px;
+
+        &:first-child {
+            background-color: #008800;
+            color: white;
+
+            &:before {
+                content: 'Bestemming: ';
             }
         }
-        &:last-child{
-            background-color:red;
-            color:white;
-            &:before{
-                content:'Eindadres: ';
+
+        &:last-child {
+            background-color: red;
+            color: white;
+
+            &:before {
+                content: 'Eindadres: ';
             }
         }
-        &:only-child{
-            background-color:white;
-            color:black;
-            &:before{
-                content:"";
+
+        &:only-child {
+            background-color: white;
+            color: black;
+
+            &:before {
+                content: "";
             }
-            
         }
     }
 }
 
 #pac-input {
-        background-color: #fff;
-        font-family: Roboto;
-        font-size: 15px;
-        font-weight: 300;
-        margin-left: 12px;
-        padding: 0 11px 0 13px;
-        text-overflow: ellipsis;
-        width: 200px;
-      }
-      #pac-input:focus {
-        border-color: #4d90fe;
-      }
+    background-color: #fff;
+    font-family: Roboto;
+    font-size: 15px;
+    font-weight: 300;
+    margin-left: 12px;
+    padding: 0 11px 0 13px;
+    text-overflow: ellipsis;
+    width: 200px;
+}
 
-      .controls {
-        margin-top: 7px;
-        border: 1px solid transparent;
-        border-radius: 2px 0 0 2px;
-        box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        height: 32px;
-        outline: none;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-      }
+#pac-input:focus {
+    border-color: #4d90fe;
+}
 
-      #mijnBoeken{
-          padding-top:15px;
-      }
-      #mijnRoutes{
-          padding-top:15px;
-      }
+.controls {
+    margin-top: 7px;
+    border: 1px solid transparent;
+    border-radius: 2px 0 0 2px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    height: 32px;
+    outline: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+#mijnBoeken {
+    padding-top: 15px;
+}
+
+#mijnRoutes {
+    padding-top: 15px;
+}
 
 .ui-dialog .ui-dialog-buttonpane {
-      border-width:0;
-    }
+    border-width: 0;
+}
+
 .dlg-no-close .ui-dialog-titlebar-close {
-			display: none;
-		}
-		.dlg-no-title .ui-dialog-titlebar {
-			display: none;
-		}
-#routeNaam{
-    height:34px;
-    margin:0;
-    border-radius:5px;
+    display: none;
+}
+
+.dlg-no-title .ui-dialog-titlebar {
+    display: none;
+}
+
+#routeNaam {
+    height: 34px;
+    margin: 0;
+    border-radius: 5px;
 }
