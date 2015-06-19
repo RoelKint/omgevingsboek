@@ -373,7 +373,7 @@ namespace Omgevingsboek.Controllers
             mail.Subject = "Uitnodiging voor het Omgevingsboek van " + MailFrom;
             mail.Body = "Beste,</br>" + MailFrom + " heeft je uitgenodigd om een account aan te maken op het omgevingsboek van Howest.</br>" +
             "Klik op onderstaande link om een account aan te maken. </br>" +
-            "<a href=\"" + "http://localhost:44946/Account/register?Key=" + Key + "\"> http://localhost:44946/Account/register?Key=" + Key + " </a> </br> </br>" +
+            "<a href=\"" + Request.Url.Scheme + System.Uri.SchemeDelimiter + Request.Url.Host + (Request.Url.IsDefaultPort ? "" : ":" + Request.Url.Port)+"/Account/register?Key=" + Key + "\"> " + Request.Url.Scheme + System.Uri.SchemeDelimiter + Request.Url.Host +(Request.Url.IsDefaultPort ? "" : ":" + Request.Url.Port)+ "/Account/register?Key=" + Key + " </a> </br> </br>" +
             "Met vriendelijke groeten, </br> Het Howest Omgevingsboek team.";
 
 
