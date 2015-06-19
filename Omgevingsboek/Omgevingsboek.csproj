@@ -360,6 +360,10 @@
     <Content Include="Experiments\js\bootstrap.min.js.map">
       <DependentUpon>bootstrap.min.js</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\omgevingsboek - FTP %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\omgevingsboek - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\omgevingsboek - Web Deploy %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\omgevingsboek - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\testomgevingsboek - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\testomgevingsboek - Web Deploy.pubxml" />
     <Content Include="Scripts\bootstrap.min.js.map">
@@ -451,7 +455,6 @@
     <Content Include="Scripts\jquery.validate.min.js.map">
       <DependentUpon>jquery.validate.min.js</DependentUpon>
     </Content>
-    <Content Include="Views\Home\Activiteit.cshtml" />
     <Content Include="Views\Shared\_ActiviteitPartial.cshtml" />
     <Content Include="Views\Activiteiten\Details.cshtml" />
     <Content Include="Views\Activiteiten\Delete.cshtml" />

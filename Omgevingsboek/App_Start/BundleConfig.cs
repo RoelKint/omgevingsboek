@@ -26,12 +26,12 @@ namespace Omgevingsboek
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include(
+            bundles.Add(new StyleBundle("~/Style/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/css/font-awesome.css",
                       "~/Content/main.css"));
 
-            bundles.Add(new StyleBundle("~/Content/tags").Include(
+            bundles.Add(new StyleBundle("~/Style/tags").Include(
                     "~/Content/jquery.tagsinput.min.css"));
         }
     }

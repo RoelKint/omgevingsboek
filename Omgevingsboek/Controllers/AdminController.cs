@@ -199,8 +199,8 @@ namespace Omgevingsboek.Controllers
             //desc == 1 -> descending
             //desc == 0 -> ascending
             bool DisplayDeleted = false;
-            
-            if (bs.GetUser(User.Identity.Name).Roles.Any(r => r.RoleId == "95311bc7-8180-4c53-9e33-61fd254c21fc")) DisplayDeleted = true;
+
+            if (bs.GetUser(User.Identity.Name).Roles.Any(r => r.RoleId == "1d3abf19-db82-484c-b93b-a4d7d21bc0a5")) DisplayDeleted = true;
 
             List<UserActivities> ua = new List<UserActivities>();
             List<ApplicationUser> res = new List<ApplicationUser>();
@@ -249,9 +249,9 @@ namespace Omgevingsboek.Controllers
                 UserActivities u = new UserActivities();
                 u.User = user;
                 u.Activiteiten = bs.GetActivitiesByUsername(user.UserName);
-                if (user.Roles.Any(x => x.RoleId == "a2727df4-4163-4442-9b81-ba018f6ff99a")) u.Role = "User";
-                if (user.Roles.Any(x => x.RoleId == "0e17317e-9f44-4117-b033-4c5c7c2217fe")) u.Role = "Administrator";
-                if (user.Roles.Any(x => x.RoleId == "95311bc7-8180-4c53-9e33-61fd254c21fc")) u.Role = "SuperAdministrator";
+                if (user.Roles.Any(x => x.RoleId == "f611bbe6-00e1-42fe-b34b-831e8383476b")) u.Role = "User";
+                if (user.Roles.Any(x => x.RoleId == "a8bd3f1c-2d04-43e8-b02e-a27ee2c9a19e")) u.Role = "Administrator";
+                if (user.Roles.Any(x => x.RoleId == "1d3abf19-db82-484c-b93b-a4d7d21bc0a5")) u.Role = "SuperAdministrator";
 
                 ua.Add(u);
             }
