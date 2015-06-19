@@ -61,7 +61,9 @@ namespace Omgevingsboek.Controllers
 
         public ActionResult AddActivity(Activiteit activiteit, string video, string TagsString, string BenodigdhedenString, HttpPostedFileBase AfbeeldingFile, string Prijs, int? BoekId, List<HttpPostedFileBase> images, string bestaandefotos)
         {
-            //TODO: lijst van de geselecteerde afbeeldingen?
+            //TODO: lijst van de geselecteerde afbeeldingen
+            ModelState.Remove("Id");
+
             ModelState.Remove("Prijs");
 
             if (!BoekId.HasValue) return RedirectToAction("Index");
